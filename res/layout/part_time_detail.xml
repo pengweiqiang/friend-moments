@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0eff5" >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <ScrollView
+        android:layout_below="@+id/actionBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/company_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="8dp" >
+
+                <ImageView
+                    android:id="@+id/head"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/me_pic" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/head"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="百度公司"
+                        android:textSize="17sp" />
+
+                    <RatingBar
+                        android:id="@+id/company_level"
+                        style="@style/MyRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/btn_right" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/money_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/company_detail"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:paddingBottom="4dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="4dp" >
+
+                <TextView
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="200元/天"
+                    android:textColor="#f25a58"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/browse_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/money"
+                    android:text="浏览量：365"
+                    android:textColor="#afafaf"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/type_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/money_detail"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="兼职分类: 礼仪"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/type_title"
+                    android:layout_marginTop="4dp"
+                    android:text="所需人数: 20人"
+                    android:textColor="#7a7a7a" />
+
+                <TextView
+                    android:id="@+id/publish_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/person"
+                    android:layout_marginTop="4dp"
+                    android:text="发布时间: 2015-08-22"
+                    android:textColor="#7a7a7a" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/description_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/type_detail"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="兼职描述"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/star_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/description_title"
+                    android:layout_marginTop="4dp"
+                    android:text="**********"
+                    android:textColor="#7a7a7a" />
+
+                <TextView
+                    android:id="@+id/description_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/star_detail"
+                    android:layout_marginTop="4dp"
+                    android:text="应聘时请备注是在***看到的（本兼职有***的企业发布,信息经过审核并可靠）"
+                    android:textColor="#7a7a7a" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/address_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description_detail"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="详细地址：北京市海淀区"
+                    android:textColor="#7a7a7a" />
+
+                <ImageView
+                    android:id="@+id/location_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/site" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/contactor_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/address_detail"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/contactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人:张三"
+                    android:textColor="#7a7a7a" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contactor"
+                    android:layout_marginTop="2dp"
+                    android:text="电话：12345678912"
+                    android:textColor="#7a7a7a" />
+
+                <TextView
+                    android:id="@+id/contactor_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/phone"
+                    android:layout_marginTop="2dp"
+                    android:text="(提示：凡是收取费用的兼职，需谨慎)"
+                    android:textColor="#afafaf" />
+
+                <ImageView
+                    android:id="@+id/phone_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="2dp"
+                    android:src="@drawable/phone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/already_contact_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contactor_detail"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/already_contact_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已联系工作人(5)"
+                    android:textColor="#7a7a7a" />
+
+                <TextView
+                    android:id="@+id/all_contactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="查看全部"
+                    android:textColor="#fd7514" />
+
+                <GridView
+                    android:id="@+id/gridview_contactor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/already_contact_count"
+                    android:layout_marginTop="4dp"
+                    android:horizontalSpacing="8dp"
+                    android:numColumns="6" >
+                </GridView>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_bg_color"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/btn_collect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/collect" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_complaint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2.5dp"
+                android:src="@drawable/share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2.5dp"
+                android:text="投诉"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_apply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/enroll" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="报名"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

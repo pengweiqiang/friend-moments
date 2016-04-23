@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0eff5" >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <ScrollView
+        android:layout_below="@+id/actionBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/company_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="12dp" >
+
+                <ImageView
+                    android:id="@+id/head"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/me_pic" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_toRightOf="@+id/head"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="百度公司"
+                        android:textSize="17sp" />
+
+                    <RatingBar
+                        android:id="@+id/company_level"
+                        style="@style/MyRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp" />
+                    <LinearLayout 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp"
+                        >
+	                    <TextView 
+	                        android:id="@+id/real_auth"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:text="实名认证"
+	                        android:textColor="#df8d01"
+	                        android:background="@drawable/bg_auth"
+	                        android:layout_marginRight="10dp"
+	                        />
+	                    <TextView 
+	                        android:id="@+id/license_auth"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:text="执照认证"
+	                        android:textColor="#df8d01"
+	                        android:background="@drawable/bg_auth"
+	                        
+	                        />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            
+
+            <RelativeLayout
+                android:id="@+id/company_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/company_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公司详情"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/company_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/company_title"
+                    android:lineSpacingExtra="2dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="4dp"
+                    android:text="百度（Nasdaq：BAIDU）是全球最大的中文搜索引擎，最大的中文网站。2000年1月由李彦宏创立于北京中关村，致力于向人们提供“简单，可依赖”的信息获取方式。"
+                    android:textColor="#7a7a7a" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/publish_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingBottom="9dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp" >
+
+                <TextView
+                    android:id="@+id/publish_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布过的需求"
+                    android:textSize="17sp" />
+                
+                <TextView
+                    android:id="@+id/more_publish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="更多>>>"/>
+                
+            </RelativeLayout>
+            
+            <RadioGroup
+        android:id="@+id/rg_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f4f4f4"
+        android:layout_marginTop="1dip"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_part_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingTop="5dp"
+        	android:paddingBottom="5dp"
+            android:textSize="17sp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/tab_title_text"
+            android:button="@android:color/transparent"
+            android:background="@drawable/bg_tab_selector"
+            android:checked="true"
+            android:text="兼职" />
+        <View 
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#c5c5c5"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_outsourcing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="17sp" 
+            android:paddingTop="5dp"
+        	android:paddingBottom="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_tab_selector"
+            android:textColor="@color/tab_title_text"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="外包" /> 
+             <View 
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="#c5c5c5"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_promotion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+        	android:paddingBottom="5dp"
+            android:textSize="17sp" 
+            android:layout_weight="1"
+            android:background="@drawable/bg_tab_selector"
+            android:textColor="@color/tab_title_text"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:text="推广" /> 
+
+    </RadioGroup>
+    
+            <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.anda.moments.views.XListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/grey_line"
+            android:dividerHeight="1dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+            
+
+            
+        </LinearLayout>
+    </ScrollView>
+
+    
+
+</RelativeLayout>

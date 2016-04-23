@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical"
+    android:background="#f0eff5"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+    
+    <EditText 
+        android:id="@+id/complaint_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="投诉原因"
+        android:background="@color/white"
+        android:textColorHint="#a8a8a8"
+        android:padding="10dp"
+        />
+    
+    <EditText 
+        android:id="@+id/complaint_question"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="top"
+        android:hint="描述投诉问题"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:textColorHint="#a8a8a8"
+        android:padding="10dp"
+        />
+    <EditText 
+        android:id="@+id/phone"
+        android:layout_marginTop="1px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="您的联系方式"
+        android:background="@color/white"
+        android:textColorHint="#a8a8a8"
+        android:padding="10dp"
+        />
+    
+
+</LinearLayout>

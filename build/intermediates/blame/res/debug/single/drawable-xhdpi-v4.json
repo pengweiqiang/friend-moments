@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_home_selected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_home_selected.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/bg_tab_pressed.9.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/bg_tab_pressed.9.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_my_selected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_my_selected.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_home_unselected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_home_unselected.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_friends_unselected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_friends_unselected.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/btn_back.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/btn_back.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_friends_selected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_friends_selected.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/search.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/search.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/tab_my_unselected.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/tab_my_unselected.png"
+    }
+]

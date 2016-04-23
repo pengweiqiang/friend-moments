@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+   
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+        </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray_line" />
+
+
+        <RadioGroup
+            android:id="@+id/tabIndicators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <include
+                android:id="@+id/home"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                layout="@layout/main_tab_indicator_home" />
+
+            <include
+                android:id="@+id/friends"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                layout="@layout/main_tab_friends" />
+
+           
+            <include
+                android:id="@+id/my"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                layout="@layout/main_tab_indicator_my" />
+            
+
+        </RadioGroup>
+
+</LinearLayout>

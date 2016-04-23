@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+     >
+    
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp" >
+    </com.anda.moments.views.ActionBar>
+    
+    <LinearLayout 
+        android:id="@+id/center"
+        android:layout_below="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        >
+        
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_vefity_phone"
+            >
+            <TextView 
+                android:id="@+id/school_tip"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="    学校    "
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="#6d6d6d"
+                android:textSize="16sp"
+                />
+            <View 
+                android:id="@+id/school_line"
+                android:layout_toRightOf="@+id/school_tip"
+                android:layout_width="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#ededed"
+                />
+            <com.anda.moments.views.ClearEditText 
+                android:id="@+id/school"
+                android:layout_toRightOf="@+id/school_line"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请选择学校"
+                android:textColorHint="#cacaca"
+                android:background="@null"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                />
+            <ImageView 
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_right"
+                android:layout_marginRight="10dp"
+                />
+            
+            
+        </RelativeLayout>
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您好，您是官方一卡通用户，可以直接获得学校认证称号"
+            android:textColor="#cacaca"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            />
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_vefity_phone"
+            >
+            <TextView 
+                android:id="@+id/student_id_tip"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="    学号    "
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="#6d6d6d"
+                android:textSize="16sp"
+                />
+            <View 
+                android:id="@+id/student_id_line"
+                android:layout_toRightOf="@+id/student_id_tip"
+                android:layout_width="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#ededed"
+                />
+            <com.anda.moments.views.ClearEditText 
+                android:id="@+id/studentId"
+                android:layout_toRightOf="@+id/student_id_line"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入学号"
+                android:textColorHint="#cacaca"
+                android:background="@null"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                />
+            
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_vefity_phone"
+            >
+            <TextView 
+                android:id="@+id/name_tip"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="    姓名    "
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="#6d6d6d"
+                android:textSize="16sp"
+                />
+            <View 
+                android:id="@+id/name_line"
+                android:layout_toRightOf="@+id/name_tip"
+                android:layout_width="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#ededed"
+                />
+            <com.anda.moments.views.ClearEditText 
+                android:id="@+id/name"
+                android:layout_toRightOf="@+id/name_line"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入姓名"
+                android:textColorHint="#cacaca"
+                android:background="@null"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                />
+            
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_vefity_phone"
+            >
+            <TextView 
+                android:id="@+id/password_tip"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="    密码    "
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="#6d6d6d"
+                android:textSize="16sp"
+                />
+            <View 
+                android:id="@+id/password_line"
+                android:layout_toRightOf="@+id/password_tip"
+                android:layout_width="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#ededed"
+                />
+            <com.anda.moments.views.ClearEditText 
+                android:id="@+id/password"
+                android:layout_toRightOf="@+id/password_line"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入密码"
+                android:textColorHint="#cacaca"
+                android:background="@null"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                />
+            
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/bg_vefity_phone"
+            >
+            <TextView 
+                android:id="@+id/password_again_tip"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="确认密码"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:textColor="#6d6d6d"
+                android:textSize="16sp"
+                />
+            <View 
+                android:id="@+id/password_again_line"
+                android:layout_toRightOf="@+id/password_again_tip"
+                android:layout_width="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#ededed"
+                />
+            <com.anda.moments.views.ClearEditText 
+                android:id="@+id/password_again"
+                android:layout_toRightOf="@+id/password_again_line"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请再输入一次密码"
+                android:textColorHint="#cacaca"
+                android:background="@null"
+                android:textSize="16sp"
+                android:layout_marginRight="8dp"
+                />
+            
+            
+        </RelativeLayout>
+        
+        
+        
+        
+    </LinearLayout>
+    
+    <Button 
+        android:id="@+id/btn_register"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_login2"
+        android:text="注册"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+        />
+    
+
+</RelativeLayout>

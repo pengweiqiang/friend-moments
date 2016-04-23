@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myCiclePage="http://schemas.android.com/apk/res/com.anda.moments"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <FrameLayout 
+        android:id="@+id/fl_banner"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+        android:visibility="visible"
+        >
+	    <android.support.v4.view.ViewPager
+	        android:id="@+id/banner_viewpager"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/banner_image_height" />
+	
+	    <!-- <FrameLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="15dp"
+	        android:layout_gravity="center_horizontal|bottom"
+	        android:layout_marginBottom="3dp"
+	        android:background="@drawable/index_carsouel_bg" > -->
+	        <FrameLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="15dp"
+	        android:layout_gravity="center_horizontal|bottom|right"
+	        android:layout_marginBottom="3dp"
+	         >
+	
+	        <com.anda.moments.views.CirclePageIndicator
+	            android:id="@+id/indicator"
+	            myCiclePage:fillColor="@color/white"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:padding="2dp" />
+	    </FrameLayout>
+    </FrameLayout>
+    <FrameLayout 
+        android:id="@+id/progress_banner"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/banner_image_height"
+        android:gravity="center"
+        android:visibility="gone"
+        >
+    <ProgressBar
+        
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:max="100"
+        android:visibility="visible" />
+    </FrameLayout>
+</FrameLayout>

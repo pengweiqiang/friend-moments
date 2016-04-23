@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_my"
+    android:orientation="vertical" >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp" >
+    </com.anda.moments.views.ActionBar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="8dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/read_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="功能、流程浅解读"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/read_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:text="1.找到自己中意的外包项目\n2.报名发送简历，等待商家回复，可以在我的单子页面查看是否被商家选为待定人选\n3.在我的消息里收到商家要我发送协议的消息，填写交易协议，发送给商家。\n4.我的简历和协议打动了商家，商家同意协议，托管资\n5.收到平台发送的商家的联系方式，尽快联系商家，商定线下合同，开始工作。\n6.按合同所定流程支付款项和验收成果，结束后，互相评价。"
+                    android:textColor="#7a7a7a" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:lineSpacingExtra="2dp"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="8dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/tip_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="注意事项"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tip_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:text="1.为避免恶性竞争乱接单情况，每个人注册后当月只会赠送有限的葵花籽15个，外包和推广报名会消耗葵花籽的，根据项目数额消耗不同数量的葵花籽，下月初才会补齐，所以珍惜自己的报名机会，最好只投自己有把握的项目呀，如果需要更多的葵花籽可以升级为会员哦。\n2.每个人只能报自己擅长的项目类别哦，如果自己确实是个多面手，那么可以缴费增加项目类别，本平台会进行相关技能的审核，避免恶性竞争接单。\n3.报名某个项目后要及时查看是否被商家选中，时间太久没回复的话会错过项目机会哦"
+                    android:textColor="#7a7a7a" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
