@@ -11,7 +11,6 @@ public class BaseModel implements Serializable{
 	 */
 	private static final long serialVersionUID = 8998410069756234518L;
 	
-	//{"state":"OK","userMessage":{"id":1,"name":"1","password":"1","schoolName":"1","studentId":"1","telephone":"13811658342"},"userRandom":"pv1jn92jvosoifx"}
 	private String retFlag;//接口状态码
 	
 	private String info;//接口提示信息

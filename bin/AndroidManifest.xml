@@ -44,7 +44,7 @@
         
         
         <activity 
-            android:name="com.anda.moments.ui.MemberActivity"
+            android:name=".ui.UserInfoActivity"
             android:label="会员"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

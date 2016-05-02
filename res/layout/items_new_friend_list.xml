@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="63dp"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#d2d2d2" />
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="7dp" >
+
+
+        <com.anda.moments.views.round.SelectableRoundedImageView  xmlns:app="http://schemas.android.com/apk/res/com.anda.moments"
+            android:id="@+id/iv_user_head"
+            android:layout_toLeftOf="@+id/iv_head_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:sriv_left_top_corner_radius="5dip"
+            app:sriv_right_top_corner_radius="5dip"
+            app:sriv_left_bottom_corner_radius="5dip"
+            app:sriv_right_bottom_corner_radius="5dip"
+            app:sriv_border_width="0dip"
+            app:sriv_border_color="#008fea"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_useravatar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:text="张三"
+                android:singleLine="true"
+                android:textColor="#323232"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_add_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:text="请求添加好友"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#959595"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已添加"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="#959595"
+                />
+            <TextView
+                android:id="@+id/tv_accept_add_friend"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/btn_accept_add_friends"
+                android:text="接受"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#d2d2d2" />
+
+</LinearLayout>

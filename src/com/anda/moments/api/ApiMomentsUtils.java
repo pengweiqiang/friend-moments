@@ -45,7 +45,7 @@ public class ApiMomentsUtils {
 		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum", phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_MY_FRIENDS_LIST, false, 
-				requestCallBack, MethodType.UPDATE, context);
+				requestCallBack, MethodType.FRIENDS, context);
 	}
 
 	/**

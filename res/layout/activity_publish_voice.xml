@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+    </com.anda.moments.views.ActionBar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@color/white"
+        >
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@null"
+            android:hint="请输入内容"
+            android:textColor="#434343"
+            android:textColorHint="#979797"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="7dp"
+            android:gravity="left|top"
+            />
+
+
+
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_below="@+id/et_content"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray_line"
+        />
+
+
+
+
+
+
+
+
+</LinearLayout>

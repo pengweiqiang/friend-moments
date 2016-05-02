@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </com.anda.moments.views.ActionBar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ebebeb"
+        android:paddingBottom="6dp"
+        >
+
+        <com.anda.moments.views.ClearEditText
+            android:id="@+id/et_search_friend"
+            android:lines="1"
+            android:singleLine="true"
+            android:background="@drawable/bg_search_friends"
+            android:padding="10dp"
+            android:hint="搜索用户ID..."
+            android:textColorHint="#979797"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:imeOptions="actionSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/ll_phone_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+        <RelativeLayout
+            android:id="@+id/rl_add_friends_send_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/btn_selector"
+            >
+            <ImageView
+                android:id="@+id/iv_add_friends"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/add_friends_phone"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:id="@+id/tv_new_friend_title"
+                android:layout_toRightOf="@+id/iv_add_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查找通讯录好友,发送短信邀请"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:textColor="#434343"
+                android:textSize="15sp"
+                />
+
+            <!--<TextView-->
+            <!--android:id="@+id/unread_address_number"-->
+            <!--android:layout_toRightOf="@+id/tv_new_friend_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:background="@drawable/unread_message_drawable"-->
+            <!--android:gravity="center"-->
+            <!--android:text=""-->
+            <!--android:visibility="gone"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="12sp" />-->
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/btn_detail_right"
+                android:layout_centerVertical="true"
+                />
+
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_add_friends_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/btn_selector"
+            >
+            <ImageView
+                android:id="@+id/iv_add_friends"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/add_friends_weixin"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/iv_add_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信邀请好友"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:textColor="#434343"
+                android:textSize="15sp"
+                />
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/btn_detail_right"
+                android:layout_centerVertical="true"
+                />
+
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc"
+            />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@android:color/transparent"
+            android:divider="#F0EFF5"
+            android:scrollbars="none"
+            android:dividerHeight="0dp"
+            android:visibility="gone"
+            >
+        </ListView>
+
+
+    </FrameLayout>
+
+
+</LinearLayout>

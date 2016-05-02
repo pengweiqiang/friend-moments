@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="light_gray_line">#eeeeee</color>
-	
+    <color name="light_gray_line2">#d2d2d2</color>
 
     <!-- Text Color -->
     <color name="color_text_register">#999999</color>
@@ -61,7 +61,9 @@
     <color name="text_color_my">#5f5f5f</color>
     <color name="bg_login">#f29c9f</color>
     
-    <color name="color_action_bar_title">#434343</color>
-    
+    <color name="color_action_bar_title">#646464</color>
+    <color name="home_theme_color">#e78689</color>
+    <color name="bg_color">#f9f9f9</color>
+
     
 </resources>

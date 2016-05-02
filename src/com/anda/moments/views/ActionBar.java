@@ -25,6 +25,7 @@ public class ActionBar extends FrameLayout {
 	private TextView mLeftActionButton;
 	private TextView mActionBarTitle;
 	private TextView mRightView;
+	private View mBottomLine;
 
 	public ActionBar(Context context) {
 		super(context);
@@ -46,6 +47,7 @@ public class ActionBar extends FrameLayout {
 		mLeftActionButton = (TextView) findViewById(R.id.leftActionButton);
 		mActionBarTitle = (TextView)findViewById(R.id.actionBarTitle);
 		mRightView = (TextView)findViewById(R.id.btn_right);
+		mBottomLine = findViewById(R.id.actionBarBottomLine);
 	}
 
 	public void setTitle(int resId) {
@@ -70,8 +72,11 @@ public class ActionBar extends FrameLayout {
 			mLeftActionButton.setCompoundDrawables(null,null,drawable,null);
 			mLeftActionButton.setPadding(DeviceInfo.dp2px(getContext(),15), 0, DeviceInfo.dp2px(getContext(),15), 0);
 			mLeftActionButton.setCompoundDrawablePadding(DeviceInfo.dp2px(getContext(), 6));
-			mLeftActionButton.setText(textStr);
+		}else{
+			mLeftActionButton.setCompoundDrawables(null,null,null,null);
 		}
+
+		mLeftActionButton.setText(textStr);
 		mLeftActionButton.setOnClickListener(listener);
 //		mLeftActionButton.setVisibility(View.VISIBLE);
 	}
@@ -84,10 +89,21 @@ public class ActionBar extends FrameLayout {
 	}
 	
 	public void setRightActionButton(int icon,String text,OnClickListener listener){
+		setRightActionButton(icon,text,listener,0);
+	}
+	public void setRightActionButton(int icon,String text,OnClickListener listener,int colorId){
 		mRightView.setText(text);
 		setRightActionButton(listener);
 		if(icon == 0){
 			mRightView.setCompoundDrawables(null,null,null,null);
+		}else{
+			Drawable drawable= getResources().getDrawable(icon);
+			/// 这一步必须要做,否则不会显示.
+			drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+			mRightView.setCompoundDrawables(null,null,drawable,null);
+		}
+		if(colorId!=0){
+			mRightView.setTextColor(getContext().getResources().getColor(colorId));
 		}
 	}
 	
@@ -95,14 +111,11 @@ public class ActionBar extends FrameLayout {
 	public void hideLeftActionButton() {
 		mLeftActionButton.setVisibility(View.GONE);
 	}
-	
-	public void setLeftText(String text){
-		if(!StringUtils.isEmpty(text)){
-			mLeftActionButton.setText(text);
-		}else{
-			mLeftActionButton.setText("北京");
-		}
+
+	public void hideBottonLine(){
+		mBottomLine.setVisibility(View.INVISIBLE);
 	}
+
 
 	
 }

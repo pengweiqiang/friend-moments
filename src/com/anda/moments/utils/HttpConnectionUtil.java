@@ -28,17 +28,20 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import com.anda.GlobalConfig;
+import com.anda.moments.MyApplication;
 import com.anda.moments.api.ApiUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.ParseModel;
+import com.anda.moments.ui.LoginActivity;
 
 /**
  * http协议网络请求
@@ -155,10 +158,12 @@ public class HttpConnectionUtil {
 					int statusCode = response.getStatusLine().getStatusCode();
 					backStr = String.valueOf(statusCode);
 					Log.i(TAG, backStr);
-					if (statusCode == HttpStatus.SC_OK || statusCode == NetUtil.NET_QUERY_SUCC || statusCode== NetUtil.FAIL_CODE || statusCode == NetUtil.FAIL_CODE_400) {
+					if (statusCode == HttpStatus.SC_OK || statusCode == NetUtil.NET_QUERY_SUCC  || statusCode == NetUtil.FAIL_CODE_400) {
 						backStr = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
 //						backStr = handleEntity(response.getEntity(),HTTP.UTF_8);
 						sendMessage(backStr, handler, ApiConstants.RESULT_CODE);
+					}else if(statusCode== NetUtil.FAIL_CODE){//500
+						sendMessage(backStr,handler,ApiConstants.RESULT_CODE);
 					}
 				} catch (Exception e) {
 					
@@ -187,7 +192,7 @@ public class HttpConnectionUtil {
 	 * @return
 	 */
 	private static HttpUriRequest getRequest(String url, Map<String, Object> params, HttpMethod method) {
-		Log.d(TAG, "-------发出的url请求-----------" + url);
+//		Log.d(TAG, "-------发出的url请求-----------" + url);
 		if (method.equals(HttpMethod.POST)) {
 			List<NameValuePair> listParams = new ArrayList<NameValuePair>();
 			if (params != null) {
@@ -248,15 +253,14 @@ public class HttpConnectionUtil {
 	 * @param backStr
 	 */
 	private static synchronized ParseModel getParseModel(String backStr, MethodType methodType, Context context) {
-//		if(MethodType.CHECK_MONEY.getIndex() == methodType.getIndex()){//提现手续费
+//		if(MethodType.GET_INFO_DETAILS.getIndex() == methodType.getIndex()){//我的列表
 //			ParseModel pm = new ParseModel();
 //			if(!String.valueOf(NetUtil.FAIL_CODE).equals(backStr)){
-//				pm.setState(ApiConstants.RESULT_SUCCESS);
-//				pm.setErrorMessage(NetUtil.SERVICE_SUCCESS_MSG);
-//				pm.setOtherStr(backStr);
+//				pm.setRetFlag(ApiConstants.RESULT_SUCCESS);
+//				pm.setInfo(NetUtil.SERVICE_SUCCESS_MSG);
 //			}else{
-//				pm.setState(String.valueOf(NetUtil.FAIL_CODE));
-//				pm.setErrorMessage(NetUtil.SERVICE_ERR_MSG);
+//				pm.setRetFlag(String.valueOf(NetUtil.FAIL_CODE));
+//				pm.setInfo(NetUtil.SERVICE_ERR_MSG);
 //			}
 //			return pm;
 //		}
@@ -273,7 +277,8 @@ public class HttpConnectionUtil {
 			pm.setInfo(NetUtil.NET_ERR_MSG);
 			return pm;
 		}
-		if (pm.getRetFlag()!=null && pm.getRetFlag().equals(NetUtil.SUCCESS_CODE)) {
+		String retFlag = pm.getRetFlag();
+		if (retFlag!=null && retFlag.equals(NetUtil.SUCCESS_CODE)) {
 			Object apiResult = null;
 //			if (MethodType.GET_MAINPAGE_AD.getIndex() == methodType.getIndex()) { // 广告
 ////				apiResult = ApiUtils.getAd(pm.getData());
@@ -288,15 +293,24 @@ public class HttpConnectionUtil {
 			//做的token刷新处理  start
 			if (!StringUtils.isEmpty(jsessionId)) {
 				GlobalConfig.JSESSION_ID = jsessionId;
-//				long currentTime = System.currentTimeMillis();
-//				SharePreferenceManager.saveBatchSharedPreference(context,
-//						Constant.FILE_NAME, ReqUrls.TOKEN, pm.getToken() + "_"
-//								+ currentTime);
-				SharePreferenceManager.saveBatchSharedPreference(context, Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.JSESSION_ID, jsessionId);
+				long currentTime = System.currentTimeMillis();
+				SharePreferenceManager.saveBatchSharedPreference(context,
+						Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.JSESSION_ID, pm.getJsessionid() + "_&_"
+								+ currentTime);
 			}
 			//做的token刷新处理 end
 			
 			pm.setApiResult(apiResult);
+		}else if(retFlag!=null && retFlag.equals(NetUtil.FAIL_CODE_401)){//会话超时，重新登陆
+			GlobalConfig.JSESSION_ID = "";
+			SharePreferenceManager.saveBatchSharedPreference(context,
+					Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.JSESSION_ID,"");
+
+			Intent loginIntent = new Intent(context,LoginActivity.class);
+
+			loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//		loginIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			context.startActivity(loginIntent);
 		}
 		return pm;
 	}

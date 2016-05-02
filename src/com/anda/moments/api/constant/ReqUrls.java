@@ -148,6 +148,17 @@ public static final String PROJECT_NAME = "";
 	 * 我的(好友)资料详情  2.3.3
 	 */
 	public static final String REQUEST_FRIENDS_GET_MY_INFORMATIONS = "friends/getMyInformations.do";
+
+
+	/**
+	 * 根据USERID查询添加好友–已完成
+	 */
+	public static final String REQUEST_FRIENDS_SEARCH_BY_USERID = "friends/searchFriendsByUserId.do";
+
+	/**
+	 * 处理好友请求
+	 */
+	public static final String REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST = "friends/addFriend.do";
 	
 	
 	/**

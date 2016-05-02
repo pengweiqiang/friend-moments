@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/comment_bg"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/popu_praise"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/circle_praise"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="赞"
+        android:drawablePadding="3dp"
+        android:textColor="#ffffffff"
+        android:textSize="13sp" />
+
+
+
+    <TextView
+        android:id="@+id/popu_meng"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawablePadding="3dp"
+        android:drawableLeft="@drawable/btn_comment_meng"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="萌化啦~"
+        android:textColor="#ffffffff"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/popu_comment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawablePadding="3dp"
+        android:drawableLeft="@drawable/btn_comment_count"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:text="评论"
+        android:textColor="#ffffffff"
+        android:textSize="13sp" />
+</LinearLayout>

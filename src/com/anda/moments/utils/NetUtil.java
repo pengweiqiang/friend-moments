@@ -64,9 +64,10 @@ public class NetUtil {
 	public static final int HTTP_PORT = 80;
 	
 	/** 服务端返回状态 **/
-	public static final String SUCCESS_CODE = "OK";
+	public static final String SUCCESS_CODE = "200";
 	public static final int FAIL_CODE = 500;
 	public static final int FAIL_CODE_400 = 400;
+	public static final String FAIL_CODE_401 = "401";//会话超时，重新登陆
 	
 	public static final int NET_QUERY_SUCC = 201;
 	public static final int NET_ERR = 777;

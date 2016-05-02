@@ -20,6 +20,7 @@ import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
 import com.anda.moments.entity.User;
+import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
@@ -178,13 +179,13 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
-		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			if (getCurrentFocus() != null
-					&& getCurrentFocus().getWindowToken() != null) {
-				manager.hideSoftInputFromWindow(getCurrentFocus()
-						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-			}
-		}
+//		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//			if (getCurrentFocus() != null
+//					&& getCurrentFocus().getWindowToken() != null) {
+//				manager.hideSoftInputFromWindow(getCurrentFocus()
+//						.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+//			}
+//		}
 		return super.onTouchEvent(event);
 	}
 	
@@ -201,20 +202,19 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	/**
 	 * 登录成功
 	 * 
-	 * @param userRandom
 	 * @param user
 	 */
-	public void logined(String user) {
+	public void logined(User user) {
 //		if (!StringUtils.isEmpty(userRandom)) {
 //			GlobalConfig.USER_RANDOM = userRandom;
 ////			long currentTime = System.currentTimeMillis();
 //			SharePreferenceManager.saveBatchSharedPreference(mContext,
 //					Constant.FILE_NAME, ReqUrls.USER_RANDOM, userRandom);
 //		}
-		if (!StringUtils.isEmpty(user)) {
+		if (user != null ) {
 			application.setUser(user);
 			SharePreferenceManager.saveBatchSharedPreference(mContext,
-					Constant.FILE_NAME, "user", user);
+					Constant.FILE_NAME, "user", JsonUtils.toJson(user));
 		}
 
 	}
@@ -225,6 +225,16 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 		}
 		return false;
 
+	}
+
+	public User getUser(){
+		User user = application.getCurrentUser();
+		if(user == null){
+			Intent intent = new Intent(mContext, LoginActivity.class);
+			startActivity(intent);
+			return null;
+		}
+		return user;
 	}
 	
 	

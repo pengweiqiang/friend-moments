@@ -12,6 +12,7 @@
     <color name="app_bg_color">#ffffffff</color>
     <color name="app_title_color">#fc8403</color>
     <color name="backColor">#2000</color>
+    <color name="bg_color">#f9f9f9</color>
     <color name="bg_gesture">#1c2b41</color>
     <color name="bg_login">#f29c9f</color>
     <color name="bg_my">#f0eff5</color>
@@ -21,7 +22,7 @@
     <color name="btn_member_normal">#ff8a3d</color>
     <color name="btn_member_pressed">#fa9b5d</color>
     <color name="cash_rechange">#5b87e7</color>
-    <color name="color_action_bar_title">#434343</color>
+    <color name="color_action_bar_title">#646464</color>
     <color name="color_text_register">#999999</color>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -44,11 +45,13 @@
     <color name="grey_line">#e9e5e5</color>
     <color name="home_bg">#f0f0f0</color>
     <color name="home_item_text">#8e8e8e</color>
+    <color name="home_theme_color">#e78689</color>
     <color name="invest_detail_bottom_color">#4756c8</color>
     <color name="invest_detail_bottom_color_enable">#9d9d9e</color>
     <color name="invest_detail_bottom_color_pressed">#2a33e5</color>
     <color name="invest_detail_text_color">#f7fd45</color>
     <color name="light_gray_line">#eeeeee</color>
+    <color name="light_gray_line2">#d2d2d2</color>
     <color name="line">#c9c9c9</color>
     <color name="listview_item_normal">#eef0ed</color>
     <color name="listview_item_pressed">#d4d4d4</color>
@@ -70,10 +73,12 @@
     <color name="white">#ffffffff</color>
     <declare-styleable name="CirclePageIndicator"><attr name="centered"/><attr format="color" name="fillColor"/><attr format="color" name="pageColor"/><attr name="android:orientation"/><attr format="dimension" name="radius"/><attr format="boolean" name="snap"/><attr format="color" name="strokeColor"/><attr name="strokeWidth"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="LinePageIndicator"><attr name="centered"/><attr name="unselectedColor"/><attr name="selectedColor"/><attr format="dimension" name="lineWidth"/><attr name="strokeWidth"/><attr format="dimension" name="gapWidth"/><attr name="android:background"/></declare-styleable>
+    <declare-styleable name="SelectableRoundedImageView"><attr format="dimension" name="sriv_left_top_corner_radius"/><attr format="dimension" name="sriv_right_top_corner_radius"/><attr format="dimension" name="sriv_left_bottom_corner_radius"/><attr format="dimension" name="sriv_right_bottom_corner_radius"/><attr format="dimension" name="sriv_border_width"/><attr format="color" name="sriv_border_color"/><attr format="boolean" name="sriv_oval"/><attr name="android:scaleType"/></declare-styleable>
     <declare-styleable name="TitlePageIndicator"><attr format="dimension" name="clipPadding"/><attr format="color" name="footerColor"/><attr format="dimension" name="footerLineHeight"/><attr name="footerIndicatorStyle"><enum name="none" value="0"/><enum name="triangle" value="1"/><enum name="underline" value="2"/></attr><attr format="dimension" name="footerIndicatorHeight"/><attr format="dimension" name="footerIndicatorUnderlinePadding"/><attr format="dimension" name="footerPadding"/><attr name="linePosition"><enum name="bottom" value="0"/><enum name="top" value="1"/></attr><attr name="selectedColor"/><attr format="boolean" name="selectedBold"/><attr name="android:textColor"/><attr name="android:textSize"/><attr format="dimension" name="titlePadding"/><attr format="dimension" name="topPadding"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="UnderlinePageIndicator"><attr format="boolean" name="fades"/><attr format="integer" name="fadeDelay"/><attr format="integer" name="fadeLength"/><attr name="selectedColor"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
     <declare-styleable name="myCiclePageColor"><attr format="color" name="cicle_color"/></declare-styleable>
+    <declare-styleable name="roundedimageview"><attr format="dimension" name="border_thickness"/><attr format="color" name="border_inside_color"/><attr format="color" name="border_outside_color"/></declare-styleable>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="banner_image_height">100dip</dimen>
@@ -90,6 +95,8 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
+    <dimen name="gudieview_heigh">6dp</dimen>
+    <dimen name="gudieview_width">6dp</dimen>
     <integer name="default_circle_indicator_orientation">0</integer>
     <integer name="default_title_indicator_footer_indicator_style">2</integer>
     <integer name="default_title_indicator_line_position">0</integer>
@@ -171,20 +178,28 @@
         <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/main_tab_button_text</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:paddingTop">5dp</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:paddingTop">4dp</item>
         <item name="android:drawablePadding">3dip</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingBottom">3dp</item>
     </style>
     <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/myratingbar</item>
         <item name="android:minHeight">18dip</item>
         <item name="android:maxHeight">18dip</item>
     </style>
+    <style name="cricleBottomAnimation">
+        <item name="android:windowEnterAnimation">@anim/avatar_animation_right_in</item>
+        <item name="android:windowExitAnimation">@anim/avatar_animation_right_out</item>
+    </style>
     <style name="main_tab_bottom">
         <item name="android:button">@null</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">10</item>
+    </style>
+    <style name="social_pop_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit_anim</item>
     </style>
 </resources>

@@ -387,5 +387,11 @@ public class DateUtils {
     	return new SimpleDateFormat(DEFAULT_DATE_FORMAT, Locale.getDefault()).format(date);
     }
 
+    public static String getNowTime() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmssSS");
+        return dateFormat.format(date);
+    }
+
     
 }

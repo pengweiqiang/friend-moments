@@ -19,9 +19,7 @@ import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseFragmentActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.ui.fragments.MyFragment;
-import com.anda.moments.ui.fragments.OutsourceFragment;
-import com.anda.moments.ui.fragments.SchoolAmbassdaorFragment;
-import com.anda.moments.ui.fragments.SchoolHelpMainFragment;
+import com.anda.moments.ui.fragments.FriendsFragment;
 import com.anda.moments.utils.ToastUtils;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -30,7 +28,7 @@ public class MainActivity extends BaseFragmentActivity {
 	//首页
 	private HomeFragment mHomeFragment;
 	//好友
-	private OutsourceFragment mOutsourceFragment;
+	private FriendsFragment mFriendsFragment;
 	//我的
 	private MyFragment mMyFragment;
 	
@@ -69,7 +67,7 @@ public class MainActivity extends BaseFragmentActivity {
 				if (position == 0) {
 					return mHomeFragment = new HomeFragment();
 				} else if (position == 1) {
-					return mOutsourceFragment = new OutsourceFragment();
+					return mFriendsFragment = new FriendsFragment();
 				}else if (position == 2) {
 					return mMyFragment = new MyFragment();
 				}
@@ -100,10 +98,10 @@ public class MainActivity extends BaseFragmentActivity {
 			}
 			return mHomeFragment;
 		case R.id.friends:
-			if(mOutsourceFragment == null){
-				mOutsourceFragment = new OutsourceFragment();
+			if(mFriendsFragment == null){
+				mFriendsFragment = new FriendsFragment();
 			}
-			return mOutsourceFragment;
+			return mFriendsFragment;
 		
 		case R.id.my:
 			if(mMyFragment == null){

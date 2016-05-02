@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anda.moments.MyApplication;
+import com.anda.moments.entity.User;
+import com.anda.moments.ui.LoginActivity;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -82,6 +84,14 @@ public abstract class BaseFragment extends Fragment {
 			return true;
 		}
 		return false;
-
+	}
+	public User getUser(){
+		User user = application.getCurrentUser();
+		if(user == null){
+			Intent intent = new Intent(mActivity, LoginActivity.class);
+			startActivity(intent);
+			return null;
+		}
+		return user;
 	}
 }

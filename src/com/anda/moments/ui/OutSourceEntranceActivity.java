@@ -45,7 +45,6 @@ public class OutSourceEntranceActivity extends BaseActivity implements OnRefresh
 		mActionBar = (ActionBar)findViewById(R.id.actionBar);
 		mListView = (XListView)findViewById(R.id.listView);
 		mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_container);
-		mTxtLocation = (TextView)findViewById(R.id.txt_location);
 		mClassification = findViewById(R.id.btn_classification);
 		mCity = findViewById(R.id.btn_city);
 		mCapacitySort = findViewById(R.id.btn_capacity_sort);

@@ -382,6 +382,13 @@ public class JsonUtils {
 		return fromJson(json, clazz, null);
 	}
 
+	public static<T> T fromJson(Object json,Class<T> clazz){
+		if(json==null){
+			return null;
+		}
+		return fromJson(json.toString(),clazz);
+	}
+
 	public static boolean isEmpty(String inStr) {
 		boolean reTag = false;
 		if (inStr == null || "".equals(inStr)) {

@@ -8,12 +8,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/umeng_update_btn_check_on_pressed_holo_light.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/hired.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/hired.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/tips_bg.9.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/tips_bg.9.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/hired.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/hired.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/umeng_update_btn_check_off_focused_holo_light.png",
@@ -56,28 +56,44 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/my_btn_right.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_shanchu_focused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_shanchu_focused.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/phone.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/phone.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/out_source_entrance.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/out_source_entrance.png"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_quxiao_focused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_quxiao_focused.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/fl.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/fl.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/book_help.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/book_help.png"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/out_source_entrance.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/out_source_entrance.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_queding_focused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_queding_focused.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/my_message.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/my_message.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/book_help.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/book_help.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/help_contact2.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/help_contact2.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_quxiao_unfocused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_quxiao_unfocused.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/px.png",
@@ -100,6 +116,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/my_collect.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_shanchu_unfocused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_shanchu_unfocused.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/share.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/share.png"
     },
@@ -114,6 +134,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/distance.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/distance.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_queding_unfocused.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_queding_unfocused.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/enroll.png",
@@ -196,6 +220,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/my_version.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/icon_data_select.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/icon_data_select.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/btn_right.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/btn_right.png"
     },
@@ -204,12 +232,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/search_bg.9.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/umeng_update_btn_check_off_holo_light.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/umeng_update_btn_check_off_holo_light.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/spread_img1.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/spread_img1.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/umeng_update_btn_check_off_holo_light.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/umeng_update_btn_check_off_holo_light.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/my_kuihuazi.png",
@@ -228,16 +256,20 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/umeng_update_close_bg_tap.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/bg_transparent.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/bg_transparent.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/out_source_read.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/out_source_read.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/default_image2.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/default_image2.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/help_jth.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/help_jth.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/default_image2.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/default_image2.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/my_team.png",
@@ -250,6 +282,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/param_down.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/param_down.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/default_useravatar.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/default_useravatar.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/about.png",
@@ -296,12 +332,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/default_image.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/line.9.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/line.9.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/money.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/money.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/line.9.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-hdpi/line.9.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-hdpi-v4/evaluated.png",

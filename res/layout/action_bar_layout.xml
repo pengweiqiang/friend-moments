@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/actionBarLayout"
     android:layout_width="match_parent"
-    android:layout_height="47dp"
+    android:layout_height="48dp"
     android:background="@color/app_bg_color" >
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:textColor="@color/white" />
+        android:textColor="#434343" />
 
 
         <TextView
@@ -41,7 +41,6 @@
         
         <TextView 
             android:id="@+id/btn_right"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -50,8 +49,8 @@
             android:paddingRight="15dp"
             android:textColor="@color/white"
             android:gravity="center_vertical"
-            android:drawableRight="@drawable/search"
-            android:background="@drawable/btn_selector"
+            android:visibility="gone"
+            android:drawableRight="@drawable/home_btn_publish"
             />
 
     
@@ -60,7 +59,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="1px"
 	        android:layout_alignParentBottom="true"
-	        android:background="@color/light_gray_line" />
+	        android:background="#d2d2d2" />
    
 
 </RelativeLayout>

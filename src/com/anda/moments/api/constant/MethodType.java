@@ -11,10 +11,14 @@ public enum MethodType {
 	LOGIN(0),//用户登录
 	LOGIN2(11),//用户登录
 	UPDATE(1),//修改
+
+
 	
 	ADDRESS(2),//地址簿
 	
 	CHECKCODE(3),//短信验证
+	FRIENDS(4),//好友列表
+	GET_INFO_DETAILS(5),//我的详情
 	
 	GET_MAINPAGE_AD(50),   //获取广告topOne
 	

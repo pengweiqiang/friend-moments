@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
@@ -17,18 +16,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.apdater.HomeAapter;
-import com.anda.moments.commons.Constant;
+import com.anda.moments.apdater.HomeAdapter;
+import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.entity.Image;
+import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PartTimeJob;
-import com.anda.moments.ui.CityListActivity;
-import com.anda.moments.ui.PartTimeDetailActivity;
+import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
+import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.HttpConnectionUtil;
+import com.anda.moments.utils.Log;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
@@ -44,28 +48,31 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private View mContentView;
 	private ActionBar mActionBar;
 	private XListView mListView;
+	private List<List<String>> imagesList=new ArrayList<List<String>>();;
+	private String[] images=new String[]{
+			"http://pic4.zhongsou.com/image/4808b8d0191adf4bcde.jpg"
+			,"file:///android_asset/img2.jpg"
+			,"file:///android_asset/img3.jpg"
+			,"file:///android_asset/img4.jpg"
+			,"file:///android_asset/img5.jpg"
+			,"file:///android_asset/img6.jpg"
+			,"file:///android_asset/img7.jpg"
+			,"file:///android_asset/img8.jpg"
+			,"http://pic32.nipic.com/20130715/13232606_164243348120_2.jpg"};
+
+
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private ImageView mRefreshLocation;
-	private TextView mTxtLocation;
+	private ImageView mIvHeadBg;//背景
+	private ImageView mIvUserHead;//头像
 	
-	//分类条件
-	private View mClassification,mDistance,mCapacitySort;
+
 	
-	
-	private HomeAapter mHomeAdapter;
-	private List<PartTimeJob> mData;
+	private HomeAdapter mHomeAdapter;
 	private int page = 1;
 	
 	
-	
-	ObjectAnimator rotationLocation ;
-	
-	double lat;
-	static double lon;
-	static String city = "";// 当前定位城市
-	
-	ObjectAnimator rotationParam;
-	
+
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -75,110 +82,85 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.home, container,false);
-		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
-		mListView = (XListView)mContentView.findViewById(R.id.listView);
-		mSwipeRefreshLayout = (SwipeRefreshLayout)mContentView.findViewById(R.id.swipe_container);
-		mRefreshLocation = (ImageView)mContentView.findViewById(R.id.refresh_location);
-		mTxtLocation = (TextView)mContentView.findViewById(R.id.txt_location);
-		mClassification = mContentView.findViewById(R.id.btn_classification);
-		mDistance = mContentView.findViewById(R.id.btn_distance);
-		mCapacitySort = mContentView.findViewById(R.id.btn_capacity_sort);
-		
-		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-				android.R.color.holo_green_light, android.R.color.holo_orange_light,
-				android.R.color.holo_red_light);
-		
-		mActionBar.setTitle(R.string.app_name);
-		mActionBar.setLeftActionButton(R.drawable.down, "北京", cityOnclickListener);
-		mActionBar.setRightActionButton(searchOnclickListener);
-		mSwipeRefreshLayout.setOnRefreshListener(this);
-		
-		mListView.setPullLoadEnable(true);
-		mListView.setXListViewListener(this);
-		
+
+		initView();
+		initListener();
+
 		
 		return mContentView;
 	}
-	
-	private void getData(){
-		PartTimeJob partTime = new PartTimeJob();
-		partTime.setDistance("13m");
-		partTime.setMoney("15元/小时");
-		partTime.setName("百度招聘");
-		partTime.setTime("30分钟前");
-		
-		PartTimeJob partTime2 = new PartTimeJob();
-		partTime2.setDistance("13m");
-		partTime2.setMoney("15元/小时");
-		partTime2.setName("百度招聘");
-		partTime2.setTime("30分钟前");
-		
-		PartTimeJob partTime3 = new PartTimeJob();
-		partTime3.setDistance("13m");
-		partTime3.setMoney("15元/小时");
-		partTime3.setName("百度招聘");
-		partTime3.setTime("30分钟前");
-		
-		PartTimeJob partTime4 = new PartTimeJob();
-		partTime4.setDistance("13m");
-		partTime4.setMoney("15元/小时");
-		partTime4.setName("百度招聘");
-		partTime4.setTime("30分钟前");
-		
-		PartTimeJob partTime5 = new PartTimeJob();
-		partTime5.setDistance("13m");
-		partTime5.setMoney("15元/小时");
-		partTime5.setName("百度招聘");
-		partTime5.setTime("30分钟前");
-		
-		PartTimeJob partTime6 = new PartTimeJob();
-		partTime6.setDistance("13m");
-		partTime6.setMoney("15元/小时");
-		partTime6.setName("百度招聘");
-		partTime6.setTime("30分钟前");
-		
-		PartTimeJob partTime7 = new PartTimeJob();
-		partTime7.setDistance("13m");
-		partTime7.setMoney("15元/小时");
-		partTime7.setName("百度招聘");
-		partTime7.setTime("30分钟前");
-		
-		mData.add(partTime);
-		mData.add(partTime2);
-		mData.add(partTime3);
-		mData.add(partTime4);
-		mData.add(partTime5);
-		mData.add(partTime6);
-		mData.add(partTime7);
 
-		mHomeAdapter.notifyDataSetChanged();
-		new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-//				mListView.onLoadFinish(page, 0, "加载完毕");
-				//mListView.stopLoadMore();
-//				mHomeAdapter.notifyDataSetChanged();
-				mSwipeRefreshLayout.setRefreshing(false);				
-			}
-		}, 3000);
-		
+	private void initView(){
+		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
+		mListView = (XListView)mContentView.findViewById(R.id.listView);
+
+		//头部
+		View mHeadView = View.inflate(mActivity,R.layout.header_index,null);
+		mListView.addHeaderView(mHeadView);
+
+		mIvHeadBg = (ImageView)mContentView.findViewById(R.id.iv_bg_head);//背景
+		mIvUserHead = (ImageView)mContentView.findViewById(R.id.iv_user_head);//头像
+
+		//背景适配
+		int width = DeviceInfo.getDisplayMetricsWidth(mActivity);
+		FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) mIvHeadBg.getLayoutParams();
+		params1.width = width;
+		params1.height = (int) (params1.width * 1.0 / 1080 * 480);
+		mIvHeadBg.setLayoutParams(params1);
+
+		//头像距离顶部距离
+		FrameLayout.LayoutParams paramsUserHead = (FrameLayout.LayoutParams) mIvUserHead.getLayoutParams();
+		paramsUserHead.setMargins(0,width/3,DeviceInfo.dp2px(mActivity,15),0);
+		mIvUserHead.setLayoutParams(paramsUserHead);
+
+
+		mSwipeRefreshLayout = (SwipeRefreshLayout)mContentView.findViewById(R.id.swipe_container);
+
+
+		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light, android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
+
+		mActionBar.setTitle(R.string.tab_part_time);
+		mActionBar.hideLeftActionButton();
+		mActionBar.hideBottonLine();
+		mActionBar.setRightActionButton(publishOnclickListener);
+		mSwipeRefreshLayout.setOnRefreshListener(this);
+
+		mListView.setPullLoadEnable(true);
+		mListView.setXListViewListener(this);
+
+		mHomeAdapter = new HomeAdapter(mActivity,imagesList);
+		mListView.setAdapter(mHomeAdapter);
+
+
+
 	}
+
+	private void getData() {
+
+		//这里单独添加一条单条的测试数据，用来测试单张的时候横竖图片的效果
+		ArrayList<String> singleList=new ArrayList<String>();
+		singleList.add(images[8]);
+		imagesList.add(singleList);
+		//从一到9生成9条朋友圈内容，分别是1~9张图片
+		for(int i=0;i<9;i++){
+			ArrayList<String> itemList=new ArrayList<String>();
+			for(int j=0;j<=i;j++){
+				itemList.add(images[j]);
+			}
+			imagesList.add(itemList);
+		}
+		mHomeAdapter.notifyDataSetChanged();
+	}
+
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		mData = new ArrayList<PartTimeJob>();
-		mHomeAdapter = new HomeAapter(mActivity, mData);
-		mListView.setAdapter(mHomeAdapter);
-		
-		
-//		getData();
-		
-		
-		initListener();
-		
+
+		getData();
+
 	}
 
 	@Override
@@ -202,7 +184,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		page++;
 		getData();
 	}
-	Animation operatingAnim;
 	private void initListener(){
 		
 		
@@ -232,49 +213,24 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		}
 	};
 	
-	private void openRotation(View view){
-		rotationParam = ObjectAnimator.ofFloat(view, "rotation", 0,180);
-		rotationParam.setInterpolator(new LinearInterpolator());
-		rotationParam.setDuration(300);
-		rotationParam.start();
-	}
+
 	
 	/**
-	 * 搜索
+	 * 发布
 	 */
-	OnClickListener searchOnclickListener = new OnClickListener() {
+	OnClickListener publishOnclickListener = new OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
-			
+			Intent intent = new Intent(mActivity, PublishActivity.class);
+			startActivity(intent);
 		}
 	};
-	/**
-	 * 城市选择
-	 */
-	OnClickListener cityOnclickListener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(mActivity,CityListActivity.class);
-			startActivityForResult(intent, Constant.ACTION_CITY);
-		}
-	};
+
 	
+
+
 	
-	
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data == null){
-			return ;
-		}
-		if(requestCode == Constant.ACTION_CITY){
-			String city = data.getStringExtra("city");
-			mActionBar.setLeftText(city);
-		}
-		super.onActivityResult(requestCode, resultCode, data);
-	}
 
 
 

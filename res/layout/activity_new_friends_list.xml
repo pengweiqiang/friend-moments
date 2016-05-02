@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </com.anda.moments.views.ActionBar>
+
+
+
+
+
+    <com.anda.moments.views.swipe.SwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:divider="#F0EFF5"
+        android:scrollbars="none"
+        android:dividerHeight="0dp"
+        >
+    </com.anda.moments.views.swipe.SwipeMenuListView>
+
+
+
+
+</LinearLayout>

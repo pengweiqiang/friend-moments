@@ -15,7 +15,21 @@ import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
  * @author will
  */
 public class ApiMyUtils {
-	
+
+
+	/**
+	 * 根据USERID查询添加好友
+	 * @param context
+	 * @param userId
+	 * @param requestCallback
+     */
+	public static void searchFriendByUserID(Context context,String userId,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("userId", userId);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_SEARCH_BY_USERID, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
 	/**
 	 *  获得好友动态列表
 	 * @param context
@@ -36,15 +50,15 @@ public class ApiMyUtils {
 	/**
 	 * 我的动态详情
 	 * @param context
-	 * @param infoId
+	 * @param phoneNum
 	 * @param requestCallBack
 	 */
-	public static void getInfoDetails(Context context, String infoId,
+	public static void getInfoDetails(Context context, String phoneNum,
 			RequestCallback requestCallBack) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
-		params.put("infoId", infoId);
+		params.put("phoneNum", phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_INFO_DETAILS, false,
-				requestCallBack, MethodType.LOGIN, context);
+				requestCallBack, MethodType.GET_INFO_DETAILS, context);
 	}
 
 	/**

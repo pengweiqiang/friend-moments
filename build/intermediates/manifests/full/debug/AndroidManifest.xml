@@ -41,11 +41,60 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.anda.moments.ui.MemberActivity"
-            android:label="会员"
+            android:name="com.anda.moments.ui.publish.PublishActivity"
+            android:label="发布"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.PublishPictureActivity"
+            android:label="发布图片"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.PhotoActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.SelectPicActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.ImageGridActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.ImagePagerActivity"
+            android:label="首页详情图片"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.PublishVoiceActivity"
+            android:label="发布语音"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.PublishVideoActivity"
+            android:label="发布视频"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.UserInfoActivity"
+            android:label="详细资料"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.anda.moments.ui.PersonalInfoActivity"
+            android:label="个人中心"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.SettingActivity"
+            android:label="设置"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.AddFriendsActivity"
+            android:label="添加好友"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.NewFriendsListActivity"
+            android:label="新好友请求"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.MyOrderActivity"
             android:label="我的单子"
@@ -74,7 +123,8 @@
             android:name="com.anda.moments.ui.MainActivity"
             android:label="主页面"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" >
         </activity>
         <activity
             android:name="com.anda.moments.ui.RegisterActivity"

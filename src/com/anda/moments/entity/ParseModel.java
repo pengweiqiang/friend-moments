@@ -2,6 +2,8 @@ package com.anda.moments.entity;
 
 import com.anda.gson.JsonElement;
 
+import java.util.List;
+
 public class ParseModel extends BaseModel {
 
 	/**
@@ -14,20 +16,19 @@ public class ParseModel extends BaseModel {
 	private int resultCount; //总数
 	
 	private String jsessionid;
+
+	private JsonElement results;
+
+	private JsonElement result;
+
+	private int ReqCount;//好友请求个数
 	
-	private String userRandom;
-	
-	private JsonElement userMessage;
-	
-	private String url;
-	
-	private int ishfuser;//1代表开通汇付  0代表未开通汇付
-	
-	private String ordId;
-	
-	private String otherStr;
-	
-	
+	private User user;
+
+	private User publishUser;
+	private List<Infos> infos;
+
+
 	public Object getApiResult() {
 		return apiResult;
 	}
@@ -44,7 +45,6 @@ public class ParseModel extends BaseModel {
 		this.resultCount = resultCount;
 	}
 
-
 	public String getJsessionid() {
 		return jsessionid;
 	}
@@ -53,55 +53,51 @@ public class ParseModel extends BaseModel {
 		this.jsessionid = jsessionid;
 	}
 
-	public String getUserRandom() {
-		return userRandom;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserRandom(String userRandom) {
-		this.userRandom = userRandom;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public JsonElement getUserMessage() {
-		return userMessage;
+	public JsonElement getResults() {
+		return results;
 	}
 
-	public void setUserMessage(JsonElement userMessage) {
-		this.userMessage = userMessage;
+	public void setResults(JsonElement results) {
+		this.results = results;
 	}
 
-	public String getUrl() {
-		return url;
+	public int getReqCount() {
+		return ReqCount;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setReqCount(int reqCount) {
+		ReqCount = reqCount;
 	}
 
-	public int getIshfuser() {
-		return ishfuser;
+	public JsonElement getResult() {
+		return result;
 	}
 
-	public void setIshfuser(int ishfuser) {
-		this.ishfuser = ishfuser;
+	public void setResult(JsonElement result) {
+		this.result = result;
 	}
 
-	public String getOrdId() {
-		return ordId;
+	public User getPublishUser() {
+		return publishUser;
 	}
 
-	public void setOrdId(String ordId) {
-		this.ordId = ordId;
+	public void setPublishUser(User publishUser) {
+		this.publishUser = publishUser;
 	}
 
-	public String getOtherStr() {
-		return otherStr;
+	public List<Infos> getInfos() {
+		return infos;
 	}
 
-	public void setOtherStr(String otherStr) {
-		this.otherStr = otherStr;
+	public void setInfos(List<Infos> infos) {
+		this.infos = infos;
 	}
-	
-	
-	
-	
 }

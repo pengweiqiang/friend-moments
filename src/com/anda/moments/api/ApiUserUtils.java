@@ -17,7 +17,38 @@ import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
  * @author will
  */
 public class ApiUserUtils {
-	
+
+
+	/**
+	 * 处理好友请求
+	 * @param context
+	 * @param phoneNum
+	 * @param relationId
+	 * @param  flag 1-接受添加好友请求，2-拒绝添加好友请求
+	 * @param requestCallback
+     */
+	public static void dealFriendsRequest(Context context,String phoneNum,String relationId,int flag,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("myPhoneNum", phoneNum);
+		params.put("relationId",relationId);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.GET);
+	}
+
+	/**
+	 * 邀请添加好友接口
+	 * @param context
+	 * @param phoneNum
+	 * @param friendPhoneNum
+	 * @param requestCallback
+     */
+	public static void addFriends(Context context,String phoneNum,String friendPhoneNum,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("myPhoneNum", phoneNum);
+		params.put("friendPhoneNum",friendPhoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_ADDFRIEND, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.GET);
+	}
 	/**
 	 * 获取验证码
 	 * 

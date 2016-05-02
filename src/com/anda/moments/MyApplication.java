@@ -2,8 +2,17 @@ package com.anda.moments;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 
+import com.anda.GlobalConfig;
+import com.anda.moments.commons.Constant;
+import com.anda.moments.constant.api.ReqUrls;
+import com.anda.moments.entity.User;
+import com.anda.moments.ui.LoginActivity;
+import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.SharePreferenceManager;
+import com.anda.moments.utils.StringUtils;
 import com.anda.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.anda.universalimageloader.cache.memory.MemoryCacheAware;
 import com.anda.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
@@ -19,17 +28,29 @@ public class MyApplication extends Application {
 	
 
 	private static MyApplication myApplication = null;
-	private String user;
+	private User user;
 	
 	public static MyApplication getInstance() {
 		return myApplication;
 	}
 
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public String getCurrentUser() {
+	public User getCurrentUser() {
+		if(user==null){
+			String userJson = (String)SharePreferenceManager.getSharePreferenceValue(myApplication,Constant.FILE_NAME,"user","");
+			if(!StringUtils.isEmpty(userJson)){
+				user = JsonUtils.fromJson(userJson,User.class);
+				if(user==null){
+					SharePreferenceManager.saveBatchSharedPreference(myApplication,Constant.FILE_NAME,"user","");
+					Intent intent = new Intent(myApplication, LoginActivity.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					myApplication.startActivity(intent);
+				}
+			}
+		}
 		return user;
 	}
 	@Override
@@ -39,6 +60,33 @@ public class MyApplication extends Application {
 		// 由于Application类本身已经单例，所以直接按以下处理即可。
 		myApplication = this;
 		initImageLoader(this);
+
+
+
+
+		try{
+
+			//获取缓存的登陆对象
+			String userJson = (String)SharePreferenceManager.getSharePreferenceValue(myApplication,Constant.FILE_NAME,"user","");
+			if(!StringUtils.isEmpty(userJson)){
+				user = JsonUtils.fromJson(userJson,User.class);
+			}
+
+			String jsessionId = (String) SharePreferenceManager.getSharePreferenceValue(myApplication, Constant.FILE_NAME, ReqUrls.JSESSION_ID, "");
+			if(!StringUtils.isEmpty(jsessionId)){
+				String tokens[] = jsessionId.split("_&_");
+				long currentTime = System.currentTimeMillis();
+				long saveCurrentTime = Long.parseLong(tokens[1]);
+				if(currentTime - saveCurrentTime < 1000*60*60*24*(2-0.2)){//未超过2天
+					//判断token的有效期(设置了一个礼拜,这里设置2天)
+					GlobalConfig.JSESSION_ID = tokens[0];
+				}
+
+			}
+		}catch(Exception e){
+
+		}
+
 	}
 
 	/**

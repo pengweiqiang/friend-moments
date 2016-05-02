@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.anda.moments"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+    <ImageView
+        android:id="@+id/iv_bg_head"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/bg_head"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/tv_user_name_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="昵称"
+        android:layout_marginRight="92dp"
+        android:layout_marginBottom="33dp"
+        android:layout_gravity="right|bottom"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        />
+
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_user_head"-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--android:layout_gravity="right|bottom"-->
+        <!--android:layout_marginRight="10dp"-->
+
+        <!--android:src="@drawable/default_useravatar" />-->
+
+
+        <com.anda.moments.views.round.SelectableRoundedImageView
+            android:id="@+id/iv_user_head"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            app:sriv_left_top_corner_radius="5dip"
+            app:sriv_right_top_corner_radius="5dip"
+            app:sriv_left_bottom_corner_radius="5dip"
+            app:sriv_right_bottom_corner_radius="5dip"
+            app:sriv_border_width="1dip"
+            app:sriv_border_color="#ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_useravatar" />
+
+
+
+
+
+
+
+
+
+</FrameLayout>
