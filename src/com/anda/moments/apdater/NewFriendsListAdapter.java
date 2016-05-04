@@ -91,7 +91,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			holder.mTvStatus = (TextView)convertView.findViewById(R.id.tv_status);
 			holder.mTvAccept = (TextView)convertView.findViewById(R.id.tv_accept_add_friend);
 
-//			holder.tvContent.setOnClickListener(holder);
+			holder.tvContent.setOnClickListener(holder);
 			holder.mTvAccept.setOnClickListener(holder);
 
 			convertView.setTag(holder);
@@ -106,9 +106,9 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			Picasso.with(context).load(dto.getIcon()).placeholder(context.getResources().getDrawable(R.drawable.default_useravatar)).into(holder.ivHead);
 
 			int flag = dto.getFlag();
-			if(flag == 0){//flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请
-				holder.mTvAccept.setVisibility(View.GONE);
-				holder.mTvStatus.setVisibility(View.VISIBLE);
+			if(flag == 0){//flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
+				holder.mTvAccept.setVisibility(View.VISIBLE);
+				holder.mTvStatus.setVisibility(View.GONE);
 				holder.mTvStatus.setText("已添加");
 			}else if(flag == 1){
 				holder.mTvAccept.setVisibility(View.GONE);
@@ -149,7 +149,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			User user = list.get(position);
 			switch (v.getId()){
 				case R.id.tv_accept_add_friend:
-					addFriend(user.getUserId());
+					addFriend(position,String.valueOf(user.getRelationId()));
 					break;
 				case R.id.content:
 
@@ -167,7 +167,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 	 * @param friendId
      */
 	LoadingDialog mLoadingDialog;
-	private void addFriend(String friendId){
+	private void addFriend(final int position, String relId){
 		User user = MyApplication.getInstance().getCurrentUser();
 		if(user==null){
 			Intent intent = new Intent(context, LoginActivity.class);
@@ -178,14 +178,17 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			mLoadingDialog = new LoadingDialog(context);
 
 		}
-		int flag = 1;
+		int flag = 1;//接受好友请求
 		mLoadingDialog.show();
-		ApiUserUtils.dealFriendsRequest(context, user.getPhoneNum(), friendId,flag, new HttpConnectionUtil.RequestCallback() {
+		ApiUserUtils.dealFriendsRequest(context, user.getPhoneNum(), relId,flag, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					list.get(position).setFlag(1);
+					notifyDataSetChanged();
 					ToastUtils.showToast(context,parseModel.getInfo());
+
 				}else{
 					ToastUtils.showToast(context,parseModel.getInfo());
 				}

@@ -117,6 +117,7 @@ public class SearchFriendsListAdapter extends BaseAdapter  {
 		public void onClick(View v) {
 			User user = list.get(position);
 			Intent intent = new Intent(mActivity, UserInfoActivity.class);
+			user.setFlag(0);//不是好友，要展示添加好友按钮
 			intent.putExtra("user",user);
 			mActivity.startActivity(intent);
 		}

@@ -159,7 +159,7 @@ public class PublishPictureActivity extends BaseActivity {
 
 	private OkHttpClient client = new OkHttpClient();
 	//参数类型
-	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/JPEG");
+	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
 	private void sendPictureByXutils(){
 		final String content = mEtContent.getText().toString().trim();
@@ -276,11 +276,8 @@ public class PublishPictureActivity extends BaseActivity {
 					String Str = Bimp.drr.get(i).substring(
 							Bimp.drr.get(i).lastIndexOf("/") + 1,
 							Bimp.drr.get(i).lastIndexOf("."));
-					list.add(FileUtils.SDPATH+Str+".JPEG");
-					JsonObject jsonObject = new JsonObject();
-					jsonObject.addProperty("name",Str+".JPEG");
-					jsonObject.addProperty("type","1");
-					fileMetaInfo.add(jsonObject);
+					list.add(FileUtils.SDPATH+Str+".png");
+
 
 				}
 				// 高清的压缩图片全部就在  list 路径里面了
@@ -290,17 +287,27 @@ public class PublishPictureActivity extends BaseActivity {
 
 
 				//添加一个文本表单参数
-				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
-				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
+
+
 				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
 				for(int i = 0;i<list.size();i++){
 					File file = new File(list.get(i));
 					if(file.exists()){
+
+						JsonObject jsonObject = new JsonObject();
+						jsonObject.addProperty("name",file.getName());
+						jsonObject.addProperty("type","1");
+						fileMetaInfo.add(jsonObject);
+
 						RequestBody fileBody = RequestBody.create(MEDIA_TYPE_PNG,file);
 //						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
-						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
+//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
+						multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+
 					}
 				}
+				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
 				multipartBuilder.addFormDataPart("infoText",content);//动态内容
 				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
 
@@ -318,18 +325,37 @@ public class PublishPictureActivity extends BaseActivity {
 
 					mLoadingDialog.cancel();
 					if(!response.isSuccessful()){
-						ToastUtils.showToast(mContext,"发布失败");
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ToastUtils.showToast(mContext,"发布失败");
+							}
+						});
+
 					}else{
 						try {
 							JSONObject jsonResult = new JSONObject(response.body().string());
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
-								ToastUtils.showToast(mContext,"发布成功");
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext,"发布成功");
+										AppManager.getAppManager().finishActivity(PublishActivity.class);
+										AppManager.getAppManager().finishActivity();
+									}
+								});
 								// 完成上传服务器后 .........
 								FileUtils.deleteDir();
 							}else{
-								String info = jsonResult.getString("info");
-								ToastUtils.showToast(mContext,info);
+								final String info = jsonResult.getString("info");
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext,info);
+									}
+								});
+
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();

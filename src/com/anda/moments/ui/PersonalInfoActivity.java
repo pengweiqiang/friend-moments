@@ -133,7 +133,9 @@ public class PersonalInfoActivity extends BaseActivity {
 
 					break;
 				case R.id.rl_login_out://登出
-
+					logOut();
+					Intent intent = new Intent(mContext,LoginActivity.class);
+					startActivity(intent);
 					break;
 				case R.id.rl_setting://设置
 					startActivity(SettingActivity.class);

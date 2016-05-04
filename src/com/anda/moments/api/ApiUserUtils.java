@@ -31,8 +31,9 @@ public class ApiUserUtils {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("myPhoneNum", phoneNum);
 		params.put("relationId",relationId);
+		params.put("flag",String.valueOf(flag));
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST, false,
-				requestCallback, MethodType.UPDATE, context,HttpMethod.GET);
+				requestCallback, MethodType.UPDATE, context);
 	}
 
 	/**

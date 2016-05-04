@@ -158,7 +158,7 @@ public static final String PROJECT_NAME = "";
 	/**
 	 * 处理好友请求
 	 */
-	public static final String REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST = "friends/addFriend.do";
+	public static final String REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST = "friends/dealFriendRequest.do";
 	
 	
 	/**

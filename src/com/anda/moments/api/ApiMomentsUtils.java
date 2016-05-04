@@ -39,11 +39,15 @@ public class ApiMomentsUtils {
 	 * 
 	 * @param context
 	 * @param phoneNum  手机号
+	 * @param flag    请求接口标识：1-表示查询已经添加完成好友列表
 	 * @param requestCallBack
 	 */
-	public static void getMyFriendsList(Context context,String phoneNum,RequestCallback requestCallBack){
+	public static void getMyFriendsList(Context context,String phoneNum,int flag,RequestCallback requestCallBack){
 		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum", phoneNum);
+		if(flag != -1) {
+			params.put("flag", String.valueOf(flag));
+		}
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_MY_FRIENDS_LIST, false, 
 				requestCallBack, MethodType.FRIENDS, context);
 	}

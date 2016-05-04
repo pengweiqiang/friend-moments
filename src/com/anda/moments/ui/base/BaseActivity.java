@@ -195,8 +195,12 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	 * 退出登录
 	 */
 	public void logOut() {
-		
+
+		GlobalConfig.JSESSION_ID = "";
+		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,ReqUrls.JSESSION_ID,"");
 		application.setUser(null);
+		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,"user","");
+		AppManager.getAppManager().finishAllActivity(LoginActivity.class);
 	}
 
 	/**

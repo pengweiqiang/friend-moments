@@ -131,7 +131,7 @@ public class NewFriendsListActivity extends BaseActivity {
 		}
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
-		ApiMomentsUtils.getMyFriendsList(mContext, user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+		ApiMomentsUtils.getMyFriendsList(mContext, user.getPhoneNum(),-1, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();
@@ -196,16 +196,35 @@ public class NewFriendsListActivity extends BaseActivity {
 		mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
 			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-				switch (index) {
-					case 0:
-						//User user = newUsers.get(position);
-						//addFriend(user.getUserId());
-						newUsers.remove(position);
-						mFriendListAdapter.notifyDataSetChanged();
-						break;
-				}
+				User user = newUsers.get(position);
+				int flag = user.getFlag();
+
+					switch (index) {
+						case 0:
+							if(flag == 0) {
+								addFriend(position, String.valueOf(user.getRelationId()));
+							}else {
+								newUsers.remove(position);
+								mFriendListAdapter.notifyDataSetChanged();
+							}
+							break;
+					}
 			}
 		});
+//		// set SwipeListener
+//		mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+//
+//			@Override
+//			public void onSwipeStart(int position) {
+//				// swipe start
+//			}
+//
+//			@Override
+//			public void onSwipeEnd(int position) {
+//				// swipe end
+//			}
+//		});
+
 	}
 
 
@@ -213,7 +232,7 @@ public class NewFriendsListActivity extends BaseActivity {
 	 * 添加好友 flag 2 拒绝好友
 	 * @param friendId
 	 */
-	private void addFriend(String friendId){
+	private void addFriend(final int position, String friendId){
 		User user = getUser();
 		if(user==null){
 			return;
@@ -229,6 +248,9 @@ public class NewFriendsListActivity extends BaseActivity {
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					newUsers.get(position).setFlag(2);
+					newUsers.remove(position);
+					mFriendListAdapter.notifyDataSetChanged();
 					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());

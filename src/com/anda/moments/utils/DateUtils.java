@@ -393,5 +393,51 @@ public class DateUtils {
         return dateFormat.format(date);
     }
 
+    private static final long ONE_SECOND = 1000;
+    private static final long ONE_MINUTE = ONE_SECOND * 60;
+    private static final long ONE_HOUR = ONE_MINUTE * 60;
+    private static final long ONE_DAY = ONE_HOUR * 24;
+
+    /**
+     * 获取目标时间和当前时间之间的差距
+     *
+     * @param time
+     * @return
+     */
+    public static String getTimestampString(long time) {
+        Date curDate = new Date();
+
+        long splitTime = curDate.getTime() - time;
+        if (splitTime < (3 * ONE_DAY)) {
+            if (splitTime < ONE_MINUTE) {
+                return "刚刚";
+            }
+            if (splitTime < ONE_HOUR) {
+                return String.format("%d分钟前", splitTime / ONE_MINUTE);
+            }
+
+            if (splitTime < ONE_DAY) {
+                return String.format("%d小时前", splitTime / ONE_HOUR);
+            }
+
+            return String.format("%d天前", splitTime / ONE_DAY);
+        }
+        String result;
+        result = "M月d日";
+        return (new SimpleDateFormat(result, Locale.CHINA)).format(new Date(time));
+    }
+
+
+    public static String getTimestampString2(long time) {
+        Date curDate = new Date();
+
+        long splitTime = curDate.getTime() - time;
+        if (splitTime < (1 * ONE_DAY)) {
+            return "今天";
+        }
+        String result;
+        result = "M月dd";
+        return (new SimpleDateFormat(result, Locale.CHINA)).format(new Date(time));
+    }
     
 }

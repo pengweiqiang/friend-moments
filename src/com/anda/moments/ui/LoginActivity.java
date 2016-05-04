@@ -127,10 +127,10 @@ public class LoginActivity extends BaseActivity {
 			ToastUtils.showToast(mContext, "请输入手机号");
 			return ;
 		}
-		if(phone.equals("15652265841")){
-			loginSuccess();
-			return;
-		}
+//		if(phone.equals("15652265841")){
+//			loginSuccess();
+//			return;
+//		}
 		String code = mEtCode.getText().toString().trim();
 		if(StringUtils.isEmpty(code)){
 			mEtCode.requestFocus();

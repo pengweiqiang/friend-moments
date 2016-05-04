@@ -54,6 +54,7 @@ public class UserInfoActivity extends BaseActivity {
 	LoadingDialog mLoadingDialog;
 
 	String phoneNum = "";
+	int flag = 0;//0未添加好友 1已接受好友
 	User user;
 	@Override
 	@SuppressLint("InlinedApi")
@@ -68,6 +69,7 @@ public class UserInfoActivity extends BaseActivity {
 
 		user = (User)this.getIntent().getSerializableExtra("user");
 		phoneNum = user.getPhoneNum();
+		flag = user.getFlag();
 		showData();
 
 		getData();
@@ -102,6 +104,7 @@ public class UserInfoActivity extends BaseActivity {
 
 		mBtnAddFriends = (Button)findViewById(R.id.btn_add_friend);
 		mBtnSendMsg = (Button)findViewById(R.id.btn_send_msg);
+
 
 	}
 
@@ -167,6 +170,11 @@ public class UserInfoActivity extends BaseActivity {
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(mIvUserHead);
 			Picasso.with(mContext).load(user.getIcon()).centerCrop().placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			if(flag==1){
+				mBtnAddFriends.setVisibility(View.GONE);
+			}else{
+				mBtnAddFriends.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 

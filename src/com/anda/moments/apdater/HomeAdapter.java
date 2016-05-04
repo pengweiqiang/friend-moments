@@ -82,7 +82,7 @@ public class HomeAdapter extends BaseAdapter {
 
         viewHolder.setPosition(position);
 
-        if (itemList.isEmpty() || itemList.isEmpty()) {
+        if (itemList==null || itemList.isEmpty()) {
             viewHolder.ivMore.setVisibility(View.GONE);
             viewHolder.ivOne.setVisibility(View.GONE);
         } else if (itemList.size() == 1) {
@@ -182,6 +182,7 @@ public class HomeAdapter extends BaseAdapter {
     private void startUserInfoActivity(int position){
         Intent intent = new Intent(context, UserInfoActivity.class);
         User user = new User();
+        user.setFlag(1);
         user.setPhoneNum("15652265843");
         intent.putExtra("user",user);
         context.startActivity(intent);

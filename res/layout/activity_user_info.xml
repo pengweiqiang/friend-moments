@@ -334,7 +334,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_login2"
             android:text="添加好友"
-            android:textStyle="italic"
+            android:visibility="gone"
             android:textColor="@color/white" />
 
         <Button
@@ -347,7 +347,6 @@
             android:background="@drawable/btn_login2"
             android:text="发送消息"
             android:layout_marginBottom="10dp"
-            android:textStyle="italic"
             android:textColor="@color/white" />
         </LinearLayout>
 

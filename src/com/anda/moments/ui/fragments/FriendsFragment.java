@@ -46,6 +46,7 @@ import com.anda.moments.ui.OutSouceReadActivity;
 import com.anda.moments.ui.OutSourceEntranceActivity;
 import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.ui.base.BaseFragment;
+import com.anda.moments.ui.base.LazyFragment;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.JsonUtils;
@@ -77,7 +78,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	private View mBtnFriendsMessage;//好友消息
 	private EditText mEtSearchFriends;//搜索好友
 
-	private List<User> friendLists;//好友列表
+	private List<User> friendLists = new ArrayList<User>();//好友列表
 	FriendsListAdapter mFriendListAdapter;
 
 	private CharacterParser characterParser;// 汉字转拼音
@@ -103,6 +104,9 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 
 		initView();
 		initListener();
+
+		isPrepared = true;//控件初始化完成
+
 		return mContentView;
 	}
 	private void initView(){
@@ -182,7 +186,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		getFriendsList();
+
 
 	}
 
@@ -190,7 +194,13 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	public void onResume() {
 		super.onResume();
 	}
-	
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		getFriendsList();
+	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -209,19 +219,21 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		if(user==null){
 			return;
 		}
-		ApiMomentsUtils.getMyFriendsList(mActivity, user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+		ApiMomentsUtils.getMyFriendsList(mActivity, user.getPhoneNum(),1, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-					Log.e("FriendsFragment","获取好友列表："+parseModel.getData());
+					isLoadData = true;
+					Log.e("FriendsFragment","获取好友列表："+parseModel.getResults().toString());
 					int reqCount = parseModel.getReqCount();//好友请求个数
 					if(reqCount>0) {
-						mTvReqCount.setText(reqCount);
+						mTvReqCount.setVisibility(View.VISIBLE);
+						mTvReqCount.setText(String.valueOf(reqCount));
 					}else{
 						mTvReqCount.setVisibility(View.GONE);
 					}
-					friendLists = JsonUtils.fromJson(parseModel.getResults().toString(),new TypeToken<List<User>>(){});
-					initData();
+					List<User> friends = JsonUtils.fromJson(parseModel.getResults().toString(),new TypeToken<List<User>>(){});
+					initData(friends);
 				}else{
 					ToastUtils.showToast(mActivity,parseModel.getInfo());
 				}
@@ -229,22 +241,30 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		});
 	}
 
-	private void initData(){
+	private void initData(List<User> friends){
+
 		// 实例化汉字转拼音类
 		characterParser = CharacterParser.getInstance();
 		pinyinComparator = new PinyinComparator();
-		if(friendLists!=null && !friendLists.isEmpty()){
-			for(User user:friendLists){
-				String pinyin = characterParser.getSelling(user.getUserName());
-				String suoxie = CharacterParser.getFirstSpell(user.getUserName());
+		if(friends!=null && !friends.isEmpty()){
+			friendLists.clear();
+			for(User user:friends){
+				int flag = user.getFlag();// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
+				if(flag == 1) {
+					String pinyin = characterParser.getSelling(user.getUserName());
+					String suoxie = CharacterParser.getFirstSpell(user.getUserName());
 
-				user.setSuoxie(suoxie);
-				String sortString = pinyin.substring(0, 1).toUpperCase();
+					user.setSuoxie(suoxie);
+					String sortString = pinyin.substring(0, 1).toUpperCase();
 
-				if (sortString.matches("[A-Z]")) {// 正则表达式，判断首字母是否是英文字母
-					user.setSortLetters(sortString);
-				} else {
-					user.setSortLetters("☆");
+					if (sortString.matches("[A-Z]")) {// 正则表达式，判断首字母是否是英文字母
+						user.setSortLetters(sortString);
+					} else {
+						user.setSortLetters("☆");
+					}
+					friendLists.add(user);
+				}else{
+					continue;
 				}
 			}
 		}else{
@@ -312,6 +332,27 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		Collections.sort(filterDateList, pinyinComparator);
 		mFriendListAdapter.updateListView(filterDateList);
 	}
+
+
+	private boolean isLoadData = false;//是否已经加载数据
+	private boolean isPrepared = false;//标志已经初始化完成
+
+//	@Override
+//	public void setUserVisibleHint(boolean isVisibleToUser) {
+//		super.setUserVisibleHint(isVisibleToUser);
+//		if(isPrepared && isVisibleToUser){
+//			getFriendsList();
+//		}
+//	}
+
+//	@Override
+//	public void onHiddenChanged(boolean hidden) {
+//		super.onHiddenChanged(hidden);
+//		if(!hidden){
+//			getFriendsList();
+//		}
+//	}
+
 
 	/**
 	 * 填充数据

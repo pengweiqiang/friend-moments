@@ -1,116 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.anda.moments"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
+    android:layout_height="120dp"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp"
     >
 
+
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        >
+        <!--<View-->
+            <!--android:id="@+id/line_top"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#e78699"-->
+            <!--android:layout_above="@+id/tv_publish_time"-->
+            <!--/>-->
+        <com.anda.moments.views.DashedLineView
+            android:id="@+id/line_top"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tv_publish_time"
+            />
 
-        <com.anda.moments.views.round.SelectableRoundedImageView
-            android:id="@+id/iv_user_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"
-            app:sriv_left_top_corner_radius="5dip"
-            app:sriv_right_top_corner_radius="5dip"
-            app:sriv_left_bottom_corner_radius="5dip"
-            app:sriv_right_bottom_corner_radius="5dip"
-            app:sriv_border_width="1dip"
-            app:sriv_border_color="#ffffff"
-            android:src="@drawable/default_useravatar" />
-
-        <RelativeLayout
-            android:layout_toRightOf="@+id/iv_user_head"
-            android:layout_marginLeft="10dp"
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/tv_publish_time"
+            android:text="今天"
+            android:textColor="#e78699"
+            android:layout_centerVertical="true"
+            android:layout_width="28dp"
+            android:gravity="center"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:layout_height="44dp">
+            android:layout_height="wrap_content"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_publish_time"
+            android:layout_centerHorizontal="true"
+            >
 
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:textColor="#434343"
-                android:text="小明"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
+            <com.anda.moments.views.DashedLineView
+                android:id="@+id/line_bottom"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/tv_publish_time"
                 />
 
-            <TextView
-                android:id="@+id/tv_create_time"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2015-03-24 10:24"
-                android:textColor="#898989"
-                android:textSize="13sp"
-                />
         </RelativeLayout>
 
+        <!--<View-->
+            <!--android:layout_below="@+id/tv_publish_time"-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#e78699"-->
+            <!--/>-->
 
     </RelativeLayout>
 
+
+    <com.anda.moments.views.MultiMyImageView
+        android:id="@+id/iv_multi_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="15dp"
+        />
+
+    <!--多张图片-->
+    <!--<com.anda.moments.views.NineGridlayout-->
+        <!--android:id="@+id/iv_ngrid_layout"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="110dp" />-->
+
+    <!--&lt;!&ndash;单张图片&ndash;&gt;-->
+    <!--<com.anda.moments.views.CustomImageView-->
+        <!--android:id="@+id/iv_oneimage"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_width="110dp"-->
+        <!--android:layout_height="110dp" />-->
+
     <TextView
         android:id="@+id/tv_content"
-        android:text="今天好开心好开心!!!!!"
+        android:text="今天好开心今天好开心今天好开心今天好开心今天好开心好开心!!!!!"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_height="match_parent"
         android:textColor="#434343"
-        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="7dp"
+        android:ellipsize="end"
+        android:lines="6"
         />
 
-    <!--<com.anda.moments.views.MultiImageView-->
-        <!--android:id="@+id/multiImagView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--&gt;-->
-    <!--</com.anda.moments.views.MultiImageView>-->
-    <!--多张图片-->
-    <com.anda.moments.views.NineGridlayout
-        android:id="@+id/iv_ngrid_layout"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
 
-    <!--单张图片-->
-    <com.anda.moments.views.CustomImageView
-        android:id="@+id/iv_oneimage"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!--<com.anda.moments.views.MultiImageView-->
-        <!--android:id="@+id/iv_multi_image"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--/>-->
-
-    <!--评论-->
-    <ImageView
-        android:id="@+id/iv_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/btn_comment"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        />
 
 
 

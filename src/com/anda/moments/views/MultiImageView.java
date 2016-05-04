@@ -80,7 +80,7 @@ public class MultiImageView extends LinearLayout {
 
 	/**
 	 * Determines the width of this view
-	 * 
+	 * w'v
 	 * @param measureSpec
 	 *            A measureSpec packed into an int
 	 * @return The width of the view, honoring constraints from measureSpec

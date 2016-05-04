@@ -10,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -18,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.anda.moments.R;
+import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.Log;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 //import com.anda.universalimageloader.core.DisplayImageOptions;
@@ -56,8 +59,8 @@ public class ImagePagerActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imagepager);
+        super.onCreate(savedInstanceState);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         guideGroup = (LinearLayout) findViewById(R.id.guideGroup);
 
@@ -89,11 +92,13 @@ public class ImagePagerActivity extends BaseActivity {
         viewPager.setCurrentItem(startPos);
 
         addGuideView(guideGroup, startPos, imgUrls);
+        if(imgUrls==null || imgUrls.size()<=1){
+            guideGroup.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void initView() {
-
     }
 
     @Override
@@ -213,7 +218,16 @@ public class ImagePagerActivity extends BaseActivity {
 //                });
 
                 container.addView(view, 0);
+
+//                imageView.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View v, MotionEvent event) {
+//                        AppManager.getAppManager().finishActivity();
+//                        return false;
+//                    }
+//                });
             }
+
             return view;
         }
 
@@ -238,4 +252,6 @@ public class ImagePagerActivity extends BaseActivity {
 
 
     }
+
+
 }

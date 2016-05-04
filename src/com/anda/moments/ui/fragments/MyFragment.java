@@ -22,6 +22,7 @@ import com.anda.moments.apdater.MyAdapter;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.Image;
+import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
@@ -60,17 +61,8 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	private View mContentView;
 	private ActionBar mActionBar;
 	private XListView mListView;
-	private List<List<String>> imagesList=new ArrayList<List<String>>();;
-	private String[] images=new String[]{
-			"http://pic4.zhongsou.com/image/4808b8d0191adf4bcde.jpg"
-			,"file:///android_asset/img2.jpg"
-			,"file:///android_asset/img3.jpg"
-			,"file:///android_asset/img4.jpg"
-			,"file:///android_asset/img5.jpg"
-			,"file:///android_asset/img6.jpg"
-			,"file:///android_asset/img7.jpg"
-			,"file:///android_asset/img8.jpg"
-			,"http://pic32.nipic.com/20130715/13232606_164243348120_2.jpg"};
+	private List<Infos> infosList = new ArrayList<Infos>();
+
 
 
 	private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -103,7 +95,6 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		initView();
 		initListener();
 
-		getMyData();
 
 		return mContentView;
 	}
@@ -161,29 +152,13 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 
-		mMyAdapter = new MyAdapter(mActivity,imagesList);
+		mMyAdapter = new MyAdapter(mActivity,infosList);
 		mListView.setAdapter(mMyAdapter);
 
 
 
 	}
 
-	private void getData() {
-
-		//这里单独添加一条单条的测试数据，用来测试单张的时候横竖图片的效果
-		ArrayList<String> singleList=new ArrayList<String>();
-		singleList.add(images[8]);
-		imagesList.add(singleList);
-		//从一到9生成9条朋友圈内容，分别是1~9张图片
-		for(int i=0;i<9;i++){
-			ArrayList<String> itemList=new ArrayList<String>();
-			for(int j=0;j<=i;j++){
-				itemList.add(images[j]);
-			}
-			imagesList.add(itemList);
-		}
-		mMyAdapter.notifyDataSetChanged();
-	}
 
 
 	@Override
@@ -218,7 +193,6 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	private void initListener(){
 		mIvUserHead.setOnClickListener(onClickListener);
 
-
 	}
 
 
@@ -228,7 +202,9 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		public void onClick(View v) {
 			switch (v.getId()) {
 				case R.id.iv_user_head://头像跳入个人中心
-					startActivity(PersonalInfoActivity.class);
+					Intent intent = new Intent(mActivity,PersonalInfoActivity.class);
+					intent.putExtra("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+					startActivity(intent);
 					break;
 				case R.id.btn_distance:
 //				openRotation(mContentView.findViewById(R.id.down2));
@@ -249,14 +225,15 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 
 
 
-	private void getMyData(){
+	private void getData(){
 		User user = getUser();
 		if(user==null){
 			return;
 		}
-		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(),"10",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
+				mSwipeRefreshLayout.setRefreshing(false);
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 //					Log.e("MyFragment",parseModel.getResults().getAsString());
 					myInfo = new MyInfo();
@@ -273,11 +250,20 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 
 	private void initData(){
 
-		if(myInfo!=null && myInfo.getPublishUser()!=null){//个人信息
-			User user = myInfo.getPublishUser();
-			mTvUserSign.setText(user.getSummary());
-			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
-			mTvUserName.setText(user.getUserName());
+		if(myInfo!=null ){
+			if(myInfo.getPublishUser()!=null) {//个人信息
+				User user = myInfo.getPublishUser();
+				mTvUserSign.setText(user.getSummary());
+				Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+				mTvUserName.setText(user.getUserName());
+			}
+			if(myInfo.getInfos()!=null){
+				if(page == 1){
+					infosList.clear();
+				}
+				infosList.addAll(myInfo.getInfos());
+				mMyAdapter.notifyDataSetChanged();
+			}
 		}
 	}
 

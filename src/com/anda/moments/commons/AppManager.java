@@ -114,4 +114,20 @@ public class AppManager {
 		activityStack.clear();
 		System.exit(0);
 	}
+
+	/**
+	 * 结束所有的Activity 除指定的activity
+	 */
+	public void finishAllActivity(Class unCloseClass) {
+		for (int i = 0, size = activityStack.size(); i < size; i++) {
+			Activity activity = activityStack.get(i);
+			if(activity.getClass().getName().equals(unCloseClass.getName())){
+				continue;
+			}else {
+				if (null != activityStack.get(i) && !activityStack.get(i).isFinishing()) {
+					activityStack.get(i).finish();
+				}
+			}
+		}
+	}
 }

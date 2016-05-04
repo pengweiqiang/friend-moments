@@ -19,8 +19,9 @@ public class User implements Serializable{
 	private String district;
 	private String summary;
 	private String descTag;
-	private int flag;//flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请
+	private int flag;// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
 	private long createTime;
+	private long relationId;
 
 	private String sortLetters; // 显示数据拼音的首字母
 	private String suoxie;// 姓名缩写
@@ -143,5 +144,13 @@ public class User implements Serializable{
 
 	public void setCreateTime(long createTime) {
 		this.createTime = createTime;
+	}
+
+	public long getRelationId() {
+		return relationId;
+	}
+
+	public void setRelationId(long relationId) {
+		this.relationId = relationId;
 	}
 }

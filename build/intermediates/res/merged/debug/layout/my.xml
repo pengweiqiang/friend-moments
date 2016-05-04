@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:listSelector="@android:color/transparent"
-            android:divider="@color/grey_line"
-            android:dividerHeight="1dp" />
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

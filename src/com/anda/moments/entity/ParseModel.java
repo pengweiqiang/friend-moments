@@ -21,7 +21,7 @@ public class ParseModel extends BaseModel {
 
 	private JsonElement result;
 
-	private int ReqCount;//好友请求个数
+	private int reqCount;//好友请求个数
 	
 	private User user;
 
@@ -70,11 +70,11 @@ public class ParseModel extends BaseModel {
 	}
 
 	public int getReqCount() {
-		return ReqCount;
+		return reqCount;
 	}
 
 	public void setReqCount(int reqCount) {
-		ReqCount = reqCount;
+		reqCount = reqCount;
 	}
 
 	public JsonElement getResult() {

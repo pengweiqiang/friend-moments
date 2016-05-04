@@ -19,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
@@ -28,6 +29,7 @@ import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.entity.Image;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PartTimeJob;
+import com.anda.moments.entity.User;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.utils.DeviceInfo;
@@ -36,6 +38,7 @@ import com.anda.moments.utils.Log;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * 兼职
@@ -64,6 +67,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ImageView mIvHeadBg;//背景
 	private ImageView mIvUserHead;//头像
+	private TextView mTvUserName;//昵称
 	
 
 	
@@ -86,6 +90,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		initView();
 		initListener();
 
+		initData();
+
 		
 		return mContentView;
 	}
@@ -99,7 +105,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		mListView.addHeaderView(mHeadView);
 
 		mIvHeadBg = (ImageView)mContentView.findViewById(R.id.iv_bg_head);//背景
-		mIvUserHead = (ImageView)mContentView.findViewById(R.id.iv_user_head);//头像
+		mIvUserHead = (ImageView)mHeadView.findViewById(R.id.iv_user_head);//头像
+		mTvUserName = (TextView)mHeadView.findViewById(R.id.tv_user_name_head);
 
 		//背景适配
 		int width = DeviceInfo.getDisplayMetricsWidth(mActivity);
@@ -227,6 +234,14 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		}
 	};
 
+
+	private void initData(){
+		User user = getUser();
+		if(user!=null){//个人信息
+			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			mTvUserName.setText(user.getUserName());
+		}
+	}
 	
 
 
