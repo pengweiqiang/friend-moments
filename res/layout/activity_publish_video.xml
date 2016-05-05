@@ -1,128 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_color"
-    android:id="@+id/rl_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:keepScreenOn="true"
     >
-
-    <ImageView
-        android:layout_width="wrap_content"
+    <sz.itguy.wxlikevideo.views.CameraPreviewView
+        android:id="@+id/camera_preview"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg_publish"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
         />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:id="@+id/fl_btn_start"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/camera_preview"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:background="@android:color/black"
+        android:layout_height="match_parent"
         >
-        <!--照片-->
-        <RelativeLayout
-            android:id="@+id/rl_publish_picture"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
-            android:paddingBottom="80dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_publish_picture"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/publish_picture"
-                android:layout_centerHorizontal="true"
-                />
-            <TextView
-                android:layout_below="@+id/iv_publish_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#434343"
-                android:text="照片"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                android:layout_centerHorizontal="true"
-                />
-
-        </RelativeLayout>
-        <!--视频-->
-        <RelativeLayout
-            android:id="@+id/rl_publish_video"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
+        <ProgressBar
+            android:id="@+id/record_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            style="@style/ProgressBarHorizontal"
+            android:max="1000"
+            android:progress="0"
+            />
+        <sz.itguy.wxlikevideo.views.CircleBackgroundTextView
+            android:id="@+id/button_start"
+            android:text="按住拍"
+            android:textColor="@color/white"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:paddingBottom="80dp"
-            android:layout_height="wrap_content"
-            >
+            android:onClick="onClick"
+            />
+    </FrameLayout>
 
-            <ImageView
-                android:id="@+id/iv_publish_video"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/publish_video"
-                android:layout_centerHorizontal="true"
-                />
-            <TextView
-                android:layout_below="@+id/iv_publish_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#434343"
-                android:text="视频"
-                android:layout_centerHorizontal="true"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                />
-
-        </RelativeLayout>
-
-
-        <!--语音-->
-        <RelativeLayout
-            android:id="@+id/rl_publish_vioce"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:paddingBottom="80dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            >
-
-            <ImageView
-                android:id="@+id/iv_publish_voice"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/publish_vioce"
-                android:layout_centerHorizontal="true"
-                />
-            <TextView
-                android:layout_below="@+id/iv_publish_voice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#434343"
-                android:layout_centerHorizontal="true"
-                android:text="语音"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-
-
-
-
-
+    <TextView
+        android:id="@+id/filePathTextView"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

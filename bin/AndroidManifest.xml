@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="2"
-    android:versionName="1.2" >
+    android:versionCode="4"
+    android:versionName="1.4" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,7 +20,7 @@
     </uses-permission>
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="18" />
 
     <application
@@ -42,17 +42,87 @@
         </activity>
         
         
-        
+
+        <activity android:name=".ui.publish.PublishActivity"
+            android:label="发布"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ui.publish.PublishPictureActivity"
+            android:label="发布图片"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.PhotoActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.SelectPicActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.ImageGridActivity"
+            android:label="图片详情"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.ImagePagerActivity"
+            android:label="首页详情图片"
+            android:screenOrientation="portrait"
+            />
+
+
+
+        <activity android:name=".ui.publish.PublishVoiceActivity"
+            android:label="发布语音"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.PublishVideoActivity"
+            android:label="发布视频"
+            android:screenOrientation="portrait"
+            />
+
         <activity 
             android:name=".ui.UserInfoActivity"
-            android:label="会员"
+            android:label="详细资料"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             >
-            
-            
         </activity>
-        <activity 
+        <activity android:name=".ui.PersonalInfoActivity"
+            android:label="个人中心"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.SettingActivity"
+            android:label="设置"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ui.AddFriendsActivity"
+            android:label="添加好友"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.NewFriendsListActivity"
+            android:label="新好友请求"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".ui.ConversationActivity"
+            android:label="单聊会话"
+            >
+            <intent-filter >
+                <action android:name="android.intent.action.VIEW"></action>
+
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data
+                    android:host="com.anda.moments"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong"
+                    ></data>
+
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name="com.anda.moments.ui.MyOrderActivity"
             android:label="我的单子"
             android:launchMode="singleTask"
@@ -87,6 +157,7 @@
             android:name="com.anda.moments.ui.MainActivity"
             android:label="主页面"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"
             android:screenOrientation="portrait"
             >
             

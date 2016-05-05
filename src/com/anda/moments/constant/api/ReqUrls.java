@@ -99,6 +99,8 @@ public interface ReqUrls {
 	public static final String USER_REQUEST_INFO="userRequestInfo";
 	
 	public static final String JSESSION_ID = "jsessionId";
+
+	public static final String TOKEN_RONG = "token_rong";//融云token
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**

@@ -1,6 +1,7 @@
 package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +32,9 @@ import com.anda.moments.views.LoadingDialog;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 /**
  * 个人信息(自己、以及好友信息)
@@ -76,6 +80,16 @@ public class UserInfoActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		user = (User)intent.getSerializableExtra("user");
+		phoneNum = user.getPhoneNum();
+		flag = user.getFlag();
+		showData();
+		getData();
+	}
+
+	@Override
 	public void initView() {
 		mActionbar = (ActionBar)findViewById(R.id.actionBar);
 		mActionbar.setTitle("详细资料");
@@ -113,6 +127,7 @@ public class UserInfoActivity extends BaseActivity {
 		mBtnSign.setOnClickListener(onClickListener);
 		mBtnRemarks.setOnClickListener(onClickListener);
 		mBtnAddFriends.setOnClickListener(onClickListener);
+		mBtnSendMsg.setOnClickListener(onClickListener);
 //		mBtnAddSystem.setOnClickListener(onClickListener);
 	}
 	
@@ -131,7 +146,17 @@ public class UserInfoActivity extends BaseActivity {
 					addFriend();
 					break;
 				case R.id.btn_send_msg://发送消息
-
+					/**
+					 * 启动单聊
+					 * context - 应用上下文。
+					 * targetUserId - 要与之聊天的用户 Id。
+					 * title - 聊天的标题，如果传入空值，则默认显示与之聊天的用户名称。
+					 */
+//					RongIM.getInstance().startPrivateChat(mContext, "2642", "hello");
+					if(user==null){
+						return;
+					}
+					RongIM.getInstance().startConversation(mContext, Conversation.ConversationType.PRIVATE, String.valueOf(user.getPhoneNum()), user.getUserName());
 					break;
 			}
 		}

@@ -1,16 +1,27 @@
 package com.anda.moments;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
+import android.view.View;
 
 import com.anda.GlobalConfig;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
 import com.anda.moments.entity.User;
+import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.LoginActivity;
+import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -21,6 +32,17 @@ import com.anda.universalimageloader.core.ImageLoader;
 import com.anda.universalimageloader.core.ImageLoaderConfiguration;
 import com.anda.universalimageloader.core.assist.ImageScaleType;
 import com.anda.universalimageloader.core.assist.QueueProcessingType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
+import io.rong.message.ImageMessage;
+import io.rong.message.RichContentMessage;
 
 public class MyApplication extends Application {
 
@@ -61,8 +83,18 @@ public class MyApplication extends Application {
 		myApplication = this;
 		initImageLoader(this);
 
+		/**
+		 * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIM 的进程和 Push 进程执行了 init。
+		 * io.rong.push 为融云 push 进程名称，不可修改。
+		 */
+		if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
+				"io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
 
-
+			/**
+			 * IMKit SDK调用第一步 初始化
+			 */
+			RongIM.init(this);
+		}
 
 		try{
 
@@ -86,6 +118,8 @@ public class MyApplication extends Application {
 		}catch(Exception e){
 
 		}
+
+		setConversionListener();
 
 	}
 
@@ -145,6 +179,126 @@ public class MyApplication extends Application {
 		
 	}
 */
+
+	/**
+	 * 获得当前进程的名字
+	 *
+	 * @param context
+	 * @return 进程号
+	 */
+	public static String getCurProcessName(Context context) {
+
+		int pid = android.os.Process.myPid();
+
+		ActivityManager activityManager = (ActivityManager) context
+				.getSystemService(Context.ACTIVITY_SERVICE);
+
+		for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
+				.getRunningAppProcesses()) {
+
+			if (appProcess.pid == pid) {
+				return appProcess.processName;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 会话聊天点击
+	 */
+	private void setConversionListener(){
+
+		RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
+			//头像点击
+			@Override
+			public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+
+				Intent intent = new Intent(context, UserInfoActivity.class);
+				User user = new User();
+				user.setPhoneNum(userInfo.getUserId());
+				user.setUserName(userInfo.getName());
+				if(userInfo.getPortraitUri()!=null) {
+					user.setIcon(userInfo.getPortraitUri().getPath());
+				}
+				user.setFlag(1);
+				intent.putExtra("user",user);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+				return false;
+			}
+
+			@Override
+			public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+				return false;
+			}
+
+			@Override
+			public boolean onMessageClick(Context context, View view, Message message) {
+
+				if (message.getContent() instanceof ImageMessage) {
+					ImageMessage imageMessage = (ImageMessage) message.getContent();
+//					Intent intent = new Intent(context, PhotoActivity.class);
+//
+//					intent.putExtra("photo", imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri());
+//					if (imageMessage.getThumUri() != null)
+//						intent.putExtra("thumbnail", imageMessage.getThumUri());
+//
+//					context.startActivity(intent);
+					Uri uri = imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri();
+					List<String> itemList = new ArrayList<String>();
+					itemList.add(uri.toString());
+					ImagePagerActivity.imageSize = new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+					ImagePagerActivity.startImagePagerActivity(context, itemList, 0);
+				}
+
+				return false;
+			}
+
+			@Override
+			public boolean onMessageLinkClick(Context context, String s) {
+				return false;
+			}
+
+			@Override
+			public boolean onMessageLongClick(Context context, View view, Message message) {
+				return false;
+			}
+		});
+
+//		RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
+//
+//			@Override
+//			public boolean onClickUserPortrait(Context context, RongIMClient.ConversationType conversationType, RongIMClient.UserInfo user) {
+//
+//				//在这里处理你想要跳转的activity，示例代码为YourAcitivy
+//
+////				Intent in = new Intent(context, YourAcitivy.class);
+////				context.startActivity(in);
+//				return false;
+//			}
+//
+//			@Override
+//			public boolean onClickMessage(Context context, RongIMClient.Message message) {
+//
+//				//点击消息处理事件，示例代码展示了如何获得消息内容
+//				if (message.getContent() instanceof LocationMessage) {
+//					Intent intent = new Intent(context, LocationActivity.class);
+//					intent.putExtra("location", message.getContent());
+//					context.startActivity(intent);
+//
+//				}else  if(message.getContent() instanceof RichContentMessage){
+//					RichContentMessage mRichContentMessage = (RichContentMessage) message.getContent();
+//					Log.d("Begavior",  "extra:"+mRichContentMessage.getExtra());
+//
+//				}
+//
+//				Log.d("Begavior", message.getObjectName() + ":" + message.getMessageId());
+//
+//				return false;
+//			}
+//		});
+	}
+
 
 
 

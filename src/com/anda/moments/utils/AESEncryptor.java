@@ -1,5 +1,8 @@
 package com.anda.moments.utils;
 
+import org.apache.commons.codec.binary.Hex;
+
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -91,5 +94,19 @@ public class AESEncryptor {
 
 	private static void appendHex(StringBuffer sb, byte b) {
 		sb.append(HEX.charAt((b >> 4) & 0x0f)).append(HEX.charAt(b & 0x0f));
+	}
+
+	public static String hexSHA1(String value) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			md.update(value.getBytes("utf-8"));
+			byte[] digest = md.digest();
+			return byteToHexString(digest);
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+	public static String byteToHexString(byte[] bytes) {
+		return String.valueOf(Hex.encodeHex(bytes));
 	}
 }

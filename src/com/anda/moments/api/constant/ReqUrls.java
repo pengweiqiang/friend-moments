@@ -66,7 +66,12 @@ public static final String PROJECT_NAME = "";
 //	public static final String DEFAULT_REQ_HOST_IP = "http://bldj.com";
 //    public static final String DEFAULT_REQ_HOST_IP = "172.16.102.145:8080/wechatshop/login.html"; //默认值异常的请求地址
 	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+"123.57.163.138/friendscircle/"; //默认值异常的请求地址
-	
+
+	//融云参数配置
+	public static final String APPKEY_RONG = "lmxuhwagxvpkd";
+
+	public static final String APPSERCERT_RONG = "DK6yuQWNLGQ";
+
 	public static final String LIMIT_DEFAULT_NUM="10";
 	
 	public static final String SEARCH_KEY="keyWord";

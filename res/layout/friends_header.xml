@@ -113,6 +113,7 @@
             android:layout_centerVertical="true"
             />
         <TextView
+            android:id="@+id/tv_message_title"
             android:layout_toRightOf="@+id/iv_add_friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,6 +123,20 @@
             android:textColor="#434343"
             android:textSize="15sp"
             />
+        <TextView
+            android:id="@+id/unread_msg_count"
+            android:layout_toRightOf="@+id/tv_message_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/unread_message_drawable"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
         <ImageView
             android:layout_width="13dp"
             android:layout_height="13dp"

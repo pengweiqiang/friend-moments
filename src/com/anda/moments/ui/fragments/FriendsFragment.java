@@ -10,6 +10,7 @@ import java.util.zip.Inflater;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -40,6 +41,7 @@ import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.AddFriendsActivity;
+import com.anda.moments.ui.ConversationListActivity;
 import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.ui.NewFriendsListActivity;
 import com.anda.moments.ui.OutSouceReadActivity;
@@ -62,6 +64,10 @@ import com.anda.moments.views.widget.slide.SideBar;
 import com.anda.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 /**
  * 好友
@@ -91,6 +97,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 
 	LoadingDialog mLoadingDialog;
 	private TextView mTvReqCount;//新用户请求个数
+	private TextView mTvUnReadMsg;//未读消息
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -107,8 +114,29 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 
 		isPrepared = true;//控件初始化完成
 
+		pushMsgReceiver();
+
+
 		return mContentView;
 	}
+
+	/**
+	 * 未读消息改变提醒
+	 */
+	private void pushMsgReceiver(){
+		final Conversation.ConversationType[] conversationTypes = {Conversation.ConversationType.PRIVATE, Conversation.ConversationType.DISCUSSION,
+				Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+				Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE};
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, conversationTypes);
+//				RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener1, Conversation.ConversationType.APP_PUBLIC_SERVICE);
+			}
+		}, 500);
+	}
+
 	private void initView(){
 		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
 		mActionBar.setTitle(R.string.tab_friends_source);
@@ -140,6 +168,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		mBtnFriendsMessage = mViewFriendHeader.findViewById(R.id.rl_friend_message);
 		mEtSearchFriends = (EditText) mViewFriendHeader.findViewById(R.id.et_search_friend);
 		mTvReqCount = (TextView)mViewFriendHeader.findViewById(R.id.unread_address_number);
+		mTvUnReadMsg = (TextView)mViewFriendHeader.findViewById(R.id.unread_msg_count);
 
 		mListView.addHeaderView(mViewFriendHeader);
 
@@ -173,7 +202,10 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 					startActivity(intent);
 					break;
 				case R.id.rl_friend_message://新消息
-
+//					Intent intentConversationList = new Intent(mActivity, ConversationListActivity.class);
+//					startActivity(intentConversationList);
+					if(RongIM.getInstance() != null)
+						RongIM.getInstance().startConversationList(mActivity);
 					break;
 
 
@@ -199,6 +231,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	public void onStart() {
 		super.onStart();
 		getFriendsList();
+//		getUnReadCount();
 	}
 
 	@Override
@@ -219,9 +252,16 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		if(user==null){
 			return;
 		}
+		if(!isLoadData) {
+			mLoadingDialog = new LoadingDialog(mActivity);
+			mLoadingDialog.show();
+		}
 		ApiMomentsUtils.getMyFriendsList(mActivity, user.getPhoneNum(),1, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
+				if(mLoadingDialog!=null && mLoadingDialog.isShowing()){
+					mLoadingDialog.cancel();
+				}
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					isLoadData = true;
 					Log.e("FriendsFragment","获取好友列表："+parseModel.getResults().toString());
@@ -332,6 +372,46 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		Collections.sort(filterDateList, pinyinComparator);
 		mFriendListAdapter.updateListView(filterDateList);
 	}
+
+	/**
+	 * 获取未读消息
+	 */
+	private void getUnReadCount(){
+		RongIMClient.getInstance().getTotalUnreadCount(new RongIMClient.ResultCallback<Integer>() {
+			@Override
+			public void onSuccess(Integer integer) {
+				int totalUnreadCount = integer;
+				if(totalUnreadCount>0){
+					String totalCount = totalUnreadCount>99?"99+":totalUnreadCount+"";
+					mTvUnReadMsg.setText(totalCount);
+					mTvUnReadMsg.setVisibility(View.VISIBLE);
+				}else{
+					mTvUnReadMsg.setVisibility(View.GONE);
+				}
+
+			}
+
+			@Override
+			public void onError(RongIMClient.ErrorCode errorCode) {
+
+			}
+		});
+	}
+
+	public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
+		@Override
+		public void onMessageIncreased(int count) {
+			if (count == 0) {
+				mTvUnReadMsg.setVisibility(View.GONE);
+			} else if (count > 0 && count < 100) {
+				mTvUnReadMsg.setVisibility(View.VISIBLE);
+				mTvUnReadMsg.setText(count + "");
+			} else {
+				mTvUnReadMsg.setVisibility(View.VISIBLE);
+				mTvUnReadMsg.setText("99+");
+			}
+		}
+	};
 
 
 	private boolean isLoadData = false;//是否已经加载数据

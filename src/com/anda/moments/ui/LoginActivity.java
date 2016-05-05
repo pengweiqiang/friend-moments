@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anda.GlobalConfig;
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
@@ -26,11 +27,15 @@ import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.CheckInputUtil;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class LoginActivity extends BaseActivity {
 
@@ -177,6 +182,7 @@ public class LoginActivity extends BaseActivity {
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					User user = parseModel.getUser();
+
 					logined(user);
 					loginSuccess();
 				}else{
@@ -222,5 +228,7 @@ public class LoginActivity extends BaseActivity {
 			timer.cancel();
 		}
 	};
+
+
 
 }

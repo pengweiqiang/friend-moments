@@ -4,11 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.BounceInterpolator;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
@@ -17,161 +25,290 @@ import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.views.LoadingDialog;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import sz.itguy.utils.FileUtil;
+import sz.itguy.wxlikevideo.camera.CameraHelper;
+import sz.itguy.wxlikevideo.recorder.WXLikeVideoRecorder;
+import sz.itguy.wxlikevideo.views.CameraPreviewView;
+
 /**
  * 发布视频
  * @author pengweiqiang
  *
  */
-public class PublishVideoActivity extends BaseActivity {
+public class PublishVideoActivity extends BaseActivity implements View.OnTouchListener {
 
-	private View mViewPicture,mViewVideo,mViewVoice;
+	private static final String TAG = "NewRecordVideoActivity";
 
-	LoadingDialog mLoadingDialog;
+	// 输出宽度
+	private static final int OUTPUT_WIDTH = 320;
+	// 输出高度
+	private static final int OUTPUT_HEIGHT = 240;
+	// 宽高比
+	private static final float RATIO = 1f * OUTPUT_WIDTH / OUTPUT_HEIGHT;
 
-	private View mViewRoot;
+	private Camera mCamera;
+
+	private WXLikeVideoRecorder mRecorder;
+
+	private static final int CANCEL_RECORD_OFFSET = -100;
+	private float mDownX, mDownY;
+	private boolean isCancelRecord = false;
+
+	private ProgressBar recordProgressBar;
+
 	@Override
-	@SuppressLint("InlinedApi")
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_publish_video);
 		super.onCreate(savedInstanceState);
+		int cameraId = CameraHelper.getDefaultCameraID();
+		// Create an instance of Camera
+		mCamera = CameraHelper.getCameraInstance(cameraId);
+		if (null == mCamera) {
+			Toast.makeText(this, "打开相机失败！", Toast.LENGTH_SHORT).show();
+			finish();
+			return;
+		}
+		// 初始化录像机
+		mRecorder = new WXLikeVideoRecorder(this, FileUtil.MEDIA_FILE_DIR);
+		mRecorder.setOutputSize(OUTPUT_WIDTH, OUTPUT_HEIGHT);
+
+		setContentView(R.layout.activity_publish_video);
+		CameraPreviewView preview = (CameraPreviewView) findViewById(R.id.camera_preview);
+		preview.setCamera(mCamera, cameraId);
+
+		recordProgressBar = (ProgressBar) findViewById(R.id.record_progress_bar);
 
 
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				showAnim(true);
-			}
-		},300);
+		mRecorder.setCameraPreviewView(preview);
 
+		findViewById(R.id.button_start).setOnTouchListener(this);
 
+		((TextView) findViewById(R.id.filePathTextView)).setText("请在" + FileUtil.MEDIA_FILE_DIR + "查看录制的视频文件");
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
+	protected void onPause() {
+		super.onPause();
+		if (mRecorder != null) {
+			boolean recording = mRecorder.isRecording();
+			// 页面不可见就要停止录制
+			mRecorder.stopRecording();
+			// 录制时退出，直接舍弃视频
+			if (recording) {
+				FileUtil.deleteFile(mRecorder.getFilePath());
+			}
+		}
+		releaseCamera();              // release the camera immediately on pause event
+		finish();
+	}
 
+	private void releaseCamera() {
+		if (mCamera != null){
+			mCamera.setPreviewCallback(null);
+			// 释放前先停止预览
+			mCamera.stopPreview();
+			mCamera.release();        // release the camera for other applications
+			mCamera = null;
+		}
+	}
+
+	/**
+	 * 开始录制
+	 */
+	private void startRecord() {
+
+		if (mRecorder.isRecording()) {
+			Toast.makeText(this, "正在录制中…", Toast.LENGTH_SHORT).show();
+
+			return;
+		}
+
+		// initialize video camera
+		if (prepareVideoRecorder()) {
+			// 录制视频
+			if (!mRecorder.startRecording()) {
+				Toast.makeText(this, "录制失败…", Toast.LENGTH_SHORT).show();
+			}else{
+				startTime = System.currentTimeMillis();
+				showRecordProgress();
+				Log.e("NewRecord","开始录制.....1111111111");
+			}
+		}
+	}
+
+
+	/**
+	 * 准备视频录制器
+	 * @return
+	 */
+	private boolean prepareVideoRecorder(){
+		if (!FileUtil.isSDCardMounted()) {
+			Toast.makeText(this, "SD卡不可用！", Toast.LENGTH_SHORT).show();
+			return false;
+		}
+
+		return true;
+	}
+
+	private Timer timer;// 计时器
+	private int time = 0;//
+
+	private void showRecordProgress() {
+		time = 0;
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				handler.sendEmptyMessage(time++);
+			}
+		}, 0, 15);
+	}
+
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			if (msg.what >=1000) {
+				stopRecord();//停止录像
+
+			} else {
+				recordProgressBar.setProgress(msg.what);
+			}
+		};
+	};
+
+	private long startTime = 0;
+	/**
+	 * 停止录制
+	 */
+	private void stopRecord() {
+		mRecorder.stopRecording();
+		if(timer!=null) {
+			timer.cancel();
+		}
+
+		Log.e("NewRecord",((System.currentTimeMillis()-startTime)/1000)+"s 结束录制.....222222222");
+		String videoPath = mRecorder.getFilePath();
+		// 没有录制视频
+		if (null == videoPath) {
+			return;
+		}
+		// 若取消录制，则删除文件，否则通知宿主页面发送视频
+		if (isCancelRecord) {
+			FileUtil.deleteFile(videoPath);
+		} else {
+			// 告诉宿主页面录制视频的路径
+//			startActivity(new Intent(this, PlayVideoActiviy.class).putExtra(PlayVideoActiviy.KEY_FILE_PATH, videoPath));
+		}
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				isCancelRecord = false;
+				mDownX = event.getX();
+				mDownY = event.getY();
+				startRecord();
+
+				break;
+			case MotionEvent.ACTION_MOVE:
+				if (!mRecorder.isRecording())
+					return false;
+
+				float y = event.getY();
+				if (y - mDownY < CANCEL_RECORD_OFFSET) {
+					if (!isCancelRecord) {
+						// cancel record
+						isCancelRecord = true;
+						Toast.makeText(this, "cancel record", Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					isCancelRecord = false;
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				stopRecord();
+				break;
+		}
+
+		return true;
+	}
+
+	/**
+	 * 开始录制失败回调任务
+	 *
+	 * @author Martin
+	 */
+	public static class StartRecordFailCallbackRunnable implements Runnable {
+
+		private WeakReference<PublishVideoActivity> mNewRecordVideoActivityWeakReference;
+
+		public StartRecordFailCallbackRunnable(PublishVideoActivity activity) {
+			mNewRecordVideoActivityWeakReference = new WeakReference<PublishVideoActivity>(activity);
+		}
+
+		@Override
+		public void run() {
+			PublishVideoActivity activity;
+			if (null == (activity = mNewRecordVideoActivityWeakReference.get()))
+				return;
+
+			String filePath = activity.mRecorder.getFilePath();
+			if (!TextUtils.isEmpty(filePath)) {
+				FileUtil.deleteFile(filePath);
+				Toast.makeText(activity, "Start record failed.", Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	/**
+	 * 停止录制回调任务
+	 *
+	 * @author Martin
+	 */
+	public static class StopRecordCallbackRunnable implements Runnable {
+
+		private WeakReference<PublishVideoActivity> mNewRecordVideoActivityWeakReference;
+
+		public StopRecordCallbackRunnable(PublishVideoActivity activity) {
+			mNewRecordVideoActivityWeakReference = new WeakReference<PublishVideoActivity>(activity);
+		}
+
+		@Override
+		public void run() {
+			PublishVideoActivity activity;
+			if (null == (activity = mNewRecordVideoActivityWeakReference.get()))
+				return;
+
+			String filePath = activity.mRecorder.getFilePath();
+			if (!TextUtils.isEmpty(filePath)) {
+				if (activity.isCancelRecord) {
+					FileUtil.deleteFile(filePath);
+				} else {
+					Toast.makeText(activity, "Video file path: " + filePath, Toast.LENGTH_LONG).show();
+				}
+			}
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(timer!=null){
+			timer.cancel();
+		}
 	}
 
 	@Override
 	public void initView() {
-		mViewPicture = findViewById(R.id.rl_publish_picture);
-		mViewVideo  = findViewById(R.id.rl_publish_video);
-		mViewVoice = findViewById(R.id.rl_publish_vioce);
-		mViewRoot = findViewById(R.id.rl_root);
 
-		mViewPicture.setVisibility(View.GONE);
-		mViewVideo.setVisibility(View.GONE);
-		mViewVoice.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void initListener() {
-		mViewPicture.setOnClickListener(onClickListener);
-		mViewVideo.setOnClickListener(onClickListener);
-		mViewVoice.setOnClickListener(onClickListener);
-
-		mViewRoot.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AppManager.getAppManager().finishActivity();
-			}
-		});
-	}
-
-	OnClickListener onClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()){
-				case R.id.rl_publish_picture://图片
-
-					break;
-				case R.id.rl_publish_video://视频
-
-					break;
-				case R.id.rl_publish_vioce://语音
-
-					break;
-
-			}
-		}
-	};
-
-	/**
-	 * 获取数据
-	 */
-	private void getData(){
-		mLoadingDialog = new LoadingDialog(mContext);
-		mLoadingDialog.show();
 
 	}
-
-
-
-	private void showAnim(final boolean isdown){
-		ObjectAnimator animator,animator2,animator3;
-		int height = DeviceInfo.getScreenHeight(mContext);
-		int heightImageView = DeviceInfo.dp2px(mContext,100);
-		if(isdown) {
-			animator = ObjectAnimator.ofFloat(mViewPicture, "translationY",100 , 0);
-			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY",150 , 0);
-			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY",200 , 0);
-
-//			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY", height , -30,50,0f);
-//			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY", height , -20,50,0f);
-		}else{
-			animator = ObjectAnimator.ofFloat(mViewPicture, "translationY", 0, -1000f);
-			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY", 0, -1000f);
-			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY", 0, -1000f);
-		}
-		animator.addListener(new Animator.AnimatorListener() {
-
-			@Override
-			public void onAnimationStart(Animator arg0) {
-				if(isdown) {
-					mViewPicture.setVisibility(View.VISIBLE);
-					mViewVideo.setVisibility(View.VISIBLE);
-					mViewVoice.setVisibility(View.VISIBLE);
-				}
-			}
-
-			@Override
-			public void onAnimationRepeat(Animator arg0) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animator arg0) {
-				if(!isdown){
-				}
-			}
-
-			@Override
-			public void onAnimationCancel(Animator arg0) {
-
-			}
-		});
-
-		AnimatorSet animSet = new AnimatorSet();
-		animator.setDuration(400);
-		animator.setInterpolator(new BounceInterpolator());
-		animator2.setDuration(500);
-		animator2.setInterpolator(new BounceInterpolator());
-		animator3.setDuration(600);
-		animator3.setInterpolator(new BounceInterpolator());
-//		animSet.play(animator).after(animator2).after(animator3);
-
-		animator.start();
-//		animSet.start();
-//		animator2.setStartDelay(100);
-		animator2.start();
-//		animator3.setStartDelay(180);
-		animator3.start();
-	}
-
-	private void sendPicture(){
-		OkHttpClient okHttpClient  = new OkHttpClient();
-
-	}
-
 }

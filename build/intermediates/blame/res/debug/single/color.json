@@ -1,15 +1,15 @@
 [
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/tab_title_text.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/color/tab_title_text.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/main_tab_button_text.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/color/main_tab_button_text.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/title_tab_button_text.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/color/title_tab_button_text.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/main_tab_button_text.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/color/main_tab_button_text.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/tab_title_text.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/color/tab_title_text.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/color/button_text_color.xml",
