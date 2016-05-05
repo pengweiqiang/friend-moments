@@ -14,9 +14,9 @@
         <clip>  
             <shape>  
                 <corners android:radius="0dip" />  
-                <gradient android:startColor="#8000AADD"  
-                    android:centerColor="#8000AADD" android:centerY="0.75"  
-                    android:endColor="#8000AADD" android:angle="270" />  
+                <gradient android:startColor="@color/home_theme_color"
+                    android:centerColor="@color/home_theme_color" android:centerY="0.75"
+                    android:endColor="@color/home_theme_color" android:angle="270" />
             </shape>  
         </clip>  
     </item>  
@@ -25,9 +25,9 @@
         <clip>  
             <shape>  
                 <corners android:radius="0dip" />  
-                <gradient android:startColor="#8000AADD"
-                    android:centerColor="#8000AADD" android:centerY="0.75"
-                    android:endColor="#8000AADD" android:angle="270" />
+                <gradient android:startColor="@color/home_theme_color"
+                    android:centerColor="@color/home_theme_color" android:centerY="0.75"
+                    android:endColor="@color/home_theme_color" android:angle="270" />
             </shape>  
         </clip>  
     </item>  

@@ -170,7 +170,7 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			if (msg.what >=1000) {
+			if (msg.what >1000) {
 				stopRecord();//停止录像
 
 			} else {
