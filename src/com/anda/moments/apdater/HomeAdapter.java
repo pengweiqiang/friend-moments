@@ -2,6 +2,8 @@ package com.anda.moments.apdater;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +16,18 @@ import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.Image;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
+import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.utils.DateUtil;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.ScreenTools;
+import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.CustomImageView;
 import com.anda.moments.views.MultiImageView;
@@ -29,6 +35,7 @@ import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
 import com.anda.universalimageloader.core.assist.ImageSize;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +45,9 @@ import java.util.List;
  */
 public class HomeAdapter extends BaseAdapter {
     private Context context;
-    private List<List<String>> datalist;
+    private List<CircleMessage> datalist;
 
-    public HomeAdapter(Context context, List<List<String>> datalist) {
+    public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
     }
@@ -66,7 +73,7 @@ public class HomeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-       final List<String> itemList = datalist.get(position);
+       final CircleMessage circleMessage = datalist.get(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.home_item_ninegridlayout, parent, false);
             viewHolder = new ViewHolder();
@@ -74,8 +81,10 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.ivOne = (CustomImageView) convertView.findViewById(R.id.iv_oneimage);
             viewHolder.mIvUserHead = (ImageView)convertView.findViewById(R.id.iv_user_head);
             viewHolder.mTvUserName = (TextView)convertView.findViewById(R.id.tv_user_name);
+            viewHolder.mTvContent = (TextView)convertView.findViewById(R.id.tv_content);
+            viewHolder.mTvPublishTime = (TextView)convertView.findViewById(R.id.tv_create_time);
 
-            viewHolder.mViewComment = convertView.findViewById(R.id.iv_comment);//评论
+            viewHolder.mViewComment = convertView.findViewById(R.id.iv_comment);//评论弹出框
             viewHolder.mViewComment.setOnClickListener(viewHolder);
             viewHolder.mIvUserHead.setOnClickListener(viewHolder);
             viewHolder.mTvUserName.setOnClickListener(viewHolder);
@@ -87,28 +96,42 @@ public class HomeAdapter extends BaseAdapter {
 
         viewHolder.setPosition(position);
 
-        if (itemList==null || itemList.isEmpty()) {
+        //图片展示  start
+        final List<String> imagesList = circleMessage.getImages();
+        if (imagesList==null || imagesList.isEmpty()) {
             viewHolder.ivMore.setVisibility(View.GONE);
             viewHolder.ivOne.setVisibility(View.GONE);
-        } else if (itemList.size() == 1) {
+        } else if (imagesList.size() == 1) {
             viewHolder.ivMore.setVisibility(View.GONE);
             viewHolder.ivOne.setVisibility(View.VISIBLE);
 
-            handlerOneImage(viewHolder, itemList.get(0));
+            handlerOneImage(viewHolder, imagesList.get(0));
         } else {
             viewHolder.ivMore.setVisibility(View.VISIBLE);
             viewHolder.ivOne.setVisibility(View.GONE);
 
-            viewHolder.ivMore.setImagesData(itemList);
+            viewHolder.ivMore.setImagesData(imagesList);
             viewHolder.ivMore.setOnItemClickListener(new NineGridlayout.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
                     ImagePagerActivity.imageSize = new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
-                    ImagePagerActivity.startImagePagerActivity(context, itemList, position);
+                    ImagePagerActivity.startImagePagerActivity(context, imagesList, position);
                 }
             });
 //            viewHolder.ivMore.setOnClickListener();
         }
+        //图片展示  end
+
+        //发表内容
+        viewHolder.mTvContent.setText(StringUtils.ToDBC(circleMessage.getInfoText()));
+        User publishUser = circleMessage.getPublishUser();
+        if(publishUser!=null) {
+            viewHolder.mTvUserName.setText(publishUser.getUserName());
+            Picasso.with(context).load(publishUser.getIcon()).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
+
+        }
+        viewHolder.mTvPublishTime.setText(DateUtil.getDateStringByMill(circleMessage.getCreateTime(),DateUtil.DEFAULT_PATTERN));
+
 
         return convertView;
     }
@@ -161,6 +184,8 @@ public class HomeAdapter extends BaseAdapter {
         public CustomImageView ivOne;//单张图片
         public ImageView mIvUserHead;//头像
         public TextView mTvUserName;//昵称
+        public TextView mTvContent;//评论内容
+        public TextView mTvPublishTime;//发表时间
 
         private int position;
 
@@ -184,11 +209,16 @@ public class HomeAdapter extends BaseAdapter {
         }
     }
 
+    //点击头像进入个人主页
     private void startUserInfoActivity(int position){
-        Intent intent = new Intent(context, UserInfoActivity.class);
-        User user = new User();
+//        Intent intent = new Intent(context, UserInfoActivity.class);
+//        User user = datalist.get(position).getPublishUser();
+//        user.setFlag(1);
+//        intent.putExtra("user",user);
+//        context.startActivity(intent);
+        Intent intent = new Intent(context,UserHomeActivity.class);
+        User user = datalist.get(position).getPublishUser();
         user.setFlag(1);
-        user.setPhoneNum("15652265843");
         intent.putExtra("user",user);
         context.startActivity(intent);
     }
@@ -246,13 +276,13 @@ public class HomeAdapter extends BaseAdapter {
      * 点赞
      */
     private void praise(int position){
-        //TODO 获取评论的infoId
         User user = MyApplication.getInstance().getCurrentUser();
         if(user==null){
             ToastUtils.showToast(context,"请先登录");
             return;
         }
-        ApiMomentsUtils.praise(context, "151",user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+        String infoId = String.valueOf(datalist.get(position).getInfoId());
+        ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
             @Override
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
@@ -269,13 +299,13 @@ public class HomeAdapter extends BaseAdapter {
      * @param position
      */
     private void addComment(int position,String content){
-        //TODO 获取评论的infoId
         User user = MyApplication.getInstance().getCurrentUser();
         if(user==null){
             ToastUtils.showToast(context,"请先登录");
             return;
         }
-        ApiMomentsUtils.addComment(context,"151",content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+        String infoId = String.valueOf(datalist.get(position).getInfoId());
+        ApiMomentsUtils.addComment(context,infoId,content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
 
             @Override
             public void execute(ParseModel parseModel) {

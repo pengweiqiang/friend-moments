@@ -141,7 +141,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
 		mActionBar.setTitle(R.string.tab_friends_source);
 		mActionBar.hideLeftActionButton();
-		mActionBar.hideBottonLine();
+//		mActionBar.hideBottonLine();
 		mActionBar.setRightActionButton(R.drawable.btn_add_friends, "", new OnClickListener() {
 			@Override
 			public void onClick(View v) {

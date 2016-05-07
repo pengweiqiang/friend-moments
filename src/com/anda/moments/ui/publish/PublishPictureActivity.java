@@ -39,6 +39,7 @@ import com.anda.moments.R;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
@@ -93,7 +94,6 @@ public class PublishPictureActivity extends BaseActivity {
 		setContentView(R.layout.activity_publish_picture);
 		super.onCreate(savedInstanceState);
 
-
 		InitGridView();
 
 	}
@@ -131,24 +131,6 @@ public class PublishPictureActivity extends BaseActivity {
 
 	}
 
-	OnClickListener onClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()){
-				case R.id.rl_publish_picture://图片
-
-					break;
-				case R.id.rl_publish_video://视频
-
-					break;
-				case R.id.rl_publish_vioce://语音
-
-					break;
-
-			}
-		}
-	};
 
 	/**
 	 * 获取数据
@@ -338,16 +320,16 @@ public class PublishPictureActivity extends BaseActivity {
 							JSONObject jsonResult = new JSONObject(response.body().string());
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
+								// 完成上传服务器后 .........
+								FileUtils.deleteDir();
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
 										ToastUtils.showToast(mContext,"发布成功");
-										AppManager.getAppManager().finishActivity(PublishActivity.class);
-										AppManager.getAppManager().finishActivity();
+										sendSuccess();
 									}
 								});
-								// 完成上传服务器后 .........
-								FileUtils.deleteDir();
+
 							}else{
 								final String info = jsonResult.getString("info");
 								runOnUiThread(new Runnable() {
@@ -382,6 +364,18 @@ public class PublishPictureActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 发送成功跳转
+	 */
+	private void sendSuccess(){
+
+		AppManager.getAppManager().finishActivity(PublishActivity.class);
+		AppManager.getAppManager().finishActivity();
+		Intent intent = new Intent(mContext, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.putExtra("refresh",true);
+		startActivity(intent);
+	}
 
 
 	@SuppressLint("HandlerLeak")

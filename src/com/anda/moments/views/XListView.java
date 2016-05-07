@@ -175,7 +175,8 @@ public class XListView extends ListView implements OnScrollListener {
 			mFootHintView.setText("加载更多");
 			mFooterView.show();
 		}else if(count ==0 &&StringUtils.isEmpty(str)){
-			mFooterView.hide();
+			mFootHintView.setText("加载完毕");
+//			mFooterView.hide();
 		}
 	}
 	
@@ -289,9 +290,10 @@ public class XListView extends ListView implements OnScrollListener {
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
 		}
-		if(scrollState == SCROLL_STATE_IDLE && view.getLastVisiblePosition() == (view.getCount() - 1)){
-			startLoadMore();
-		}
+		//自动加载下一页
+//		if(scrollState == SCROLL_STATE_IDLE && view.getLastVisiblePosition() == (view.getCount() - 1)){
+//			startLoadMore();
+//		}
 	}
 
 	@Override

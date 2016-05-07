@@ -82,8 +82,17 @@ public class MainActivity extends BaseFragmentActivity {
 		getRongToken();
 
     }
-    
-    private void initView(){
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		boolean isRefresh = intent.getBooleanExtra("refresh",false);
+		if(isRefresh){
+			mHomeFragment.onRefreshing();
+		}
+	}
+
+	private void initView(){
     	mTabIndicators = (RadioGroup) findViewById(R.id.tabIndicators);
     	
     	mFragmentManager = getSupportFragmentManager();
@@ -266,8 +275,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 		User user = MyApplication.getInstance().getCurrentUser();
 		final String userId = user.getPhoneNum();//手机号做userId
-		final String name = StringUtils.isEmpty(user.getUserName())?"":user.getUserName();
-		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
+		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"http://ww2.sinaimg.cn/crop.0.0.1080.1080.1024/d773ebfajw8eum57eobkwj20u00u075w.jpg":user.getIcon();
 
 		//获取token
 			ThreadUtil.getTheadPool(true).submit(new Runnable() {

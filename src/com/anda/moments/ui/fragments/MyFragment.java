@@ -147,7 +147,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 
 		mActionBar.setTitle(R.string.tab_my);
 		mActionBar.hideLeftActionButton();
-		mActionBar.hideBottonLine();
+//		mActionBar.hideBottonLine();
 		mSwipeRefreshLayout.setOnRefreshListener(this);
 
 		mListView.setPullLoadEnable(true);
@@ -193,7 +193,26 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	}
 	private void initListener(){
 		mIvUserHead.setOnClickListener(onClickListener);
+		mActionBar.setTitleOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				topListViewFirst();
+				return false;
+			}
+		});
+	}
 
+	/**
+	 * listView置顶
+	 */
+	public void topListViewFirst(){
+		if(mListView!=null){
+			if(mListView.getFirstVisiblePosition()<ReqUrls.LIMIT_DEFAULT_NUM){
+				mListView.smoothScrollToPosition(0);
+			}else{
+				mListView.setSelection(0);
+			}
+		}
 	}
 
 

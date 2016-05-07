@@ -21,11 +21,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anda.gson.reflect.TypeToken;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.apdater.HomeAapter;
 import com.anda.moments.apdater.HomeAdapter;
 import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.api.constant.ReqUrls;
+import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.Image;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PartTimeJob;
@@ -34,7 +38,9 @@ import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
+import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
+import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
@@ -51,6 +57,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private View mContentView;
 	private ActionBar mActionBar;
 	private XListView mListView;
+	private List<CircleMessage> circleMessageList = new ArrayList<CircleMessage>();
+
 	private List<List<String>> imagesList=new ArrayList<List<String>>();;
 	private String[] images=new String[]{
 			"http://pic4.zhongsou.com/image/4808b8d0191adf4bcde.jpg"
@@ -90,7 +98,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		initView();
 		initListener();
 
-		initData();
+		initMyData();
+
 
 		
 		return mContentView;
@@ -130,35 +139,88 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 
 		mActionBar.setTitle(R.string.tab_part_time);
 		mActionBar.hideLeftActionButton();
-		mActionBar.hideBottonLine();
+//		mActionBar.hideBottonLine();
 		mActionBar.setRightActionButton(publishOnclickListener);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
 
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 
-		mHomeAdapter = new HomeAdapter(mActivity,imagesList);
+		mHomeAdapter = new HomeAdapter(mActivity,circleMessageList);
 		mListView.setAdapter(mHomeAdapter);
 
 
 
 	}
 
-	private void getData() {
 
-		//这里单独添加一条单条的测试数据，用来测试单张的时候横竖图片的效果
-		ArrayList<String> singleList=new ArrayList<String>();
-		singleList.add(images[8]);
-		imagesList.add(singleList);
-		//从一到9生成9条朋友圈内容，分别是1~9张图片
-		for(int i=0;i<9;i++){
-			ArrayList<String> itemList=new ArrayList<String>();
-			for(int j=0;j<=i;j++){
-				itemList.add(images[j]);
+	/**
+	 * 获取朋友圈列表
+	 */
+	private void getCircleData(){
+
+		String phoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+		ApiMyUtils.getFriendsInfos(mActivity, phoneNum,ReqUrls.LIMIT_DEFAULT_NUM + "", String.valueOf(page), "0", new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				mSwipeRefreshLayout.setRefreshing(false);
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					List<CircleMessage> circleMessages = JsonUtils.fromJson(parseModel.getResults().toString(),new TypeToken<List<CircleMessage>>(){});
+
+					showData2View(circleMessages);
+				}else{
+					if(page!=1){
+						page --;
+					}
+					ToastUtils.showToast(mActivity,parseModel.getInfo());
+				}
 			}
-			imagesList.add(itemList);
+		});
+
+	}
+
+	/**
+	 * 数据展示在ListView上
+	 * @param circleMessages
+     */
+	private void showData2View(List<CircleMessage> circleMessages){
+		if(circleMessages!=null && !circleMessages.isEmpty()){
+			if(page == 1){
+				circleMessageList.clear();
+			}
+			//测试图片 start
+			ArrayList<String> singleList=new ArrayList<String>();
+			singleList.add(images[8]);
+			circleMessages.get(0).getImages().addAll(singleList);
+			for(int ii = 0;ii<circleMessages.size();ii++){
+
+				singleList=new ArrayList<String>();
+				//从一到9生成9条朋友圈内容，分别是1~9张图片
+					ArrayList<String> itemList=new ArrayList<String>();
+					for(int j=0;j<ii;j++){
+						itemList.add(images[j]);
+					}
+					circleMessages.get(ii).getImages().addAll(itemList);
+			}
+			//测试图片 end
+
+			circleMessageList.addAll(circleMessages);
+
+
+
+
+			mHomeAdapter.notifyDataSetChanged();
+			if(circleMessages.size()<ReqUrls.LIMIT_DEFAULT_NUM){//少于请求条数，隐藏底部栏
+				mListView.hideFooterView();
+			}else {
+				mListView.onLoadFinish(page,circleMessages.size(),"加载更多");
+			}
+
+
+
+		}else{
+			mListView.hideFooterView();
 		}
-		mHomeAdapter.notifyDataSetChanged();
 	}
 
 
@@ -166,7 +228,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		getData();
+		getCircleData();
 
 	}
 
@@ -183,18 +245,48 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	@Override
 	public void onRefresh() {
 		page = 1;
-		getData();
+		getCircleData();
+	}
+
+	/**
+	 * 刷新界面
+	 */
+	public void onRefreshing(){
+		page = 1;
+		mSwipeRefreshLayout.setRefreshing(true);
+		getCircleData();
 	}
 
 	@Override
 	public void onLoadMore() {
 		page++;
-		getData();
+		getCircleData();
 	}
 	private void initListener(){
+
+		mActionBar.setTitleOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				topListViewFirst();
+
+				return false;
+			}
+		});
 		
-		
-		
+	}
+
+
+	/**
+	 * listView置顶
+	 */
+	public void topListViewFirst(){
+		if(mListView!=null){
+			if(mListView.getFirstVisiblePosition()<ReqUrls.LIMIT_DEFAULT_NUM){
+				mListView.smoothScrollToPosition(0);
+			}else{
+				mListView.setSelection(0);
+			}
+		}
 	}
 	
 	
@@ -235,13 +327,15 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	};
 
 
-	private void initData(){
+	private void initMyData(){
 		User user = getUser();
 		if(user!=null){//个人信息
 			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			mTvUserName.setText(user.getUserName());
 		}
 	}
+
+
 	
 
 

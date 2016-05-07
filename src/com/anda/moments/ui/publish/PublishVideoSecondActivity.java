@@ -42,6 +42,7 @@ import com.anda.moments.R;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.StringUtils;
@@ -400,16 +401,17 @@ public class PublishVideoSecondActivity extends BaseActivity {
 										JSONObject jsonResult = new JSONObject(response.body().string());
 										int retFlag = jsonResult.getInt("retFlag");
 										if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
+
+											// 完成上传服务器后 .........
+											FileUtil.deleteFile(filePath);
 											runOnUiThread(new Runnable() {
 												@Override
 												public void run() {
 													ToastUtils.showToast(mContext,"发布成功");
-													AppManager.getAppManager().finishActivity(PublishActivity.class);
-													AppManager.getAppManager().finishActivity();
+													sendSuccess();
 												}
 											});
-											// 完成上传服务器后 .........
-											FileUtil.deleteFile(filePath);
+
 										}else{
 											final String info = jsonResult.getString("info");
 											runOnUiThread(new Runnable() {
@@ -451,6 +453,19 @@ public class PublishVideoSecondActivity extends BaseActivity {
 
 
 
+	}
+
+	/**
+	 * 发送成功跳转
+	 */
+	private void sendSuccess(){
+
+		AppManager.getAppManager().finishActivity(PublishActivity.class);
+		AppManager.getAppManager().finishActivity();
+		Intent intent = new Intent(mContext, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.putExtra("refresh",true);
+		startActivity(intent);
 	}
 
 

@@ -34,13 +34,15 @@ public class ApiMyUtils {
 	/**
 	 *  获得好友动态列表
 	 * @param context
+	 * @param phoneNum 手机号
 	 * @param pageSize 每页显示记录条数
 	 * @param pageNo 当前页数
 	 * @param type 0全部动态，1好友动态，2我的动态
 	 * @param requestCallback
 	 */
-	public static void getFriendsInfos(Context context, String pageSize,String pageNo,String type,RequestCallback requestCallback) {
+	public static void getFriendsInfos(Context context, String phoneNum,String pageSize,String pageNo,String type,RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("phoneNum",phoneNum);
 		params.put("pageSize", pageSize);
 		params.put("pageNo", pageNo);
 		params.put("type", type);

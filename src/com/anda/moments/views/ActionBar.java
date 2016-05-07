@@ -57,6 +57,14 @@ public class ActionBar extends FrameLayout {
 	public void setTitle(String text) {
 		mTitleView.setText(text);
 	}
+
+	public void setTitleOnclickListener(OnClickListener onclickListener){
+		mTitleView.setOnClickListener(onclickListener);
+
+	}
+	public void setTitleOnLongClickListener(OnLongClickListener onLongClickListener){
+		mTitleView.setOnLongClickListener(onLongClickListener);
+	}
 	
 	public void setTitleTextColor(int resId){
 		mTitleView.setTextColor(getResources().getColor(resId));
