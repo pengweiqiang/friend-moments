@@ -4,18 +4,53 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.BounceInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.TextView;
 
+import com.anda.GlobalConfig;
+import com.anda.gson.JsonArray;
+import com.anda.gson.JsonObject;
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
+import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.StringUtils;
+import com.anda.moments.utils.ThreadUtil;
+import com.anda.moments.utils.ToastUtils;
+import com.anda.moments.utils.publish.Bimp;
+import com.anda.moments.utils.publish.FileUtils;
+import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.anda.moments.views.audio.AudioRecordButton;
+import com.anda.moments.views.audio.MediaManager;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import sz.itguy.utils.FileUtil;
 
 /**
  * 发布语音
@@ -24,11 +59,18 @@ import com.squareup.okhttp.OkHttpClient;
  */
 public class PublishVoiceActivity extends BaseActivity {
 
-	private View mViewPicture,mViewVideo,mViewVoice;
+	private AudioRecordButton mBtnAudio;//录制语音
+	ActionBar mActionBar;
+	EditText mEtContent;
 
 	LoadingDialog mLoadingDialog;
 
-	private View mViewRoot;
+	private View mViewRecordPlay;
+	private TextView mTvSeconds;//时间
+
+
+	public String filePath = "";//音频路径
+	public float second = 0;//音频时间
 	@Override
 	@SuppressLint("InlinedApi")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,141 +78,199 @@ public class PublishVoiceActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				showAnim(true);
-			}
-		},300);
 
-
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
 
 	}
 
 	@Override
 	public void initView() {
-		mViewPicture = findViewById(R.id.rl_publish_picture);
-		mViewVideo  = findViewById(R.id.rl_publish_video);
-		mViewVoice = findViewById(R.id.rl_publish_vioce);
-		mViewRoot = findViewById(R.id.rl_root);
-
-		mViewPicture.setVisibility(View.GONE);
-		mViewVideo.setVisibility(View.GONE);
-		mViewVoice.setVisibility(View.GONE);
-	}
-
-	@Override
-	public void initListener() {
-		mViewPicture.setOnClickListener(onClickListener);
-		mViewVideo.setOnClickListener(onClickListener);
-		mViewVoice.setOnClickListener(onClickListener);
-
-		mViewRoot.setOnClickListener(new OnClickListener() {
+		mActionBar = (ActionBar)findViewById(R.id.actionBar);
+		mActionBar.setLeftActionButton(0, "取消", new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				AppManager.getAppManager().finishActivity();
 			}
 		});
-	}
-
-	OnClickListener onClickListener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()){
-				case R.id.rl_publish_picture://图片
-
-					break;
-				case R.id.rl_publish_video://视频
-
-					break;
-				case R.id.rl_publish_vioce://语音
-
-					break;
-
+		mActionBar.setTitle("发布动态");
+		mActionBar.setRightActionButton(0, "发布", new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				sendPictureByXutils();
+				sendAudio();
 			}
-		}
-	};
-
-	/**
-	 * 获取数据
-	 */
-	private void getData(){
-		mLoadingDialog = new LoadingDialog(mContext);
-		mLoadingDialog.show();
-
+		},R.color.main_tab_text_color_selected);
+		mBtnAudio = (AudioRecordButton) findViewById(R.id.btn_record);
+		mViewRecordPlay = findViewById(R.id.view_record);
+		mTvSeconds = (TextView)findViewById(R.id.tv_audio_second);
+		mEtContent = (EditText)findViewById(R.id.et_content);
 	}
 
 
-
-	private void showAnim(final boolean isdown){
-		ObjectAnimator animator,animator2,animator3;
-		int height = DeviceInfo.getScreenHeight(mContext);
-		int heightImageView = DeviceInfo.dp2px(mContext,100);
-		if(isdown) {
-			animator = ObjectAnimator.ofFloat(mViewPicture, "translationY",100 , 0);
-			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY",150 , 0);
-			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY",200 , 0);
-
-//			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY", height , -30,50,0f);
-//			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY", height , -20,50,0f);
-		}else{
-			animator = ObjectAnimator.ofFloat(mViewPicture, "translationY", 0, -1000f);
-			animator2 = ObjectAnimator.ofFloat(mViewVideo, "translationY", 0, -1000f);
-			animator3 = ObjectAnimator.ofFloat(mViewVoice, "translationY", 0, -1000f);
-		}
-		animator.addListener(new Animator.AnimatorListener() {
-
+	@Override
+	public void initListener() {
+		mBtnAudio.setAudioRecordFinishListener(new MyAudioRecordFinishListener());
+		mViewRecordPlay.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onAnimationStart(Animator arg0) {
-				if(isdown) {
-					mViewPicture.setVisibility(View.VISIBLE);
-					mViewVideo.setVisibility(View.VISIBLE);
-					mViewVoice.setVisibility(View.VISIBLE);
-				}
-			}
-
-			@Override
-			public void onAnimationRepeat(Animator arg0) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animator arg0) {
-				if(!isdown){
-				}
-			}
-
-			@Override
-			public void onAnimationCancel(Animator arg0) {
-
+			public void onClick(View v) {
+				playAudioRecord();
 			}
 		});
-
-		AnimatorSet animSet = new AnimatorSet();
-		animator.setDuration(400);
-		animator.setInterpolator(new BounceInterpolator());
-		animator2.setDuration(500);
-		animator2.setInterpolator(new BounceInterpolator());
-		animator3.setDuration(600);
-		animator3.setInterpolator(new BounceInterpolator());
-//		animSet.play(animator).after(animator2).after(animator3);
-
-		animator.start();
-//		animSet.start();
-//		animator2.setStartDelay(100);
-		animator2.start();
-//		animator3.setStartDelay(180);
-		animator3.start();
 	}
 
-	private void sendPicture(){
-		OkHttpClient okHttpClient  = new OkHttpClient();
+	class MyAudioRecordFinishListener implements AudioRecordButton.AudioRecordFinishListener {
+
+		@Override
+		public void onFinish(float second, String filePath) {
+			//录制结束
+			PublishVoiceActivity.this.second = second;
+			PublishVoiceActivity.this.filePath = filePath;
+			mTvSeconds.setText(Math.round(second)+"''");
+		}
+
+	}
+
+	/**
+	 * 播放录音
+	 */
+	private void playAudioRecord(){
+		if(StringUtils.isEmpty(filePath) || !new File(filePath).exists()){
+			return;
+		}
+		MediaManager.playSound(filePath,
+				new MediaPlayer.OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+//						voiceAnim
+//								.setBackgroundResource(R.drawable.icon_voice_ripple);
+					}
+				});
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MediaManager.release();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MediaManager.pause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MediaManager.resume();
+	}
+
+	private OkHttpClient client = new OkHttpClient();
+	/**
+	 * 发布录音
+	 */
+	private void sendAudio(){
+		final String content = mEtContent.getText().toString().trim();
+		if(StringUtils.isEmpty(content)){
+			ToastUtils.showToast(mContext,"请输入内容");
+			mEtContent.requestFocus();
+			return;
+		}
+		mLoadingDialog = new LoadingDialog(mContext);
+		mLoadingDialog.show();
+		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+			@Override
+			public void run() {
+
+				JsonArray fileMetaInfo = new JsonArray();
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("name",filePath);
+				jsonObject.addProperty("type","2");
+				fileMetaInfo.add(jsonObject);
+
+				//多文件表单上传构造器
+				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+
+				File file = new File(filePath);
+				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
+//						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
+//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
+				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+
+				//添加一个文本表单参数
+				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
+				multipartBuilder.addFormDataPart("infoText",content);//动态内容
+				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
+
+				RequestBody requestBody = multipartBuilder.build();
+				//构造文件上传时的请求对象Request
+				String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+				Request request = new Request.Builder().url(url)
+						.post(requestBody)
+						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+						.build();
+
+
+				try {
+					Response response = client.newCall(request).execute();
+
+					mLoadingDialog.cancel();
+					if(!response.isSuccessful()){
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ToastUtils.showToast(mContext,"发布失败");
+							}
+						});
+
+					}else{
+						try {
+							JSONObject jsonResult = new JSONObject(response.body().string());
+							int retFlag = jsonResult.getInt("retFlag");
+							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext,"发布成功");
+										AppManager.getAppManager().finishActivity(PublishActivity.class);
+										AppManager.getAppManager().finishActivity();
+									}
+								});
+								// 完成上传服务器后 .........
+//								FileUtils.deleteAudioDir();
+								FileUtils.delFile(filePath);
+							}else{
+								final String info = jsonResult.getString("info");
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext,info);
+									}
+								});
+
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				} catch (IOException e) {
+					mLoadingDialog.cancel();
+					e.printStackTrace();
+				}
+
+
+
+			}
+
+		});
+
+
+
+
+
+
 
 	}
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
@@ -58,6 +59,7 @@ public class PersonalInfoActivity extends BaseActivity {
 	private View mBtnSex;//性别
 	private View mBtnSettings;//设置
 	private View mBtnUserHead;//修改头像
+	private View mBtnUpdateUserName;//昵称
 
 	private View mBtnLoginOut;//退出登陆
 
@@ -106,6 +108,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnSettings = findViewById(R.id.rl_setting);
 		mBtnLoginOut = findViewById(R.id.rl_login_out);
 		mBtnSex = findViewById(R.id.rl_sex);
+		mBtnUpdateUserName = findViewById(R.id.rl_update_username);
 
 	}
 
@@ -116,6 +119,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnSettings.setOnClickListener(onClickListener);
 		mBtnSex.setOnClickListener(onClickListener);
 		mBtnUserHead.setOnClickListener(onClickListener);
+		mBtnUpdateUserName.setOnClickListener(onClickListener);
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -123,15 +127,21 @@ public class PersonalInfoActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()){
+				case R.id.rl_user_sign://个性签名
+					startUpdateInfoActivity(1,"签名",user.getSummary());
+					break;
+				case R.id.rl_update_username://昵称
+					startUpdateInfoActivity(0,"昵称",user.getUserName());
+					break;
 				case R.id.rl_user_head://头像
 					showPhotoDialog();
 					break;
 				case R.id.rl_sex://性别
 					showSexDialog();
 					break;
-				case R.id.rl_remarks://备注
-
-					break;
+//				case R.id.rl_remarks://备注
+//					startUpdateInfoActivity(2,"备注");
+//					break;
 				case R.id.rl_login_out://登出
 					logOut();
 					Intent intent = new Intent(mContext,LoginActivity.class);
@@ -144,6 +154,14 @@ public class PersonalInfoActivity extends BaseActivity {
 			}
 		}
 	};
+
+	private void startUpdateInfoActivity(int type,String title,String content){
+		Intent intent = new Intent(mContext,UpdateInfoActivity.class);
+		intent.putExtra("type",type);
+		intent.putExtra("title",title);
+		intent.putExtra("content",content);
+		startActivity(intent);
+	}
 
 	/**
 	 * 获取数据
@@ -315,9 +333,7 @@ public class PersonalInfoActivity extends BaseActivity {
 			@SuppressLint("SdCardPath")
 			public void onClick(View v) {
 				if (!sex.equals("1")) {
-					mTvSex.setText("男");
-
-					updateSex("1");
+					updateSex("男");
 				}
 
 				dlg.cancel();
@@ -330,8 +346,7 @@ public class PersonalInfoActivity extends BaseActivity {
 
 				if (!sex.equals("2")) {
 
-					mTvSex.setText("女");
-					updateSex("2");
+					updateSex("女");
 				}
 
 				dlg.cancel();
@@ -344,8 +359,24 @@ public class PersonalInfoActivity extends BaseActivity {
 	 * 修改性别
 	 * @param sex
      */
-	private void updateSex(String sex){
-		//TODO 修改性别api
+	private void updateSex(final String sex){
+		if(mLoadingDialog==null) {
+			mLoadingDialog = new LoadingDialog(mContext);
+		}
+		mLoadingDialog.show();
+		ApiUserUtils.updateUserInfo(mContext,user.getPhoneNum(),"","",sex,"","","","",new HttpConnectionUtil.RequestCallback(){
+
+			@Override
+			public void execute(ParseModel parseModel) {
+				mLoadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+//					ToastUtils.showToast(mContext,"邀请好友成功");
+					mTvSex.setText(sex);
+				}else{
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
 	}
 
 	/**
@@ -363,6 +394,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		}
 
 	}
+
 
 
 

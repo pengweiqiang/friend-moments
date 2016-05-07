@@ -72,7 +72,7 @@ public static final String PROJECT_NAME = "";
 
 	public static final String APPSERCERT_RONG = "DK6yuQWNLGQ";
 
-	public static final String LIMIT_DEFAULT_NUM="10";
+	public static final int LIMIT_DEFAULT_NUM=10;
 	
 	public static final String SEARCH_KEY="keyWord";
 	
@@ -164,6 +164,11 @@ public static final String PROJECT_NAME = "";
 	 * 处理好友请求
 	 */
 	public static final String REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST = "friends/dealFriendRequest.do";
+
+	/**
+	 * 修改个人资料
+	 */
+	public static final String REQUEST_UPDATE_USER_INFO = "friends/updateMyInfos.do";
 	
 	
 	/**

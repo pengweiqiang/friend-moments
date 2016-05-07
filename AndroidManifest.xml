@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="5"
-    android:versionName="1.5" >
+    android:versionCode="6"
+    android:versionName="1.6" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,7 +20,7 @@
     </uses-permission>
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <application
@@ -77,14 +77,30 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".ui.publish.PublishVideoActivity"
+            android:label="录制视频"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.PublishVideoSecondActivity"
             android:label="发布视频"
             android:screenOrientation="portrait"
             />
+        <!--<activity android:name=".ui.publish.PlayVideoActiviy"-->
+            <!--android:label="播放视频"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--/>-->
 
         <activity 
             android:name=".ui.UserInfoActivity"
             android:label="详细资料"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
+            android:name=".ui.UpdateInfoActivity"
+            android:label="修改资料"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:screenOrientation="portrait"
             >
         </activity>

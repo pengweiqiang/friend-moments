@@ -9,7 +9,6 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +21,8 @@ import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.Log;
+import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.LoadingDialog;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -35,7 +36,7 @@ import sz.itguy.wxlikevideo.recorder.WXLikeVideoRecorder;
 import sz.itguy.wxlikevideo.views.CameraPreviewView;
 
 /**
- * 发布视频
+ * 录制视频
  * @author pengweiqiang
  *
  */
@@ -86,7 +87,7 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 
 		findViewById(R.id.button_start).setOnTouchListener(this);
 
-		((TextView) findViewById(R.id.filePathTextView)).setText("请在" + FileUtil.MEDIA_FILE_DIR + "查看录制的视频文件");
+//		((TextView) findViewById(R.id.filePathTextView)).setText("请在" + FileUtil.MEDIA_FILE_DIR + "查看录制的视频文件");
 	}
 
 	@Override
@@ -172,9 +173,10 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what >1000) {
 				stopRecord();//停止录像
-
 			} else {
-				recordProgressBar.setProgress(msg.what);
+				if(mRecorder.isRecording()) {
+					recordProgressBar.setProgress(msg.what);
+				}
 			}
 		};
 	};
@@ -188,9 +190,17 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 		if(timer!=null) {
 			timer.cancel();
 		}
-
-		Log.e("NewRecord",((System.currentTimeMillis()-startTime)/1000)+"s 结束录制.....222222222");
 		String videoPath = mRecorder.getFilePath();
+
+		if(System.currentTimeMillis()-startTime<2000){
+			ToastUtils.showToast(mContext,"录制时间太短");
+			recordProgressBar.setProgress(0);
+			FileUtil.deleteFile(videoPath);
+			return;
+		}
+		Log.e("NewRecord",((System.currentTimeMillis()-startTime)/1000)+"s 结束录制.....222222222");
+
+
 		// 没有录制视频
 		if (null == videoPath) {
 			return;
@@ -200,7 +210,7 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 			FileUtil.deleteFile(videoPath);
 		} else {
 			// 告诉宿主页面录制视频的路径
-//			startActivity(new Intent(this, PlayVideoActiviy.class).putExtra(PlayVideoActiviy.KEY_FILE_PATH, videoPath));
+			startActivity(new Intent(this, PublishVideoSecondActivity.class).putExtra(PublishVideoSecondActivity.KEY_FILE_PATH, videoPath));
 		}
 	}
 

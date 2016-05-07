@@ -137,7 +137,11 @@ public class UserInfoActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()){
 				case R.id.rl_remarks://备注
-
+					Intent intent = new Intent(mContext,UpdateInfoActivity.class);
+					intent.putExtra("type",2);
+					intent.putExtra("title","备注");
+					intent.putExtra("content",user.getDescTag());
+					startActivity(intent);
 					break;
 				case R.id.rl_user_sign://个性签名
 
@@ -224,5 +228,7 @@ public class UserInfoActivity extends BaseActivity {
 			}
 		});
 	}
+
+
 
 }

@@ -10,12 +10,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
+import com.anda.moments.api.ApiMomentsUtils;
+import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.Image;
+import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.ScreenTools;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.CustomImageView;
@@ -198,7 +203,7 @@ public class HomeAdapter extends BaseAdapter {
         titlePopup = new TitlePopup(context, DeviceInfo.dp2px(context,265),DeviceInfo.dp2px(context,36));
         titlePopup.addAction(new ActionItem(context, "赞", R.drawable.circle_praise));
         titlePopup.addAction(new ActionItem(context, "萌化啦~",R.drawable.btn_comment_meng));
-        titlePopup.addAction(new ActionItem(context, "评论",R.drawable.btn_comment_count));
+        titlePopup.addAction(new ActionItem(context, "评论",R.drawable.circle_comment));
 
         titlePopup.setItemOnClickListener(onItemOnClickListener);
         onItemOnClickListener.setParentPosition(position);
@@ -215,13 +220,17 @@ public class HomeAdapter extends BaseAdapter {
         public void onItemClick(ActionItem item, int position) {
             switch (position){
                 case  0:
-                    ToastUtils.showToast(context,"点赞成功 "+positionParent);
+                    praise(positionParent);
+//                    ToastUtils.showToast(context,"点赞成功 "+positionParent);
                     break;
                 case 1:
-                    ToastUtils.showToast(context,"萌化了 "+positionParent);
+//                    ToastUtils.showToast(context,"萌化了 "+positionParent);
+                    addComment(positionParent,"萌化了~");
                     break;
                 case 2:
+                    String content = "评论"+positionParent;
                     ToastUtils.showToast(context,"评论 "+positionParent);
+                    addComment(positionParent,content);
                     break;
             }
         }
@@ -231,4 +240,52 @@ public class HomeAdapter extends BaseAdapter {
             this.positionParent = parentPosition;
         }
     };
+
+
+    /**
+     * 点赞
+     */
+    private void praise(int position){
+        //TODO 获取评论的infoId
+        User user = MyApplication.getInstance().getCurrentUser();
+        if(user==null){
+            ToastUtils.showToast(context,"请先登录");
+            return;
+        }
+        ApiMomentsUtils.praise(context, "151",user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+            @Override
+            public void execute(ParseModel parseModel) {
+                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+                    ToastUtils.showToast(context,parseModel.getInfo());
+                }else{
+                    ToastUtils.showToast(context,parseModel.getInfo());
+                }
+            }
+        });
+    }
+
+    /**
+     * 萌化啦以及评论
+     * @param position
+     */
+    private void addComment(int position,String content){
+        //TODO 获取评论的infoId
+        User user = MyApplication.getInstance().getCurrentUser();
+        if(user==null){
+            ToastUtils.showToast(context,"请先登录");
+            return;
+        }
+        ApiMomentsUtils.addComment(context,"151",content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+
+            @Override
+            public void execute(ParseModel parseModel) {
+                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+                    ToastUtils.showToast(context,parseModel.getInfo());
+                }else{
+                    ToastUtils.showToast(context,parseModel.getInfo());
+                }
+            }
+        });
+    }
+
 }

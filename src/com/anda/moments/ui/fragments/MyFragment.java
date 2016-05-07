@@ -21,6 +21,7 @@ import com.anda.moments.apdater.HomeAdapter;
 import com.anda.moments.apdater.MyAdapter;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
@@ -230,7 +231,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		if(user==null){
 			return;
 		}
-		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(),"10",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
+		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mSwipeRefreshLayout.setRefreshing(false);
@@ -242,6 +243,9 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 					initData();
 
 				}else{
+					if(page!=1){
+						page --;
+					}
 					ToastUtils.showToast(mActivity,parseModel.getInfo());
 				}
 			}
@@ -257,13 +261,22 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 				Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 				mTvUserName.setText(user.getUserName());
 			}
-			if(myInfo.getInfos()!=null){
+			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){
 				if(page == 1){
 					infosList.clear();
 				}
 				infosList.addAll(myInfo.getInfos());
 				mMyAdapter.notifyDataSetChanged();
+				if(myInfo.getInfos().size()<ReqUrls.LIMIT_DEFAULT_NUM){//少于请求条数，隐藏底部栏
+					mListView.hideFooterView();
+				}else {
+					mListView.stopLoadMore();
+				}
+			}else{
+				mListView.hideFooterView();
+//				mListView.onLoadFinish(page,0,"没有更多");
 			}
+
 		}
 	}
 

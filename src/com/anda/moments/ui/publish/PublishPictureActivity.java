@@ -55,6 +55,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.http.client.entity.FileUploadEntity;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -171,6 +172,7 @@ public class PublishPictureActivity extends BaseActivity {
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
 
+		RequestParams params = new RequestParams();
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 
 
@@ -180,24 +182,29 @@ public class PublishPictureActivity extends BaseActivity {
 			String Str = Bimp.drr.get(i).substring(
 					Bimp.drr.get(i).lastIndexOf("/") + 1,
 					Bimp.drr.get(i).lastIndexOf("."));
-			fileList.add(new File(FileUtils.SDPATH+Str+".JPEG"));
+			File file = new File(FileUtils.SDPATH+Str+".png");
+			fileList.add(file);
 //			fileList.add(FileUtils.SDPATH+Str+".JPEG");
 			JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("name",Str+".JPEG");
+			jsonObject.addProperty("name",Str+".png");
 			jsonObject.addProperty("type","1");
 			fileMetaInfo.add(jsonObject);
+
+			if(file.exists()){
+				params.setBodyEntity(new FileUploadEntity(file,"binary/octet-stream"));
+			}
 
 		}
 //添加一个文本表单参数
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 
-		RequestParams params = new RequestParams();
+
 //		params.setContentType("multipart/form-data");
 		params.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID);
-//		params.addBodyParameter("fileMetaInfo", fileMetaInfoStr);
-//		params.addBodyParameter("phoneNum",MyApplication.getInstance().getCurrentUser());
-		params.addBodyParameter("infoText",content);
-		params.addBodyParameter("isPublic","1");
+		params.addQueryStringParameter("fileMetaInfo", fileMetaInfoStr);
+		params.addQueryStringParameter("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+		params.addQueryStringParameter("infoText",content);
+		params.addQueryStringParameter("isPublic","1");
 //		params.addBodyParameter("file",fileList,"image/jpeg");
 
 // 只包含字符串参数时默认使用BodyParamsEntity，
@@ -212,12 +219,6 @@ public class PublishPictureActivity extends BaseActivity {
 
 
 
-//		for(int i = 0;i<list.size();i++){
-//			File file = new File(list.get(i));
-//			if(file.exists()){
-//				params.addBodyParameter("file_"+i, file,"image/png");
-//			}
-//		}
 
 
 

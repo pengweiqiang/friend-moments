@@ -7,6 +7,7 @@
     >
 
     <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
@@ -34,16 +35,42 @@
             />
 
 
-
-
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_below="@+id/et_content"
-            android:layout_alignParentBottom="true"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="18dp"
+            >
 
+
+            <TextView
+                android:id="@+id/tv_audio_second"
+                android:layout_alignParentRight="true"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#979797"
+                android:layout_alignParentBottom="true"
+                android:text="0''"
+                android:layout_marginLeft="10dp"
+                />
+            <View
+                android:id="@+id/view_record"
+                android:layout_width="match_parent"
+                android:layout_toLeftOf="@+id/tv_audio_second"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/comment_bg"
             />
+
+        </RelativeLayout>
+
+
+
+
+
 
 
     </RelativeLayout>
@@ -52,6 +79,29 @@
         android:layout_height="1dp"
         android:background="@color/light_gray_line"
         />
+
+    <RelativeLayout
+        android:id="@+id/rl_btn_audio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <com.anda.moments.views.audio.AudioRecordButton
+            android:id="@+id/btn_record"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_height="wrap_content"
+            android:text="按住 说话"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:drawablePadding="8dp"
+            android:textColor="#434343"
+            android:drawableRight="@drawable/btn_audio"
+            />
+
+    </RelativeLayout>
 
 
 

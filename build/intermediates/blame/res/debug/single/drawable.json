@@ -4,24 +4,24 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_app_qian.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_app_hou.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_app_hou.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_quxiao.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_quxiao.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_drawable_selector.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_drawable_selector.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_quxiao.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_quxiao.xml"
-    },
-    {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_login2.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_login2.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_app_hou.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_app_hou.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_ok_bg_normal.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_button_ok_bg_normal.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_login2.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_login2.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_close_bg_selector.xml",
@@ -64,12 +64,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_item_top_list_selector.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_camera.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_camera.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_wifi_disable.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_wifi_disable.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_camera.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_camera.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_btn_public_service_unfollow_selector.xml",
@@ -104,20 +104,20 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/text_while.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_picture.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_picture.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_ok_bg_focused.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_button_ok_bg_focused.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_main_tab_button.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bg_main_tab_button.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_picture.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_picture.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/selector_guide_bg.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/selector_guide_bg.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_main_tab_button.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bg_main_tab_button.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_my_selector.xml",
@@ -130,6 +130,14 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_phone.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_phone.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_recorder_record.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_recorder_record.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_recorder_normal.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_recorder_normal.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_add_pic.xml",
@@ -188,12 +196,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/ic_tab_my.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_common_gradient_orange.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_common_gradient_orange.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_an_voice_sent.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_an_voice_sent.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_common_gradient_orange.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_common_gradient_orange.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/ic_tab_out_source.xml",
@@ -208,12 +216,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_bg_menu.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_shanchu.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_shanchu.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_keyboard.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_keyboard.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_shanchu.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_shanchu.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_smiley.xml",
@@ -224,20 +232,24 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_login_pressed.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/shape_guide_bg_focus.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/shape_guide_bg_focus.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/dash.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/dash.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_cancel_bg_normal.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_button_cancel_bg_normal.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/dash.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/dash.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/shape_guide_bg_focus.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/shape_guide_bg_focus.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_dialog_bg.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_dialog_bg.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/update_info_drawable.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/update_info_drawable.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_switch_btn.xml",
@@ -248,32 +260,32 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_no_selector.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_btn_input.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_btn_input.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_common_gradient_red.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_common_gradient_red.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_bg_item.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_bg_item.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_btn_input.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_btn_input.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_search_friends.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bg_search_friends.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_bg_item.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_bg_item.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_send_phone.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bg_send_phone.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/seekbar_img.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/seekbar_img.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/btn_accept_add_friends.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/btn_accept_add_friends.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/seekbar_img.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/seekbar_img.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_tab_selector.xml",
@@ -288,32 +300,32 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_common_gradient_green.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_yes_selector.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_yes_selector.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/delete_selector.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/delete_selector.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/tb_munion_icon.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/tb_munion_icon.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_yes_selector.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_yes_selector.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_text.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_text.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_nobgd.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_nobgd.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/tb_munion_icon.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/tb_munion_icon.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_cancel_bg_focused.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_button_cancel_bg_focused.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bg_vefity_phone.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bg_vefity_phone.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/umeng_update_button_cancel_bg_focused.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_button_cancel_bg_focused.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/bt_nobgd.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/bt_nobgd.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_btn_send.xml",

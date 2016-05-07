@@ -1,15 +1,18 @@
 package com.anda.moments.api;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
 
 import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
+import com.anda.moments.commons.HttpBodyData;
 import com.anda.moments.http.HttpClientAddHeaders;
 import com.anda.moments.utils.HttpConnectionUtil.HttpMethod;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+import com.anda.moments.utils.StringUtils;
 
 /**
  * api user相关的接口
@@ -18,6 +21,49 @@ import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
  */
 public class ApiUserUtils {
 
+
+	/**
+	 * 修改个人资料
+	 * @param context
+	 * @param phoneNum
+	 * @param userName
+	 * @param userId
+	 * @param gender
+	 * @param address
+	 * @param district
+	 * @param summary
+     * @param descTag
+     * @param requestCallback
+     */
+	public static void updateUserInfo(Context context,String phoneNum,String userName,String userId,String gender,
+									  String address,String district,String summary,String descTag,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("phoneNum",phoneNum);
+//		if(!StringUtils.isEmpty(userName)) {
+			params.put("userName", userName);
+//		}
+//		if(!StringUtils.isEmpty(userId)) {
+			params.put("userId", userId);
+//		}
+//		if(!StringUtils.isEmpty(gender)) {
+			params.put("gender", gender);
+//		}
+//		if(!StringUtils.isEmpty(address)) {
+			params.put("address", address);
+//		}
+//		if(!StringUtils.isEmpty(district)) {
+			params.put("district", district);
+//		}
+//		if(!StringUtils.isEmpty(summary)) {
+			params.put("summary",summary);
+//		}
+//		if(!StringUtils.isEmpty(descTag)) {
+			params.put("descTag", descTag);
+//		}
+		params.put("icon","");
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_UPDATE_USER_INFO, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
 
 	/**
 	 * 处理好友请求
@@ -131,18 +177,19 @@ public class ApiUserUtils {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put(ReqUrls.USERNAME, username);
 		params.put(ReqUrls.IMG_FILE, stream);
-		// Map<String,HttpBodyData> paramsImage = new HashMap<String,
-		// HttpBodyData>();
-		// paramsImage.put("source", new HttpBodyData(HttpBodyData.TYPE_STRING,
-		// "Android"));
-		// paramsImage.put("version", new HttpBodyData(HttpBodyData.TYPE_STRING,
-		// (String)params.get("version")));
-		// paramsImage.put("appname", new HttpBodyData(HttpBodyData.TYPE_STRING,
-		// (String)params.get("appname")));
-		// paramsImage.put(ReqUrls.USERNAME, new
-		// HttpBodyData(HttpBodyData.TYPE_STRING, username));
-		// paramsImage.put(ReqUrls.IMG_FILE, new
-		// HttpBodyData(HttpBodyData.TYPE_IMAGE,formFile));
+
+
+//		 Map<String,HttpBodyData> paramsImage = new HashMap<String,
+//                  HttpBodyData>();
+//		 paramsImage.put("source", new HttpBodyData(HttpBodyData.TYPE_STRING,
+//		 "Android"));
+//		 paramsImage.put("version", new HttpBodyData(HttpBodyData.TYPE_STRING,
+//		 (String)params.get("version")));
+//		 paramsImage.put("appname", new HttpBodyData(HttpBodyData.TYPE_STRING,
+//		 (String)params.get("appname")));
+//		 paramsImage.put(ReqUrls.USERNAME, new HttpBodyData(HttpBodyData.TYPE_STRING, username));
+//		 paramsImage.put(ReqUrls.IMG_FILE, new
+//		 HttpBodyData(HttpBodyData.TYPE_IMAGE,formFile));
 
 		// params.put(ReqUrls.STREAM, stream);
 		ApiUtils.getParseModel(params, ReqUrls.UPDATE_HEADER_URL, false,

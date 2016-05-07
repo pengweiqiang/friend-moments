@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+    </com.anda.moments.views.ActionBar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@null"
+            android:hint="请输入内容"
+            android:textColor="#434343"
+            android:textColorHint="#979797"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="7dp"
+            android:gravity="left|top"
+            />
+
+
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="140dp"
+            android:layout_height="110dp"
+            android:background="@color/black"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/et_content"
+            >
+
+            <com.yqritc.scalablevideoview.ScalableVideoView
+                android:id="@+id/video_view"
+                android:layout_width="140dp"
+                android:layout_height="110dp"
+                android:onClick="onClick"
+                app:scalableType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/thumbnailImageView"
+                android:layout_width="142dp"
+                android:layout_height="110dp"
+                android:scaleType="fitXY"
+                android:onClick="onClick"
+                />
+
+            <ImageView
+                android:id="@+id/playImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:onClick="onClick"
+                android:src="@drawable/video_play"
+                />
+
+        </FrameLayout>
+
+
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:paddingTop="15dp"
+        android:background="@color/white"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/light_gray_line"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

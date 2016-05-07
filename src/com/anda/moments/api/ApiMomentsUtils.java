@@ -82,10 +82,11 @@ public class ApiMomentsUtils {
 	 * @param requestCallback
 	 */
 	public static void addComment(Context context, String infoId,
-			String commentText, RequestCallback requestCallback) {
+			String commentText,String phoneNum ,RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
 		params.put("commentText", commentText);
+		params.put("phoneNum", phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_ADD_COMMENT, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
@@ -97,10 +98,11 @@ public class ApiMomentsUtils {
 	 * @param infoId 动态信息id
 	 * @param requestCallback
 	 */
-	public static void praise(Context context, String infoId,
+	public static void praise(Context context, String infoId,String phoneNum,
 			 RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
+		params.put("phoneNum", phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_PRAISE, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
