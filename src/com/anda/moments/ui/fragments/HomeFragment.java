@@ -113,7 +113,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		initView();
 		initListener();
 
-		initMyData();
+
 		setViewTreeObserver();
 
 		
@@ -286,7 +286,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	@Override
 	public void onResume() {
 		super.onResume();
-
+		initMyData();
 	}
 
 //	@Override
@@ -564,17 +564,5 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		}
 	}
 
-
-
-	private void showMyInfo2Cache(){
-		User user = getUser();
-		if(user!=null){//个人信息
-			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
-			mTvUserName.setText(user.getUserName());
-		}
-	}
-
-
-	
 	
 }

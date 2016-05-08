@@ -48,11 +48,14 @@ import com.anda.moments.views.popup.TitlePopup;
 //import com.squareup.okhttp.Call;
 import com.squareup.picasso.Picasso;
 import com.yqritc.scalablevideoview.ScalableVideoView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -255,7 +258,7 @@ public class HomeAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void showItemTypeData(int itemViewType,CircleMessage circleMessage,ViewHolder viewHolder){
+    private void showItemTypeData(int itemViewType, final CircleMessage circleMessage, ViewHolder viewHolder){
         switch (itemViewType){
             case ITEM_VIEW_TYPE_TEXT:
 
@@ -289,11 +292,33 @@ public class HomeAdapter extends BaseAdapter {
                 break;
             case ITEM_VIEW_TYPE_AUDIO:
 
-
-
+                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
+                            downloadMedia(circleMessage.getAudios().get(0).getPath());
+                        }
+                    }
+                });
 
                 break;
             case ITEM_VIEW_TYPE_VIDEO:
+//                viewHolder.mIvPlay.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(circleMessage.getVideos()!=null && !circleMessage.getVideos().isEmpty()) {
+//                            downloadMedia(circleMessage.getVideos().get(0).getPath());
+//                        }
+//                    }
+//                });
+                viewHolder.videoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(circleMessage.getVideos()!=null && !circleMessage.getVideos().isEmpty()) {
+                            downloadMedia(circleMessage.getVideos().get(0).getPath());
+                        }
+                    }
+                });
 
 
                 break;
@@ -325,7 +350,7 @@ public class HomeAdapter extends BaseAdapter {
 //        layoutparams.width = imageWidth;
 //        viewHolder.ivOne.setLayoutParams(layoutparams);
         viewHolder.ivOne.setClickable(true);
-        viewHolder.ivOne.setScaleType(android.widget.ImageView.ScaleType.FIT_XY);
+//        viewHolder.ivOne.setScaleType(ImageView.ScaleType.CENTER_CROP);
         viewHolder.ivOne.setImageUrl(image.getImgPath());
         viewHolder.ivOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -351,6 +376,7 @@ public class HomeAdapter extends BaseAdapter {
 
         //视频类型 start
         public ScalableVideoView videoView;
+        public ImageView mIvPlay;
         //视频类型 end
 
         //音频类型 start
@@ -500,29 +526,30 @@ public class HomeAdapter extends BaseAdapter {
     }
 
     private String TAG = "HomeAdapter";
-//    private void downloadMedia(String url){
-//        String fileName = url.substring(url.lastIndexOf("."));
-//        OkHttpUtils//
-//                .get()//
-//                .url(url)//
-//                .build()//
-//                .execute(new FileCallBack(FileUtil.DOWNLOAD_MEDIA_FILE_DIR, fileName) {
-//                    @Override
-//                    public void inProgress(float progress, long total) {
-//                        int progressInt = (int) (100 * progress);
-//                    }
-//
-//                    @Override
-//                    public void onError(Call call, Exception e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(File file) {
-//                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
-//                    }
-//                });
-//
-//    }
+    public void downloadMedia(String url){
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+        OkHttpUtils//
+                .get()//
+                .url(url)//
+                .build()//
+                .execute(new FileCallBack(FileUtil.AUDIO_FILE_DIR, fileName) {
+                    @Override
+                    public void inProgress(float progress, long total) {
+                        int progressInt = (int) (100 * progress);
+                        Log.e(TAG,progressInt+"  total "+total);
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(File file) {
+                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+                    }
+                });
+
+    }
 
 }

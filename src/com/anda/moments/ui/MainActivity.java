@@ -43,7 +43,6 @@ import com.anda.moments.utils.rong.SdkHttpResult;
 //import com.squareup.okhttp.Request;
 //import com.squareup.okhttp.RequestBody;
 //import com.squareup.okhttp.Response;
-import com.squareup.okhttp.MediaType;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.json.JSONException;
@@ -300,7 +299,6 @@ public class MainActivity extends BaseFragmentActivity {
 	/**
 	 * 获取融云token
 	 */
-	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	public void getRongToken(){
 
 //		String token = "yGajkmQC9/DeLpIfz1XZvGNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJNgFlqmA/Pmn/WKLLppfBIugP+UQYLzgjc6lsSvZ3KbZ";

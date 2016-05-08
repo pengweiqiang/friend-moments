@@ -26,21 +26,26 @@ import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -136,6 +141,82 @@ public class UpdateInfoActivity extends BaseActivity {
 
 	LoadingDialog mLoadingDialog;
 
+//	private void updateInfoByOkHttp(){
+//		if(mLoadingDialog==null) {
+//			mLoadingDialog = new LoadingDialog(mContext);
+//		}
+//		mLoadingDialog.show();
+//
+//		Map<String,String> params = new HashMap<String, String>();
+//		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//
+//		if(!StringUtils.isEmpty(username)) {
+//			params.put("userName", username);
+//		}
+//		if(!StringUtils.isEmpty(descTag)) {
+//			params.put("descTag", descTag);
+//		}
+//		if(!StringUtils.isEmpty(summary)) {
+//			params.put("summary", summary);
+//		}
+//		if(!StringUtils.isEmpty(userId)){
+//			params.put("userId", userId);
+//		}
+//
+//
+//		if(!StringUtils.isEmpty(address)){
+//			params.put("address", address);
+//		}
+//		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
+//
+//		OkHttpUtils.post().url(url).params(params).addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+//				.build().execute(new StringCallback() {
+//			@Override
+//			public void onError(Call call, Exception e) {
+//				mLoadingDialog.cancel();
+//				runOnUiThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						ToastUtils.showToast(mContext, "更新失败");
+//					}
+//				});
+//			}
+//
+//			@Override
+//			public void onResponse(String response) {
+//				mLoadingDialog.cancel();
+//				try {
+//					JSONObject jsonResult = new JSONObject(response);
+//					int retFlag = jsonResult.getInt("retFlag");
+//					if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext,"修改成功");
+//								updateSuccessRefreshCache();
+//								AppManager.getAppManager().finishActivity();
+//							}
+//						});
+//
+//					} else {
+//						final String info = jsonResult.getString("info");
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext, info);
+//							}
+//						});
+//
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//
+//
+//			}
+//		});
+//	}
+
 
 	private OkHttpClient client = new OkHttpClient();
 	private void updateInfoByOkHttp(){
@@ -150,41 +231,40 @@ public class UpdateInfoActivity extends BaseActivity {
 			public void run() {
 
 				//多文件表单上传构造器
-				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
-
+				MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
 				//添加一个文本表单参数
-				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
 				if(!StringUtils.isEmpty(username)) {
-					multipartBuilder.addFormDataPart("userName", username);
+					builder.addFormDataPart("userName", username);
 				}
 				if(!StringUtils.isEmpty(descTag)) {
-					multipartBuilder.addFormDataPart("descTag", descTag);
+					builder.addFormDataPart("descTag", descTag);
 				}
 				if(!StringUtils.isEmpty(summary)) {
-					multipartBuilder.addFormDataPart("summary", summary);
+					builder.addFormDataPart("summary", summary);
 				}
 				if(!StringUtils.isEmpty(userId)){
-					multipartBuilder.addFormDataPart("userId", userId);
+					builder.addFormDataPart("userId", userId);
 				}
 
 				if(!StringUtils.isEmpty(address)){
-					multipartBuilder.addFormDataPart("address", address);
+					builder.addFormDataPart("address", address);
 				}
 
 
-				RequestBody requestBody = multipartBuilder.build();
+				RequestBody requestBody = builder.build();
 				//构造文件上传时的请求对象Request
 				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
 				Request request = new Request.Builder().url(url)
 						.post(requestBody)
 						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
 						.build();
+
 				Call call = client.newCall(request);
 				call.enqueue(new Callback() {
-
 					@Override
-					public void onFailure(Request request, IOException e) {
+					public void onFailure(Call call, IOException e) {
 						mLoadingDialog.cancel();
 						runOnUiThread(new Runnable() {
 							@Override
@@ -195,7 +275,7 @@ public class UpdateInfoActivity extends BaseActivity {
 					}
 
 					@Override
-					public void onResponse(Response response) throws IOException {
+					public void onResponse(Call call, Response response) throws IOException {
 						mLoadingDialog.cancel();
 						try {
 							if (!response.isSuccessful()) {
@@ -239,10 +319,8 @@ public class UpdateInfoActivity extends BaseActivity {
 							mLoadingDialog.cancel();
 							e.printStackTrace();
 						}
-
 					}
 				});
-
 			}
 
 

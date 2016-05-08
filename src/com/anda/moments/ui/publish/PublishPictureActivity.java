@@ -50,20 +50,7 @@ import com.anda.moments.utils.publish.Bimp;
 import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
-import com.lidroid.xutils.http.client.entity.FileUploadEntity;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +59,20 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import sz.itguy.utils.FileUtil;
 
 /**
  * 发布图片
@@ -95,6 +95,8 @@ public class PublishPictureActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		InitGridView();
+
+		FileUtil.createPictureFile();
 
 	}
 
@@ -132,116 +134,208 @@ public class PublishPictureActivity extends BaseActivity {
 	}
 
 
-	/**
-	 * 获取数据
-	 */
-	private void getData(){
-
-
-	}
-
 	private OkHttpClient client = new OkHttpClient();
-	//参数类型
-	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-	private void sendPictureByXutils(){
-		final String content = mEtContent.getText().toString().trim();
-		if(StringUtils.isEmpty(content)){
-			ToastUtils.showToast(mContext,"请输入内容");
-			mEtContent.requestFocus();
-			return;
-		}
-		mLoadingDialog = new LoadingDialog(mContext);
-		mLoadingDialog.show();
+//	//参数类型
+	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("images/png");
 
-		RequestParams params = new RequestParams();
-		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+//	private void sendPictureByXutils(){
+//		final String content = mEtContent.getText().toString().trim();
+//		if(StringUtils.isEmpty(content)){
+//			ToastUtils.showToast(mContext,"请输入内容");
+//			mEtContent.requestFocus();
+//			return;
+//		}
+//		mLoadingDialog = new LoadingDialog(mContext);
+//		mLoadingDialog.show();
+//
+//		RequestParams params = new RequestParams();
+//		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+//
+//
+//		List<File> fileList = new ArrayList<File>();
+//		JsonArray fileMetaInfo = new JsonArray();
+//		for (int i = 0; i < Bimp.drr.size(); i++) {
+//			String Str = Bimp.drr.get(i).substring(
+//					Bimp.drr.get(i).lastIndexOf("/") + 1,
+//					Bimp.drr.get(i).lastIndexOf("."));
+//			File file = new File(FileUtils.SDPATH+Str+".png");
+//			fileList.add(file);
+////			fileList.add(FileUtils.SDPATH+Str+".JPEG");
+//			JsonObject jsonObject = new JsonObject();
+//			jsonObject.addProperty("name",Str+".png");
+//			jsonObject.addProperty("type","1");
+//			fileMetaInfo.add(jsonObject);
+//
+//			if(file.exists()){
+//				params.setBodyEntity(new FileUploadEntity(file,"binary/octet-stream"));
+//			}
+//
+//		}
+////添加一个文本表单参数
+//		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+//
+//
+////		params.setContentType("multipart/form-data");
+//		params.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID);
+//		params.addQueryStringParameter("fileMetaInfo", fileMetaInfoStr);
+//		params.addQueryStringParameter("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//		params.addQueryStringParameter("infoText",content);
+//		params.addQueryStringParameter("isPublic","1");
+////		params.addBodyParameter("file",fileList,"image/jpeg");
+//
+//// 只包含字符串参数时默认使用BodyParamsEntity，
+//// 类似于UrlEncodedFormEntity（"application/x-www-form-urlencoded"）。
+////		params.addBodyParameter("name", "value");
+//
+//// 加入文件参数后默认使用MultipartEntity（"multipart/form-data"），
+//// 如需"multipart/related"，xUtils中提供的MultipartEntity支持设置subType为"related"。
+//// 使用params.setBodyEntity(httpEntity)可设置更多类型的HttpEntity（如：
+//// MultipartEntity,BodyParamsEntity,FileUploadEntity,InputStreamUploadEntity,StringEntity）。
+//// 例如发送json参数：params.setBodyEntity(new StringEntity(jsonStr,charset));
+//
+//
+//
+//
+//
+//
+//
+//
+//		HttpUtils http = new HttpUtils();
+//		http.send(HttpRequest.HttpMethod.POST,
+//				url,
+//				params,
+//				new RequestCallBack<String>() {
+//
+//					@Override
+//					public void onStart() {
+//
+//					}
+//
+//					@Override
+//					public void onLoading(long total, long current, boolean isUploading) {
+//						if (isUploading) {
+//							ToastUtils.showToast(mContext,"upload: " + current + "/" + total);
+//						} else {
+//							ToastUtils.showToast(mContext,"reply: " + current + "/" + total);
+//						}
+//					}
+//
+//					@Override
+//					public void onSuccess(ResponseInfo<String> responseInfo) {
+//						ToastUtils.showToast(mContext,responseInfo.result);
+//					}
+//
+//					@Override
+//					public void onFailure(HttpException error, String msg) {
+//						ToastUtils.showToast(mContext,error.getExceptionCode() + ":" + msg);
+//					}
+//				});
+//
+//	}
 
-
-		List<File> fileList = new ArrayList<File>();
-		JsonArray fileMetaInfo = new JsonArray();
-		for (int i = 0; i < Bimp.drr.size(); i++) {
-			String Str = Bimp.drr.get(i).substring(
-					Bimp.drr.get(i).lastIndexOf("/") + 1,
-					Bimp.drr.get(i).lastIndexOf("."));
-			File file = new File(FileUtils.SDPATH+Str+".png");
-			fileList.add(file);
-//			fileList.add(FileUtils.SDPATH+Str+".JPEG");
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("name",Str+".png");
-			jsonObject.addProperty("type","1");
-			fileMetaInfo.add(jsonObject);
-
-			if(file.exists()){
-				params.setBodyEntity(new FileUploadEntity(file,"binary/octet-stream"));
-			}
-
-		}
-//添加一个文本表单参数
-		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
-
-
-//		params.setContentType("multipart/form-data");
-		params.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID);
-		params.addQueryStringParameter("fileMetaInfo", fileMetaInfoStr);
-		params.addQueryStringParameter("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
-		params.addQueryStringParameter("infoText",content);
-		params.addQueryStringParameter("isPublic","1");
-//		params.addBodyParameter("file",fileList,"image/jpeg");
-
-// 只包含字符串参数时默认使用BodyParamsEntity，
-// 类似于UrlEncodedFormEntity（"application/x-www-form-urlencoded"）。
-//		params.addBodyParameter("name", "value");
-
-// 加入文件参数后默认使用MultipartEntity（"multipart/form-data"），
-// 如需"multipart/related"，xUtils中提供的MultipartEntity支持设置subType为"related"。
-// 使用params.setBodyEntity(httpEntity)可设置更多类型的HttpEntity（如：
-// MultipartEntity,BodyParamsEntity,FileUploadEntity,InputStreamUploadEntity,StringEntity）。
-// 例如发送json参数：params.setBodyEntity(new StringEntity(jsonStr,charset));
-
-
-
-
-
-
-
-
-		HttpUtils http = new HttpUtils();
-		http.send(HttpRequest.HttpMethod.POST,
-				url,
-				params,
-				new RequestCallBack<String>() {
-
-					@Override
-					public void onStart() {
-
-					}
-
-					@Override
-					public void onLoading(long total, long current, boolean isUploading) {
-						if (isUploading) {
-							ToastUtils.showToast(mContext,"upload: " + current + "/" + total);
-						} else {
-							ToastUtils.showToast(mContext,"reply: " + current + "/" + total);
-						}
-					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> responseInfo) {
-						ToastUtils.showToast(mContext,responseInfo.result);
-					}
-
-					@Override
-					public void onFailure(HttpException error, String msg) {
-						ToastUtils.showToast(mContext,error.getExceptionCode() + ":" + msg);
-					}
-				});
-
-	}
+	/**
+	 * 发布图片
+	 */
+//	private void sendPicture(){
+//		final String content = mEtContent.getText().toString().trim();
+//		if(StringUtils.isEmpty(content)){
+//			ToastUtils.showToast(mContext,"请输入内容");
+//			mEtContent.requestFocus();
+//			return;
+//		}
+//		mLoadingDialog = new LoadingDialog(mContext);
+//		mLoadingDialog.show();
+//
+//		PostFormBuilder postFormBuilder = OkHttpUtils.post();
+//
+//
+//		List<String> list = new ArrayList<String>();
+//		JsonArray fileMetaInfo = new JsonArray();
+//		if(Bimp.drr==null || Bimp.drr.isEmpty()){
+//			postFormBuilder.addFile("","",null);
+//		}else {
+//			for (int i = 0; i < Bimp.drr.size(); i++) {
+//				String Str = Bimp.drr.get(i).substring(
+//						Bimp.drr.get(i).lastIndexOf("/") + 1,
+//						Bimp.drr.get(i).lastIndexOf("."));
+//				list.add(FileUtils.SDPATH + Str + ".png");
+//
+//
+//				File file = new File(Bimp.drr.get(i));
+//				if (file.exists()) {
+//
+//					JsonObject jsonObject = new JsonObject();
+//					jsonObject.addProperty("name", file.getName());
+//					jsonObject.addProperty("type", "1");
+//					fileMetaInfo.add(jsonObject);
+//
+//					postFormBuilder.addFile(file.getName(), file.getName(), file);
+//				}
+//			}
+//		}
+//
+//		Map<String,String> params = new HashMap<String, String>();
+//		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//		params.put("isPublic","1");
+//		params.put("infoText",content);
+//		params.put("fileMetaInfo",JsonUtils.toJson(fileMetaInfo));
+//
+//		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+//		postFormBuilder.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID).url(url).params(params)
+//				.build().execute(new StringCallback() {
+//			@Override
+//			public void onError(Call call, Exception e) {
+//				mLoadingDialog.cancel();
+//				runOnUiThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						ToastUtils.showToast(mContext,"发布失败");
+//					}
+//				});
+//			}
+//
+//			@Override
+//			public void onResponse(String response) {
+//				mLoadingDialog.cancel();
+//				JSONObject jsonResult = null;
+//				try {
+//					jsonResult = new JSONObject(response);
+//					int retFlag = jsonResult.getInt("retFlag");
+//					if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
+//						// 完成上传服务器后 .........
+//						FileUtils.deleteDir();
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext,"发布成功");
+//								sendSuccess();
+//							}
+//						});
+//
+//					}else{
+//						final String info = jsonResult.getString("info");
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext,info);
+//							}
+//						});
+//
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+//		});
+//
+//	}
 	/**
 	 * 发布图片
 	 */
 	private void sendPicture(){
+		client = client.newBuilder().connectTimeout(30, TimeUnit.SECONDS).build();
 		final String content = mEtContent.getText().toString().trim();
 		if(StringUtils.isEmpty(content)){
 			ToastUtils.showToast(mContext,"请输入内容");
@@ -253,48 +347,34 @@ public class PublishPictureActivity extends BaseActivity {
 		ThreadUtil.getTheadPool(true).submit(new Runnable() {
 			@Override
 			public void run() {
-				List<String> list = new ArrayList<String>();
-				JsonArray fileMetaInfo = new JsonArray();
-				for (int i = 0; i < Bimp.drr.size(); i++) {
-					String Str = Bimp.drr.get(i).substring(
-							Bimp.drr.get(i).lastIndexOf("/") + 1,
-							Bimp.drr.get(i).lastIndexOf("."));
-					list.add(FileUtils.SDPATH+Str+".png");
-
-
-				}
 				// 高清的压缩图片全部就在  list 路径里面了
 				// 高清的压缩过的 bmp 对象  都在 Bimp.bmp里面
 				//多文件表单上传构造器
-				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
-
-
-				//添加一个文本表单参数
-
-
-				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				for(int i = 0;i<Bimp.drr.size();i++){
-					File file = new File(Bimp.drr.get(i));
+				MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+				JsonArray fileMetaInfo = new JsonArray();
+				for (int i = 0; i < Bimp.drr.size(); i++) {
+					String filePath = FileUtils.SDPATH+Bimp.drr.get(i).substring(
+							Bimp.drr.get(i).lastIndexOf("/"));
+					File file = new File(filePath);
 					if(file.exists()){
-
 						JsonObject jsonObject = new JsonObject();
 						jsonObject.addProperty("name",file.getName());
 						jsonObject.addProperty("type","1");
 						fileMetaInfo.add(jsonObject);
-
 						RequestBody fileBody = RequestBody.create(MEDIA_TYPE_PNG,file);
-//						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
-//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
 						multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
-
 					}
 				}
+
+				//添加表单参数
+				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
 				multipartBuilder.addFormDataPart("infoText",content);//动态内容
 				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
 
 				RequestBody requestBody = multipartBuilder.build();
+
 				//构造文件上传时的请求对象Request
 				String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 				Request request = new Request.Builder().url(url)
@@ -302,21 +382,25 @@ public class PublishPictureActivity extends BaseActivity {
 						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
 						.build();
 
-
-				try {
-					Response response = client.newCall(request).execute();
-
-					mLoadingDialog.cancel();
-					if(!response.isSuccessful()){
+				client.newCall(request).enqueue(new Callback() {
+					@Override
+					public void onFailure(Call call, IOException e) {
+						mLoadingDialog.cancel();
+						e.printStackTrace();
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
 								ToastUtils.showToast(mContext,"发布失败");
 							}
 						});
+					}
 
-					}else{
+					@Override
+					public void onResponse(Call call, Response response) throws IOException {
+						mLoadingDialog.cancel();
+
 						try {
+
 							JSONObject jsonResult = new JSONObject(response.body().string());
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
@@ -345,11 +429,7 @@ public class PublishPictureActivity extends BaseActivity {
 						}
 
 					}
-				} catch (IOException e) {
-					mLoadingDialog.cancel();
-					e.printStackTrace();
-				}
-
+				});
 
 
 			}
@@ -369,6 +449,14 @@ public class PublishPictureActivity extends BaseActivity {
 	 */
 	private void sendSuccess(){
 
+		if(Bimp.bmp!=null) {
+			Bimp.bmp.clear();
+			Bimp.bmp = null;
+		}
+		if(Bimp.drr!=null) {
+			Bimp.drr.clear();
+			Bimp.drr = null;
+		}
 		AppManager.getAppManager().finishActivity(PublishActivity.class);
 		AppManager.getAppManager().finishActivity();
 		Intent intent = new Intent(mContext, MainActivity.class);
@@ -398,6 +486,7 @@ public class PublishPictureActivity extends BaseActivity {
 
 		public void update() {
 			loading();
+			adapter.notifyDataSetChanged();
 		}
 
 		public int getCount() {
@@ -426,7 +515,6 @@ public class PublishPictureActivity extends BaseActivity {
 		 * ListView Item设置
 		 */
 		public View getView(int position, View convertView, ViewGroup parent) {
-			final int coord = position;
 			ViewHolder holder = null;
 			if (convertView == null) {
 
@@ -447,6 +535,7 @@ public class PublishPictureActivity extends BaseActivity {
 					holder.image.setVisibility(View.GONE);
 				}
 			} else {
+//				Picasso.with(mContext).load(Bimp.drr.get(position)).into(holder.image);
 				holder.image.setImageBitmap(Bimp.bmp.get(position));
 			}
 
@@ -585,8 +674,7 @@ public class PublishPictureActivity extends BaseActivity {
 	private String path = "";
 	public void photo() {
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ "/myimage/", String.valueOf(System.currentTimeMillis())
+		File file = new File(FileUtil.PICTURE_FILE_DIR, String.valueOf(System.currentTimeMillis())
 				+ ".jpg");
 		path = file.getPath();
 		Uri imageUri = Uri.fromFile(file);
@@ -594,7 +682,9 @@ public class PublishPictureActivity extends BaseActivity {
 		startActivityForResult(openCameraIntent, TAKE_PICTURE);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
-
-
+	}
 }

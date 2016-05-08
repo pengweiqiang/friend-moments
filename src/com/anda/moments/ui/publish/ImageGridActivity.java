@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.anda.moments.R;
 import com.anda.moments.apdater.ImageGridAdapter;
+import com.anda.moments.commons.AppManager;
 import com.anda.moments.entity.ImageItem;
+import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.utils.publish.Bimp;
 
@@ -26,15 +28,15 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class ImageGridActivity extends Activity {
+public class ImageGridActivity extends BaseActivity {
 	public static final String EXTRA_IMAGE_LIST = "imagelist";
 
-	// ArrayList<Entity> dataList;//鐢ㄦ潵瑁呰浇鏁版嵁婧愮殑鍒楄〃
 	List<ImageItem> dataList;
 	GridView gridView;
-	ImageGridAdapter adapter;// 鑷畾涔夌殑閫傞厤鍣�
+	ImageGridAdapter adapter;//
 	AlbumHelper helper;
 	Button bt;
+	private View mBtnCancel;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -52,18 +54,44 @@ public class ImageGridActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_image_grid);
+		super.onCreate(savedInstanceState);
 
 		helper = AlbumHelper.getHelper();
 		helper.init(getApplicationContext());
 
+
 		dataList = (List<ImageItem>) getIntent().getSerializableExtra(
 				EXTRA_IMAGE_LIST);
 
-		initView();
+		adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,
+				mHandler);
+		gridView.setAdapter(adapter);
+		adapter.setTextCallback(new ImageGridAdapter.TextCallback() {
+			public void onListen(int count) {
+				bt.setText("完成" + "(" + count + ")");
+			}
+		});
+
+
+
+
+
+	}
+
+	/**
+	 */
+	@Override
+	public void initView() {
+		gridView = (GridView) findViewById(R.id.gridview);
+		mBtnCancel = findViewById(R.id.tv_cancel);
 		bt = (Button) findViewById(R.id.bt);
+		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+	}
+
+	@Override
+	public void initListener() {
 		bt.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -85,24 +113,14 @@ public class ImageGridActivity extends Activity {
 						Bimp.drr.add(list.get(i));
 					}
 				}
-				finish();
+				AppManager.getAppManager().finishActivity();
 			}
 
 		});
-	}
-
-	/**
-	 * 鍒濆鍖杤iew瑙嗗浘
-	 */
-	private void initView() {
-		gridView = (GridView) findViewById(R.id.gridview);
-		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		adapter = new ImageGridAdapter(ImageGridActivity.this, dataList,
-				mHandler);
-		gridView.setAdapter(adapter);
-		adapter.setTextCallback(new ImageGridAdapter.TextCallback() {
-			public void onListen(int count) {
-				bt.setText("完成" + "(" + count + ")");
+		mBtnCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AppManager.getAppManager().finishActivity();
 			}
 		});
 
@@ -110,23 +128,11 @@ public class ImageGridActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				/**
-				 * 鏍规嵁position鍙傛暟锛屽彲浠ヨ幏寰楄窡GridView鐨勫瓙View鐩哥粦瀹氱殑瀹炰綋绫伙紝鐒跺悗鏍规嵁瀹冪殑isSelected鐘舵
-				 * �锛� 鏉ュ垽鏂槸鍚︽樉绀洪�涓晥鏋溿� 鑷充簬閫変腑鏁堟灉鐨勮鍒欙紝涓嬮潰閫傞厤鍣ㄧ殑浠ｇ爜涓細鏈夎鏄�
-				 */
-				// if(dataList.get(position).isSelected()){
-				// dataList.get(position).setSelected(false);
-				// }else{
-				// dataList.get(position).setSelected(true);
-				// }
-				/**
-				 * 閫氱煡閫傞厤鍣紝缁戝畾鐨勬暟鎹彂鐢熶簡鏀瑰彉锛屽簲褰撳埛鏂拌鍥�
-				 */
+									int position, long id) {
+
 				adapter.notifyDataSetChanged();
 			}
 
 		});
-
 	}
 }

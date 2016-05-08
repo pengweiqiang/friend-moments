@@ -13,9 +13,9 @@ import android.database.Cursor;
 import android.provider.MediaStore.Audio.Albums;
 import android.provider.MediaStore.Images.Media;
 import android.provider.MediaStore.Images.Thumbnails;
-import android.util.Log;
 
 import com.anda.moments.entity.ImageItem;
+import com.anda.moments.utils.Log;
 
 /**
  * 专辑帮助类
@@ -144,9 +144,9 @@ public class AlbumHelper {
 				numOfSongs = cur.getInt(numOfSongsColumn);
 
 				// Do something with the values.
-				Log.i(TAG, _id + " album:" + album + " albumArt:" + albumArt
-						+ "albumKey: " + albumKey + " artist: " + artist
-						+ " numOfSongs: " + numOfSongs + "---");
+//				Log.i(TAG, _id + " album:" + album + " albumArt:" + albumArt
+//						+ "albumKey: " + albumKey + " artist: " + artist
+//						+ " numOfSongs: " + numOfSongs + "---");
 				HashMap<String, String> hash = new HashMap<String, String>();
 				hash.put("_id", _id + "");
 				hash.put("album", album);
@@ -206,10 +206,10 @@ public class AlbumHelper {
 				String bucketId = cur.getString(bucketIdIndex);
 				String picasaId = cur.getString(picasaIdIndex);
 
-				Log.i(TAG, _id + ", bucketId: " + bucketId + ", picasaId: "
-						+ picasaId + " name:" + name + " path:" + path
-						+ " title: " + title + " size: " + size + " bucket: "
-						+ bucketName + "---");
+//				Log.i(TAG, _id + ", bucketId: " + bucketId + ", picasaId: "
+//						+ picasaId + " name:" + name + " path:" + path
+//						+ " title: " + title + " size: " + size + " bucket: "
+//						+ bucketName + "---");
 
 				ImageBucket bucket = bucketList.get(bucketId);
 				if (bucket == null) {

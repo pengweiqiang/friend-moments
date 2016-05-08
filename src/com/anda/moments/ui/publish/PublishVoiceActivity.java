@@ -37,12 +37,10 @@ import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.audio.AudioRecordButton;
 import com.anda.moments.views.audio.MediaManager;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.squareup.picasso.OkHttpDownloader;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,8 +48,12 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.FormBody;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -166,9 +168,9 @@ public class PublishVoiceActivity extends BaseActivity {
 		MediaManager.resume();
 	}
 
-	private OkHttpClient client = new OkHttpClient();
+
 	/**
-	 * 发布录音
+	 * 发布音频
 	 */
 	private void sendAudio(){
 		final String content = mEtContent.getText().toString().trim();
@@ -179,56 +181,53 @@ public class PublishVoiceActivity extends BaseActivity {
 		}
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
-		ThreadUtil.getTheadPool(true).submit(new Runnable() {
-			@Override
-			public void run() {
 
-				File file = new File(filePath);
+		File file = new File(filePath);
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 
-				JsonArray fileMetaInfo = new JsonArray();
-				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("name",file.getName());
-				jsonObject.addProperty("type","2");//1-图片，2-音频，3-视频
-				fileMetaInfo.add(jsonObject);
+		PostFormBuilder postFormBuilder = OkHttpUtils.post();
 
-				//多文件表单上传构造器
-				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+		JsonArray fileMetaInfo = new JsonArray();
+		if(file.exists()) {
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("name", file.getName());
+			jsonObject.addProperty("type", "2");//1-图片，2-音频，3-视频
+			fileMetaInfo.add(jsonObject);
+			postFormBuilder.addFile(file.getName(),file.getName(),file);
+		}else{
+			ToastUtils.showToast(mContext,"请录入语音");
+			return;
+		}
 
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+		params.put("infoText",content);
+		params.put("isPublic","1");
 
-				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
-				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+		params.put("fileMetaInfo",fileMetaInfoStr);
 
-				//添加一个文本表单参数
-				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
-				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
-				multipartBuilder.addFormDataPart("infoText",content);//动态内容
-				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
-
-				RequestBody requestBody = multipartBuilder.build();
-				//构造文件上传时的请求对象Request
-				String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
-				Request request = new Request.Builder().url(url)
-						.post(requestBody)
-						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-						.build();
-
-
-				try {
-					Response response = client.newCall(request).execute();
-
-					mLoadingDialog.cancel();
-					if(!response.isSuccessful()){
+		postFormBuilder.url(url)
+				.params(params)
+				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+				.build()
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e) {
+						mLoadingDialog.cancel();
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								ToastUtils.showToast(mContext,"发布失败");
+								ToastUtils.showToast(mContext, "发布失败");
 							}
 						});
+					}
 
-					}else{
+					@Override
+					public void onResponse(String response) {
+						mLoadingDialog.cancel();
 						try {
-							JSONObject jsonResult = new JSONObject(response.body().string());
+							JSONObject jsonResult = new JSONObject(response);
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
 								// 完成上传服务器后 .........
@@ -250,24 +249,118 @@ public class PublishVoiceActivity extends BaseActivity {
 										ToastUtils.showToast(mContext,info);
 									}
 								});
-
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
 
 					}
-				} catch (IOException e) {
-					mLoadingDialog.cancel();
-					e.printStackTrace();
-				}
 
-			}
-
-		});
-
-
+				});
 	}
+
+//	private OkHttpClient client = new OkHttpClient();
+	/**
+	 * 发布录音
+	 */
+//	private void sendAudio(){
+//		final String content = mEtContent.getText().toString().trim();
+//		if(StringUtils.isEmpty(content)){
+//			ToastUtils.showToast(mContext,"请输入内容");
+//			mEtContent.requestFocus();
+//			return;
+//		}
+//		mLoadingDialog = new LoadingDialog(mContext);
+//		mLoadingDialog.show();
+//		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+//			@Override
+//			public void run() {
+//
+//				File file = new File(filePath);
+//
+//				JsonArray fileMetaInfo = new JsonArray();
+//				JsonObject jsonObject = new JsonObject();
+//				jsonObject.addProperty("name",file.getName());
+//				jsonObject.addProperty("type","2");//1-图片，2-音频，3-视频
+//				fileMetaInfo.add(jsonObject);
+//
+//				//多文件表单上传构造器
+//				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+//
+//
+//				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
+//				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+//
+//				//添加一个文本表单参数
+//				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+//				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
+//				multipartBuilder.addFormDataPart("infoText",content);//动态内容
+//				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
+//
+//				RequestBody requestBody = multipartBuilder.build();
+//				//构造文件上传时的请求对象Request
+//				String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+//				Request request = new Request.Builder().url(url)
+//						.post(requestBody)
+//						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+//						.build();
+//
+//
+//				try {
+//					Response response = client.newCall(request).execute();
+//
+//					mLoadingDialog.cancel();
+//					if(!response.isSuccessful()){
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext,"发布失败");
+//							}
+//						});
+//
+//					}else{
+//						try {
+//							JSONObject jsonResult = new JSONObject(response.body().string());
+//							int retFlag = jsonResult.getInt("retFlag");
+//							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
+//								// 完成上传服务器后 .........
+////								FileUtils.deleteAudioDir();
+//								FileUtils.delFile(filePath);
+//								runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										ToastUtils.showToast(mContext,"发布成功");
+//										sendSuccess();
+//									}
+//								});
+//
+//							}else{
+//								final String info = jsonResult.getString("info");
+//								runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										ToastUtils.showToast(mContext,info);
+//									}
+//								});
+//
+//							}
+//						} catch (JSONException e) {
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				} catch (IOException e) {
+//					mLoadingDialog.cancel();
+//					e.printStackTrace();
+//				}
+//
+//			}
+//
+//		});
+//
+//
+//	}
 
 	/**
 	 * 发送成功跳转

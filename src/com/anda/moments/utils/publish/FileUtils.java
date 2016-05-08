@@ -22,12 +22,12 @@ public class FileUtils {
 			if (!isFileExist("")) {
 				File tempf = createSDDir("");
 			}
-			File f = new File(SDPATH, picName + ".png");
+			File f = new File(SDPATH, picName + ".jpg");
 			if (f.exists()) {
 				f.delete();
 			}
 			FileOutputStream out = new FileOutputStream(f);
-			bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+			bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
 			out.flush();
 			out.close();
 			Log.e("", "已经保存"+f.getPath());
@@ -43,8 +43,8 @@ public class FileUtils {
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 
-			System.out.println("createSDDir:" + dir.getAbsolutePath());
-			System.out.println("createSDDir:" + dir.mkdir());
+//			System.out.println("createSDDir:" + dir.getAbsolutePath());
+//			System.out.println("createSDDir:" + dir.mkdir());
 		}
 		return dir;
 	}

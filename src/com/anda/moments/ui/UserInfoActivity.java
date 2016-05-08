@@ -80,6 +80,12 @@ public class UserInfoActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onRestart() {
+		super.onRestart();
+		getData();
+	}
+
+	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		user = (User)intent.getSerializableExtra("user");

@@ -40,15 +40,11 @@ import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +56,13 @@ import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -398,6 +401,78 @@ public class PersonalInfoActivity extends BaseActivity {
 		updateMyInfo("");
 	}
 
+//	private void updateMyInfo(final String filePath){
+//		if(mLoadingDialog==null) {
+//			mLoadingDialog = new LoadingDialog(mContext);
+//		}
+//		mLoadingDialog.show();
+//
+////		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+////			@Override
+////			public void run() {
+//
+//				PostFormBuilder postFormBuilder = OkHttpUtils.post();
+//				File file = new File(filePath);
+//				if (file.exists()) {//有头像的情况
+//					postFormBuilder.addFile(file.getName(), file.getName(), file);
+//				}
+//				Map<String, String> params = new HashMap<String, String>();
+//				if (!StringUtils.isEmpty(sex)) {
+//					params.put("gender", sex);
+//				}
+//				params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//
+//
+//				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
+//				postFormBuilder.url(url);
+//				postFormBuilder.params(params);
+//				postFormBuilder.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID);
+//				postFormBuilder.build().execute(new StringCallback() {
+//					@Override
+//					public void onError(Call call, Exception e) {
+//						mLoadingDialog.cancel();
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext, "更新失败");
+//							}
+//						});
+//					}
+//
+//					@Override
+//					public void onResponse(String response) {
+//						mLoadingDialog.cancel();
+//						try {
+//							JSONObject jsonResult = new JSONObject(response);
+//							int retFlag = jsonResult.getInt("retFlag");
+//							if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+//
+//								// 完成上传服务器后 .........
+//								FileUtil.deleteFile(filePath);
+//								String imgPath = "";//返回的头像路径
+//								if (!StringUtils.isEmpty(filePath)) {
+//									imgPath = jsonResult.getString("imgPath");
+//								}
+//								uploadUserHeadSuccess(imgPath);
+//							} else {
+//								final String info = jsonResult.getString("info");
+//								runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										ToastUtils.showToast(mContext, info);
+//									}
+//								});
+//
+//							}
+//						} catch (JSONException e) {
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				});
+////			}
+////		});
+//	}
 	/**
 	 * 上传头像
 	 * @param image
@@ -415,7 +490,7 @@ public class PersonalInfoActivity extends BaseActivity {
 			public void run() {
 
 				//多文件表单上传构造器
-				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+				MultipartBody.Builder multipartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
 				File file = new File(filePath);
 				if(file.exists()){//有头像的情况
@@ -427,11 +502,6 @@ public class PersonalInfoActivity extends BaseActivity {
 				if(!StringUtils.isEmpty(sex)) {
 					multipartBuilder.addFormDataPart("gender", sex);
 				}
-//				if(!StringUtils.isEmpty(userName)){
-//
-//				}
-//				multipartBuilder.addFormDataPart("infoText", content);//动态内容
-//				multipartBuilder.addFormDataPart("isPublic", "1");//是否公开 0：私有 1：公开（必填）
 
 				RequestBody requestBody = multipartBuilder.build();
 				//构造文件上传时的请求对象Request
@@ -441,10 +511,9 @@ public class PersonalInfoActivity extends BaseActivity {
 						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
 						.build();
 				Call call = client.newCall(request);
-				call.enqueue(new Callback() {
-
+				call.enqueue(new okhttp3.Callback() {
 					@Override
-					public void onFailure(Request request, IOException e) {
+					public void onFailure(Call call, IOException e) {
 						mLoadingDialog.cancel();
 						runOnUiThread(new Runnable() {
 							@Override
@@ -455,7 +524,7 @@ public class PersonalInfoActivity extends BaseActivity {
 					}
 
 					@Override
-					public void onResponse(Response response) throws IOException {
+					public void onResponse(Call call, Response response) throws IOException {
 						mLoadingDialog.cancel();
 						try {
 							if (!response.isSuccessful()) {
@@ -498,7 +567,6 @@ public class PersonalInfoActivity extends BaseActivity {
 							mLoadingDialog.cancel();
 							e.printStackTrace();
 						}
-
 					}
 				});
 

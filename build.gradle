@@ -24,7 +24,7 @@ dependencies {
     compile project('WXLikeVideoRecorderLib')
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.yqritc:android-scalablevideoview:1.0.3'
-    //    compile 'com.zhy:okhttputils:2.4.1'
+    compile 'com.zhy:okhttputils:2.4.1'
 //    compile files('libs/okhttputils-2_4_1.jar')
 }
 

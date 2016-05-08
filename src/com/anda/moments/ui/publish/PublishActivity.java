@@ -25,7 +25,6 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.squareup.okhttp.OkHttpClient;
 
 /**
  * 发布（视频、语音、图片）
@@ -180,9 +179,5 @@ public class PublishActivity extends BaseActivity {
 		animator3.start();
 	}
 
-	private void sendPicture(){
-		OkHttpClient okHttpClient  = new OkHttpClient();
-
-	}
 
 }

@@ -33,9 +33,11 @@ import com.anda.universalimageloader.core.ImageLoader;
 import com.anda.universalimageloader.core.ImageLoaderConfiguration;
 import com.anda.universalimageloader.core.assist.ImageScaleType;
 import com.anda.universalimageloader.core.assist.QueueProcessingType;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -121,6 +123,9 @@ public class MyApplication extends Application {
 		}
 
 		setConversionListener();
+
+
+		OkHttpUtils.getInstance().debug("OkHttpUtils").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
 
 	}
 

@@ -148,7 +148,9 @@ public class MultiMyImageView extends LinearLayout {
 
 		int allCount = imagesList.size();
 		if (imagesList.size() == 1) {
-			addView(createImageView(0, false));
+			ImageView imageView = createImageView(0,false);
+//			imageView.setScaleType(ScaleType.FIT_CENTER);
+			addView(imageView);
 		}else if(allCount==2){
 
 			this.setOrientation(HORIZONTAL);
@@ -278,7 +280,7 @@ public class MultiMyImageView extends LinearLayout {
 		imageView.setTag(position);
 		imageView.setId(url.hashCode());
 		imageView.setOnClickListener(mImageViewOnClickListener);
-		Picasso.with(getContext()).load(url).resize(onePicPara.width,onePicPara.height).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(imageView);
+		Picasso.with(getContext()).load(url).resize(onePicPara.width,onePicPara.height).centerCrop().placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(imageView);
 
 		return imageView;
 	}

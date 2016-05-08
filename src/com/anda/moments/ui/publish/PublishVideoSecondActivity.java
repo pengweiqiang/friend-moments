@@ -58,16 +58,20 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+//import com.squareup.okhttp.Call;
+//import com.squareup.okhttp.Callback;
+//import com.squareup.okhttp.Headers;
+//import com.squareup.okhttp.MediaType;
+//import com.squareup.okhttp.MultipartBuilder;
+//import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.Request;
+//import com.squareup.okhttp.RequestBody;
+//import com.squareup.okhttp.Response;
 import com.yqritc.scalablevideoview.ScalableVideoView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.FileCallBack;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,9 +83,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
+import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -232,9 +240,9 @@ public class PublishVideoSecondActivity extends BaseActivity {
 
 
 
-	private OkHttpClient client = new OkHttpClient();
-	//参数类型
-	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+//	private OkHttpClient client = new OkHttpClient();
+//	//参数类型
+//	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
 	private void sendVideoByXutils(){
 		final String content = mEtContent.getText().toString().trim();
@@ -309,10 +317,11 @@ public class PublishVideoSecondActivity extends BaseActivity {
 				});
 
 	}
+
 	/**
 	 * 发布视频
 	 */
-	private void sendVideo(){
+	public void sendVideo(){
 		final String content = mEtContent.getText().toString().trim();
 		if(StringUtils.isEmpty(content)){
 			ToastUtils.showToast(mContext,"请输入内容");
@@ -321,46 +330,32 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		}
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
-		ThreadUtil.getTheadPool(true).submit(new Runnable() {
-			@Override
-			public void run() {
 
-				File file = new File(filePath);
+		File file = new File(filePath);
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 
-				JsonArray fileMetaInfo = new JsonArray();
-				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("name", file.getName());
-				jsonObject.addProperty("type", "3");
-				fileMetaInfo.add(jsonObject);
+		JsonArray fileMetaInfo = new JsonArray();
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("name", file.getName());
+		jsonObject.addProperty("type", "3");
+		fileMetaInfo.add(jsonObject);
 
-				//多文件表单上传构造器
-				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+		params.put("infoText",content);
+		params.put("isPublic","1");
 
+		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+		params.put("fileMetaInfo",fileMetaInfoStr);
 
-				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-//						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
-//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
-				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
-
-				//添加一个文本表单参数
-				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
-				multipartBuilder.addFormDataPart("fileMetaInfo", fileMetaInfoStr);
-				multipartBuilder.addFormDataPart("infoText", content);//动态内容
-				multipartBuilder.addFormDataPart("isPublic", "1");//是否公开 0：私有 1：公开（必填）
-
-				RequestBody requestBody = multipartBuilder.build();
-				//构造文件上传时的请求对象Request
-				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
-				Request request = new Request.Builder().url(url)
-						.post(requestBody)
-						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-						.build();
-				Call call = client.newCall(request);
-				call.enqueue(new Callback() {
-
+		OkHttpUtils.post().addFile(file.getName(),file.getName(),file)
+				.url(url)
+				.params(params)
+				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+				.build()
+				.execute(new StringCallback() {
 					@Override
-					public void onFailure(Request request, IOException e) {
+					public void onError(Call call, Exception e) {
 						mLoadingDialog.cancel();
 						runOnUiThread(new Runnable() {
 							@Override
@@ -370,64 +365,168 @@ public class PublishVideoSecondActivity extends BaseActivity {
 						});
 					}
 
+//					@Override
+//					public void inProgress(float progress) {
+//						super.inProgress(progress);
+//						Log.i(TAG,"p:"+progress);
+//					}
+
 					@Override
-					public void onResponse(Response response) throws IOException {
+					public void onResponse(String response) {
 						mLoadingDialog.cancel();
 						try {
-							if (!response.isSuccessful()) {
+							JSONObject jsonResult = new JSONObject(response);
+							int retFlag = jsonResult.getInt("retFlag");
+							if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+
+								// 完成上传服务器后 .........
+								FileUtil.deleteFile(filePath);
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
-										ToastUtils.showToast(mContext, "发布失败");
+										ToastUtils.showToast(mContext, "发布成功");
+										sendSuccess();
 									}
 								});
 
 							} else {
-								try {
-									JSONObject jsonResult = new JSONObject(response.body().string());
-									int retFlag = jsonResult.getInt("retFlag");
-									if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
-
-										// 完成上传服务器后 .........
-										FileUtil.deleteFile(filePath);
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												ToastUtils.showToast(mContext, "发布成功");
-												sendSuccess();
-											}
-										});
-
-									} else {
-										final String info = jsonResult.getString("info");
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												ToastUtils.showToast(mContext, info);
-											}
-										});
-
+								final String info = jsonResult.getString("info");
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext, info);
 									}
-								} catch (JSONException e) {
-									e.printStackTrace();
-								}
+								});
 
 							}
-						} catch (IOException e) {
-							mLoadingDialog.cancel();
+						} catch (JSONException e) {
 							e.printStackTrace();
 						}
 
 					}
+
 				});
-
-			}
-
-
-		});
-
-
 	}
+
+	/**
+	 * 发布视频
+	 */
+//	private void sendVideo(){
+//		final String content = mEtContent.getText().toString().trim();
+//		if(StringUtils.isEmpty(content)){
+//			ToastUtils.showToast(mContext,"请输入内容");
+//			mEtContent.requestFocus();
+//			return;
+//		}
+//		mLoadingDialog = new LoadingDialog(mContext);
+//		mLoadingDialog.show();
+//		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+//			@Override
+//			public void run() {
+//
+//				File file = new File(filePath);
+//
+//				JsonArray fileMetaInfo = new JsonArray();
+//				JsonObject jsonObject = new JsonObject();
+//				jsonObject.addProperty("name", file.getName());
+//				jsonObject.addProperty("type", "3");
+//				fileMetaInfo.add(jsonObject);
+//
+//				//多文件表单上传构造器
+//				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+//
+//
+//				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
+////						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
+////						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
+//				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+//
+//				//添加一个文本表单参数
+//				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+//				multipartBuilder.addFormDataPart("fileMetaInfo", fileMetaInfoStr);
+//				multipartBuilder.addFormDataPart("infoText", content);//动态内容
+//				multipartBuilder.addFormDataPart("isPublic", "1");//是否公开 0：私有 1：公开（必填）
+//
+//				RequestBody requestBody = multipartBuilder.build();
+//				//构造文件上传时的请求对象Request
+//				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+//				Request request = new Request.Builder().url(url)
+//						.post(requestBody)
+//						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+//						.build();
+//				Call call = client.newCall(request);
+//				call.enqueue(new Callback() {
+//
+//					@Override
+//					public void onFailure(Request request, IOException e) {
+//						mLoadingDialog.cancel();
+//						runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								ToastUtils.showToast(mContext, "发布失败");
+//							}
+//						});
+//					}
+//
+//					@Override
+//					public void onResponse(Response response) throws IOException {
+//						mLoadingDialog.cancel();
+//						try {
+//							if (!response.isSuccessful()) {
+//								runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										ToastUtils.showToast(mContext, "发布失败");
+//									}
+//								});
+//
+//							} else {
+//								try {
+//									JSONObject jsonResult = new JSONObject(response.body().string());
+//									int retFlag = jsonResult.getInt("retFlag");
+//									if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+//
+//										// 完成上传服务器后 .........
+//										FileUtil.deleteFile(filePath);
+//										runOnUiThread(new Runnable() {
+//											@Override
+//											public void run() {
+//												ToastUtils.showToast(mContext, "发布成功");
+//												sendSuccess();
+//											}
+//										});
+//
+//									} else {
+//										final String info = jsonResult.getString("info");
+//										runOnUiThread(new Runnable() {
+//											@Override
+//											public void run() {
+//												ToastUtils.showToast(mContext, info);
+//											}
+//										});
+//
+//									}
+//								} catch (JSONException e) {
+//									e.printStackTrace();
+//								}
+//
+//							}
+//						} catch (IOException e) {
+//							mLoadingDialog.cancel();
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				});
+//
+//			}
+//
+//
+//		});
+//
+//
+//	}
 
 	/**
 	 * 发送成功跳转

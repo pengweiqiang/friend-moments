@@ -24,7 +24,6 @@ import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.LoadingDialog;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
