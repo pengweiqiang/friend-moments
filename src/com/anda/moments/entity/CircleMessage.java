@@ -13,13 +13,14 @@ public class CircleMessage extends ParseModel {
     private long createTime;
 //    private User publishUser;
     private PraisedInfo praisedInfo;//点赞列表
+    private LovelyInfo lovelyInfo;//萌化了列表
     private CommentInfo commentInfo;//评论列表
 
 
 
-    private List<String> images;
-    private List<String> audios;
-    private List<String> videos;
+    private List<Images> images;
+    private List<Media> audios;
+    private List<Media> videos;
 
 
     public long getInfoId() {
@@ -80,27 +81,35 @@ public class CircleMessage extends ParseModel {
         this.commentInfo = commentInfo;
     }
 
-    public List<String> getImages() {
+    public List<Images> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Images> images) {
         this.images = images;
     }
 
-    public List<String> getAudios() {
+    public List<Media> getAudios() {
         return audios;
     }
 
-    public void setAudios(List<String> audios) {
+    public void setAudios(List<Media> audios) {
         this.audios = audios;
     }
 
-    public List<String> getVideos() {
+    public List<Media> getVideos() {
         return videos;
     }
 
-    public void setVideos(List<String> videos) {
+    public void setVideos(List<Media> videos) {
         this.videos = videos;
+    }
+
+    public LovelyInfo getLovelyInfo() {
+        return lovelyInfo;
+    }
+
+    public void setLovelyInfo(LovelyInfo lovelyInfo) {
+        this.lovelyInfo = lovelyInfo;
     }
 }

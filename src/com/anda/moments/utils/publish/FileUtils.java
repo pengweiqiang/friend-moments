@@ -30,7 +30,7 @@ public class FileUtils {
 			bm.compress(Bitmap.CompressFormat.PNG, 90, out);
 			out.flush();
 			out.close();
-			Log.e("", "已经保存");
+			Log.e("", "已经保存"+f.getPath());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

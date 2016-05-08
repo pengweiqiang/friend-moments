@@ -115,6 +115,8 @@ public class LoginActivity extends BaseActivity {
 							regainCode();
 							mEtCode.requestFocus();
 							sessionId = parseModel.getJsessionid();
+							String validateCode = parseModel.getValidateCode();
+							mEtCode.setText(validateCode);
 						}else{
 							mGetCode.setEnabled(true);
 							ToastUtils.showToast(mContext, parseModel.getInfo());

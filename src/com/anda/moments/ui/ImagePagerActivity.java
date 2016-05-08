@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.entity.Images;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.Log;
 import com.squareup.picasso.Callback;
@@ -50,9 +51,9 @@ public class ImagePagerActivity extends BaseActivity {
 
     public static int [] imageSize;
 
-    public static void startImagePagerActivity(Context context, List<String> imgUrls, int position){
+    public static void startImagePagerActivity(Context context, List<Images> imgUrls, int position){
         Intent intent = new Intent(context, ImagePagerActivity.class);
-        intent.putStringArrayListExtra(INTENT_IMGURLS, new ArrayList<String>(imgUrls));
+        intent.putExtra(INTENT_IMGURLS, new ArrayList<Images>(imgUrls));
         intent.putExtra(INTENT_POSITION, position);
         context.startActivity(intent);
     }
@@ -65,7 +66,7 @@ public class ImagePagerActivity extends BaseActivity {
         guideGroup = (LinearLayout) findViewById(R.id.guideGroup);
 
         int startPos = getIntent().getIntExtra(INTENT_POSITION, 0);
-        ArrayList<String> imgUrls = getIntent().getStringArrayListExtra(INTENT_IMGURLS);
+        ArrayList<Images> imgUrls = ( ArrayList<Images> )getIntent().getSerializableExtra(INTENT_IMGURLS);
 
         ImageAdapter mAdapter = new ImageAdapter(this);
         mAdapter.setDatas(imgUrls);
@@ -106,7 +107,7 @@ public class ImagePagerActivity extends BaseActivity {
 
     }
 
-    private void addGuideView(LinearLayout guideGroup, int startPos, ArrayList<String> imgUrls) {
+    private void addGuideView(LinearLayout guideGroup, int startPos, ArrayList<Images> imgUrls) {
         if(imgUrls!=null && imgUrls.size()>0){
             guideViewList.clear();
             for (int i=0; i<imgUrls.size(); i++){
@@ -124,12 +125,12 @@ public class ImagePagerActivity extends BaseActivity {
 
     private static class ImageAdapter extends PagerAdapter {
 
-        private List<String> datas = new ArrayList<String>();
+        private List<Images> datas = new ArrayList<Images>();
         private LayoutInflater inflater;
 //        private DisplayImageOptions options;
         private Context context;
 
-        public void setDatas(List<String> datas) {
+        public void setDatas(List<Images> datas) {
             if(datas != null )
                 this.datas = datas;
         }
@@ -177,7 +178,7 @@ public class ImagePagerActivity extends BaseActivity {
                 loading.setLayoutParams(loadingLayoutParams);
                 ((FrameLayout)view).addView(loading);
 
-                final String imgurl = datas.get(position);
+                final String imgurl = datas.get(position).getImgPath();
                 loading.setVisibility(View.VISIBLE);
                 Picasso.with(context).load(imgurl).into(imageView, new Callback() {
                     @Override

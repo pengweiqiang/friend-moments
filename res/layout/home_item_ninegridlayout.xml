@@ -67,6 +67,13 @@
         android:layout_marginLeft="10dp"
         />
 
+    <!-- 不同的地方 -->
+    <ViewStub
+        android:id="@+id/media_view_stub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <!--<com.anda.moments.views.MultiImageView-->
         <!--android:id="@+id/multiImagView"-->
         <!--android:layout_width="match_parent"-->
@@ -77,22 +84,22 @@
         <!--&gt;-->
     <!--</com.anda.moments.views.MultiImageView>-->
     <!--多张图片-->
-    <com.anda.moments.views.NineGridlayout
-        android:id="@+id/iv_ngrid_layout"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+    <!--<com.anda.moments.views.NineGridlayout-->
+        <!--android:id="@+id/iv_ngrid_layout"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent" />-->
 
-    <!--单张图片-->
-    <com.anda.moments.views.CustomImageView
-        android:id="@+id/iv_oneimage"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--&lt;!&ndash;单张图片&ndash;&gt;-->
+    <!--<com.anda.moments.views.CustomImageView-->
+        <!--android:id="@+id/iv_oneimage"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
     <!--<com.anda.moments.views.MultiImageView-->
         <!--android:id="@+id/iv_multi_image"-->
         <!--android:layout_width="match_parent"-->
@@ -112,6 +119,37 @@
         android:layout_marginRight="10dp"
         />
 
+    <LinearLayout
+        android:id="@+id/digCommentBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="10dip"
+        android:paddingLeft="12dip"
+        android:paddingTop="12dip"
+        android:paddingRight="12dip"
+        android:paddingBottom="8dip"
+        android:background="@drawable/im_distribute_comm_bg"
+        android:orientation="vertical" >
+
+        <!--<com.yiw.circledemo.widgets.FavortListView-->
+            <!--android:id="@+id/favortListTv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:lineSpacingMultiplier="1.1"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/color_8290AF"-->
+            <!--/>-->
+
+
+        <com.anda.moments.views.CommentListView
+            android:id="@+id/commentList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            />
+
+    </LinearLayout>
 
 
 </LinearLayout>

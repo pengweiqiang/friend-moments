@@ -68,9 +68,9 @@ public static final String PROJECT_NAME = "";
 	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+"123.57.163.138/friendscircle/"; //默认值异常的请求地址
 
 	//融云参数配置
-	public static final String APPKEY_RONG = "lmxuhwagxvpkd";
+	public static final String APPKEY_RONG = "cpj2xarljnnwn";
 
-	public static final String APPSERCERT_RONG = "DK6yuQWNLGQ";
+	public static final String APPSERCERT_RONG = "tA7Dxi0Sl1";
 
 	public static final int LIMIT_DEFAULT_NUM=10;
 	
@@ -129,6 +129,11 @@ public static final String PROJECT_NAME = "";
 	 * 评论
 	 */
 	public static final String REQUEST_FRIENDS_ADD_COMMENT = "friends/addComment.do";
+
+	/**
+	 * 萌化了
+	 */
+	public static final String REQUEST_FRIENDS_LOVE_STH = "friends/toLovelySth.do";
 	/**
 	 * 点赞
 	 */
@@ -159,6 +164,11 @@ public static final String PROJECT_NAME = "";
 	 * 根据USERID查询添加好友–已完成
 	 */
 	public static final String REQUEST_FRIENDS_SEARCH_BY_USERID = "friends/searchFriendsByUserId.do";
+
+	/**
+	 * 查询是否存在该userId
+	 */
+	public static final String REQUEST_IS_EXIST_USER_ID = "friends/isExistUser.do";
 
 	/**
 	 * 处理好友请求

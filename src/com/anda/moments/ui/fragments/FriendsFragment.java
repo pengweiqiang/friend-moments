@@ -9,6 +9,7 @@ import java.util.zip.Inflater;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -53,6 +54,7 @@ import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
+import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
@@ -65,9 +67,11 @@ import com.anda.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
 
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * 好友
@@ -306,6 +310,12 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				}else{
 					continue;
 				}
+				//刷新用户信息头像
+				Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
+				RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),user.getUserName(), headUri));
+
+
+
 			}
 		}else{
 

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:1-209:12
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:1-211:12
 	xmlns:android
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:11-69
 	package
@@ -81,7 +81,7 @@ MERGED from [com.yqritc:android-scalablevideoview:1.0.3] /Users/pengweiqiang/Doc
 	android:minSdkVersion
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:23:9-35
 application
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:26:5-207:19
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:26:5-209:19
 MERGED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:34:5-115:19
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:30:9-41
@@ -288,7 +288,7 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 activity#com.anda.moments.ui.MainActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:167:9-176:20
 	android:windowSoftInputMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:171:13-74
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:171:13-52
 	android:screenOrientation
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:172:13-49
 	android:label

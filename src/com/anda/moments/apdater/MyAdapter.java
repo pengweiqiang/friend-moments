@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anda.moments.R;
+import com.anda.moments.entity.Images;
 import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
@@ -87,7 +88,7 @@ public class MyAdapter extends BaseAdapter {
         }else{
             viewHolder.mLineTop.setVisibility(View.VISIBLE);
         }
-        final List<String> itemPicList = infos.getImages();
+        final List<Images> itemPicList = infos.getImages();
         if (itemPicList ==null || itemPicList.isEmpty()) {
             viewHolder.multiMyImageView.setVisibility(View.GONE);
         } else {

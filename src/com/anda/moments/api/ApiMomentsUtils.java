@@ -90,6 +90,23 @@ public class ApiMomentsUtils {
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_ADD_COMMENT, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
+
+	/**
+	 * 萌化了
+	 * @param context
+	 * @param infoId 动态信息id
+	 * @param type  1
+	 * @param requestCallback
+	 */
+	public static void addLoveSth(Context context, String infoId,
+								  String type,String phoneNum ,RequestCallback requestCallback) {
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("infoId", infoId);
+		params.put("type", type);
+		params.put("phoneNum", phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_LOVE_STH, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
 	
 
 	/**

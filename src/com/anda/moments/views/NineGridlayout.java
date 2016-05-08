@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.anda.moments.entity.Image;
+import com.anda.moments.entity.Images;
 import com.anda.moments.utils.ScreenTools;
 
 import java.util.List;
@@ -58,8 +59,9 @@ public class NineGridlayout extends ViewGroup {
         setLayoutParams(params);
 
         for (int i = 0; i < childrenCount; i++) {
+            Images images = (Images)listData.get(i);
             CustomImageView childrenView = (CustomImageView) getChildAt(i);
-            childrenView.setImageUrl((String)listData.get(i));
+            childrenView.setImageUrl(images.getImgPath());
             int[] position = findPosition(i);
             int left = (singleWidth + gap) * position[1];
             int top = (singleHeight + gap) * position[0];
@@ -95,7 +97,7 @@ public class NineGridlayout extends ViewGroup {
     }
 
 
-    public void setImagesData(List<String> lists) {
+    public void setImagesData(List<Images> lists) {
         if (lists == null || lists.isEmpty()) {
             return;
         }

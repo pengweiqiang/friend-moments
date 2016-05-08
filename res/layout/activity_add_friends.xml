@@ -21,6 +21,8 @@
             android:id="@+id/et_search_friend"
             android:lines="1"
             android:singleLine="true"
+            android:drawableLeft="@drawable/search_edittext"
+            android:drawablePadding="5dp"
             android:background="@drawable/bg_search_friends"
             android:padding="10dp"
             android:hint="搜索用户ID..."

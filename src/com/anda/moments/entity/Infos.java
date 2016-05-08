@@ -10,9 +10,9 @@ public class Infos implements Serializable {
     private String isPublic;
     private String phoneNum;
     private long createTime;
-    private List<String> images;
-    private List<String> audios;
-    private List<String> videos;
+    private List<Images> images;
+    private List<Media> audios;
+    private List<Media> videos;
 
 
     public long getInfoId() {
@@ -55,27 +55,27 @@ public class Infos implements Serializable {
         this.createTime = createTime;
     }
 
-    public List<String> getImages() {
+    public List<Images> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Images> images) {
         this.images = images;
     }
 
-    public List<String> getAudios() {
+    public List<Media> getAudios() {
         return audios;
     }
 
-    public void setAudios(List<String> audios) {
+    public void setAudios(List<Media> audios) {
         this.audios = audios;
     }
 
-    public List<String> getVideos() {
+    public List<Media> getVideos() {
         return videos;
     }
 
-    public void setVideos(List<String> videos) {
+    public void setVideos(List<Media> videos) {
         this.videos = videos;
     }
 }

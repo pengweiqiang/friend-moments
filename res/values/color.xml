@@ -65,5 +65,8 @@
     <color name="home_theme_color">#e78689</color>
     <color name="bg_color">#f9f9f9</color>
 
+    <color name="name_selector_color">#cccccc</color>
+    <color name="color_8290AF">#8290AF</color>
+
     
 </resources>

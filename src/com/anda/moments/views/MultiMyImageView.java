@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 
 import com.anda.moments.R;
+import com.anda.moments.entity.Images;
 import com.anda.moments.utils.DeviceInfo;
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +29,7 @@ public class MultiMyImageView extends LinearLayout {
 	public static int MAX_WIDTH = 0;
 
 	// 照片的Url列表
-	private List<String> imagesList;
+	private List<Images> imagesList;
 
 	/** 长度 单位为Pixel **/
 	private int pxOneMaxWandH;  // 单张图最大允许宽高
@@ -54,7 +55,7 @@ public class MultiMyImageView extends LinearLayout {
 		super(context, attrs);
 	}
 
-	public void setList(List<String> lists) throws IllegalArgumentException{
+	public void setList(List<Images> lists) throws IllegalArgumentException{
 		if(lists==null){
 			throw new IllegalArgumentException("imageList is null...");
 		}
@@ -237,7 +238,7 @@ public class MultiMyImageView extends LinearLayout {
 	}
 
 	private ImageView createImageView(int position, final boolean isMultiImage) {
-		String url = imagesList.get(position);
+		String url = imagesList.get(position).getImgPath();
 		ImageView imageView = new ColorFilterImageView(getContext());
 		if(isMultiImage){
 			if(position==0 && (imagesList.size() == 2 ||imagesList.size()==3)){
@@ -277,7 +278,7 @@ public class MultiMyImageView extends LinearLayout {
 		imageView.setTag(position);
 		imageView.setId(url.hashCode());
 		imageView.setOnClickListener(mImageViewOnClickListener);
-		Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(imageView);
+		Picasso.with(getContext()).load(url).resize(onePicPara.width,onePicPara.height).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(imageView);
 
 		return imageView;
 	}

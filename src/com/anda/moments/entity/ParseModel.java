@@ -17,6 +17,8 @@ public class ParseModel extends BaseModel {
 	
 	private String jsessionid;
 
+	private String validateCode;
+
 	private JsonElement results;
 
 	private JsonElement result;
@@ -99,5 +101,13 @@ public class ParseModel extends BaseModel {
 
 	public void setInfos(List<Infos> infos) {
 		this.infos = infos;
+	}
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
 	}
 }

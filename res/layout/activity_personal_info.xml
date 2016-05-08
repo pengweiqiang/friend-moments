@@ -45,7 +45,7 @@
             app:sriv_border_width="0dip"
             app:sriv_border_color="#008fea"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_head" />
+            android:src="@drawable/default_useravatar" />
 
         <ImageView
             android:id="@+id/iv_head_right"
@@ -108,6 +108,7 @@
         android:layout_height="1px"/>
     <!-- ID -->
     <RelativeLayout
+        android:id="@+id/rl_user_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
@@ -127,11 +128,20 @@
 
         <TextView
             android:id="@+id/tv_user_id"
+            android:layout_toLeftOf="@+id/iv_user_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:layout_alignParentRight="true"
             android:textColor="#979797"
+            />
+        <ImageView
+            android:id="@+id/iv_user_id"
+            android:layout_width="10dp"
+            android:layout_height="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/btn_detail_right"
+            android:layout_centerVertical="true"
             />
 
 
@@ -184,6 +194,7 @@
         android:layout_height="1px"/>
     <!-- 地址 -->
     <RelativeLayout
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"

@@ -273,8 +273,8 @@ public class PublishPictureActivity extends BaseActivity {
 
 
 				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				for(int i = 0;i<list.size();i++){
-					File file = new File(list.get(i));
+				for(int i = 0;i<Bimp.drr.size();i++){
+					File file = new File(Bimp.drr.get(i));
 					if(file.exists()){
 
 						JsonObject jsonObject = new JsonObject();

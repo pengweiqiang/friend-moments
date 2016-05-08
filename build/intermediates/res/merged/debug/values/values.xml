@@ -286,6 +286,7 @@
     <color name="btn_member_normal">#ff8a3d</color>
     <color name="btn_member_pressed">#fa9b5d</color>
     <color name="cash_rechange">#5b87e7</color>
+    <color name="color_8290AF">#8290AF</color>
     <color name="color_action_bar_title">#646464</color>
     <color name="color_text_register">#999999</color>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
@@ -321,6 +322,7 @@
     <color name="listview_item_pressed">#d4d4d4</color>
     <color name="main_tab_text_color_selected">#e78689</color>
     <color name="main_tab_text_color_unselected">#707070</color>
+    <color name="name_selector_color">#cccccc</color>
     <color name="orange">#ffffdfd2</color>
     <color name="rc_conversation_top_bg">#f2faff</color>
     <color name="rc_draft_color">#cb120f</color>

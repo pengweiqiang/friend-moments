@@ -183,19 +183,19 @@ public class PublishVoiceActivity extends BaseActivity {
 			@Override
 			public void run() {
 
+				File file = new File(filePath);
+
 				JsonArray fileMetaInfo = new JsonArray();
 				JsonObject jsonObject = new JsonObject();
-				jsonObject.addProperty("name",filePath);
-				jsonObject.addProperty("type","2");
+				jsonObject.addProperty("name",file.getName());
+				jsonObject.addProperty("type","2");//1-图片，2-音频，3-视频
 				fileMetaInfo.add(jsonObject);
 
 				//多文件表单上传构造器
 				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
 
-				File file = new File(filePath);
+
 				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
-//						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
-//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
 				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
 
 				//添加一个文本表单参数

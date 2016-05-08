@@ -12,9 +12,8 @@
         android:paddingBottom="6dp"
         >
 
-        <EditText
+        <com.anda.moments.views.ClearEditText
             android:id="@+id/et_search_friend"
-
             android:background="@drawable/bg_search_friends"
             android:padding="10dp"
             android:hint="搜索"
@@ -24,6 +23,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="8dp"
             android:textSize="14sp"
+            android:drawableLeft="@drawable/search_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

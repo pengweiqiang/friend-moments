@@ -16,11 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anda.GlobalConfig;
+import com.anda.gson.JsonArray;
+import com.anda.gson.JsonObject;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.ParseModel;
@@ -29,16 +33,34 @@ import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
+import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
+import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
+import sz.itguy.utils.FileUtil;
 
 /**
  * 个人中心
@@ -60,6 +82,8 @@ public class PersonalInfoActivity extends BaseActivity {
 	private View mBtnSettings;//设置
 	private View mBtnUserHead;//修改头像
 	private View mBtnUpdateUserName;//昵称
+	private View mBtnUserId;//userId
+	private View mBtnAddress;//地址
 
 	private View mBtnLoginOut;//退出登陆
 
@@ -109,6 +133,8 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnLoginOut = findViewById(R.id.rl_login_out);
 		mBtnSex = findViewById(R.id.rl_sex);
 		mBtnUpdateUserName = findViewById(R.id.rl_update_username);
+		mBtnUserId = findViewById(R.id.rl_user_id);
+		mBtnAddress = findViewById(R.id.rl_address);
 
 	}
 
@@ -120,6 +146,8 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnSex.setOnClickListener(onClickListener);
 		mBtnUserHead.setOnClickListener(onClickListener);
 		mBtnUpdateUserName.setOnClickListener(onClickListener);
+		mBtnUserId.setOnClickListener(onClickListener);
+		mBtnAddress.setOnClickListener(onClickListener);
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -127,6 +155,12 @@ public class PersonalInfoActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()){
+				case R.id.rl_address:
+					startUpdateInfoActivity(4,"地址",user.getAddr());
+					break;
+				case R.id.rl_user_id://userId
+					startUpdateInfoActivity(3,"ID",user.getUserId());
+					break;
 				case R.id.rl_user_sign://个性签名
 					startUpdateInfoActivity(1,"签名",user.getSummary());
 					break;
@@ -191,6 +225,8 @@ public class PersonalInfoActivity extends BaseActivity {
 			mTvAddressDetail.setText(StringUtils.isEmpty(user.getAddr())?"":user.getAddr());
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
+
+			Picasso.with(mContext).load(user.getIcon()).placeholder(R.drawable.default_useravatar).into(mIvHead);
 		}
 	}
 
@@ -278,7 +314,7 @@ public class PersonalInfoActivity extends BaseActivity {
 					Bitmap bitmap = BitmapFactory.decodeFile(Constant.MyAvatarDir
 							+ imageName);
 					mIvHead.setImageBitmap(bitmap);
-					updateAvatarInServer(imageName);
+					updateMyInfo(imagePath);
 					break;
 
 			}
@@ -333,7 +369,8 @@ public class PersonalInfoActivity extends BaseActivity {
 			@SuppressLint("SdCardPath")
 			public void onClick(View v) {
 				if (!sex.equals("1")) {
-					updateSex("男");
+					updateSex();
+					sex = "男";
 				}
 
 				dlg.cancel();
@@ -345,10 +382,9 @@ public class PersonalInfoActivity extends BaseActivity {
 			public void onClick(View v) {
 
 				if (!sex.equals("2")) {
-
-					updateSex("女");
+					updateSex();
+					sex = "女";
 				}
-
 				dlg.cancel();
 			}
 		});
@@ -357,46 +393,167 @@ public class PersonalInfoActivity extends BaseActivity {
 
 	/**
 	 * 修改性别
-	 * @param sex
      */
-	private void updateSex(final String sex){
-		if(mLoadingDialog==null) {
-			mLoadingDialog = new LoadingDialog(mContext);
-		}
-		mLoadingDialog.show();
-		ApiUserUtils.updateUserInfo(mContext,user.getPhoneNum(),"","",sex,"","","","",new HttpConnectionUtil.RequestCallback(){
-
-			@Override
-			public void execute(ParseModel parseModel) {
-				mLoadingDialog.cancel();
-				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-//					ToastUtils.showToast(mContext,"邀请好友成功");
-					mTvSex.setText(sex);
-				}else{
-					ToastUtils.showToast(mContext,parseModel.getInfo());
-				}
-			}
-		});
+	private void updateSex(){
+		updateMyInfo("");
 	}
 
 	/**
 	 * 上传头像
 	 * @param image
      */
-	private void updateAvatarInServer(String image){
-		Map<String, String> map = new HashMap<String, String>();
-
-		if ((new File(Constant.MyAvatarDir + image)).exists()) {
-			map.put("file", Constant.MyAvatarDir + image);
-			map.put("image", image);
-		} else {
-			return;
+	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+	private OkHttpClient client = new OkHttpClient();
+	private void updateMyInfo(final String filePath){
+		if(mLoadingDialog==null) {
+			mLoadingDialog = new LoadingDialog(mContext);
 		}
+		mLoadingDialog.show();
 
+		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+			@Override
+			public void run() {
+
+				//多文件表单上传构造器
+				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+
+				File file = new File(filePath);
+				if(file.exists()){//有头像的情况
+					RequestBody fileBody = RequestBody.create(MEDIA_TYPE_PNG, file);
+					multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+				}
+				//添加一个文本表单参数
+				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				if(!StringUtils.isEmpty(sex)) {
+					multipartBuilder.addFormDataPart("gender", sex);
+				}
+//				if(!StringUtils.isEmpty(userName)){
+//
+//				}
+//				multipartBuilder.addFormDataPart("infoText", content);//动态内容
+//				multipartBuilder.addFormDataPart("isPublic", "1");//是否公开 0：私有 1：公开（必填）
+
+				RequestBody requestBody = multipartBuilder.build();
+				//构造文件上传时的请求对象Request
+				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
+				Request request = new Request.Builder().url(url)
+						.post(requestBody)
+						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+						.build();
+				Call call = client.newCall(request);
+				call.enqueue(new Callback() {
+
+					@Override
+					public void onFailure(Request request, IOException e) {
+						mLoadingDialog.cancel();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ToastUtils.showToast(mContext, "更新失败");
+							}
+						});
+					}
+
+					@Override
+					public void onResponse(Response response) throws IOException {
+						mLoadingDialog.cancel();
+						try {
+							if (!response.isSuccessful()) {
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext, "更新失败");
+									}
+								});
+
+							} else {
+								try {
+									JSONObject jsonResult = new JSONObject(response.body().string());
+									int retFlag = jsonResult.getInt("retFlag");
+									if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+
+										// 完成上传服务器后 .........
+										FileUtil.deleteFile(filePath);
+										String imgPath = "";//返回的头像路径
+										if(!StringUtils.isEmpty(filePath)) {
+											imgPath = jsonResult.getString("imgPath");
+										}
+										uploadUserHeadSuccess(imgPath);
+									} else {
+										final String info = jsonResult.getString("info");
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												ToastUtils.showToast(mContext, info);
+											}
+										});
+
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+
+							}
+						} catch (IOException e) {
+							mLoadingDialog.cancel();
+							e.printStackTrace();
+						}
+
+					}
+				});
+
+			}
+
+
+		});
 	}
 
 
+	/**
+	 * 上传头像成功刷新用户缓存数据。
+	 *
+	 *  需要更新的用户缓存数据。
+	 */
+	private void uploadUserHeadSuccess(String newHeadUrl){
+
+
+		final User user = MyApplication.getInstance().getCurrentUser();
+		if(!StringUtils.isEmpty(newHeadUrl)) {
+			user.setIcon(newHeadUrl);
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), user.getUserName(), Uri.parse(newHeadUrl)));
+		}
+		if(!StringUtils.isEmpty(sex)) {
+			user.setGender(sex);
+			sex = "";
+		}
+		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,"user",JsonUtils.toJson(user));
+		MyApplication.getInstance().setUser(user);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				mTvSex.setText(user.getGender());
+				ToastUtils.showToast(mContext, "更新成功");
+			}
+		});
 
 
 
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		User user = MyApplication.getInstance().getCurrentUser();
+		if(user!=null) {
+			this.user = user;
+
+			mTvUserName.setText(StringUtils.isEmpty(user.getUserName())?"":user.getUserName());
+			mTvUserId.setText(user.getUserId());
+			mTvSex.setText(StringUtils.isEmpty(user.getGender())?"":user.getGender());
+			mTvAddressDetail.setText(StringUtils.isEmpty(user.getAddr())?"":user.getAddr());
+			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
+			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
+
+		}
+	}
 }

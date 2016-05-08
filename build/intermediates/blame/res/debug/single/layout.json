@@ -108,6 +108,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_item_public_service_multi_rich_content_message.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/home_view_stub_images.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/home_view_stub_images.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_publish.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_publish.xml"
     },
@@ -130,6 +134,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_wi_emoji_grid.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_wi_emoji_grid.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/home_view_stub_audios.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/home_view_stub_audios.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/part_time_detail.xml",
@@ -508,6 +516,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/main_tab_friends.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/im_social_item_comment.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/im_social_item_comment.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/item_pager_image.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/item_pager_image.xml"
     },
@@ -542,6 +554,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/my_item_ninegridlayout.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/my_item_ninegridlayout.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/home_view_stub_videos.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/home_view_stub_videos.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_item_voice_message.xml",

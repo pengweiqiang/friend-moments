@@ -173,6 +173,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	@Override
 	public void onResume() {
 		super.onResume();
+		showMyInfo2Cache();
 	}
 
 	@Override
@@ -296,6 +297,15 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 //				mListView.onLoadFinish(page,0,"没有更多");
 			}
 
+		}
+	}
+
+	private void showMyInfo2Cache(){
+		User user = getUser();
+		if(user!=null){//个人信息
+			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			mTvUserName.setText(user.getUserName());
+			mTvUserSign.setText(user.getSummary());
 		}
 	}
 

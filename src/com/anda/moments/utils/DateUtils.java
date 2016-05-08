@@ -419,12 +419,15 @@ public class DateUtils {
             if (splitTime < ONE_DAY) {
                 return String.format("%d小时前", splitTime / ONE_HOUR);
             }
+//            if(splitTime<ONE_DAY*2){
+//                return "昨天";
+//            }
 
             return String.format("%d天前", splitTime / ONE_DAY);
         }
-        String result;
-        result = "M月d日";
-        return (new SimpleDateFormat(result, Locale.CHINA)).format(new Date(time));
+//        String result;
+//        result = Y_M_D_H_M;
+        return (new SimpleDateFormat(Y_M_D_H_M, Locale.CHINA)).format(new Date(time));
     }
 
 

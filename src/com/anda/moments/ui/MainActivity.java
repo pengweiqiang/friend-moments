@@ -2,6 +2,7 @@ package com.anda.moments.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -34,13 +36,14 @@ import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.utils.rong.HttpUtil;
 import com.anda.moments.utils.rong.SdkHttpResult;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
+//import com.squareup.okhttp.Callback;
+//import com.squareup.okhttp.FormEncodingBuilder;
+//import com.squareup.okhttp.MediaType;
+//import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.Request;
+//import com.squareup.okhttp.RequestBody;
+//import com.squareup.okhttp.Response;
 import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.json.JSONException;
@@ -50,6 +53,7 @@ import java.io.IOException;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class MainActivity extends BaseFragmentActivity {
 	
@@ -81,7 +85,23 @@ public class MainActivity extends BaseFragmentActivity {
 
 		getRongToken();
 
+		setUserInfo();
     }
+
+	private void setUserInfo(){
+		RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+			@Override
+			public UserInfo getUserInfo(String userId) {
+
+				User user = MyApplication.getInstance().getCurrentUser();
+				final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+				UserInfo userInfo = new UserInfo(user.getPhoneNum(),user.getUserName(), Uri.parse(portraitUri));
+				return userInfo;//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+			}
+
+		}, true);
+	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -194,7 +214,13 @@ public class MainActivity extends BaseFragmentActivity {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+			if(mHomeFragment.mEditTextBody != null && mHomeFragment.mEditTextBody.getVisibility() == View.VISIBLE){
+				mHomeFragment.mEditTextBody.setVisibility(View.GONE);
+				return true;
+			}
 			if (isExit == false) {
 				isExit = true;
 				handler.sendEmptyMessageDelayed(0, 3000);
@@ -250,6 +276,9 @@ public class MainActivity extends BaseFragmentActivity {
 					Log.d("LoginActivity", "--onSuccess" + userid);
 //					startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //					AppManager.getAppManager().finishActivity();
+
+
+
 				}
 
 				/**
@@ -267,16 +296,19 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 
+
 	/**
 	 * 获取融云token
 	 */
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	public void getRongToken(){
 
+//		String token = "yGajkmQC9/DeLpIfz1XZvGNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJNgFlqmA/Pmn/WKLLppfBIugP+UQYLzgjc6lsSvZ3KbZ";
+//		connect(token);
 		User user = MyApplication.getInstance().getCurrentUser();
 		final String userId = user.getPhoneNum();//手机号做userId
 		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
-		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"http://ww2.sinaimg.cn/crop.0.0.1080.1080.1024/d773ebfajw8eum57eobkwj20u00u075w.jpg":user.getIcon();
+		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
 
 		//获取token
 			ThreadUtil.getTheadPool(true).submit(new Runnable() {

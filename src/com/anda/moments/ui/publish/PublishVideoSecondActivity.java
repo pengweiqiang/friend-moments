@@ -148,7 +148,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 //				sendVideoByXutils();
-				sendPicture();
+				sendVideo();
 			}
 		},R.color.main_tab_text_color_selected);
 		mEtContent = (EditText)findViewById(R.id.et_content);
@@ -251,7 +251,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		JsonArray fileMetaInfo = new JsonArray();
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("name","file_video.mp4");
-		jsonObject.addProperty("type","3");
+		jsonObject.addProperty("type","2");
 		fileMetaInfo.add(jsonObject);
 
 //添加一个文本表单参数
@@ -312,7 +312,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	/**
 	 * 发布视频
 	 */
-	private void sendPicture(){
+	private void sendVideo(){
 		final String content = mEtContent.getText().toString().trim();
 		if(StringUtils.isEmpty(content)){
 			ToastUtils.showToast(mContext,"请输入内容");
@@ -325,132 +325,106 @@ public class PublishVideoSecondActivity extends BaseActivity {
 			@Override
 			public void run() {
 
-				File fileVideo = new File(filePath);
-				JSONArray fileMetaInfoArray = new JSONArray();
-				if(fileVideo.exists()){
-					final RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), fileVideo);
+				File file = new File(filePath);
 
-					JSONObject fileMetaInfoJson = new JSONObject();
-					try {
-						fileMetaInfoJson.put("name", fileVideo.getName());
-						fileMetaInfoJson.put("type", "3");
-						fileMetaInfoArray.put(fileMetaInfoJson);
-					}catch (JSONException e){
+				JsonArray fileMetaInfo = new JsonArray();
+				JsonObject jsonObject = new JsonObject();
+				jsonObject.addProperty("name", file.getName());
+				jsonObject.addProperty("type", "3");
+				fileMetaInfo.add(jsonObject);
+
+				//多文件表单上传构造器
+				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+
+
+				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
+//						multipartBuilder.addPart(Headers.of("Content-Disposition","form-data;name=file_"+i+";filename="+file.getName()),fileBody);
+//						multipartBuilder.addFormDataPart("file_"+i,file.getName(), fileBody);
+				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
+
+				//添加一个文本表单参数
+				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
+				multipartBuilder.addFormDataPart("fileMetaInfo", fileMetaInfoStr);
+				multipartBuilder.addFormDataPart("infoText", content);//动态内容
+				multipartBuilder.addFormDataPart("isPublic", "1");//是否公开 0：私有 1：公开（必填）
+
+				RequestBody requestBody = multipartBuilder.build();
+				//构造文件上传时的请求对象Request
+				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+				Request request = new Request.Builder().url(url)
+						.post(requestBody)
+						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+						.build();
+				Call call = client.newCall(request);
+				call.enqueue(new Callback() {
+
+					@Override
+					public void onFailure(Request request, IOException e) {
+						mLoadingDialog.cancel();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ToastUtils.showToast(mContext, "发布失败");
+							}
+						});
+					}
+
+					@Override
+					public void onResponse(Response response) throws IOException {
+						mLoadingDialog.cancel();
+						try {
+							if (!response.isSuccessful()) {
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext, "发布失败");
+									}
+								});
+
+							} else {
+								try {
+									JSONObject jsonResult = new JSONObject(response.body().string());
+									int retFlag = jsonResult.getInt("retFlag");
+									if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+
+										// 完成上传服务器后 .........
+										FileUtil.deleteFile(filePath);
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												ToastUtils.showToast(mContext, "发布成功");
+												sendSuccess();
+											}
+										});
+
+									} else {
+										final String info = jsonResult.getString("info");
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												ToastUtils.showToast(mContext, info);
+											}
+										});
+
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+
+							}
+						} catch (IOException e) {
+							mLoadingDialog.cancel();
+							e.printStackTrace();
+						}
 
 					}
-					RequestBody requestBody = new MultipartBuilder()
-							.type(MultipartBuilder.FORM)
-							.addPart(Headers.of(
-									"Content-Disposition",
-									"form-data; name=\"infoText\""),
-									RequestBody.create(null, content))
-							.addPart(Headers.of(
-									"Content-Disposition",
-									"form-data; name=\"isPublic\""),
-									RequestBody.create(null, "1"))
-							.addPart(Headers.of(
-									"Content-Disposition",
-									"form-data; name=\"phoneNum\""),
-									RequestBody.create(null, MyApplication.getInstance().getCurrentUser().getPhoneNum()))
-							.addPart(Headers.of(
-									"Content-Disposition",
-									"form-data; name=\"fileMetaInfo\""),
-									RequestBody.create(null, fileMetaInfoArray.toString()))
-							.addPart(Headers.of(
-									"Content-Disposition",
-									"form-data; name=\"mFile\"; filename=\"wjd.mp4\""), fileBody)
-
-							.build();
-
-					String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
-					Request request = new Request.Builder()
-							.url(url)
-							.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-							.post(requestBody)
-							.build();
-
-					Call call = client.newCall(request);
-					call.enqueue(new Callback()
-					{
-
-						@Override
-						public void onFailure(Request request, IOException e) {
-							mLoadingDialog.cancel();
-							runOnUiThread(new Runnable() {
-								@Override
-								public void run() {
-									ToastUtils.showToast(mContext,"发布失败");
-								}
-							});
-						}
-
-						@Override
-						public void onResponse(Response response) throws IOException {
-							mLoadingDialog.cancel();
-							try {
-								if(!response.isSuccessful()){
-									runOnUiThread(new Runnable() {
-										@Override
-										public void run() {
-											ToastUtils.showToast(mContext,"发布失败");
-										}
-									});
-
-								}else{
-									try {
-										JSONObject jsonResult = new JSONObject(response.body().string());
-										int retFlag = jsonResult.getInt("retFlag");
-										if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
-
-											// 完成上传服务器后 .........
-											FileUtil.deleteFile(filePath);
-											runOnUiThread(new Runnable() {
-												@Override
-												public void run() {
-													ToastUtils.showToast(mContext,"发布成功");
-													sendSuccess();
-												}
-											});
-
-										}else{
-											final String info = jsonResult.getString("info");
-											runOnUiThread(new Runnable() {
-												@Override
-												public void run() {
-													ToastUtils.showToast(mContext,info);
-												}
-											});
-
-										}
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
-
-								}
-							} catch (IOException e) {
-								mLoadingDialog.cancel();
-								e.printStackTrace();
-							}
-
-						}
-					});
-
-				}
-
-
-
-
-
-
+				});
 
 			}
 
+
 		});
-
-
-
-
-
 
 
 	}
@@ -469,26 +443,6 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	}
 
 
-
-
-	protected void onRestart() {
-		super.onRestart();
-	}
-
-
-
-	private static final int TAKE_PICTURE = 0x000000;
-	private String path = "";
-	public void photo() {
-		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ "/myimage/", String.valueOf(System.currentTimeMillis())
-				+ ".jpg");
-		path = file.getPath();
-		Uri imageUri = Uri.fromFile(file);
-		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-		startActivityForResult(openCameraIntent, TAKE_PICTURE);
-	}
 
 
 

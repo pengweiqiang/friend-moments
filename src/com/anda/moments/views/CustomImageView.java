@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.Log;
 import com.squareup.picasso.Picasso;
 
 
@@ -81,7 +82,14 @@ public class CustomImageView extends ImageView {
         if (!TextUtils.isEmpty(url)) {
             this.url = url;
             if (isAttachedToWindow) {
-                Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
+                int width = this.getWidth();
+                int height = this.getHeight();
+                if(width==0){
+                    width = 199;
+                    height =width;
+                }
+                Log.e("CustomImageView",this.getWidth()+"   "+this.getHeight());
+                Picasso.with(getContext()).load(url).resize(width,height).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
             }
 
             if(MAX_WIDTH > 0){

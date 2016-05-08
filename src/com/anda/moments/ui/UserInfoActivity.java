@@ -198,7 +198,7 @@ public class UserInfoActivity extends BaseActivity {
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(mIvUserHead);
-			Picasso.with(mContext).load(user.getIcon()).centerCrop().placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			Picasso.with(mContext).load(user.getIcon()).placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			if(flag==1){
 				mBtnAddFriends.setVisibility(View.GONE);
 			}else{

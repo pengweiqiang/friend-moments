@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/IMKit/IMKit.iml" filepath="$PROJECT_DIR$/IMKit/IMKit.iml" />
       <module fileurl="file://$PROJECT_DIR$/Moments.iml" filepath="$PROJECT_DIR$/Moments.iml" />
       <module fileurl="file://$PROJECT_DIR$/WXLikeVideoRecorderLib/WXLikeVideoRecorderLib.iml" filepath="$PROJECT_DIR$/WXLikeVideoRecorderLib/WXLikeVideoRecorderLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ninegridview/ninegridview.iml" filepath="$PROJECT_DIR$/ninegridview/ninegridview.iml" />
     </modules>
   </component>
 </project>

@@ -19,6 +19,18 @@ public class ApiMyUtils {
 
 
 	/**
+	 * 验证是否存在该userId
+	 * @param context
+	 * @param userId
+	 * @param requestCallback
+     */
+	public static void checkExistUserId(Context context,String userId,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("userId", userId);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_IS_EXIST_USER_ID, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+	/**
 	 * 根据USERID查询添加好友
 	 * @param context
 	 * @param userId

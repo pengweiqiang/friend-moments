@@ -20,6 +20,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by pengweiqiang on 16/5/4.
@@ -53,6 +54,7 @@ public class ConversationActivity extends BaseFragmentActivity{
         Intent intent = getIntent();
 
 
+//        RongIM.getInstance().refreshUserInfoCache(new UserInfo("userId", "啊明", Uri.parse("http://rongcloud-web.qiniudn.com/docs_demo_rongcloud_logo.png")));
 
         getIntentDate(intent);
 

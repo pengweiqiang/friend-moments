@@ -16,6 +16,7 @@ import android.view.View;
 import com.anda.GlobalConfig;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
+import com.anda.moments.entity.Images;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.LoginActivity;
@@ -109,10 +110,10 @@ public class MyApplication extends Application {
 				String tokens[] = jsessionId.split("_&_");
 				long currentTime = System.currentTimeMillis();
 				long saveCurrentTime = Long.parseLong(tokens[1]);
-				if(currentTime - saveCurrentTime < 1000*60*60*24*(2-0.2)){//未超过2天
+//				if(currentTime - saveCurrentTime < 1000*60*60*24*(2-0.2)){//未超过2天
 					//判断token的有效期(设置了一个礼拜,这里设置2天)
 					GlobalConfig.JSESSION_ID = tokens[0];
-				}
+//				}
 
 			}
 		}catch(Exception e){
@@ -218,7 +219,7 @@ public class MyApplication extends Application {
 				user.setPhoneNum(userInfo.getUserId());
 				user.setUserName(userInfo.getName());
 				if(userInfo.getPortraitUri()!=null) {
-					user.setIcon(userInfo.getPortraitUri().getPath());
+					user.setIcon(userInfo.getPortraitUri().toString());
 				}
 				user.setFlag(1);
 				intent.putExtra("user",user);
@@ -245,8 +246,11 @@ public class MyApplication extends Application {
 //
 //					context.startActivity(intent);
 					Uri uri = imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri();
-					List<String> itemList = new ArrayList<String>();
-					itemList.add(uri.toString());
+					List<Images> itemList = new ArrayList<Images>();
+					Images images = new Images();
+					images.setImgPath(uri.toString());
+					images.setFileOrder("1");
+					itemList.add(images);
 					ImagePagerActivity.imageSize = new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
 					ImagePagerActivity.startImagePagerActivity(context, itemList, 0);
 				}
