@@ -299,15 +299,33 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp"
+            android:gravity="center_vertical"
             android:paddingBottom="10dp"
             android:background="@drawable/btn_drawable_selector"
             >
 
             <TextView
+                android:id="@+id/tv_user_desc_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="添加备注和标签"
+                android:text="添加备注"
                 android:textColor="@color/color_action_bar_title"
+                />
+
+            <TextView
+                android:id="@+id/tv_user_desc"
+                android:layout_toLeftOf="@+id/iv_remarks_right"
+                android:layout_toRightOf="@+id/tv_user_desc_title"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_centerVertical="true"
+                android:paddingBottom="2dp"
+                android:gravity="right"
+                android:layout_marginRight="5dp"
+                android:textColor="#979797"
+                android:textSize="12sp"
                 />
 
             <ImageView

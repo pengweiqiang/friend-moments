@@ -3,16 +3,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="10dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_marginLeft="11dp"
         >
-
-        <View
+        <RelativeLayout
             android:id="@+id/view_record"
+            android:layout_toLeftOf="@+id/tv_audio_second"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginTop="6dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/comment_bg"
+            android:background="@drawable/audio_background"
+            >
+            <View
+                android:id="@+id/voice_anim"
+                android:layout_width="25dp"
+                android:layout_centerVertical="true"
+                android:layout_height="25dp"
+                android:background="@drawable/icon_voice_anim_3"
+                />
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_audio_second"
+            android:layout_alignParentRight="true"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#979797"
+            android:text="0''"
             />
    </RelativeLayout>

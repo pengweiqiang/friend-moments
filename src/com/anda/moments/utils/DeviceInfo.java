@@ -196,6 +196,13 @@ public class DeviceInfo {
     	final float scale=context.getResources().getDisplayMetrics().density;
         return (int)((dpValue-0.5) * scale);
     }
+
+	public static int px2sp(Context context,float pxValue) {
+		return (int) (pxValue / context.getResources().getDisplayMetrics().scaledDensity + 0.5f);
+	}
+	public static int sp2px(Context context,float spValue) {
+		return (int) (spValue * context.getResources().getDisplayMetrics().scaledDensity + 0.5f);
+	}
 	
 	/**
 	 * 获取ip

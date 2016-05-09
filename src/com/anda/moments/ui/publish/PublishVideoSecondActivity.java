@@ -107,6 +107,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	public static final String KEY_FILE_PATH = "file_path";
 
 	private String filePath;
+	private String firstPicturePath;
 
 	private ScalableVideoView mScalableVideoView;
 	private ImageView mPlayImageView;
@@ -194,6 +195,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 		}
+		firstPicturePath = FileUtil.saveMediaFirstPicture(bitmap,System.currentTimeMillis()+"");
 		return bitmap;
 	}
 
@@ -328,16 +330,18 @@ public class PublishVideoSecondActivity extends BaseActivity {
 			mEtContent.requestFocus();
 			return;
 		}
-		mLoadingDialog = new LoadingDialog(mContext);
+		mLoadingDialog = new LoadingDialog(mContext,"上传中...");
 		mLoadingDialog.show();
 
 		File file = new File(filePath);
+		File firstPictureFile = new File(firstPicturePath);
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 
 		JsonArray fileMetaInfo = new JsonArray();
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("name", file.getName());
-		jsonObject.addProperty("type", "3");
+		jsonObject.addProperty("type", ReqUrls.MEDIA_TYPE_VIDEO+"");
+		jsonObject.addProperty("icon",firstPictureFile.getName());//视频第一帧
 		fileMetaInfo.add(jsonObject);
 
 		Map<String,String> params = new HashMap<String, String>();
@@ -348,11 +352,14 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 		params.put("fileMetaInfo",fileMetaInfoStr);
 
-		OkHttpUtils.post().addFile(file.getName(),file.getName(),file)
+		OkHttpUtils.post().addFile(file.getName(),file.getName(),file).addFile(firstPictureFile.getName(),firstPictureFile.getName(),firstPictureFile)
 				.url(url)
 				.params(params)
 				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
 				.build()
+				.connTimeOut(20000)
+				.readTimeOut(20000)
+				.writeTimeOut(20000)
 				.execute(new StringCallback() {
 					@Override
 					public void onError(Call call, Exception e) {
@@ -368,7 +375,8 @@ public class PublishVideoSecondActivity extends BaseActivity {
 //					@Override
 //					public void inProgress(float progress) {
 //						super.inProgress(progress);
-//						Log.i(TAG,"p:"+progress);
+////						Log.i(TAG,"p:"+progress);
+//						mLoadingDialog.setText(progress+"%");
 //					}
 
 					@Override

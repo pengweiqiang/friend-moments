@@ -158,7 +158,7 @@ public class HttpConnectionUtil {
 					int statusCode = response.getStatusLine().getStatusCode();
 					backStr = String.valueOf(statusCode);
 					Log.i(TAG, backStr);
-					if (statusCode == HttpStatus.SC_OK || statusCode == NetUtil.NET_QUERY_SUCC  || statusCode == NetUtil.FAIL_CODE_400) {
+					if (statusCode == HttpStatus.SC_OK || statusCode == NetUtil.NET_QUERY_SUCC   || statusCode == NetUtil.FAIL_CODE_400) {
 						backStr = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);
 //						backStr = handleEntity(response.getEntity(),HTTP.UTF_8);
 						sendMessage(backStr, handler, ApiConstants.RESULT_CODE);

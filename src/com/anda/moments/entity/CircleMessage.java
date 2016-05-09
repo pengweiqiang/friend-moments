@@ -16,6 +16,8 @@ public class CircleMessage extends ParseModel {
     private LovelyInfo lovelyInfo;//萌化了列表
     private CommentInfo commentInfo;//评论列表
 
+    private boolean isPlay;
+
 
 
     private List<Images> images;
@@ -111,5 +113,13 @@ public class CircleMessage extends ParseModel {
 
     public void setLovelyInfo(LovelyInfo lovelyInfo) {
         this.lovelyInfo = lovelyInfo;
+    }
+
+    public boolean isPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(boolean play) {
+        isPlay = play;
     }
 }

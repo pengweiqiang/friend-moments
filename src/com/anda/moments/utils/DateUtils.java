@@ -439,7 +439,7 @@ public class DateUtils {
             return "今天";
         }
         String result;
-        result = "M月dd";
+        result = "ddM月";
         return (new SimpleDateFormat(result, Locale.CHINA)).format(new Date(time));
     }
     

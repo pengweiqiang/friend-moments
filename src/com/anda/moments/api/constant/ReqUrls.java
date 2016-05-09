@@ -5,6 +5,10 @@ public interface ReqUrls {
 public static final String PROJECT_NAME = "";
 	
 	public static final boolean neuSecure = false;
+
+	public static final int MEDIA_TYPE_PICTURE = 1;//图片
+	public static final  int MEDIA_TYPE_AUDIO = 2;//音频
+	public static final int MEDIA_TYPE_VIDEO = 3;//视频
 	
 	public static final String Connection_Type_Seccurity = "https://";
 	
@@ -164,6 +168,9 @@ public static final String PROJECT_NAME = "";
 	 * 根据USERID查询添加好友–已完成
 	 */
 	public static final String REQUEST_FRIENDS_SEARCH_BY_USERID = "friends/searchFriendsByUserId.do";
+
+	//修改好友备注
+	public static final String REQUEST_UPDATE_FRIENDS_TAGS ="friends/updateFriendsTags.do";
 
 	/**
 	 * 查询是否存在该userId

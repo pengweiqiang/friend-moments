@@ -1,6 +1,7 @@
 package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -69,6 +72,7 @@ public class UpdateInfoActivity extends BaseActivity {
 	String address = "";//地址
 
 	private int type ;//0昵称  1 个性签名  2 备注 3 userId  4 地址
+	String friendPhoneNum = "";//好友手机号
 
 
 
@@ -82,6 +86,8 @@ public class UpdateInfoActivity extends BaseActivity {
 		title = this.getIntent().getStringExtra("title");
 		type = this.getIntent().getIntExtra("type",-1);
 		content = this.getIntent().getStringExtra("content");
+		friendPhoneNum = this.getIntent().getStringExtra("friendPhoneNum");
+
 		mActionbar.setTitle("修改"+title);
 		mEtContent.setHint("请输入"+title);
 		if(!StringUtils.isEmpty(content)) {
@@ -121,6 +127,8 @@ public class UpdateInfoActivity extends BaseActivity {
 					summary = content;
 				}else if(type == 2){//备注
 					descTag = content;
+					updateFriendTags();
+					return;
 				}else if(type ==3){//userId
 					userId = content;
 					checkExistUserId();
@@ -217,6 +225,27 @@ public class UpdateInfoActivity extends BaseActivity {
 //		});
 //	}
 
+	/**
+	 * 修改好友备注
+	 */
+	private void updateFriendTags(){
+		if(mLoadingDialog==null) {
+			mLoadingDialog = new LoadingDialog(mContext);
+		}
+		mLoadingDialog.show();
+		ApiUserUtils.updateFriendTags(mContext, MyApplication.getInstance().getCurrentUser().getPhoneNum(),friendPhoneNum , descTag, new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				mLoadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+					AppManager.getAppManager().finishActivity();
+				}else{
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
+	}
 
 	private OkHttpClient client = new OkHttpClient();
 	private void updateInfoByOkHttp(){
@@ -334,6 +363,8 @@ public class UpdateInfoActivity extends BaseActivity {
 		User user = MyApplication.getInstance().getCurrentUser();
 		if(!StringUtils.isEmpty(username)){
 			user.setUserName(username);
+			//刷新融云用户信息
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), user.getUserName(), Uri.parse(user.getIcon())));
 		}
 		if(!StringUtils.isEmpty(descTag)){
 			user.setDescTag(descTag);
@@ -347,6 +378,7 @@ public class UpdateInfoActivity extends BaseActivity {
 		if(!StringUtils.isEmpty(address)){
 			user.setAddr(address);
 		}
+
 
 		MyApplication.getInstance().setUser(user);
 		SharePreferenceManager.saveBatchSharedPreference(mContext, Constant.FILE_NAME,"user", JsonUtils.toJson(user));

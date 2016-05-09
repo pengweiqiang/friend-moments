@@ -180,6 +180,7 @@ public class ImagePagerActivity extends BaseActivity {
 
                 final String imgurl = datas.get(position).getImgPath();
                 loading.setVisibility(View.VISIBLE);
+//                Picasso.with(context).setIndicatorsEnabled(true);
                 Picasso.with(context).load(imgurl).into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {

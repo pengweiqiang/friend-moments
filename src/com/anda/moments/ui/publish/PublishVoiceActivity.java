@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,7 @@ import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
@@ -40,6 +42,8 @@ import com.anda.moments.views.audio.MediaManager;
 import com.squareup.picasso.OkHttpDownloader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
@@ -54,6 +58,7 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -70,6 +75,7 @@ public class PublishVoiceActivity extends BaseActivity {
 	LoadingDialog mLoadingDialog;
 
 	private View mViewRecordPlay;
+	private View mViewRecordAnim;
 	private TextView mTvSeconds;//时间
 
 
@@ -105,11 +111,15 @@ public class PublishVoiceActivity extends BaseActivity {
 		},R.color.main_tab_text_color_selected);
 		mBtnAudio = (AudioRecordButton) findViewById(R.id.btn_record);
 		mViewRecordPlay = findViewById(R.id.view_record);
+		mViewRecordAnim = findViewById(R.id.voice_anim);
 		mTvSeconds = (TextView)findViewById(R.id.tv_audio_second);
 		mEtContent = (EditText)findViewById(R.id.et_content);
+
+
 	}
 
 
+	AnimationDrawable animation;
 	@Override
 	public void initListener() {
 		mBtnAudio.setAudioRecordFinishListener(new MyAudioRecordFinishListener());
@@ -138,14 +148,22 @@ public class PublishVoiceActivity extends BaseActivity {
 	 */
 	private void playAudioRecord(){
 		if(StringUtils.isEmpty(filePath) || !new File(filePath).exists()){
+			ToastUtils.showToast(mContext,"请先录入语音");
 			return;
 		}
+		mViewRecordAnim.setBackgroundResource(R.drawable.anim_play_audio);
+//		if(animation==null) {
+			animation = (AnimationDrawable) mViewRecordAnim.getBackground();
+//		}
+
+		animation.start();
 		MediaManager.playSound(filePath,
 				new MediaPlayer.OnCompletionListener() {
 					@Override
 					public void onCompletion(MediaPlayer mp) {
-//						voiceAnim
-//								.setBackgroundResource(R.drawable.icon_voice_ripple);
+						animation.stop();
+						mViewRecordAnim
+								.setBackgroundResource(R.drawable.icon_voice_anim_3);
 					}
 				});
 	}
@@ -179,25 +197,28 @@ public class PublishVoiceActivity extends BaseActivity {
 			mEtContent.requestFocus();
 			return;
 		}
-		mLoadingDialog = new LoadingDialog(mContext);
-		mLoadingDialog.show();
-
 		File file = new File(filePath);
-		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
-
 		PostFormBuilder postFormBuilder = OkHttpUtils.post();
 
 		JsonArray fileMetaInfo = new JsonArray();
 		if(file.exists()) {
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("name", file.getName());
-			jsonObject.addProperty("type", "2");//1-图片，2-音频，3-视频
+			jsonObject.addProperty("type", ReqUrls.MEDIA_TYPE_AUDIO+"");//1-图片，2-音频，3-视频
 			fileMetaInfo.add(jsonObject);
 			postFormBuilder.addFile(file.getName(),file.getName(),file);
 		}else{
 			ToastUtils.showToast(mContext,"请录入语音");
 			return;
 		}
+
+		mLoadingDialog = new LoadingDialog(mContext,"上传中...");
+		mLoadingDialog.show();
+
+
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
+
+
 
 		Map<String,String> params = new HashMap<String, String>();
 		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
@@ -211,23 +232,37 @@ public class PublishVoiceActivity extends BaseActivity {
 				.params(params)
 				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
 				.build()
-				.execute(new StringCallback() {
+				.connTimeOut(20000)
+				.readTimeOut(20000)
+				.writeTimeOut(20000)
+				.execute(new Callback() {
+					@Override
+					public String parseNetworkResponse(Response response) throws Exception {
+						return response.body().string();
+					}
+
+//					@Override
+//					public void inProgress(float progress) {
+//						mLoadingDialog.setText(progress+"%");
+//						super.inProgress(progress);
+//					}
+
 					@Override
 					public void onError(Call call, Exception e) {
 						mLoadingDialog.cancel();
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								ToastUtils.showToast(mContext, "发布失败");
+								ToastUtils.showToast(mContext, "发布失败,稍后请重试");
 							}
 						});
 					}
 
 					@Override
-					public void onResponse(String response) {
+					public void onResponse(Object response) {
 						mLoadingDialog.cancel();
 						try {
-							JSONObject jsonResult = new JSONObject(response);
+							JSONObject jsonResult = new JSONObject((String)response);
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
 								// 完成上传服务器后 .........
@@ -253,75 +288,25 @@ public class PublishVoiceActivity extends BaseActivity {
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-
 					}
-
 				});
-	}
-
-//	private OkHttpClient client = new OkHttpClient();
-	/**
-	 * 发布录音
-	 */
-//	private void sendAudio(){
-//		final String content = mEtContent.getText().toString().trim();
-//		if(StringUtils.isEmpty(content)){
-//			ToastUtils.showToast(mContext,"请输入内容");
-//			mEtContent.requestFocus();
-//			return;
-//		}
-//		mLoadingDialog = new LoadingDialog(mContext);
-//		mLoadingDialog.show();
-//		ThreadUtil.getTheadPool(true).submit(new Runnable() {
-//			@Override
-//			public void run() {
-//
-//				File file = new File(filePath);
-//
-//				JsonArray fileMetaInfo = new JsonArray();
-//				JsonObject jsonObject = new JsonObject();
-//				jsonObject.addProperty("name",file.getName());
-//				jsonObject.addProperty("type","2");//1-图片，2-音频，3-视频
-//				fileMetaInfo.add(jsonObject);
-//
-//				//多文件表单上传构造器
-//				MultipartBuilder multipartBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
-//
-//
-//				RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"),file);
-//				multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
-//
-//				//添加一个文本表单参数
-//				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-//				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
-//				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
-//				multipartBuilder.addFormDataPart("infoText",content);//动态内容
-//				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
-//
-//				RequestBody requestBody = multipartBuilder.build();
-//				//构造文件上传时的请求对象Request
-//				String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
-//				Request request = new Request.Builder().url(url)
-//						.post(requestBody)
-//						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-//						.build();
-//
-//
-//				try {
-//					Response response = client.newCall(request).execute();
-//
-//					mLoadingDialog.cancel();
-//					if(!response.isSuccessful()){
+//				.execute(new StringCallback() {
+//					@Override
+//					public void onError(Call call, Exception e) {
+//						mLoadingDialog.cancel();
 //						runOnUiThread(new Runnable() {
 //							@Override
 //							public void run() {
-//								ToastUtils.showToast(mContext,"发布失败");
+//								ToastUtils.showToast(mContext, "发布失败");
 //							}
 //						});
+//					}
 //
-//					}else{
+//					@Override
+//					public void onResponse(String response) {
+//						mLoadingDialog.cancel();
 //						try {
-//							JSONObject jsonResult = new JSONObject(response.body().string());
+//							JSONObject jsonResult = new JSONObject(response);
 //							int retFlag = jsonResult.getInt("retFlag");
 //							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
 //								// 完成上传服务器后 .........
@@ -343,24 +328,16 @@ public class PublishVoiceActivity extends BaseActivity {
 //										ToastUtils.showToast(mContext,info);
 //									}
 //								});
-//
 //							}
 //						} catch (JSONException e) {
 //							e.printStackTrace();
 //						}
 //
 //					}
-//				} catch (IOException e) {
-//					mLoadingDialog.cancel();
-//					e.printStackTrace();
-//				}
 //
-//			}
-//
-//		});
-//
-//
-//	}
+//				});
+	}
+
 
 	/**
 	 * 发送成功跳转

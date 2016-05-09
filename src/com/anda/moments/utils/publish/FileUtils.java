@@ -43,6 +43,7 @@ public class FileUtils {
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 
+			dir.mkdirs();
 //			System.out.println("createSDDir:" + dir.getAbsolutePath());
 //			System.out.println("createSDDir:" + dir.mkdir());
 		}
@@ -75,6 +76,16 @@ public class FileUtils {
 				deleteDir(); // 递规的方式删除文件夹
 		}
 		dir.delete();// 删除目录本身
+	}
+
+	public static void deletePictures(){
+		File dir = new File(SDPATH);
+		if (dir == null || !dir.exists() || !dir.isDirectory())
+			return;
+		for (File file : dir.listFiles()) {
+			if (file.isFile())
+				file.delete(); // 删除所有文件
+		}
 	}
 
 	/**

@@ -3,7 +3,9 @@ package com.anda.moments.apdater;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,15 @@ import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
@@ -31,6 +36,7 @@ import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
+import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtil;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
@@ -41,8 +47,10 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.CommentListView;
 import com.anda.moments.views.CustomImageView;
+import com.anda.moments.views.CustomSingleImageView;
 import com.anda.moments.views.MultiImageView;
 import com.anda.moments.views.NineGridlayout;
+import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
 //import com.squareup.okhttp.Call;
@@ -52,6 +60,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +83,11 @@ public class HomeAdapter extends BaseAdapter {
     private Context context;
     private List<CircleMessage> datalist;
 
+//    private int headWidth= 50;
     public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
+//        headWidth = DeviceInfo.dp2px(context,50);
     }
 
     private HomeFragment homeFragment;
@@ -152,13 +163,15 @@ public class HomeAdapter extends BaseAdapter {
                     mediaViewStub.inflate();
 
                     viewHolder.ivMore = (NineGridlayout) convertView.findViewById(R.id.iv_ngrid_layout);
-                    viewHolder.ivOne = (CustomImageView) convertView.findViewById(R.id.iv_oneimage);
+                    viewHolder.ivOne = (CustomSingleImageView) convertView.findViewById(R.id.iv_oneimage);
                     break;
                 case ITEM_VIEW_TYPE_AUDIO://音频
                     mediaViewStub.setLayoutResource(R.layout.home_view_stub_audios);
                     mediaViewStub.inflate();
 
                     viewHolder.mViewAudio = convertView.findViewById(R.id.view_record);
+                    viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
+                    viewHolder.mTvAudioSecond = (TextView)convertView.findViewById(R.id.tv_audio_second);
 
 
                     break;
@@ -166,7 +179,17 @@ public class HomeAdapter extends BaseAdapter {
                     mediaViewStub.setLayoutResource(R.layout.home_view_stub_videos);
                     mediaViewStub.inflate();
 
-                    viewHolder.videoView = (ScalableVideoView)convertView.findViewById(R.id.video_view);
+                    viewHolder.mScalableVideoView = (ScalableVideoView)convertView.findViewById(R.id.video_view);
+                    viewHolder.mPlayImageView = (ImageView)convertView.findViewById(R.id.playImageView);
+                    viewHolder.mThumbnailImageView = (ImageView)convertView.findViewById(R.id.thumbnailImageView);
+                    viewHolder.mProgressBar = (ProgressBar)convertView.findViewById(R.id.progressBar);
+
+                    try {
+                        viewHolder.mScalableVideoView.setDataSource("");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
 
                     break;
             }
@@ -197,6 +220,7 @@ public class HomeAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+            resetViewHolder(viewHolder,position);
         }
 
         viewHolder.setPosition(position);
@@ -212,8 +236,8 @@ public class HomeAdapter extends BaseAdapter {
         if(publishUser!=null) {
             viewHolder.mTvUserName.setText(publishUser.getUserName());
             String headUrl = publishUser.getIcon();
+//            Picasso.with(context).load(headUrl).resize(headWidth,headWidth).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
             Picasso.with(context).load(headUrl).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
-
         }
         //发表时间
         viewHolder.mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
@@ -258,7 +282,7 @@ public class HomeAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void showItemTypeData(int itemViewType, final CircleMessage circleMessage, ViewHolder viewHolder){
+    private void showItemTypeData(int itemViewType, final CircleMessage circleMessage, final ViewHolder viewHolder){
         switch (itemViewType){
             case ITEM_VIEW_TYPE_TEXT:
 
@@ -290,19 +314,19 @@ public class HomeAdapter extends BaseAdapter {
                 }
                 //图片展示  end
                 break;
-            case ITEM_VIEW_TYPE_AUDIO:
+            case ITEM_VIEW_TYPE_AUDIO://语音
 
                 viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
-                            downloadMedia(circleMessage.getAudios().get(0).getPath());
+                            downloadMedia(circleMessage.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
                         }
                     }
                 });
 
                 break;
-            case ITEM_VIEW_TYPE_VIDEO:
+            case ITEM_VIEW_TYPE_VIDEO://视频
 //                viewHolder.mIvPlay.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
@@ -311,11 +335,12 @@ public class HomeAdapter extends BaseAdapter {
 //                        }
 //                    }
 //                });
-                viewHolder.videoView.setOnClickListener(new View.OnClickListener() {
+                viewHolder.mPlayImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(circleMessage.getVideos()!=null && !circleMessage.getVideos().isEmpty()) {
-                            downloadMedia(circleMessage.getVideos().get(0).getPath());
+//                            playerVideo(circleMessage.getVideos().get(0).getPath(),viewHolder);
+                            downloadMedia(circleMessage.getVideos().get(0).getPath(), ReqUrls.MEDIA_TYPE_VIDEO,viewHolder);
                         }
                     }
                 });
@@ -366,21 +391,53 @@ public class HomeAdapter extends BaseAdapter {
 
     }
 
+    private void resetViewHolder(ViewHolder viewHolder,int position){
+        if(datalist.get(position).isPlay()){
+            if(viewHolder.mThumbnailImageView!=null){
+                viewHolder.mThumbnailImageView.setVisibility(View.GONE);
+
+            }
+            if(viewHolder.mPlayImageView!=null){
+                viewHolder.mPlayImageView.setVisibility(View.GONE);
+            }
+           //playerVideo(datalist.get(position).getVideos().get(0).getPath(),viewHolder);
+        }else{
+            if(viewHolder.mThumbnailImageView!=null){
+                viewHolder.mThumbnailImageView.setVisibility(View.VISIBLE);
+
+            }
+            if(viewHolder.mPlayImageView!=null){
+                viewHolder.mPlayImageView.setVisibility(View.VISIBLE);
+            }
+//            if(viewHolder.mScalableVideoView!=null){
+//                try {
+//                    viewHolder.mScalableVideoView.setDataSource("");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+        }
+    }
+
 
     class ViewHolder implements View.OnClickListener{
         public View mViewComment;//萌化了
         //图片类型 start
         public NineGridlayout ivMore;//图片九宫格
-        public CustomImageView ivOne;//单张图片
+        public CustomSingleImageView ivOne;//单张图片
         //图片类型 end
 
         //视频类型 start
-        public ScalableVideoView videoView;
-        public ImageView mIvPlay;
+        public ScalableVideoView mScalableVideoView;
+        public ImageView mPlayImageView;//
+        public ImageView mThumbnailImageView;//缩略图
+        public ProgressBar mProgressBar;
         //视频类型 end
 
         //音频类型 start
-        public View mViewAudio;
+        public View mViewAudio;//语音背景
+        public View mViewAnim;//语音动画
+        public TextView mTvAudioSecond;//时长
 
         //音频类型 end
 
@@ -454,10 +511,8 @@ public class HomeAdapter extends BaseAdapter {
             switch (position){
                 case  0:
                     praise(positionParent);
-//                    ToastUtils.showToast(context,"点赞成功 "+positionParent);
                     break;
                 case 1:
-//                    ToastUtils.showToast(context,"萌化了 "+positionParent);
                     addLoveSth(positionParent);
                     break;
                 case 2://直接回复楼主的评论
@@ -526,17 +581,40 @@ public class HomeAdapter extends BaseAdapter {
     }
 
     private String TAG = "HomeAdapter";
-    public void downloadMedia(String url){
+    public void downloadMedia(String url,final int type,final ViewHolder viewHolder){
+        if(CommonHelper.isFastClick()){
+            return;
+        }
+        String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
         String fileName = url.substring(url.lastIndexOf("/")+1);
+
+        if(new File(downLoadPath,fileName).exists()){//是否下载过
+            String filePath = downLoadPath+"/"+fileName;
+            switch (type){
+                case  ReqUrls.MEDIA_TYPE_AUDIO://音频
+                    playAudioRecord(filePath,viewHolder);
+                    break;
+                case  ReqUrls.MEDIA_TYPE_VIDEO://视频
+                    playerVideo(filePath,viewHolder);
+                    break;
+            }
+            return;
+        }
+
         OkHttpUtils//
                 .get()//
+//                .tag(this)
                 .url(url)//
                 .build()//
-                .execute(new FileCallBack(FileUtil.AUDIO_FILE_DIR, fileName) {
+                .execute(new FileCallBack(downLoadPath+"/", fileName) {
                     @Override
                     public void inProgress(float progress, long total) {
-                        int progressInt = (int) (100 * progress);
-                        Log.e(TAG,progressInt+"  total "+total);
+                        if(type == ReqUrls.MEDIA_TYPE_VIDEO) {
+                            int progressInt = (int) (100 * progress);
+                            viewHolder.mProgressBar.setProgress(progressInt);
+                            Log.e(TAG,progressInt+"  total "+total);
+                        }
+
                     }
 
                     @Override
@@ -546,9 +624,71 @@ public class HomeAdapter extends BaseAdapter {
 
                     @Override
                     public void onResponse(File file) {
+                        if(file.exists()){
+                            switch (type){
+                                case  ReqUrls.MEDIA_TYPE_AUDIO://音频
+                                    playAudioRecord(file.getPath(),viewHolder);
+                                    break;
+                                case  ReqUrls.MEDIA_TYPE_VIDEO://视频
+                                    playerVideo(file.getPath(),viewHolder);
+                                    break;
+                            }
+                        }
                         Log.e(TAG, "onResponse :" + file.getAbsolutePath());
                     }
                 });
+
+    }
+
+
+    /**
+     * 播放录音
+     */
+    AnimationDrawable animationDrawable;
+    private void playAudioRecord(String filePath,final ViewHolder viewHolder){
+        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+        if(animationDrawable!=null && animationDrawable.isRunning()){
+            animationDrawable.selectDrawable(2);
+            animationDrawable.stop();
+        }
+//		if(animation==null) {
+        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
+//		}
+
+        animationDrawable.start();
+        MediaManager.playSound(filePath,
+                new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        animationDrawable.stop();
+                        viewHolder.mViewAnim
+                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
+                    }
+                });
+    }
+
+    private void playerVideo(String filePath,final  ViewHolder viewHolder){
+
+        try {
+            viewHolder.mScalableVideoView.setDataSource(filePath);
+            viewHolder.mScalableVideoView.setVolume(0,0);
+            viewHolder.mScalableVideoView.setLooping(true);
+            viewHolder.mScalableVideoView.prepare(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    datalist.get(viewHolder.position).setPlay(true);
+                    viewHolder.mPlayImageView.setVisibility(View.GONE);
+                    viewHolder.mThumbnailImageView.setVisibility(View.GONE);
+                    viewHolder.mScalableVideoView.start();
+                }
+            });
+
+
+        } catch (IOException e) {
+            android.util.Log.e(TAG, e.getLocalizedMessage());
+            ToastUtils.showToast(context, "播放视频异常");
+        }
+
 
     }
 

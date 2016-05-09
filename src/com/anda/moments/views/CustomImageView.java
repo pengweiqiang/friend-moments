@@ -84,12 +84,12 @@ public class CustomImageView extends ImageView {
             if (isAttachedToWindow) {
                 int width = this.getWidth();
                 int height = this.getHeight();
-//                if(width==0){
-//                    width = 199;
-//                    height =width;
-//                }
-//                Log.e("CustomImageView",this.getWidth()+"   "+this.getHeight());
-                Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
+                if(width==0){
+                    width = 199;
+                    height =width;
+                }
+                Log.e("CustomImageView",this.getWidth()+"   "+this.getHeight());
+                Picasso.with(getContext()).load(url).resize(width,height).centerCrop().placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
             }
 
             if(MAX_WIDTH > 0){

@@ -47,6 +47,7 @@ public class UserInfoActivity extends BaseActivity {
 	
 	private View mBtnSign,mBtnRemarks;
 	private TextView mTvUserName,mTvUserNameHead,mTvUserId,mTvSex,mTvAddressDetail,mTvAddressArea,mTvUserSign;
+	private TextView mTvUserDesc;
 
 	private Button mBtnAddFriends;//添加好友
 	private Button mBtnSendMsg;//发送消息
@@ -121,9 +122,11 @@ public class UserInfoActivity extends BaseActivity {
 		mTvAddressArea = (TextView)findViewById(R.id.tv_address_area);
 		mTvUserSign = (TextView)findViewById(R.id.tv_user_sign);
 		mTvUserNameHead = (TextView)findViewById(R.id.tv_user_name_head);
+		mTvUserDesc = (TextView)findViewById(R.id.tv_user_desc);
 
 		mBtnAddFriends = (Button)findViewById(R.id.btn_add_friend);
 		mBtnSendMsg = (Button)findViewById(R.id.btn_send_msg);
+
 
 
 	}
@@ -146,6 +149,7 @@ public class UserInfoActivity extends BaseActivity {
 					Intent intent = new Intent(mContext,UpdateInfoActivity.class);
 					intent.putExtra("type",2);
 					intent.putExtra("title","备注");
+					intent.putExtra("friendPhoneNum",user.getPhoneNum());
 					intent.putExtra("content",user.getDescTag());
 					startActivity(intent);
 					break;
@@ -202,9 +206,12 @@ public class UserInfoActivity extends BaseActivity {
 			mTvAddressDetail.setText(StringUtils.isEmpty(user.getAddr())?"":user.getAddr());
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
+			mTvUserDesc.setText(user.getDescTag());
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(mIvUserHead);
-			Picasso.with(mContext).load(user.getIcon()).placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			if(!StringUtils.isEmpty(user.getIcon())) {
+				Picasso.with(mContext).load(StringUtils.isEmpty(user.getIcon()) ? "" : user.getIcon()).placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			}
 			if(flag==1){
 				mBtnAddFriends.setVisibility(View.GONE);
 			}else{

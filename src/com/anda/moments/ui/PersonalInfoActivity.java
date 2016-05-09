@@ -157,6 +157,10 @@ public class PersonalInfoActivity extends BaseActivity {
 
 		@Override
 		public void onClick(View v) {
+			if(user==null){
+				getData();
+				return;
+			}
 			switch (v.getId()){
 				case R.id.rl_address:
 					startUpdateInfoActivity(4,"地址",user.getAddr());

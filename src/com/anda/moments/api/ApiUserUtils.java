@@ -21,6 +21,22 @@ import com.anda.moments.utils.StringUtils;
  */
 public class ApiUserUtils {
 
+	/**
+	 * 修改好友备注
+	 * @param context
+	 * @param phoneNum
+	 * @param friendPhoneNum
+	 * @param descTag
+	 * @param requestCallback
+     */
+	public static void updateFriendTags(Context context,String phoneNum,String friendPhoneNum,String descTag,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("phoneNum",phoneNum);
+		params.put("friendPhoneNum",friendPhoneNum);
+		params.put("descTag",descTag);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_UPDATE_FRIENDS_TAGS, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
 
 	/**
 	 * 修改个人资料

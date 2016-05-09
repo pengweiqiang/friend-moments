@@ -56,14 +56,25 @@
                 android:text="0''"
                 android:layout_marginLeft="10dp"
                 />
-            <View
+            <FrameLayout
                 android:id="@+id/view_record"
-                android:layout_width="match_parent"
                 android:layout_toLeftOf="@+id/tv_audio_second"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/comment_bg"
-            />
+                android:background="@drawable/audio_background"
+                android:gravity="left"
+                >
+                <View
+                    android:id="@+id/voice_anim"
+                    android:layout_width="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="25dp"
+                    android:background="@drawable/icon_voice_anim_3"
+                    />
+
+            </FrameLayout>
+
 
         </RelativeLayout>
 

@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="昵称"
         android:layout_marginRight="92dp"
-        android:layout_marginBottom="33dp"
+        android:layout_marginBottom="35dp"
         android:layout_gravity="right|bottom"
         android:textColor="@color/white"
         android:textSize="18sp"

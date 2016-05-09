@@ -67,7 +67,7 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 		// Create an instance of Camera
 		mCamera = CameraHelper.getCameraInstance(cameraId);
 		if (null == mCamera) {
-			Toast.makeText(this, "打开相机失败！", Toast.LENGTH_SHORT).show();
+			ToastUtils.showToast(mContext,"打开相机失败!");
 			finish();
 			return;
 		}
@@ -102,7 +102,7 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 			}
 		}
 		releaseCamera();              // release the camera immediately on pause event
-		finish();
+		AppManager.getAppManager().finishActivity();
 	}
 
 	private void releaseCamera() {

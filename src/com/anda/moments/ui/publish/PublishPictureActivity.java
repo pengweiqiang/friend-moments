@@ -96,8 +96,6 @@ public class PublishPictureActivity extends BaseActivity {
 
 		InitGridView();
 
-		FileUtil.createPictureFile();
-
 	}
 
 	@Override
@@ -335,7 +333,7 @@ public class PublishPictureActivity extends BaseActivity {
 	 * 发布图片
 	 */
 	private void sendPicture(){
-		client = client.newBuilder().connectTimeout(30, TimeUnit.SECONDS).build();
+		client = client.newBuilder().writeTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS).connectTimeout(30, TimeUnit.SECONDS).build();
 		final String content = mEtContent.getText().toString().trim();
 		if(StringUtils.isEmpty(content)){
 			ToastUtils.showToast(mContext,"请输入内容");
@@ -359,7 +357,7 @@ public class PublishPictureActivity extends BaseActivity {
 					if(file.exists()){
 						JsonObject jsonObject = new JsonObject();
 						jsonObject.addProperty("name",file.getName());
-						jsonObject.addProperty("type","1");
+						jsonObject.addProperty("type",ReqUrls.MEDIA_TYPE_PICTURE+"");
 						fileMetaInfo.add(jsonObject);
 						RequestBody fileBody = RequestBody.create(MEDIA_TYPE_PNG,file);
 						multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
@@ -405,7 +403,7 @@ public class PublishPictureActivity extends BaseActivity {
 							int retFlag = jsonResult.getInt("retFlag");
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
 								// 完成上传服务器后 .........
-								FileUtils.deleteDir();
+								FileUtils.deletePictures();
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
