@@ -288,6 +288,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/tb_munion_aditem.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_secret_setting.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_secret_setting.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_item_location_message.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_item_location_message.xml"
     },
@@ -374,6 +378,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_item_progress.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_item_progress.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_video_detail.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_video_detail.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/audio_record_dialog.xml",

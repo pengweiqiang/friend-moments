@@ -2,9 +2,11 @@ package com.anda.moments.apdater;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtil;
@@ -63,6 +66,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import sz.itguy.utils.FileUtil;
@@ -83,11 +87,11 @@ public class HomeAdapter extends BaseAdapter {
     private Context context;
     private List<CircleMessage> datalist;
 
-//    private int headWidth= 50;
+    private int headWidth= 80;
     public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
-//        headWidth = DeviceInfo.dp2px(context,50);
+        headWidth = DeviceInfo.dp2px(context,70);
     }
 
     private HomeFragment homeFragment;
@@ -187,9 +191,10 @@ public class HomeAdapter extends BaseAdapter {
                     try {
                         viewHolder.mScalableVideoView.setDataSource("");
                     } catch (IOException e) {
-                        e.printStackTrace();
+                       // e.printStackTrace();
                     }
 
+                    viewHolder.mScalableVideoView.setOnClickListener(viewHolder);
 
                     break;
             }
@@ -236,8 +241,8 @@ public class HomeAdapter extends BaseAdapter {
         if(publishUser!=null) {
             viewHolder.mTvUserName.setText(publishUser.getUserName());
             String headUrl = publishUser.getIcon();
-//            Picasso.with(context).load(headUrl).resize(headWidth,headWidth).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
-            Picasso.with(context).load(headUrl).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
+            Picasso.with(context).load(headUrl).resize(headWidth,headWidth).centerCrop().placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
+//            Picasso.with(context).load(headUrl).placeholder(R.drawable.default_useravatar).into(viewHolder.mIvUserHead);
         }
         //发表时间
         viewHolder.mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
@@ -344,6 +349,11 @@ public class HomeAdapter extends BaseAdapter {
                         }
                     }
                 });
+
+                String url = circleMessage.getVideos().get(0).getPath();
+                String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
+                String fileName = url.substring(url.lastIndexOf("/")+1);
+                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
 
 
                 break;
@@ -469,6 +479,12 @@ public class HomeAdapter extends BaseAdapter {
                     break;
                 case R.id.tv_user_name://昵称
                     startUserInfoActivity(position);
+                    break;
+                case R.id.video_view://点击进入视频详情
+                    Intent intent = new Intent(context, VideoDetailActivity.class);
+                    intent.putExtra(VideoDetailActivity.KEY_FILE_PATH,getItem(position).getVideos().get(0).getPath());
+                    intent.putExtra("firstPicture","");
+                    context.startActivity(intent);
                     break;
             }
         }
@@ -690,6 +706,30 @@ public class HomeAdapter extends BaseAdapter {
         }
 
 
+    }
+
+    public Bitmap getVideoThumbnail(String filePath) {
+        if(!new File(filePath).exists()){
+            return null;
+        }
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(filePath);
+            bitmap = retriever.getFrameAtTime(TimeUnit.SECONDS.toMicros(1));
+        }
+        catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                retriever.release();
+            }
+            catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
     }
 
 }

@@ -1,15 +1,19 @@
 package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -24,15 +28,20 @@ import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.ShareUtil;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -53,6 +62,8 @@ public class AddFriendsActivity extends BaseActivity {
 	private ListView mListView;//搜索的结果
 	SearchFriendsListAdapter mFriendListAdapter;
 
+	private ShareUtil shareUtil;
+
 
 
 
@@ -62,6 +73,8 @@ public class AddFriendsActivity extends BaseActivity {
 		setContentView(R.layout.activity_add_friends);
 		super.onCreate(savedInstanceState);
 
+		shareUtil = new ShareUtil(this);
+		shareUtil.initWX();
 	}
 
 	@Override
@@ -147,14 +160,14 @@ public class AddFriendsActivity extends BaseActivity {
 			switch (v.getId()){
 				case R.id.rl_add_friends_send_message://打开通讯录发送短信
 					Intent it = new Intent(Intent.ACTION_VIEW);
-					it.putExtra("sms_body", "发送短信文案");
+					it.putExtra("sms_body", ApiConstants.SHARE_CONTENT);
 					it.setType("vnd.android-dir/mms-sms");
 					startActivity(it);
 //					Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 //					startActivity(intent);
 					break;
 				case R.id.rl_add_friends_weixin:
-
+					showShareDialog();
 					break;
 
 			}
@@ -226,6 +239,36 @@ public class AddFriendsActivity extends BaseActivity {
 		}
 	}
 
+
+	private void showShareDialog() {
+		final AlertDialog dlg = new AlertDialog.Builder(this).create();
+		dlg.show();
+		Window window = dlg.getWindow();
+		// *** 主要就是在这里实现这种效果的.
+		// 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
+		window.setContentView(R.layout.alertdialog);
+		// 为确认按钮添加事件,执行退出应用操作
+		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+		tv_paizhao.setText("好友");
+		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SdCardPath")
+			public void onClick(View v) {
+				shareUtil.sendWebPageToWX(ApiConstants.SHARE_CONTENT, SendMessageToWX.Req.WXSceneSession);
+				dlg.cancel();
+			}
+		});
+		TextView tv_xiangce = (TextView) window.findViewById(R.id.tv_content2);
+		tv_xiangce.setText("朋友圈");
+		tv_xiangce.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				shareUtil.sendWebPageToWX(ApiConstants.SHARE_CONTENT, SendMessageToWX.Req.WXSceneTimeline);
+
+				dlg.cancel();
+			}
+		});
+
+	}
 
 
 

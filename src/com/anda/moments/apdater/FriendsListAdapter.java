@@ -11,6 +11,7 @@ import android.widget.*;
 import com.anda.moments.R;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.utils.DeviceInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,12 +28,14 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 
 	private List<User> list;
 
+	int headWidth = 80;
 	public FriendsListAdapter(Activity mActivity, List<User> list) {
 		this.mActivity = mActivity;
 		if(list==null){
 			list = new ArrayList<User>();
 		}
 		this.list = list;
+		headWidth = DeviceInfo.dp2px(mActivity,70);
 	}
 
 	/**
@@ -87,14 +90,14 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 		final User dto = list.get(position);
 
 		if (dto != null) {
-			Picasso.with(mActivity).load(dto.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(holder.ivHead);
+			Picasso.with(mActivity).load(dto.getIcon()).resize(headWidth,headWidth).centerCrop().placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(holder.ivHead);
 
 			// 根据position获取分类的首字母的Char ascii值
 			int section = getSectionForPosition(position);
 			// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
 			if (position == getPositionForSection(section)) {
 				holder.tvLetter.setVisibility(View.VISIBLE);
-				holder.tvLetter.setText("☆".equals(dto.getSortLetters()) ? dto.getSortLetters() + "(管理员)" : dto.getSortLetters());
+				holder.tvLetter.setText("#".equals(dto.getSortLetters()) ? dto.getSortLetters() + "" : dto.getSortLetters());
 				holder.tvLine.setVisibility(View.VISIBLE);
 			} else {
 				holder.tvLetter.setVisibility(View.GONE);

@@ -304,7 +304,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 					if (sortString.matches("[A-Z]")) {// 正则表达式，判断首字母是否是英文字母
 						user.setSortLetters(sortString);
 					} else {
-						user.setSortLetters("☆");
+						user.setSortLetters("#");
 					}
 					friendLists.add(user);
 				}else{
@@ -392,7 +392,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 			public void onSuccess(Integer integer) {
 				int totalUnreadCount = integer;
 				if(totalUnreadCount>0){
-					String totalCount = totalUnreadCount>99?"99+":totalUnreadCount+"";
+					String totalCount = totalUnreadCount>99?"...":totalUnreadCount+"";
 					mTvUnReadMsg.setText(totalCount);
 					mTvUnReadMsg.setVisibility(View.VISIBLE);
 				}else{
@@ -418,7 +418,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				mTvUnReadMsg.setText(count + "");
 			} else {
 				mTvUnReadMsg.setVisibility(View.VISIBLE);
-				mTvUnReadMsg.setText("99+");
+				mTvUnReadMsg.setText("...");
 			}
 		}
 	};

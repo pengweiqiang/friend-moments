@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -22,9 +25,14 @@ import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.entity.Images;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
+import com.anda.moments.utils.publish.FileUtils;
+import com.anda.universalimageloader.utils.MemoryCacheUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import com.squareup.picasso.Transformation;
 //import com.anda.universalimageloader.core.DisplayImageOptions;
 //import com.anda.universalimageloader.core.ImageLoader;
 //import com.anda.universalimageloader.core.assist.FailReason;
@@ -34,9 +42,13 @@ import com.squareup.picasso.Picasso;
 //import com.anda.universalimageloader.core.listener.SimpleImageLoadingListener;
 //import com.anda.universalimageloader.utils.MemoryCacheUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import sz.itguy.utils.FileUtil;
 import uk.co.senab.photoview.PhotoView;
 
 /**
@@ -50,6 +62,8 @@ public class ImagePagerActivity extends BaseActivity {
 //    public static ImageSize imageSize;
 
     public static int [] imageSize;
+
+    static CropSquareTransformation cropSquareTransformation;
 
     public static void startImagePagerActivity(Context context, List<Images> imgUrls, int position){
         Intent intent = new Intent(context, ImagePagerActivity.class);
@@ -96,6 +110,18 @@ public class ImagePagerActivity extends BaseActivity {
         if(imgUrls==null || imgUrls.size()<=1){
             guideGroup.setVisibility(View.GONE);
         }
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()){
+//                    case MotionEvent.ACTION_UP:
+//                        AppManager.getAppManager().finishActivity();
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
+        cropSquareTransformation = new CropSquareTransformation();
     }
 
     @Override
@@ -181,7 +207,8 @@ public class ImagePagerActivity extends BaseActivity {
                 final String imgurl = datas.get(position).getImgPath();
                 loading.setVisibility(View.VISIBLE);
 //                Picasso.with(context).setIndicatorsEnabled(true);
-                Picasso.with(context).load(imgurl).into(imageView, new Callback() {
+                Picasso.with(context).load(imgurl).transform(cropSquareTransformation)
+                        .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
                         loading.setVisibility(View.GONE);
@@ -191,7 +218,10 @@ public class ImagePagerActivity extends BaseActivity {
                     @Override
                     public void onError() {
 
+                        Log.e("sd","error");
                     }
+
+
                 });
 
 //                ImageLoader.getInstance().displayImage(imgurl, imageView, options, new SimpleImageLoadingListener(){
@@ -254,6 +284,28 @@ public class ImagePagerActivity extends BaseActivity {
 
 
     }
+
+    /**
+     * 自定义接口，实现图像缩小为原来的一半
+     */
+    public  class CropSquareTransformation implements Transformation {
+        @Override
+        public Bitmap transform(Bitmap source) {
+
+            Bitmap result = FileUtils.ratio(source,DeviceInfo.getScreenWidth(ImagePagerActivity.this),DeviceInfo.getScreenHeight(ImagePagerActivity.this));
+            if (result != source) {
+                source.recycle();
+            }
+
+            return result;
+        }
+
+        @Override
+        public String key() {
+            return "square()";
+        }
+    }
+
 
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="9"
+    android:versionCode="10"
     android:versionName="1.9" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -84,10 +84,10 @@
             android:label="发布视频"
             android:screenOrientation="portrait"
             />
-        <!--<activity android:name=".ui.publish.PlayVideoActiviy"-->
-            <!--android:label="播放视频"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--/>-->
+        <activity android:name=".ui.VideoDetailActivity"
+            android:label="播放视频"
+            android:screenOrientation="portrait"
+            />
 
         <activity 
             android:name=".ui.UserInfoActivity"
@@ -114,6 +114,10 @@
             />
         <activity android:name=".ui.SettingActivity"
             android:label="设置"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.SecretSettingActivity"
+            android:label="私密设置"
             android:screenOrientation="portrait"
             />
 

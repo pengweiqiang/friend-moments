@@ -8,12 +8,21 @@ public interface ApiConstants {
 	/**
 	 * 微信支付相关配置信息  start
 	 */
-	// APP_ID 替换为你的应用从官方网站申请到的合法appId
-    public static final String APP_ID = "wxd930ea5d5a258f4f";
-    
-    /** 商家向财付通申请的商家id */
-    public static final String PARTNER_ID = "1900000109";
-	
+    // APP_ID 替换为你的应用从官方网站申请到的合法appId
+    public static final String APP_ID = "wx7bec0410d07b8654";
+
+    public static final String WEB_URL = "http://www.baidu.com";
+
+    public static final String SHARE_TITLE = "朋友圈";
+
+    public static final String SHARE_CONTENT = "一起来玩朋友圈吧!";
+
+    public static class ShowMsgActivity {
+        public static final String STitle = "showmsg_title";
+        public static final String SMessage = "showmsg_message";
+        public static final String BAThumbData = "showmsg_thumb_data";
+    }
+
     /**
      * 微信支付相关配置信息  end
      */

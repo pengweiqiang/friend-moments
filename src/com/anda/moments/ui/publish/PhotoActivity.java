@@ -1,5 +1,6 @@
 package com.anda.moments.ui.publish;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.anda.moments.R;
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.publish.Bimp;
 import com.anda.moments.utils.publish.FileUtils;
+import com.squareup.picasso.Picasso;
 
 public class PhotoActivity extends Activity {
 
@@ -27,7 +30,7 @@ public class PhotoActivity extends Activity {
 	private MyPageAdapter adapter;
 	private int count;
 
-	public List<Bitmap> bmp = new ArrayList<Bitmap>();
+//	public List<Bitmap> bmp = new ArrayList<Bitmap>();
 	public List<String> drr = new ArrayList<String>();
 	public List<String> del = new ArrayList<String>();
 	public int max;
@@ -41,9 +44,9 @@ public class PhotoActivity extends Activity {
 		photo_relativeLayout = (RelativeLayout) findViewById(R.id.photo_relativeLayout);
 		photo_relativeLayout.setBackgroundColor(0x70000000);
 
-		for (int i = 0; i < Bimp.bmp.size(); i++) {
-			bmp.add(Bimp.bmp.get(i));
-		}
+//		for (int i = 0; i < Bimp.drr.size(); i++) {
+//			bmp.add(Bimp.bmp.get(i));
+//		}
 		for (int i = 0; i < Bimp.drr.size(); i++) {
 			drr.add(Bimp.drr.get(i));
 		}
@@ -60,16 +63,17 @@ public class PhotoActivity extends Activity {
 		photo_bt_del.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				if (listViews.size() == 1) {
-					Bimp.bmp.clear();
+//					Bimp.bmp.clear();
 					Bimp.drr.clear();
 					Bimp.max = 0;
-					FileUtils.deleteDir();
+//					FileUtils.deleteDir();
+					FileUtils.delFile(drr.get(0));
 					finish();
 				} else {
 					String newStr = drr.get(count).substring( 
 							drr.get(count).lastIndexOf("/") + 1,
 							drr.get(count).lastIndexOf("."));
-					bmp.remove(count);
+//					bmp.remove(count);
 					drr.remove(count);
 					del.add(newStr);
 					max--;
@@ -85,7 +89,7 @@ public class PhotoActivity extends Activity {
 
 			public void onClick(View v) {
 
-				Bimp.bmp = bmp;
+//				Bimp.bmp = bmp;
 				Bimp.drr = drr;
 				Bimp.max = max;
 				for(int i=0;i<del.size();i++){				
@@ -97,8 +101,8 @@ public class PhotoActivity extends Activity {
 
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		pager.setOnPageChangeListener(pageChangeListener);
-		for (int i = 0; i < bmp.size(); i++) {
-			initListViews(bmp.get(i));//
+		for (int i = 0; i < drr.size(); i++) {
+			initListViews(drr.get(i));//
 		}
 
 		adapter = new MyPageAdapter(listViews);// 构造adapter
@@ -108,12 +112,13 @@ public class PhotoActivity extends Activity {
 		pager.setCurrentItem(id);
 	}
 
-	private void initListViews(Bitmap bm) {
+	private void initListViews(String filePath) {
 		if (listViews == null)
 			listViews = new ArrayList<View>();
 		ImageView img = new ImageView(this);// 构造textView对象
 		img.setBackgroundColor(0xff000000);
-		img.setImageBitmap(bm);
+//		img.setImageBitmap(bm);
+		Picasso.with(PhotoActivity.this).load(new File(filePath)).into(img);
 		img.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		listViews.add(img);// 添加view

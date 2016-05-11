@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="9"
+    android:versionCode="10"
     android:versionName="1.9" >
 
     <uses-sdk
@@ -95,11 +95,10 @@
             android:name="com.anda.moments.ui.publish.PublishVideoSecondActivity"
             android:label="发布视频"
             android:screenOrientation="portrait" />
-        <!-- <activity android:name=".ui.publish.PlayVideoActiviy" -->
-        <!-- android:label="播放视频" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- /> -->
-
+        <activity
+            android:name="com.anda.moments.ui.VideoDetailActivity"
+            android:label="播放视频"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.UserInfoActivity"
             android:label="详细资料"
@@ -124,6 +123,10 @@
         <activity
             android:name="com.anda.moments.ui.SettingActivity"
             android:label="设置"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.SecretSettingActivity"
+            android:label="私密设置"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.AddFriendsActivity"

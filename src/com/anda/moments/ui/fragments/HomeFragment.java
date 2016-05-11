@@ -470,7 +470,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private void initMyData(){
 		User user = getUser();
 		if(user!=null){//个人信息
-			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+			int width = DeviceInfo.dp2px(mActivity,70);
+			Picasso.with(mActivity).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			mTvUserName.setText(user.getUserName());
 		}
 	}

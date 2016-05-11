@@ -4,6 +4,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xxhdpi-v4/rc_ic_warning.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/public_top_bg.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xxhdpi/public_top_bg.png"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_launcher.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xxhdpi/ic_launcher.png"
     },

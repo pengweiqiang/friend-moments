@@ -73,7 +73,7 @@ public class SettingActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()){
 				case R.id.rl_sercet_setting://私密设置
-
+					startActivity(SecretSettingActivity.class);
 					break;
 				case R.id.rl_about_us://关于我们
 

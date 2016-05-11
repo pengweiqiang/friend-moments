@@ -172,24 +172,11 @@ containing a value of this type.
 </table>
          */
         public static final int RCStyle=0x7f01000f;
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
          */
-        public static final int border_inside_color=0x7f01003d;
-        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int border_outside_color=0x7f01003e;
+        public static final int animate=0x7f010037;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -199,7 +186,35 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int border_thickness=0x7f01003c;
+        public static final int borderWidth=0x7f010032;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int border_inside_color=0x7f010044;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int border_outside_color=0x7f010045;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int border_thickness=0x7f010043;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -216,7 +231,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cicle_color=0x7f01003b;
+        public static final int cicle_color=0x7f010042;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -242,7 +257,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int fadeDelay=0x7f010033;
+        public static final int fadeDelay=0x7f01003a;
         /** <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -250,7 +265,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int fadeLength=0x7f010034;
+        public static final int fadeLength=0x7f01003b;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -258,7 +273,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int fades=0x7f010032;
+        public static final int fades=0x7f010039;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -360,6 +375,24 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int lineWidth=0x7f010010;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int offBorderColor=0x7f010033;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int offColor=0x7f010034;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int onColor=0x7f010035;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -448,7 +481,7 @@ containing a value of this type.
 <tr><td><code>endInside</code></td><td>25</td><td></td></tr>
 </table>
          */
-        public static final int scalableType=0x7f01003f;
+        public static final int scalableType=0x7f010046;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -474,6 +507,12 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int snap=0x7f01000d;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int spotColor=0x7f010036;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -570,6 +609,11 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int titlePadding=0x7f010030;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
+         */
+        public static final int toggleSwitch=0x7f010038;
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -592,27 +636,27 @@ containing a value of this type.
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiCirclePageIndicatorStyle=0x7f010035;
+        public static final int vpiCirclePageIndicatorStyle=0x7f01003c;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiIconPageIndicatorStyle=0x7f010036;
+        public static final int vpiIconPageIndicatorStyle=0x7f01003d;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiLinePageIndicatorStyle=0x7f010037;
+        public static final int vpiLinePageIndicatorStyle=0x7f01003e;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiTabPageIndicatorStyle=0x7f010039;
+        public static final int vpiTabPageIndicatorStyle=0x7f010040;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiTitlePageIndicatorStyle=0x7f010038;
+        public static final int vpiTitlePageIndicatorStyle=0x7f01003f;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int vpiUnderlinePageIndicatorStyle=0x7f01003a;
+        public static final int vpiUnderlinePageIndicatorStyle=0x7f010041;
     }
     public static final class bool {
         public static final int default_circle_indicator_centered=0x7f090000;
@@ -870,348 +914,349 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int part_time_logo=0x7f020082;
         public static final int phone=0x7f020083;
         public static final int polygon=0x7f020084;
-        public static final int publish_picture=0x7f020085;
-        public static final int publish_video=0x7f020086;
-        public static final int publish_vioce=0x7f020087;
-        public static final int px=0x7f020088;
-        public static final int rc_add_people=0x7f020089;
-        public static final int rc_an_voice_receive=0x7f02008a;
-        public static final int rc_an_voice_sent=0x7f02008b;
-        public static final int rc_bar_back=0x7f02008c;
-        public static final int rc_bar_logo=0x7f02008d;
-        public static final int rc_bar_more=0x7f02008e;
-        public static final int rc_bg_albums_spinner=0x7f02008f;
-        public static final int rc_bg_editinput=0x7f020090;
-        public static final int rc_bg_item=0x7f020091;
-        public static final int rc_bg_menu=0x7f020092;
-        public static final int rc_bg_text_hover=0x7f020093;
-        public static final int rc_bg_text_normal=0x7f020094;
-        public static final int rc_bg_voice_popup=0x7f020095;
-        public static final int rc_btn_input=0x7f020096;
-        public static final int rc_btn_pub_service_enter_hover=0x7f020097;
-        public static final int rc_btn_pub_service_enter_normal=0x7f020098;
-        public static final int rc_btn_pub_service_follow_hover=0x7f020099;
-        public static final int rc_btn_pub_service_follow_normal=0x7f02009a;
-        public static final int rc_btn_public_service_enter_selector=0x7f02009b;
-        public static final int rc_btn_public_service_unfollow_selector=0x7f02009c;
-        public static final int rc_btn_send=0x7f02009d;
-        public static final int rc_btn_send_hover=0x7f02009e;
-        public static final int rc_btn_send_normal=0x7f02009f;
-        public static final int rc_btn_voice=0x7f0200a0;
-        public static final int rc_btn_voice_hover=0x7f0200a1;
-        public static final int rc_btn_voice_normal=0x7f0200a2;
-        public static final int rc_checkbox_normal=0x7f0200a3;
-        public static final int rc_checkbox_pressed=0x7f0200a4;
-        public static final int rc_conversation_list_msg_send_failure=0x7f0200a5;
-        public static final int rc_conversation_list_msg_sending=0x7f0200a6;
-        public static final int rc_conversation_newmsg=0x7f0200a7;
-        public static final int rc_default_discussion_portrait=0x7f0200a8;
-        public static final int rc_default_group_portrait=0x7f0200a9;
-        public static final int rc_default_portrait=0x7f0200aa;
-        public static final int rc_default_portrait2=0x7f0200ab;
-        public static final int rc_ed_pub_service_search_hover=0x7f0200ac;
-        public static final int rc_ed_pub_service_search_normal=0x7f0200ad;
-        public static final int rc_ed_public_service_search_selector=0x7f0200ae;
-        public static final int rc_group_default_portrait=0x7f0200af;
-        public static final int rc_ic_admin_selector=0x7f0200b0;
-        public static final int rc_ic_albums_checked=0x7f0200b1;
-        public static final int rc_ic_albums_normal=0x7f0200b2;
-        public static final int rc_ic_bubble_left=0x7f0200b3;
-        public static final int rc_ic_bubble_no_left=0x7f0200b4;
-        public static final int rc_ic_bubble_no_right=0x7f0200b5;
-        public static final int rc_ic_bubble_right=0x7f0200b6;
-        public static final int rc_ic_bubble_white=0x7f0200b7;
-        public static final int rc_ic_camera=0x7f0200b8;
-        public static final int rc_ic_camera_normal=0x7f0200b9;
-        public static final int rc_ic_camera_selected=0x7f0200ba;
-        public static final int rc_ic_def_coversation_portrait=0x7f0200bb;
-        public static final int rc_ic_def_msg_portrait=0x7f0200bc;
-        public static final int rc_ic_def_rich_content=0x7f0200bd;
-        public static final int rc_ic_delete=0x7f0200be;
-        public static final int rc_ic_emoji_block=0x7f0200bf;
-        public static final int rc_ic_extend=0x7f0200c0;
-        public static final int rc_ic_extend_normal=0x7f0200c1;
-        public static final int rc_ic_extend_selected=0x7f0200c2;
-        public static final int rc_ic_keyboard=0x7f0200c3;
-        public static final int rc_ic_keyboard_normal=0x7f0200c4;
-        public static final int rc_ic_keyboard_selected=0x7f0200c5;
-        public static final int rc_ic_location=0x7f0200c6;
-        public static final int rc_ic_location_item_default=0x7f0200c7;
-        public static final int rc_ic_location_normal=0x7f0200c8;
-        public static final int rc_ic_location_selected=0x7f0200c9;
-        public static final int rc_ic_menu_keyboard=0x7f0200ca;
-        public static final int rc_ic_message_block=0x7f0200cb;
-        public static final int rc_ic_no=0x7f0200cc;
-        public static final int rc_ic_no_hover=0x7f0200cd;
-        public static final int rc_ic_no_selector=0x7f0200ce;
-        public static final int rc_ic_notice_loading=0x7f0200cf;
-        public static final int rc_ic_notice_point=0x7f0200d0;
-        public static final int rc_ic_notice_wraning=0x7f0200d1;
-        public static final int rc_ic_phone=0x7f0200d2;
-        public static final int rc_ic_phone_normal=0x7f0200d3;
-        public static final int rc_ic_phone_selected=0x7f0200d4;
-        public static final int rc_ic_picture=0x7f0200d5;
-        public static final int rc_ic_picture_normal=0x7f0200d6;
-        public static final int rc_ic_picture_selected=0x7f0200d7;
-        public static final int rc_ic_setting_friends_add=0x7f0200d8;
-        public static final int rc_ic_setting_friends_delete=0x7f0200d9;
-        public static final int rc_ic_smiley=0x7f0200da;
-        public static final int rc_ic_smiley_normal=0x7f0200db;
-        public static final int rc_ic_smiley_selected=0x7f0200dc;
-        public static final int rc_ic_star=0x7f0200dd;
-        public static final int rc_ic_star_hover=0x7f0200de;
-        public static final int rc_ic_star_selector=0x7f0200df;
-        public static final int rc_ic_text=0x7f0200e0;
-        public static final int rc_ic_text_normal=0x7f0200e1;
-        public static final int rc_ic_text_selected=0x7f0200e2;
-        public static final int rc_ic_trangle=0x7f0200e3;
-        public static final int rc_ic_voice=0x7f0200e4;
-        public static final int rc_ic_voice_normal=0x7f0200e5;
-        public static final int rc_ic_voice_receive=0x7f0200e6;
-        public static final int rc_ic_voice_receive_play1=0x7f0200e7;
-        public static final int rc_ic_voice_receive_play2=0x7f0200e8;
-        public static final int rc_ic_voice_receive_play3=0x7f0200e9;
-        public static final int rc_ic_voice_selected=0x7f0200ea;
-        public static final int rc_ic_voice_sent=0x7f0200eb;
-        public static final int rc_ic_voice_sent_play1=0x7f0200ec;
-        public static final int rc_ic_voice_sent_play2=0x7f0200ed;
-        public static final int rc_ic_voice_sent_play3=0x7f0200ee;
-        public static final int rc_ic_volume_1=0x7f0200ef;
-        public static final int rc_ic_volume_2=0x7f0200f0;
-        public static final int rc_ic_volume_3=0x7f0200f1;
-        public static final int rc_ic_volume_4=0x7f0200f2;
-        public static final int rc_ic_volume_5=0x7f0200f3;
-        public static final int rc_ic_volume_6=0x7f0200f4;
-        public static final int rc_ic_volume_7=0x7f0200f5;
-        public static final int rc_ic_volume_8=0x7f0200f6;
-        public static final int rc_ic_volume_cancel=0x7f0200f7;
-        public static final int rc_ic_volume_wraning=0x7f0200f8;
-        public static final int rc_ic_warning=0x7f0200f9;
-        public static final int rc_ic_yes=0x7f0200fa;
-        public static final int rc_ic_yes_hover=0x7f0200fb;
-        public static final int rc_ic_yes_selector=0x7f0200fc;
-        public static final int rc_icon_admin=0x7f0200fd;
-        public static final int rc_icon_admin_hover=0x7f0200fe;
-        public static final int rc_img_camera=0x7f0200ff;
-        public static final int rc_item_list_selector=0x7f020100;
-        public static final int rc_item_top_list_selector=0x7f020101;
-        public static final int rc_loading=0x7f020102;
-        public static final int rc_mebmer_delete=0x7f020103;
-        public static final int rc_notification_network_available=0x7f020104;
-        public static final int rc_photo_checkbox=0x7f020105;
-        public static final int rc_precheckbox_normal=0x7f020106;
-        public static final int rc_precheckbox_pressed=0x7f020107;
-        public static final int rc_preview_checkbox=0x7f020108;
-        public static final int rc_progress_sending_style=0x7f020109;
-        public static final int rc_public_service_menu_bg=0x7f02010a;
-        public static final int rc_radio_button_off=0x7f02010b;
-        public static final int rc_radio_button_on=0x7f02010c;
-        public static final int rc_read_receipt=0x7f02010d;
-        public static final int rc_receive_voice_one=0x7f02010e;
-        public static final int rc_receive_voice_three=0x7f02010f;
-        public static final int rc_receive_voice_two=0x7f020110;
-        public static final int rc_send_voice_one=0x7f020111;
-        public static final int rc_send_voice_three=0x7f020112;
-        public static final int rc_send_voice_two=0x7f020113;
-        public static final int rc_switch_btn=0x7f020114;
-        public static final int rc_unread_count_bg=0x7f020115;
-        public static final int rc_unread_message_count=0x7f020116;
-        public static final int rc_unread_remind_without_count=0x7f020117;
-        public static final int rc_voice_icon_left=0x7f020118;
-        public static final int rc_voice_icon_right=0x7f020119;
-        public static final int rc_voice_unread=0x7f02011a;
-        public static final int rc_voide_message_unread=0x7f02011b;
-        public static final int rc_volume_four=0x7f02011c;
-        public static final int rc_volume_one=0x7f02011d;
-        public static final int rc_volume_three=0x7f02011e;
-        public static final int rc_volume_two=0x7f02011f;
-        public static final int rc_volume_zero=0x7f020120;
-        public static final int refresh_location=0x7f020121;
-        public static final int school_help_image=0x7f020122;
-        public static final int search=0x7f020123;
-        public static final int search_bg=0x7f020124;
-        public static final int search_clear_normal=0x7f020125;
-        public static final int search_clear_pressed=0x7f020126;
-        public static final int search_edittext=0x7f020127;
-        public static final int search_puin=0x7f020128;
-        public static final int seekbar_img=0x7f020129;
-        public static final int selector_guide_bg=0x7f02012a;
-        public static final int selector_send=0x7f02012b;
-        public static final int shape_guide_bg_defaut=0x7f02012c;
-        public static final int shape_guide_bg_focus=0x7f02012d;
-        public static final int share=0x7f02012e;
-        public static final int site=0x7f02012f;
-        public static final int spread_img1=0x7f020130;
-        public static final int spread_img2=0x7f020131;
-        public static final int spread_img3=0x7f020132;
-        public static final int tab_friends_selected=0x7f020133;
-        public static final int tab_friends_unselected=0x7f020134;
-        public static final int tab_home_selected=0x7f020135;
-        public static final int tab_home_unselected=0x7f020136;
-        public static final int tab_my_selected=0x7f020137;
-        public static final int tab_my_unselected=0x7f020138;
-        public static final int tb_munion_icon=0x7f020139;
-        public static final int tb_munion_item_selector=0x7f02013a;
-        public static final int text_while=0x7f02013b;
-        public static final int time=0x7f02013c;
-        public static final int tips_bg=0x7f02013d;
-        public static final int u1f004=0x7f02013e;
-        public static final int u1f30f=0x7f02013f;
-        public static final int u1f319=0x7f020140;
-        public static final int u1f332=0x7f020141;
-        public static final int u1f339=0x7f020142;
-        public static final int u1f33b=0x7f020143;
-        public static final int u1f349=0x7f020144;
-        public static final int u1f356=0x7f020145;
-        public static final int u1f35a=0x7f020146;
-        public static final int u1f366=0x7f020147;
-        public static final int u1f36b=0x7f020148;
-        public static final int u1f377=0x7f020149;
-        public static final int u1f37b=0x7f02014a;
-        public static final int u1f381=0x7f02014b;
-        public static final int u1f382=0x7f02014c;
-        public static final int u1f384=0x7f02014d;
-        public static final int u1f389=0x7f02014e;
-        public static final int u1f393=0x7f02014f;
-        public static final int u1f3a4=0x7f020150;
-        public static final int u1f3b2=0x7f020151;
-        public static final int u1f3b5=0x7f020152;
-        public static final int u1f3c0=0x7f020153;
-        public static final int u1f3c2=0x7f020154;
-        public static final int u1f3e1=0x7f020155;
-        public static final int u1f434=0x7f020156;
-        public static final int u1f436=0x7f020157;
-        public static final int u1f437=0x7f020158;
-        public static final int u1f44a=0x7f020159;
-        public static final int u1f44c=0x7f02015a;
-        public static final int u1f44d=0x7f02015b;
-        public static final int u1f44e=0x7f02015c;
-        public static final int u1f44f=0x7f02015d;
-        public static final int u1f451=0x7f02015e;
-        public static final int u1f46a=0x7f02015f;
-        public static final int u1f46b=0x7f020160;
-        public static final int u1f47b=0x7f020161;
-        public static final int u1f47c=0x7f020162;
-        public static final int u1f47d=0x7f020163;
-        public static final int u1f47f=0x7f020164;
-        public static final int u1f484=0x7f020165;
-        public static final int u1f48a=0x7f020166;
-        public static final int u1f48b=0x7f020167;
-        public static final int u1f48d=0x7f020168;
-        public static final int u1f494=0x7f020169;
-        public static final int u1f4a1=0x7f02016a;
-        public static final int u1f4a2=0x7f02016b;
-        public static final int u1f4a3=0x7f02016c;
-        public static final int u1f4a4=0x7f02016d;
-        public static final int u1f4a9=0x7f02016e;
-        public static final int u1f4aa=0x7f02016f;
-        public static final int u1f4b0=0x7f020170;
-        public static final int u1f4da=0x7f020171;
-        public static final int u1f4de=0x7f020172;
-        public static final int u1f4e2=0x7f020173;
-        public static final int u1f525=0x7f020174;
-        public static final int u1f52b=0x7f020175;
-        public static final int u1f556=0x7f020176;
-        public static final int u1f600=0x7f020177;
-        public static final int u1f601=0x7f020178;
-        public static final int u1f602=0x7f020179;
-        public static final int u1f603=0x7f02017a;
-        public static final int u1f605=0x7f02017b;
-        public static final int u1f606=0x7f02017c;
-        public static final int u1f607=0x7f02017d;
-        public static final int u1f608=0x7f02017e;
-        public static final int u1f609=0x7f02017f;
-        public static final int u1f60a=0x7f020180;
-        public static final int u1f60b=0x7f020181;
-        public static final int u1f60c=0x7f020182;
-        public static final int u1f60d=0x7f020183;
-        public static final int u1f60e=0x7f020184;
-        public static final int u1f60f=0x7f020185;
-        public static final int u1f611=0x7f020186;
-        public static final int u1f612=0x7f020187;
-        public static final int u1f613=0x7f020188;
-        public static final int u1f614=0x7f020189;
-        public static final int u1f615=0x7f02018a;
-        public static final int u1f616=0x7f02018b;
-        public static final int u1f618=0x7f02018c;
-        public static final int u1f61a=0x7f02018d;
-        public static final int u1f61c=0x7f02018e;
-        public static final int u1f61d=0x7f02018f;
-        public static final int u1f61e=0x7f020190;
-        public static final int u1f61f=0x7f020191;
-        public static final int u1f621=0x7f020192;
-        public static final int u1f622=0x7f020193;
-        public static final int u1f623=0x7f020194;
-        public static final int u1f624=0x7f020195;
-        public static final int u1f628=0x7f020196;
-        public static final int u1f629=0x7f020197;
-        public static final int u1f62a=0x7f020198;
-        public static final int u1f62b=0x7f020199;
-        public static final int u1f62c=0x7f02019a;
-        public static final int u1f62d=0x7f02019b;
-        public static final int u1f62e=0x7f02019c;
-        public static final int u1f62f=0x7f02019d;
-        public static final int u1f630=0x7f02019e;
-        public static final int u1f631=0x7f02019f;
-        public static final int u1f632=0x7f0201a0;
-        public static final int u1f633=0x7f0201a1;
-        public static final int u1f634=0x7f0201a2;
-        public static final int u1f635=0x7f0201a3;
-        public static final int u1f636=0x7f0201a4;
-        public static final int u1f637=0x7f0201a5;
-        public static final int u1f648=0x7f0201a6;
-        public static final int u1f649=0x7f0201a7;
-        public static final int u1f64a=0x7f0201a8;
-        public static final int u1f64f=0x7f0201a9;
-        public static final int u1f680=0x7f0201aa;
-        public static final int u1f6ab=0x7f0201ab;
-        public static final int u1f6b2=0x7f0201ac;
-        public static final int u1f6bf=0x7f0201ad;
-        public static final int u23f0=0x7f0201ae;
-        public static final int u23f3=0x7f0201af;
-        public static final int u2600=0x7f0201b0;
-        public static final int u2601=0x7f0201b1;
-        public static final int u2614=0x7f0201b2;
-        public static final int u2615=0x7f0201b3;
-        public static final int u261d=0x7f0201b4;
-        public static final int u263a=0x7f0201b5;
-        public static final int u26a1=0x7f0201b6;
-        public static final int u26bd=0x7f0201b7;
-        public static final int u26c4=0x7f0201b8;
-        public static final int u26c5=0x7f0201b9;
-        public static final int u270a=0x7f0201ba;
-        public static final int u270b=0x7f0201bb;
-        public static final int u270c=0x7f0201bc;
-        public static final int u270f=0x7f0201bd;
-        public static final int u2744=0x7f0201be;
-        public static final int u2b50=0x7f0201bf;
-        public static final int umeng_common_gradient_green=0x7f0201c0;
-        public static final int umeng_common_gradient_orange=0x7f0201c1;
-        public static final int umeng_common_gradient_red=0x7f0201c2;
-        public static final int umeng_update_btn_check_off_focused_holo_light=0x7f0201c3;
-        public static final int umeng_update_btn_check_off_holo_light=0x7f0201c4;
-        public static final int umeng_update_btn_check_off_pressed_holo_light=0x7f0201c5;
-        public static final int umeng_update_btn_check_on_focused_holo_light=0x7f0201c6;
-        public static final int umeng_update_btn_check_on_holo_light=0x7f0201c7;
-        public static final int umeng_update_btn_check_on_pressed_holo_light=0x7f0201c8;
-        public static final int umeng_update_button_cancel_bg_focused=0x7f0201c9;
-        public static final int umeng_update_button_cancel_bg_normal=0x7f0201ca;
-        public static final int umeng_update_button_cancel_bg_selector=0x7f0201cb;
-        public static final int umeng_update_button_cancel_bg_tap=0x7f0201cc;
-        public static final int umeng_update_button_check_selector=0x7f0201cd;
-        public static final int umeng_update_button_close_bg_selector=0x7f0201ce;
-        public static final int umeng_update_button_ok_bg_focused=0x7f0201cf;
-        public static final int umeng_update_button_ok_bg_normal=0x7f0201d0;
-        public static final int umeng_update_button_ok_bg_selector=0x7f0201d1;
-        public static final int umeng_update_button_ok_bg_tap=0x7f0201d2;
-        public static final int umeng_update_close_bg_normal=0x7f0201d3;
-        public static final int umeng_update_close_bg_tap=0x7f0201d4;
-        public static final int umeng_update_dialog_bg=0x7f0201d5;
-        public static final int umeng_update_title_bg=0x7f0201d6;
-        public static final int umeng_update_wifi_disable=0x7f0201d7;
-        public static final int unread_message_drawable=0x7f0201d8;
-        public static final int update_info_drawable=0x7f0201d9;
-        public static final int video_play=0x7f0201da;
+        public static final int public_top_bg=0x7f020085;
+        public static final int publish_picture=0x7f020086;
+        public static final int publish_video=0x7f020087;
+        public static final int publish_vioce=0x7f020088;
+        public static final int px=0x7f020089;
+        public static final int rc_add_people=0x7f02008a;
+        public static final int rc_an_voice_receive=0x7f02008b;
+        public static final int rc_an_voice_sent=0x7f02008c;
+        public static final int rc_bar_back=0x7f02008d;
+        public static final int rc_bar_logo=0x7f02008e;
+        public static final int rc_bar_more=0x7f02008f;
+        public static final int rc_bg_albums_spinner=0x7f020090;
+        public static final int rc_bg_editinput=0x7f020091;
+        public static final int rc_bg_item=0x7f020092;
+        public static final int rc_bg_menu=0x7f020093;
+        public static final int rc_bg_text_hover=0x7f020094;
+        public static final int rc_bg_text_normal=0x7f020095;
+        public static final int rc_bg_voice_popup=0x7f020096;
+        public static final int rc_btn_input=0x7f020097;
+        public static final int rc_btn_pub_service_enter_hover=0x7f020098;
+        public static final int rc_btn_pub_service_enter_normal=0x7f020099;
+        public static final int rc_btn_pub_service_follow_hover=0x7f02009a;
+        public static final int rc_btn_pub_service_follow_normal=0x7f02009b;
+        public static final int rc_btn_public_service_enter_selector=0x7f02009c;
+        public static final int rc_btn_public_service_unfollow_selector=0x7f02009d;
+        public static final int rc_btn_send=0x7f02009e;
+        public static final int rc_btn_send_hover=0x7f02009f;
+        public static final int rc_btn_send_normal=0x7f0200a0;
+        public static final int rc_btn_voice=0x7f0200a1;
+        public static final int rc_btn_voice_hover=0x7f0200a2;
+        public static final int rc_btn_voice_normal=0x7f0200a3;
+        public static final int rc_checkbox_normal=0x7f0200a4;
+        public static final int rc_checkbox_pressed=0x7f0200a5;
+        public static final int rc_conversation_list_msg_send_failure=0x7f0200a6;
+        public static final int rc_conversation_list_msg_sending=0x7f0200a7;
+        public static final int rc_conversation_newmsg=0x7f0200a8;
+        public static final int rc_default_discussion_portrait=0x7f0200a9;
+        public static final int rc_default_group_portrait=0x7f0200aa;
+        public static final int rc_default_portrait=0x7f0200ab;
+        public static final int rc_default_portrait2=0x7f0200ac;
+        public static final int rc_ed_pub_service_search_hover=0x7f0200ad;
+        public static final int rc_ed_pub_service_search_normal=0x7f0200ae;
+        public static final int rc_ed_public_service_search_selector=0x7f0200af;
+        public static final int rc_group_default_portrait=0x7f0200b0;
+        public static final int rc_ic_admin_selector=0x7f0200b1;
+        public static final int rc_ic_albums_checked=0x7f0200b2;
+        public static final int rc_ic_albums_normal=0x7f0200b3;
+        public static final int rc_ic_bubble_left=0x7f0200b4;
+        public static final int rc_ic_bubble_no_left=0x7f0200b5;
+        public static final int rc_ic_bubble_no_right=0x7f0200b6;
+        public static final int rc_ic_bubble_right=0x7f0200b7;
+        public static final int rc_ic_bubble_white=0x7f0200b8;
+        public static final int rc_ic_camera=0x7f0200b9;
+        public static final int rc_ic_camera_normal=0x7f0200ba;
+        public static final int rc_ic_camera_selected=0x7f0200bb;
+        public static final int rc_ic_def_coversation_portrait=0x7f0200bc;
+        public static final int rc_ic_def_msg_portrait=0x7f0200bd;
+        public static final int rc_ic_def_rich_content=0x7f0200be;
+        public static final int rc_ic_delete=0x7f0200bf;
+        public static final int rc_ic_emoji_block=0x7f0200c0;
+        public static final int rc_ic_extend=0x7f0200c1;
+        public static final int rc_ic_extend_normal=0x7f0200c2;
+        public static final int rc_ic_extend_selected=0x7f0200c3;
+        public static final int rc_ic_keyboard=0x7f0200c4;
+        public static final int rc_ic_keyboard_normal=0x7f0200c5;
+        public static final int rc_ic_keyboard_selected=0x7f0200c6;
+        public static final int rc_ic_location=0x7f0200c7;
+        public static final int rc_ic_location_item_default=0x7f0200c8;
+        public static final int rc_ic_location_normal=0x7f0200c9;
+        public static final int rc_ic_location_selected=0x7f0200ca;
+        public static final int rc_ic_menu_keyboard=0x7f0200cb;
+        public static final int rc_ic_message_block=0x7f0200cc;
+        public static final int rc_ic_no=0x7f0200cd;
+        public static final int rc_ic_no_hover=0x7f0200ce;
+        public static final int rc_ic_no_selector=0x7f0200cf;
+        public static final int rc_ic_notice_loading=0x7f0200d0;
+        public static final int rc_ic_notice_point=0x7f0200d1;
+        public static final int rc_ic_notice_wraning=0x7f0200d2;
+        public static final int rc_ic_phone=0x7f0200d3;
+        public static final int rc_ic_phone_normal=0x7f0200d4;
+        public static final int rc_ic_phone_selected=0x7f0200d5;
+        public static final int rc_ic_picture=0x7f0200d6;
+        public static final int rc_ic_picture_normal=0x7f0200d7;
+        public static final int rc_ic_picture_selected=0x7f0200d8;
+        public static final int rc_ic_setting_friends_add=0x7f0200d9;
+        public static final int rc_ic_setting_friends_delete=0x7f0200da;
+        public static final int rc_ic_smiley=0x7f0200db;
+        public static final int rc_ic_smiley_normal=0x7f0200dc;
+        public static final int rc_ic_smiley_selected=0x7f0200dd;
+        public static final int rc_ic_star=0x7f0200de;
+        public static final int rc_ic_star_hover=0x7f0200df;
+        public static final int rc_ic_star_selector=0x7f0200e0;
+        public static final int rc_ic_text=0x7f0200e1;
+        public static final int rc_ic_text_normal=0x7f0200e2;
+        public static final int rc_ic_text_selected=0x7f0200e3;
+        public static final int rc_ic_trangle=0x7f0200e4;
+        public static final int rc_ic_voice=0x7f0200e5;
+        public static final int rc_ic_voice_normal=0x7f0200e6;
+        public static final int rc_ic_voice_receive=0x7f0200e7;
+        public static final int rc_ic_voice_receive_play1=0x7f0200e8;
+        public static final int rc_ic_voice_receive_play2=0x7f0200e9;
+        public static final int rc_ic_voice_receive_play3=0x7f0200ea;
+        public static final int rc_ic_voice_selected=0x7f0200eb;
+        public static final int rc_ic_voice_sent=0x7f0200ec;
+        public static final int rc_ic_voice_sent_play1=0x7f0200ed;
+        public static final int rc_ic_voice_sent_play2=0x7f0200ee;
+        public static final int rc_ic_voice_sent_play3=0x7f0200ef;
+        public static final int rc_ic_volume_1=0x7f0200f0;
+        public static final int rc_ic_volume_2=0x7f0200f1;
+        public static final int rc_ic_volume_3=0x7f0200f2;
+        public static final int rc_ic_volume_4=0x7f0200f3;
+        public static final int rc_ic_volume_5=0x7f0200f4;
+        public static final int rc_ic_volume_6=0x7f0200f5;
+        public static final int rc_ic_volume_7=0x7f0200f6;
+        public static final int rc_ic_volume_8=0x7f0200f7;
+        public static final int rc_ic_volume_cancel=0x7f0200f8;
+        public static final int rc_ic_volume_wraning=0x7f0200f9;
+        public static final int rc_ic_warning=0x7f0200fa;
+        public static final int rc_ic_yes=0x7f0200fb;
+        public static final int rc_ic_yes_hover=0x7f0200fc;
+        public static final int rc_ic_yes_selector=0x7f0200fd;
+        public static final int rc_icon_admin=0x7f0200fe;
+        public static final int rc_icon_admin_hover=0x7f0200ff;
+        public static final int rc_img_camera=0x7f020100;
+        public static final int rc_item_list_selector=0x7f020101;
+        public static final int rc_item_top_list_selector=0x7f020102;
+        public static final int rc_loading=0x7f020103;
+        public static final int rc_mebmer_delete=0x7f020104;
+        public static final int rc_notification_network_available=0x7f020105;
+        public static final int rc_photo_checkbox=0x7f020106;
+        public static final int rc_precheckbox_normal=0x7f020107;
+        public static final int rc_precheckbox_pressed=0x7f020108;
+        public static final int rc_preview_checkbox=0x7f020109;
+        public static final int rc_progress_sending_style=0x7f02010a;
+        public static final int rc_public_service_menu_bg=0x7f02010b;
+        public static final int rc_radio_button_off=0x7f02010c;
+        public static final int rc_radio_button_on=0x7f02010d;
+        public static final int rc_read_receipt=0x7f02010e;
+        public static final int rc_receive_voice_one=0x7f02010f;
+        public static final int rc_receive_voice_three=0x7f020110;
+        public static final int rc_receive_voice_two=0x7f020111;
+        public static final int rc_send_voice_one=0x7f020112;
+        public static final int rc_send_voice_three=0x7f020113;
+        public static final int rc_send_voice_two=0x7f020114;
+        public static final int rc_switch_btn=0x7f020115;
+        public static final int rc_unread_count_bg=0x7f020116;
+        public static final int rc_unread_message_count=0x7f020117;
+        public static final int rc_unread_remind_without_count=0x7f020118;
+        public static final int rc_voice_icon_left=0x7f020119;
+        public static final int rc_voice_icon_right=0x7f02011a;
+        public static final int rc_voice_unread=0x7f02011b;
+        public static final int rc_voide_message_unread=0x7f02011c;
+        public static final int rc_volume_four=0x7f02011d;
+        public static final int rc_volume_one=0x7f02011e;
+        public static final int rc_volume_three=0x7f02011f;
+        public static final int rc_volume_two=0x7f020120;
+        public static final int rc_volume_zero=0x7f020121;
+        public static final int refresh_location=0x7f020122;
+        public static final int school_help_image=0x7f020123;
+        public static final int search=0x7f020124;
+        public static final int search_bg=0x7f020125;
+        public static final int search_clear_normal=0x7f020126;
+        public static final int search_clear_pressed=0x7f020127;
+        public static final int search_edittext=0x7f020128;
+        public static final int search_puin=0x7f020129;
+        public static final int seekbar_img=0x7f02012a;
+        public static final int selector_guide_bg=0x7f02012b;
+        public static final int selector_send=0x7f02012c;
+        public static final int shape_guide_bg_defaut=0x7f02012d;
+        public static final int shape_guide_bg_focus=0x7f02012e;
+        public static final int share=0x7f02012f;
+        public static final int site=0x7f020130;
+        public static final int spread_img1=0x7f020131;
+        public static final int spread_img2=0x7f020132;
+        public static final int spread_img3=0x7f020133;
+        public static final int tab_friends_selected=0x7f020134;
+        public static final int tab_friends_unselected=0x7f020135;
+        public static final int tab_home_selected=0x7f020136;
+        public static final int tab_home_unselected=0x7f020137;
+        public static final int tab_my_selected=0x7f020138;
+        public static final int tab_my_unselected=0x7f020139;
+        public static final int tb_munion_icon=0x7f02013a;
+        public static final int tb_munion_item_selector=0x7f02013b;
+        public static final int text_while=0x7f02013c;
+        public static final int time=0x7f02013d;
+        public static final int tips_bg=0x7f02013e;
+        public static final int u1f004=0x7f02013f;
+        public static final int u1f30f=0x7f020140;
+        public static final int u1f319=0x7f020141;
+        public static final int u1f332=0x7f020142;
+        public static final int u1f339=0x7f020143;
+        public static final int u1f33b=0x7f020144;
+        public static final int u1f349=0x7f020145;
+        public static final int u1f356=0x7f020146;
+        public static final int u1f35a=0x7f020147;
+        public static final int u1f366=0x7f020148;
+        public static final int u1f36b=0x7f020149;
+        public static final int u1f377=0x7f02014a;
+        public static final int u1f37b=0x7f02014b;
+        public static final int u1f381=0x7f02014c;
+        public static final int u1f382=0x7f02014d;
+        public static final int u1f384=0x7f02014e;
+        public static final int u1f389=0x7f02014f;
+        public static final int u1f393=0x7f020150;
+        public static final int u1f3a4=0x7f020151;
+        public static final int u1f3b2=0x7f020152;
+        public static final int u1f3b5=0x7f020153;
+        public static final int u1f3c0=0x7f020154;
+        public static final int u1f3c2=0x7f020155;
+        public static final int u1f3e1=0x7f020156;
+        public static final int u1f434=0x7f020157;
+        public static final int u1f436=0x7f020158;
+        public static final int u1f437=0x7f020159;
+        public static final int u1f44a=0x7f02015a;
+        public static final int u1f44c=0x7f02015b;
+        public static final int u1f44d=0x7f02015c;
+        public static final int u1f44e=0x7f02015d;
+        public static final int u1f44f=0x7f02015e;
+        public static final int u1f451=0x7f02015f;
+        public static final int u1f46a=0x7f020160;
+        public static final int u1f46b=0x7f020161;
+        public static final int u1f47b=0x7f020162;
+        public static final int u1f47c=0x7f020163;
+        public static final int u1f47d=0x7f020164;
+        public static final int u1f47f=0x7f020165;
+        public static final int u1f484=0x7f020166;
+        public static final int u1f48a=0x7f020167;
+        public static final int u1f48b=0x7f020168;
+        public static final int u1f48d=0x7f020169;
+        public static final int u1f494=0x7f02016a;
+        public static final int u1f4a1=0x7f02016b;
+        public static final int u1f4a2=0x7f02016c;
+        public static final int u1f4a3=0x7f02016d;
+        public static final int u1f4a4=0x7f02016e;
+        public static final int u1f4a9=0x7f02016f;
+        public static final int u1f4aa=0x7f020170;
+        public static final int u1f4b0=0x7f020171;
+        public static final int u1f4da=0x7f020172;
+        public static final int u1f4de=0x7f020173;
+        public static final int u1f4e2=0x7f020174;
+        public static final int u1f525=0x7f020175;
+        public static final int u1f52b=0x7f020176;
+        public static final int u1f556=0x7f020177;
+        public static final int u1f600=0x7f020178;
+        public static final int u1f601=0x7f020179;
+        public static final int u1f602=0x7f02017a;
+        public static final int u1f603=0x7f02017b;
+        public static final int u1f605=0x7f02017c;
+        public static final int u1f606=0x7f02017d;
+        public static final int u1f607=0x7f02017e;
+        public static final int u1f608=0x7f02017f;
+        public static final int u1f609=0x7f020180;
+        public static final int u1f60a=0x7f020181;
+        public static final int u1f60b=0x7f020182;
+        public static final int u1f60c=0x7f020183;
+        public static final int u1f60d=0x7f020184;
+        public static final int u1f60e=0x7f020185;
+        public static final int u1f60f=0x7f020186;
+        public static final int u1f611=0x7f020187;
+        public static final int u1f612=0x7f020188;
+        public static final int u1f613=0x7f020189;
+        public static final int u1f614=0x7f02018a;
+        public static final int u1f615=0x7f02018b;
+        public static final int u1f616=0x7f02018c;
+        public static final int u1f618=0x7f02018d;
+        public static final int u1f61a=0x7f02018e;
+        public static final int u1f61c=0x7f02018f;
+        public static final int u1f61d=0x7f020190;
+        public static final int u1f61e=0x7f020191;
+        public static final int u1f61f=0x7f020192;
+        public static final int u1f621=0x7f020193;
+        public static final int u1f622=0x7f020194;
+        public static final int u1f623=0x7f020195;
+        public static final int u1f624=0x7f020196;
+        public static final int u1f628=0x7f020197;
+        public static final int u1f629=0x7f020198;
+        public static final int u1f62a=0x7f020199;
+        public static final int u1f62b=0x7f02019a;
+        public static final int u1f62c=0x7f02019b;
+        public static final int u1f62d=0x7f02019c;
+        public static final int u1f62e=0x7f02019d;
+        public static final int u1f62f=0x7f02019e;
+        public static final int u1f630=0x7f02019f;
+        public static final int u1f631=0x7f0201a0;
+        public static final int u1f632=0x7f0201a1;
+        public static final int u1f633=0x7f0201a2;
+        public static final int u1f634=0x7f0201a3;
+        public static final int u1f635=0x7f0201a4;
+        public static final int u1f636=0x7f0201a5;
+        public static final int u1f637=0x7f0201a6;
+        public static final int u1f648=0x7f0201a7;
+        public static final int u1f649=0x7f0201a8;
+        public static final int u1f64a=0x7f0201a9;
+        public static final int u1f64f=0x7f0201aa;
+        public static final int u1f680=0x7f0201ab;
+        public static final int u1f6ab=0x7f0201ac;
+        public static final int u1f6b2=0x7f0201ad;
+        public static final int u1f6bf=0x7f0201ae;
+        public static final int u23f0=0x7f0201af;
+        public static final int u23f3=0x7f0201b0;
+        public static final int u2600=0x7f0201b1;
+        public static final int u2601=0x7f0201b2;
+        public static final int u2614=0x7f0201b3;
+        public static final int u2615=0x7f0201b4;
+        public static final int u261d=0x7f0201b5;
+        public static final int u263a=0x7f0201b6;
+        public static final int u26a1=0x7f0201b7;
+        public static final int u26bd=0x7f0201b8;
+        public static final int u26c4=0x7f0201b9;
+        public static final int u26c5=0x7f0201ba;
+        public static final int u270a=0x7f0201bb;
+        public static final int u270b=0x7f0201bc;
+        public static final int u270c=0x7f0201bd;
+        public static final int u270f=0x7f0201be;
+        public static final int u2744=0x7f0201bf;
+        public static final int u2b50=0x7f0201c0;
+        public static final int umeng_common_gradient_green=0x7f0201c1;
+        public static final int umeng_common_gradient_orange=0x7f0201c2;
+        public static final int umeng_common_gradient_red=0x7f0201c3;
+        public static final int umeng_update_btn_check_off_focused_holo_light=0x7f0201c4;
+        public static final int umeng_update_btn_check_off_holo_light=0x7f0201c5;
+        public static final int umeng_update_btn_check_off_pressed_holo_light=0x7f0201c6;
+        public static final int umeng_update_btn_check_on_focused_holo_light=0x7f0201c7;
+        public static final int umeng_update_btn_check_on_holo_light=0x7f0201c8;
+        public static final int umeng_update_btn_check_on_pressed_holo_light=0x7f0201c9;
+        public static final int umeng_update_button_cancel_bg_focused=0x7f0201ca;
+        public static final int umeng_update_button_cancel_bg_normal=0x7f0201cb;
+        public static final int umeng_update_button_cancel_bg_selector=0x7f0201cc;
+        public static final int umeng_update_button_cancel_bg_tap=0x7f0201cd;
+        public static final int umeng_update_button_check_selector=0x7f0201ce;
+        public static final int umeng_update_button_close_bg_selector=0x7f0201cf;
+        public static final int umeng_update_button_ok_bg_focused=0x7f0201d0;
+        public static final int umeng_update_button_ok_bg_normal=0x7f0201d1;
+        public static final int umeng_update_button_ok_bg_selector=0x7f0201d2;
+        public static final int umeng_update_button_ok_bg_tap=0x7f0201d3;
+        public static final int umeng_update_close_bg_normal=0x7f0201d4;
+        public static final int umeng_update_close_bg_tap=0x7f0201d5;
+        public static final int umeng_update_dialog_bg=0x7f0201d6;
+        public static final int umeng_update_title_bg=0x7f0201d7;
+        public static final int umeng_update_wifi_disable=0x7f0201d8;
+        public static final int unread_message_drawable=0x7f0201d9;
+        public static final int update_info_drawable=0x7f0201da;
+        public static final int video_play=0x7f0201db;
     }
     public static final class id {
         public static final int C=0x7f0b0035;
@@ -1225,51 +1270,51 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int RCStroke=0x7f0b003f;
         public static final int SC=0x7f0b003c;
         public static final int SCE=0x7f0b003d;
-        public static final int account=0x7f0b0163;
+        public static final int account=0x7f0b016a;
         public static final int actionBar=0x7f0b0063;
         public static final int actionBarBottomLine=0x7f0b0062;
         public static final int actionBarLayout=0x7f0b005e;
         public static final int actionBarTitle=0x7f0b0060;
-        public static final int action_settings=0x7f0b01b9;
-        public static final int ad_image=0x7f0b019d;
-        public static final int address=0x7f0b0144;
-        public static final int address_detail=0x7f0b0143;
-        public static final int advice_content=0x7f0b011d;
-        public static final int all_contactor=0x7f0b014c;
-        public static final int already_contact_count=0x7f0b014b;
-        public static final int already_contact_detail=0x7f0b014a;
-        public static final int applied_out_source=0x7f0b012b;
-        public static final int applied_partTime=0x7f0b0127;
-        public static final int banner=0x7f0b018d;
-        public static final int banner_viewpager=0x7f0b00f1;
-        public static final int bided_out_source=0x7f0b012e;
+        public static final int action_settings=0x7f0b01c0;
+        public static final int ad_image=0x7f0b01a4;
+        public static final int address=0x7f0b014b;
+        public static final int address_detail=0x7f0b014a;
+        public static final int advice_content=0x7f0b0124;
+        public static final int all_contactor=0x7f0b0153;
+        public static final int already_contact_count=0x7f0b0152;
+        public static final int already_contact_detail=0x7f0b0151;
+        public static final int applied_out_source=0x7f0b0132;
+        public static final int applied_partTime=0x7f0b012e;
+        public static final int banner=0x7f0b0194;
+        public static final int banner_viewpager=0x7f0b00f8;
+        public static final int bided_out_source=0x7f0b0135;
         public static final int bottom=0x7f0b0043;
-        public static final int browse_count=0x7f0b013a;
+        public static final int browse_count=0x7f0b0141;
         public static final int bt=0x7f0b006d;
         public static final int bt2=0x7f0b006e;
-        public static final int btn_add_friend=0x7f0b00b1;
-        public static final int btn_apply=0x7f0b0150;
-        public static final int btn_cancel=0x7f0b0154;
-        public static final int btn_capacity_sort=0x7f0b00c2;
-        public static final int btn_city=0x7f0b0133;
-        public static final int btn_classification=0x7f0b00be;
-        public static final int btn_collect=0x7f0b014e;
-        public static final int btn_complaint=0x7f0b014f;
-        public static final int btn_distance=0x7f0b00c0;
-        public static final int btn_isOK=0x7f0b0156;
-        public static final int btn_login=0x7f0b011a;
-        public static final int btn_record=0x7f0b00a7;
-        public static final int btn_register=0x7f0b018c;
+        public static final int btn_add_friend=0x7f0b00b8;
+        public static final int btn_apply=0x7f0b0157;
+        public static final int btn_cancel=0x7f0b015b;
+        public static final int btn_capacity_sort=0x7f0b00c9;
+        public static final int btn_city=0x7f0b013a;
+        public static final int btn_classification=0x7f0b00c5;
+        public static final int btn_collect=0x7f0b0155;
+        public static final int btn_complaint=0x7f0b0156;
+        public static final int btn_distance=0x7f0b00c7;
+        public static final int btn_isOK=0x7f0b015d;
+        public static final int btn_login=0x7f0b0121;
+        public static final int btn_record=0x7f0b00a8;
+        public static final int btn_register=0x7f0b0193;
         public static final int btn_right=0x7f0b0061;
-        public static final int btn_right_entrance=0x7f0b0199;
-        public static final int btn_right_outSouceread=0x7f0b0190;
-        public static final int btn_right_outsourcing=0x7f0b0194;
-        public static final int btn_send_msg=0x7f0b00b2;
-        public static final int btn_verfity=0x7f0b01b3;
-        public static final int button_search=0x7f0b00cf;
-        public static final int button_start=0x7f0b00a1;
-        public static final int camera_preview=0x7f0b009e;
-        public static final int catalog=0x7f0b010e;
+        public static final int btn_right_entrance=0x7f0b01a0;
+        public static final int btn_right_outSouceread=0x7f0b0197;
+        public static final int btn_right_outsourcing=0x7f0b019b;
+        public static final int btn_send_msg=0x7f0b00b9;
+        public static final int btn_verfity=0x7f0b01ba;
+        public static final int button_search=0x7f0b00d6;
+        public static final int button_start=0x7f0b00a2;
+        public static final int camera_preview=0x7f0b009f;
+        public static final int catalog=0x7f0b0115;
         public static final int center=0x7f0b0045;
         public static final int centerBottom=0x7f0b0046;
         public static final int centerBottomCrop=0x7f0b0047;
@@ -1278,101 +1323,101 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int centerTop=0x7f0b004a;
         public static final int centerTopCrop=0x7f0b004b;
         public static final int circle=0x7f0b0033;
-        public static final int circleEt=0x7f0b00ee;
-        public static final int cityName=0x7f0b00cc;
-        public static final int commentList=0x7f0b00fc;
-        public static final int commentTv=0x7f0b0102;
-        public static final int company_content=0x7f0b00d8;
-        public static final int company_detail=0x7f0b00d1;
-        public static final int company_level=0x7f0b00d4;
-        public static final int company_name=0x7f0b00d3;
-        public static final int company_title=0x7f0b00d7;
-        public static final int complaint_question=0x7f0b00e1;
-        public static final int complaint_reason=0x7f0b00e0;
-        public static final int contactor=0x7f0b0147;
-        public static final int contactor_detail=0x7f0b0146;
-        public static final int contactor_tip=0x7f0b0148;
-        public static final int content=0x7f0b0110;
-        public static final int conversation=0x7f0b00e3;
-        public static final int conversationlist=0x7f0b00e4;
-        public static final int count=0x7f0b0106;
-        public static final int description=0x7f0b0166;
-        public static final int description_detail=0x7f0b013f;
-        public static final int description_tip=0x7f0b0142;
-        public static final int description_title=0x7f0b0140;
-        public static final int descrption=0x7f0b00e5;
-        public static final int digCommentBody=0x7f0b00fb;
-        public static final int distance=0x7f0b00f5;
-        public static final int down=0x7f0b012f;
-        public static final int down1=0x7f0b00bf;
-        public static final int down2=0x7f0b00c1;
-        public static final int down3=0x7f0b00c3;
-        public static final int editTextBodyLl=0x7f0b00ed;
-        public static final int email=0x7f0b011e;
+        public static final int circleEt=0x7f0b00f5;
+        public static final int cityName=0x7f0b00d3;
+        public static final int commentList=0x7f0b0103;
+        public static final int commentTv=0x7f0b0109;
+        public static final int company_content=0x7f0b00df;
+        public static final int company_detail=0x7f0b00d8;
+        public static final int company_level=0x7f0b00db;
+        public static final int company_name=0x7f0b00da;
+        public static final int company_title=0x7f0b00de;
+        public static final int complaint_question=0x7f0b00e8;
+        public static final int complaint_reason=0x7f0b00e7;
+        public static final int contactor=0x7f0b014e;
+        public static final int contactor_detail=0x7f0b014d;
+        public static final int contactor_tip=0x7f0b014f;
+        public static final int content=0x7f0b0117;
+        public static final int conversation=0x7f0b00ea;
+        public static final int conversationlist=0x7f0b00eb;
+        public static final int count=0x7f0b010d;
+        public static final int description=0x7f0b016d;
+        public static final int description_detail=0x7f0b0146;
+        public static final int description_tip=0x7f0b0149;
+        public static final int description_title=0x7f0b0147;
+        public static final int descrption=0x7f0b00ec;
+        public static final int digCommentBody=0x7f0b0102;
+        public static final int distance=0x7f0b00fc;
+        public static final int down=0x7f0b0136;
+        public static final int down1=0x7f0b00c6;
+        public static final int down2=0x7f0b00c8;
+        public static final int down3=0x7f0b00ca;
+        public static final int editTextBodyLl=0x7f0b00f4;
+        public static final int email=0x7f0b0125;
         public static final int endInside=0x7f0b004c;
-        public static final int enter=0x7f0b0167;
-        public static final int et_code=0x7f0b0117;
-        public static final int et_content=0x7f0b009c;
-        public static final int et_phone=0x7f0b0115;
+        public static final int enter=0x7f0b016e;
+        public static final int et_code=0x7f0b011e;
+        public static final int et_content=0x7f0b009d;
+        public static final int et_phone=0x7f0b011c;
         public static final int et_search_friend=0x7f0b0064;
-        public static final int evaluated_partTime=0x7f0b0130;
-        public static final int filePathTextView=0x7f0b00a2;
-        public static final int finished_out_source=0x7f0b012a;
-        public static final int finished_part_time=0x7f0b0126;
+        public static final int evaluated_partTime=0x7f0b0137;
+        public static final int filePathTextView=0x7f0b00a3;
+        public static final int finished_out_source=0x7f0b0131;
+        public static final int finished_part_time=0x7f0b012d;
         public static final int fitCenter=0x7f0b004d;
         public static final int fitEnd=0x7f0b004e;
         public static final int fitStart=0x7f0b004f;
         public static final int fitXY=0x7f0b0050;
-        public static final int fl_banner=0x7f0b00f0;
-        public static final int fl_btn_start=0x7f0b009f;
-        public static final int fl_video_view=0x7f0b0100;
-        public static final int follow=0x7f0b0168;
+        public static final int fl_banner=0x7f0b00f7;
+        public static final int fl_btn_start=0x7f0b00a0;
+        public static final int fl_video_view=0x7f0b0107;
+        public static final int follow=0x7f0b016f;
         public static final int frameLayout=0x7f0b0072;
-        public static final int frameLayout_help=0x7f0b019c;
-        public static final int friend_dialog=0x7f0b00e6;
-        public static final int friend_sidrbar=0x7f0b00e7;
+        public static final int frameLayout_help=0x7f0b01a3;
+        public static final int friend_dialog=0x7f0b00ed;
+        public static final int friend_sidrbar=0x7f0b00ee;
         public static final int friends=0x7f0b0075;
-        public static final int func=0x7f0b0165;
+        public static final int func=0x7f0b016c;
         public static final int gridview=0x7f0b006c;
-        public static final int gridview_contactor=0x7f0b014d;
+        public static final int gridview_contactor=0x7f0b0154;
         public static final int guideGroup=0x7f0b0071;
-        public static final int head=0x7f0b00d2;
-        public static final int hired_out_source=0x7f0b012c;
-        public static final int hired_partTime=0x7f0b0129;
+        public static final int head=0x7f0b00d9;
+        public static final int hired_out_source=0x7f0b0133;
+        public static final int hired_partTime=0x7f0b0130;
         public static final int home=0x7f0b0074;
-        public static final int image=0x7f0b0103;
-        public static final int imageRecord=0x7f0b00c7;
-        public static final int imageView=0x7f0b00c4;
-        public static final int imageVolume=0x7f0b00c8;
-        public static final int indicator=0x7f0b00f2;
-        public static final int infoRowContainer=0x7f0b00cb;
-        public static final int input_search_query=0x7f0b00ce;
-        public static final int introduction=0x7f0b0172;
-        public static final int isselected=0x7f0b0104;
-        public static final int item_grida_image=0x7f0b010c;
-        public static final int item_image_grid_text=0x7f0b0107;
-        public static final int item_popupwindows_Photo=0x7f0b010a;
-        public static final int item_popupwindows_camera=0x7f0b0109;
-        public static final int item_popupwindows_cancel=0x7f0b010b;
+        public static final int image=0x7f0b010a;
+        public static final int imageRecord=0x7f0b00ce;
+        public static final int imageView=0x7f0b00cb;
+        public static final int imageVolume=0x7f0b00cf;
+        public static final int indicator=0x7f0b00f9;
+        public static final int infoRowContainer=0x7f0b00d2;
+        public static final int input_search_query=0x7f0b00d5;
+        public static final int introduction=0x7f0b0179;
+        public static final int isselected=0x7f0b010b;
+        public static final int item_grida_image=0x7f0b0113;
+        public static final int item_image_grid_text=0x7f0b010e;
+        public static final int item_popupwindows_Photo=0x7f0b0111;
+        public static final int item_popupwindows_camera=0x7f0b0110;
+        public static final int item_popupwindows_cancel=0x7f0b0112;
         public static final int iv_add_friends=0x7f0b0067;
-        public static final int iv_address_area=0x7f0b0087;
+        public static final int iv_address_area=0x7f0b0088;
         public static final int iv_address_detail=0x7f0b0085;
-        public static final int iv_bg_head=0x7f0b00ab;
-        public static final int iv_comment=0x7f0b00fa;
+        public static final int iv_bg_head=0x7f0b00b2;
+        public static final int iv_comment=0x7f0b0101;
         public static final int iv_head_right=0x7f0b0079;
-        public static final int iv_multi_image=0x7f0b00ff;
-        public static final int iv_ngrid_layout=0x7f0b00fd;
-        public static final int iv_oneimage=0x7f0b00fe;
-        public static final int iv_publish_picture=0x7f0b0097;
-        public static final int iv_publish_video=0x7f0b0099;
-        public static final int iv_publish_voice=0x7f0b009b;
-        public static final int iv_remarks_right=0x7f0b008c;
+        public static final int iv_multi_image=0x7f0b0106;
+        public static final int iv_ngrid_layout=0x7f0b0104;
+        public static final int iv_oneimage=0x7f0b0105;
+        public static final int iv_publish_picture=0x7f0b0098;
+        public static final int iv_publish_video=0x7f0b009a;
+        public static final int iv_publish_voice=0x7f0b009c;
+        public static final int iv_remarks_right=0x7f0b008d;
         public static final int iv_sex=0x7f0b0082;
         public static final int iv_user_head=0x7f0b0078;
         public static final int iv_user_id=0x7f0b007f;
         public static final int iv_user_name=0x7f0b007c;
-        public static final int iv_user_sign_right=0x7f0b008a;
-        public static final int left=0x7f0b0131;
+        public static final int iv_user_sign_right=0x7f0b008b;
+        public static final int left=0x7f0b0138;
         public static final int leftActionButton=0x7f0b005f;
         public static final int leftBottom=0x7f0b0051;
         public static final int leftBottomCrop=0x7f0b0052;
@@ -1380,79 +1425,79 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int leftCenterCrop=0x7f0b0054;
         public static final int leftTop=0x7f0b0055;
         public static final int leftTopCrop=0x7f0b0056;
-        public static final int left_outSourceing=0x7f0b0193;
-        public static final int left_out_source_entrance=0x7f0b0198;
-        public static final int left_out_source_read=0x7f0b018f;
-        public static final int license_auth=0x7f0b00d6;
-        public static final int line=0x7f0b010d;
-        public static final int line2=0x7f0b010f;
-        public static final int line_bottom=0x7f0b0122;
-        public static final int line_code=0x7f0b0118;
-        public static final int line_top=0x7f0b0120;
+        public static final int left_outSourceing=0x7f0b019a;
+        public static final int left_out_source_entrance=0x7f0b019f;
+        public static final int left_out_source_read=0x7f0b0196;
+        public static final int license_auth=0x7f0b00dd;
+        public static final int line=0x7f0b0114;
+        public static final int line2=0x7f0b0116;
+        public static final int line_bottom=0x7f0b0129;
+        public static final int line_code=0x7f0b011f;
+        public static final int line_top=0x7f0b0127;
         public static final int listView=0x7f0b006a;
-        public static final int listview=0x7f0b00d0;
-        public static final int ll_content2=0x7f0b00b6;
-        public static final int ll_content3=0x7f0b00b8;
-        public static final int ll_content4=0x7f0b00ba;
-        public static final int ll_content5=0x7f0b00bc;
+        public static final int listview=0x7f0b00d7;
+        public static final int ll_content2=0x7f0b00bd;
+        public static final int ll_content3=0x7f0b00bf;
+        public static final int ll_content4=0x7f0b00c1;
+        public static final int ll_content5=0x7f0b00c3;
         public static final int ll_phone_weixin=0x7f0b0065;
-        public static final int ll_popup=0x7f0b0108;
-        public static final int ll_title=0x7f0b00b3;
-        public static final int loading=0x7f0b01a1;
-        public static final int location_logo=0x7f0b0145;
-        public static final int media_view_stub=0x7f0b00f9;
-        public static final int money=0x7f0b00f6;
-        public static final int money_detail=0x7f0b0139;
-        public static final int more_publish=0x7f0b00db;
+        public static final int ll_popup=0x7f0b010f;
+        public static final int ll_title=0x7f0b00ba;
+        public static final int loading=0x7f0b01a8;
+        public static final int location_logo=0x7f0b014c;
+        public static final int media_view_stub=0x7f0b0100;
+        public static final int money=0x7f0b00fd;
+        public static final int money_detail=0x7f0b0140;
+        public static final int more_publish=0x7f0b00e2;
         public static final int my=0x7f0b0076;
-        public static final int name=0x7f0b0105;
-        public static final int name_line=0x7f0b0185;
-        public static final int name_tip=0x7f0b0184;
-        public static final int noScrollgridview=0x7f0b009d;
+        public static final int name=0x7f0b010c;
+        public static final int name_line=0x7f0b018c;
+        public static final int name_tip=0x7f0b018b;
+        public static final int noScrollgridview=0x7f0b009e;
         public static final int none=0x7f0b0040;
-        public static final int outSourceing=0x7f0b0192;
-        public static final int out_source_entrance=0x7f0b0197;
-        public static final int out_source_read=0x7f0b018e;
+        public static final int outSourceing=0x7f0b0199;
+        public static final int out_source_entrance=0x7f0b019e;
+        public static final int out_source_read=0x7f0b0195;
         public static final int pager=0x7f0b0070;
-        public static final int paid_partTime=0x7f0b0132;
-        public static final int partTimeName=0x7f0b00f4;
-        public static final int part_time=0x7f0b0125;
-        public static final int password=0x7f0b0188;
-        public static final int password_again=0x7f0b018b;
-        public static final int password_again_line=0x7f0b018a;
-        public static final int password_again_tip=0x7f0b0189;
-        public static final int password_line=0x7f0b0187;
-        public static final int password_tip=0x7f0b0186;
-        public static final int person=0x7f0b013d;
-        public static final int phone=0x7f0b00e2;
-        public static final int phone_logo=0x7f0b0149;
-        public static final int photo_bt_del=0x7f0b0091;
-        public static final int photo_bt_enter=0x7f0b0092;
-        public static final int photo_bt_exit=0x7f0b0090;
-        public static final int photo_relativeLayout=0x7f0b008f;
-        public static final int playImageView=0x7f0b0095;
-        public static final int popu_comment=0x7f0b0153;
-        public static final int popu_meng=0x7f0b0152;
-        public static final int popu_praise=0x7f0b0151;
-        public static final int portrait=0x7f0b0162;
-        public static final int progressBar=0x7f0b0101;
-        public static final int progress_banner=0x7f0b00f3;
-        public static final int progress_frame=0x7f0b019f;
-        public static final int promoter_frame=0x7f0b019e;
-        public static final int publish_detail=0x7f0b00d9;
-        public static final int publish_time=0x7f0b013e;
-        public static final int publish_title=0x7f0b00da;
-        public static final int radio_in_station=0x7f0b0123;
-        public static final int radio_notice=0x7f0b0124;
-        public static final int radio_outsourcing=0x7f0b00de;
-        public static final int radio_part_time=0x7f0b00dd;
-        public static final int radio_promotion=0x7f0b00df;
-        public static final int radio_school_help=0x7f0b011f;
+        public static final int paid_partTime=0x7f0b0139;
+        public static final int partTimeName=0x7f0b00fb;
+        public static final int part_time=0x7f0b012c;
+        public static final int password=0x7f0b018f;
+        public static final int password_again=0x7f0b0192;
+        public static final int password_again_line=0x7f0b0191;
+        public static final int password_again_tip=0x7f0b0190;
+        public static final int password_line=0x7f0b018e;
+        public static final int password_tip=0x7f0b018d;
+        public static final int person=0x7f0b0144;
+        public static final int phone=0x7f0b00e9;
+        public static final int phone_logo=0x7f0b0150;
+        public static final int photo_bt_del=0x7f0b0092;
+        public static final int photo_bt_enter=0x7f0b0093;
+        public static final int photo_bt_exit=0x7f0b0091;
+        public static final int photo_relativeLayout=0x7f0b0090;
+        public static final int playImageView=0x7f0b0096;
+        public static final int popu_comment=0x7f0b015a;
+        public static final int popu_meng=0x7f0b0159;
+        public static final int popu_praise=0x7f0b0158;
+        public static final int portrait=0x7f0b0169;
+        public static final int progressBar=0x7f0b0108;
+        public static final int progress_banner=0x7f0b00fa;
+        public static final int progress_frame=0x7f0b01a6;
+        public static final int promoter_frame=0x7f0b01a5;
+        public static final int publish_detail=0x7f0b00e0;
+        public static final int publish_time=0x7f0b0145;
+        public static final int publish_title=0x7f0b00e1;
+        public static final int radio_in_station=0x7f0b012a;
+        public static final int radio_notice=0x7f0b012b;
+        public static final int radio_outsourcing=0x7f0b00e5;
+        public static final int radio_part_time=0x7f0b00e4;
+        public static final int radio_promotion=0x7f0b00e6;
+        public static final int radio_school_help=0x7f0b0126;
         public static final int rc_actionbar=0x7f0b0000;
         public static final int rc_back=0x7f0b0001;
         public static final int rc_btn_cancel=0x7f0b0002;
         public static final int rc_btn_ok=0x7f0b0003;
-        public static final int rc_chebox_pictrue=0x7f0b0158;
+        public static final int rc_chebox_pictrue=0x7f0b015f;
         public static final int rc_checkbox=0x7f0b0004;
         public static final int rc_content=0x7f0b0005;
         public static final int rc_conversation_content=0x7f0b0006;
@@ -1460,21 +1505,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rc_conversation_status=0x7f0b0008;
         public static final int rc_conversation_time=0x7f0b0009;
         public static final int rc_conversation_title=0x7f0b000a;
-        public static final int rc_cs_msg=0x7f0b015c;
-        public static final int rc_cs_stars=0x7f0b015a;
-        public static final int rc_cs_yes_no=0x7f0b015b;
-        public static final int rc_ext=0x7f0b017d;
-        public static final int rc_flow=0x7f0b0174;
+        public static final int rc_cs_msg=0x7f0b0163;
+        public static final int rc_cs_stars=0x7f0b0161;
+        public static final int rc_cs_yes_no=0x7f0b0162;
+        public static final int rc_ext=0x7f0b0184;
+        public static final int rc_flow=0x7f0b017b;
         public static final int rc_fragment=0x7f0b000b;
         public static final int rc_frame=0x7f0b000c;
         public static final int rc_icon=0x7f0b000d;
         public static final int rc_img=0x7f0b000e;
-        public static final int rc_indicator=0x7f0b0175;
-        public static final int rc_input=0x7f0b015e;
-        public static final int rc_input_custom_menu=0x7f0b017b;
+        public static final int rc_indicator=0x7f0b017c;
+        public static final int rc_input=0x7f0b0165;
+        public static final int rc_input_custom_menu=0x7f0b0182;
         public static final int rc_input_extension=0x7f0b000f;
         public static final int rc_input_main=0x7f0b0010;
-        public static final int rc_input_menu=0x7f0b0179;
+        public static final int rc_input_menu=0x7f0b0180;
         public static final int rc_input_switch=0x7f0b0011;
         public static final int rc_item0=0x7f0b0012;
         public static final int rc_item1=0x7f0b0013;
@@ -1491,171 +1536,178 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int rc_left=0x7f0b001e;
         public static final int rc_list=0x7f0b001f;
         public static final int rc_logo=0x7f0b0020;
-        public static final int rc_menu_item_text=0x7f0b0170;
-        public static final int rc_menu_line=0x7f0b0171;
-        public static final int rc_menu_switch=0x7f0b0177;
+        public static final int rc_menu_item_text=0x7f0b0177;
+        public static final int rc_menu_line=0x7f0b0178;
+        public static final int rc_menu_switch=0x7f0b017e;
         public static final int rc_message_send_failed=0x7f0b0021;
         public static final int rc_msg=0x7f0b0022;
         public static final int rc_new=0x7f0b0023;
-        public static final int rc_new_message_count=0x7f0b0160;
-        public static final int rc_new_message_number=0x7f0b0161;
+        public static final int rc_new_message_count=0x7f0b0167;
+        public static final int rc_new_message_number=0x7f0b0168;
         public static final int rc_pager=0x7f0b0024;
-        public static final int rc_plugins=0x7f0b017c;
+        public static final int rc_plugins=0x7f0b0183;
         public static final int rc_portrait=0x7f0b0025;
         public static final int rc_portrait_right=0x7f0b0026;
         public static final int rc_progress=0x7f0b0027;
         public static final int rc_read_receipt=0x7f0b0028;
         public static final int rc_right=0x7f0b0029;
-        public static final int rc_search_btn=0x7f0b016b;
-        public static final int rc_search_ed=0x7f0b016a;
-        public static final int rc_search_list=0x7f0b016c;
+        public static final int rc_search_btn=0x7f0b0172;
+        public static final int rc_search_ed=0x7f0b0171;
+        public static final int rc_search_list=0x7f0b0173;
         public static final int rc_send=0x7f0b002a;
         public static final int rc_sent_status=0x7f0b002b;
-        public static final int rc_setting_item=0x7f0b016d;
-        public static final int rc_status_bar=0x7f0b015d;
-        public static final int rc_switcher=0x7f0b0176;
-        public static final int rc_switcher1=0x7f0b0178;
-        public static final int rc_switcher2=0x7f0b017a;
+        public static final int rc_setting_item=0x7f0b0174;
+        public static final int rc_status_bar=0x7f0b0164;
+        public static final int rc_switcher=0x7f0b017d;
+        public static final int rc_switcher1=0x7f0b017f;
+        public static final int rc_switcher2=0x7f0b0181;
         public static final int rc_time=0x7f0b002c;
         public static final int rc_title=0x7f0b002d;
         public static final int rc_title_layout=0x7f0b002e;
         public static final int rc_txt=0x7f0b002f;
         public static final int rc_unread_message=0x7f0b0030;
-        public static final int rc_unread_message_count=0x7f0b015f;
-        public static final int rc_unread_message_icon=0x7f0b016e;
-        public static final int rc_unread_message_icon_right=0x7f0b016f;
+        public static final int rc_unread_message_count=0x7f0b0166;
+        public static final int rc_unread_message_icon=0x7f0b0175;
+        public static final int rc_unread_message_icon_right=0x7f0b0176;
         public static final int rc_unread_message_right=0x7f0b0031;
-        public static final int rc_voice_unread=0x7f0b0173;
+        public static final int rc_voice_unread=0x7f0b017a;
         public static final int rc_warning=0x7f0b0032;
-        public static final int rc_webview=0x7f0b0159;
-        public static final int read_content=0x7f0b0136;
-        public static final int read_title=0x7f0b0135;
-        public static final int real_auth=0x7f0b00d5;
-        public static final int record_progress_bar=0x7f0b00a0;
-        public static final int rel_group_intro=0x7f0b0164;
-        public static final int rg_title=0x7f0b00dc;
-        public static final int right=0x7f0b0128;
-        public static final int right2=0x7f0b012d;
+        public static final int rc_webview=0x7f0b0160;
+        public static final int read_content=0x7f0b013d;
+        public static final int read_title=0x7f0b013c;
+        public static final int real_auth=0x7f0b00dc;
+        public static final int record_progress_bar=0x7f0b00a1;
+        public static final int rel_group_intro=0x7f0b016b;
+        public static final int rg_title=0x7f0b00e3;
+        public static final int right=0x7f0b012f;
+        public static final int right2=0x7f0b0134;
         public static final int rightBottom=0x7f0b0057;
         public static final int rightBottomCrop=0x7f0b0058;
         public static final int rightCenter=0x7f0b0059;
         public static final int rightCenterCrop=0x7f0b005a;
         public static final int rightTop=0x7f0b005b;
         public static final int rightTopCrop=0x7f0b005c;
-        public static final int rl_about_us=0x7f0b00a9;
+        public static final int rl_about_us=0x7f0b00b0;
+        public static final int rl_add_friend_check=0x7f0b00a9;
         public static final int rl_add_friends_send_message=0x7f0b0066;
         public static final int rl_add_friends_weixin=0x7f0b0069;
         public static final int rl_address=0x7f0b0083;
-        public static final int rl_btn_audio=0x7f0b00a6;
-        public static final int rl_friend_message=0x7f0b00ea;
-        public static final int rl_login_out=0x7f0b008d;
-        public static final int rl_new_friend_request=0x7f0b00e8;
-        public static final int rl_publish_picture=0x7f0b0096;
-        public static final int rl_publish_video=0x7f0b0098;
-        public static final int rl_publish_vioce=0x7f0b009a;
-        public static final int rl_remarks=0x7f0b00ae;
+        public static final int rl_btn_audio=0x7f0b00a7;
+        public static final int rl_distrct=0x7f0b0086;
+        public static final int rl_friend_message=0x7f0b00f1;
+        public static final int rl_friends_moments_public=0x7f0b00ad;
+        public static final int rl_login_out=0x7f0b008e;
+        public static final int rl_moments_public=0x7f0b00ab;
+        public static final int rl_new_friend_request=0x7f0b00ef;
+        public static final int rl_publish_picture=0x7f0b0097;
+        public static final int rl_publish_video=0x7f0b0099;
+        public static final int rl_publish_vioce=0x7f0b009b;
+        public static final int rl_remarks=0x7f0b00b5;
         public static final int rl_root=0x7f0b006f;
-        public static final int rl_sercet_setting=0x7f0b00a8;
-        public static final int rl_setting=0x7f0b008b;
+        public static final int rl_sercet_setting=0x7f0b00af;
+        public static final int rl_setting=0x7f0b008c;
         public static final int rl_sex=0x7f0b0080;
         public static final int rl_update_username=0x7f0b007a;
         public static final int rl_user_head=0x7f0b0077;
         public static final int rl_user_id=0x7f0b007d;
-        public static final int rl_user_sign=0x7f0b0088;
-        public static final int school=0x7f0b0180;
-        public static final int school_line=0x7f0b017f;
-        public static final int school_tip=0x7f0b017e;
-        public static final int searchBarContainer=0x7f0b00cd;
-        public static final int sectionTextView=0x7f0b00ca;
-        public static final int sendIv=0x7f0b00ef;
-        public static final int send_code=0x7f0b01b2;
-        public static final int show_pictrue=0x7f0b0155;
-        public static final int shownumber=0x7f0b0157;
+        public static final int rl_user_sign=0x7f0b0089;
+        public static final int school=0x7f0b0187;
+        public static final int school_line=0x7f0b0186;
+        public static final int school_tip=0x7f0b0185;
+        public static final int searchBarContainer=0x7f0b00d4;
+        public static final int sectionTextView=0x7f0b00d1;
+        public static final int sendIv=0x7f0b00f6;
+        public static final int send_code=0x7f0b01b9;
+        public static final int show_pictrue=0x7f0b015c;
+        public static final int shownumber=0x7f0b015e;
         public static final int square=0x7f0b0034;
-        public static final int star_detail=0x7f0b0141;
+        public static final int star_detail=0x7f0b0148;
         public static final int startInside=0x7f0b005d;
-        public static final int status_msg=0x7f0b01a0;
-        public static final int studentId=0x7f0b0183;
-        public static final int student_id_line=0x7f0b0182;
-        public static final int student_id_tip=0x7f0b0181;
-        public static final int swipe_container=0x7f0b00aa;
+        public static final int status_msg=0x7f0b01a7;
+        public static final int studentId=0x7f0b018a;
+        public static final int student_id_line=0x7f0b0189;
+        public static final int student_id_tip=0x7f0b0188;
+        public static final int swipe_container=0x7f0b00b1;
         public static final int tabIndicators=0x7f0b0073;
-        public static final int tabInfoButton=0x7f0b011c;
-        public static final int tabNewsButton=0x7f0b011b;
-        public static final int textHint=0x7f0b00c9;
-        public static final int textView1=0x7f0b0134;
-        public static final int thumbnailImageView=0x7f0b0094;
-        public static final int time=0x7f0b00c6;
-        public static final int tip_content=0x7f0b0138;
-        public static final int tip_title=0x7f0b0137;
-        public static final int tips_loading_msg=0x7f0b01b4;
-        public static final int title=0x7f0b00c5;
-        public static final int title_description_ambass=0x7f0b0191;
-        public static final int title_description_entrance=0x7f0b019b;
-        public static final int title_description_outsourcing=0x7f0b0196;
-        public static final int title_entrance=0x7f0b019a;
-        public static final int title_outSourcing=0x7f0b0195;
+        public static final int tabInfoButton=0x7f0b0123;
+        public static final int tabNewsButton=0x7f0b0122;
+        public static final int textHint=0x7f0b00d0;
+        public static final int textView1=0x7f0b013b;
+        public static final int thumbnailImageView=0x7f0b0095;
+        public static final int time=0x7f0b00cd;
+        public static final int tip_content=0x7f0b013f;
+        public static final int tip_title=0x7f0b013e;
+        public static final int tips_loading_msg=0x7f0b01bb;
+        public static final int title=0x7f0b00cc;
+        public static final int title_description_ambass=0x7f0b0198;
+        public static final int title_description_entrance=0x7f0b01a2;
+        public static final int title_description_outsourcing=0x7f0b019d;
+        public static final int title_entrance=0x7f0b01a1;
+        public static final int title_outSourcing=0x7f0b019c;
+        public static final int toggle_add_friend_check=0x7f0b00aa;
+        public static final int toggle_friend_public=0x7f0b00ae;
+        public static final int toggle_is_public=0x7f0b00ac;
         public static final int top=0x7f0b0044;
         public static final int triangle=0x7f0b0041;
-        public static final int tv_accept_add_friend=0x7f0b0113;
-        public static final int tv_add_desc=0x7f0b0111;
-        public static final int tv_address_area=0x7f0b0086;
+        public static final int tv_accept_add_friend=0x7f0b011a;
+        public static final int tv_add_desc=0x7f0b0118;
+        public static final int tv_address_area=0x7f0b0087;
         public static final int tv_address_detail=0x7f0b0084;
-        public static final int tv_audio_second=0x7f0b00a3;
+        public static final int tv_audio_second=0x7f0b00a4;
         public static final int tv_cancel=0x7f0b006b;
-        public static final int tv_code_tip=0x7f0b0116;
-        public static final int tv_content=0x7f0b00f8;
-        public static final int tv_content1=0x7f0b00b5;
-        public static final int tv_content2=0x7f0b00b7;
-        public static final int tv_content3=0x7f0b00b9;
-        public static final int tv_content4=0x7f0b00bb;
-        public static final int tv_content5=0x7f0b00bd;
-        public static final int tv_create_time=0x7f0b00f7;
-        public static final int tv_get_code=0x7f0b0119;
-        public static final int tv_message_title=0x7f0b00eb;
+        public static final int tv_code_tip=0x7f0b011d;
+        public static final int tv_content=0x7f0b00ff;
+        public static final int tv_content1=0x7f0b00bc;
+        public static final int tv_content2=0x7f0b00be;
+        public static final int tv_content3=0x7f0b00c0;
+        public static final int tv_content4=0x7f0b00c2;
+        public static final int tv_content5=0x7f0b00c4;
+        public static final int tv_create_time=0x7f0b00fe;
+        public static final int tv_get_code=0x7f0b0120;
+        public static final int tv_message_title=0x7f0b00f2;
         public static final int tv_new_friend_title=0x7f0b0068;
-        public static final int tv_phone_tip=0x7f0b0114;
-        public static final int tv_publish_time=0x7f0b0121;
+        public static final int tv_phone_tip=0x7f0b011b;
+        public static final int tv_publish_time=0x7f0b0128;
         public static final int tv_sex=0x7f0b0081;
-        public static final int tv_status=0x7f0b0112;
-        public static final int tv_title=0x7f0b00b4;
-        public static final int tv_user_desc=0x7f0b00b0;
-        public static final int tv_user_desc_title=0x7f0b00af;
+        public static final int tv_status=0x7f0b0119;
+        public static final int tv_title=0x7f0b00bb;
+        public static final int tv_user_desc=0x7f0b00b7;
+        public static final int tv_user_desc_title=0x7f0b00b6;
         public static final int tv_user_id=0x7f0b007e;
         public static final int tv_user_name=0x7f0b007b;
-        public static final int tv_user_name_head=0x7f0b00ac;
-        public static final int tv_user_sign=0x7f0b0089;
-        public static final int tv_user_sign_title=0x7f0b00ad;
-        public static final int type_detail=0x7f0b013b;
-        public static final int type_title=0x7f0b013c;
-        public static final int umeng_common_icon_view=0x7f0b01a2;
-        public static final int umeng_common_notification=0x7f0b01a6;
-        public static final int umeng_common_notification_controller=0x7f0b01a3;
-        public static final int umeng_common_progress_bar=0x7f0b01a9;
-        public static final int umeng_common_progress_text=0x7f0b01a8;
-        public static final int umeng_common_rich_notification_cancel=0x7f0b01a5;
-        public static final int umeng_common_rich_notification_continue=0x7f0b01a4;
-        public static final int umeng_common_title=0x7f0b01a7;
-        public static final int umeng_update_content=0x7f0b01ad;
-        public static final int umeng_update_frame=0x7f0b01aa;
-        public static final int umeng_update_id_cancel=0x7f0b01b0;
-        public static final int umeng_update_id_check=0x7f0b01ae;
-        public static final int umeng_update_id_close=0x7f0b01ac;
-        public static final int umeng_update_id_ignore=0x7f0b01b1;
-        public static final int umeng_update_id_ok=0x7f0b01af;
-        public static final int umeng_update_wifi_indicator=0x7f0b01ab;
+        public static final int tv_user_name_head=0x7f0b00b3;
+        public static final int tv_user_sign=0x7f0b008a;
+        public static final int tv_user_sign_title=0x7f0b00b4;
+        public static final int type_detail=0x7f0b0142;
+        public static final int type_title=0x7f0b0143;
+        public static final int umeng_common_icon_view=0x7f0b01a9;
+        public static final int umeng_common_notification=0x7f0b01ad;
+        public static final int umeng_common_notification_controller=0x7f0b01aa;
+        public static final int umeng_common_progress_bar=0x7f0b01b0;
+        public static final int umeng_common_progress_text=0x7f0b01af;
+        public static final int umeng_common_rich_notification_cancel=0x7f0b01ac;
+        public static final int umeng_common_rich_notification_continue=0x7f0b01ab;
+        public static final int umeng_common_title=0x7f0b01ae;
+        public static final int umeng_update_content=0x7f0b01b4;
+        public static final int umeng_update_frame=0x7f0b01b1;
+        public static final int umeng_update_id_cancel=0x7f0b01b7;
+        public static final int umeng_update_id_check=0x7f0b01b5;
+        public static final int umeng_update_id_close=0x7f0b01b3;
+        public static final int umeng_update_id_ignore=0x7f0b01b8;
+        public static final int umeng_update_id_ok=0x7f0b01b6;
+        public static final int umeng_update_wifi_indicator=0x7f0b01b2;
         public static final int underline=0x7f0b0042;
-        public static final int unfollow=0x7f0b0169;
-        public static final int unread_address_number=0x7f0b00e9;
-        public static final int unread_msg_count=0x7f0b00ec;
-        public static final int video_view=0x7f0b0093;
-        public static final int view_record=0x7f0b00a4;
-        public static final int viewpager=0x7f0b008e;
-        public static final int voice_anim=0x7f0b00a5;
-        public static final int volume_animation=0x7f0b01b8;
-        public static final int xlistview_footer_content=0x7f0b01b5;
-        public static final int xlistview_footer_hint_textview=0x7f0b01b7;
-        public static final int xlistview_footer_progressbar=0x7f0b01b6;
+        public static final int unfollow=0x7f0b0170;
+        public static final int unread_address_number=0x7f0b00f0;
+        public static final int unread_msg_count=0x7f0b00f3;
+        public static final int video_view=0x7f0b0094;
+        public static final int view_record=0x7f0b00a5;
+        public static final int viewpager=0x7f0b008f;
+        public static final int voice_anim=0x7f0b00a6;
+        public static final int volume_animation=0x7f0b01bf;
+        public static final int xlistview_footer_content=0x7f0b01bc;
+        public static final int xlistview_footer_hint_textview=0x7f0b01be;
+        public static final int xlistview_footer_progressbar=0x7f0b01bd;
     }
     public static final class integer {
         public static final int default_circle_indicator_orientation=0x7f0c0000;
@@ -1685,136 +1737,138 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_publish_video=0x7f03000c;
         public static final int activity_publish_video_second=0x7f03000d;
         public static final int activity_publish_voice=0x7f03000e;
-        public static final int activity_setting=0x7f03000f;
-        public static final int activity_update_info=0x7f030010;
-        public static final int activity_user_home=0x7f030011;
-        public static final int activity_user_info=0x7f030012;
-        public static final int alertdialog=0x7f030013;
-        public static final int ask_question=0x7f030014;
-        public static final int ask_share_item=0x7f030015;
-        public static final int audio_record_dialog=0x7f030016;
-        public static final int city_item=0x7f030017;
-        public static final int citylist=0x7f030018;
-        public static final int company_detail=0x7f030019;
-        public static final int complaint=0x7f03001a;
-        public static final int conversation=0x7f03001b;
-        public static final int conversation_list=0x7f03001c;
-        public static final int find_teammate=0x7f03001d;
-        public static final int find_teammate_item=0x7f03001e;
-        public static final int fragment_friends=0x7f03001f;
-        public static final int friends_header=0x7f030020;
-        public static final int header_index=0x7f030021;
-        public static final int header_my_index=0x7f030022;
-        public static final int home=0x7f030023;
-        public static final int home_banner=0x7f030024;
-        public static final int home_item=0x7f030025;
-        public static final int home_item_ninegridlayout=0x7f030026;
-        public static final int home_view_stub_audios=0x7f030027;
-        public static final int home_view_stub_images=0x7f030028;
-        public static final int home_view_stub_my_audios=0x7f030029;
-        public static final int home_view_stub_my_images=0x7f03002a;
-        public static final int home_view_stub_my_videos=0x7f03002b;
-        public static final int home_view_stub_videos=0x7f03002c;
-        public static final int im_social_item_comment=0x7f03002d;
-        public static final int item_image_bucket=0x7f03002e;
-        public static final int item_image_grid=0x7f03002f;
-        public static final int item_pager_image=0x7f030030;
-        public static final int item_popupwindows=0x7f030031;
-        public static final int item_published_grida=0x7f030032;
-        public static final int items_friend_list=0x7f030033;
-        public static final int items_new_friend_list=0x7f030034;
-        public static final int items_search_friend_list=0x7f030035;
-        public static final int login=0x7f030036;
-        public static final int main_tab_friends=0x7f030037;
-        public static final int main_tab_indicator_home=0x7f030038;
-        public static final int main_tab_indicator_my=0x7f030039;
-        public static final int my=0x7f03003a;
-        public static final int my_advice=0x7f03003b;
-        public static final int my_collect=0x7f03003c;
-        public static final int my_item_ninegridlayout=0x7f03003d;
-        public static final int my_message=0x7f03003e;
-        public static final int my_order=0x7f03003f;
-        public static final int my_view_stub_my_text=0x7f030040;
-        public static final int out_source_entrance=0x7f030041;
-        public static final int out_source_read=0x7f030042;
-        public static final int part_time_detail=0x7f030043;
-        public static final int popup_comment=0x7f030044;
-        public static final int rc_ac_albums=0x7f030045;
-        public static final int rc_ac_camera=0x7f030046;
-        public static final int rc_ac_preview=0x7f030047;
-        public static final int rc_ac_selected_pictrue=0x7f030048;
-        public static final int rc_ac_webview=0x7f030049;
-        public static final int rc_activity=0x7f03004a;
-        public static final int rc_cs_alert_human_evaluation=0x7f03004b;
-        public static final int rc_cs_alert_robot_evaluation=0x7f03004c;
-        public static final int rc_cs_alert_warning=0x7f03004d;
-        public static final int rc_fr_conversation=0x7f03004e;
-        public static final int rc_fr_conversation_member_list=0x7f03004f;
-        public static final int rc_fr_conversationlist=0x7f030050;
-        public static final int rc_fr_dialog_alter=0x7f030051;
-        public static final int rc_fr_messageinput=0x7f030052;
-        public static final int rc_fr_messagelist=0x7f030053;
-        public static final int rc_fr_photo=0x7f030054;
-        public static final int rc_fr_photo2=0x7f030055;
-        public static final int rc_fr_public_service_inf=0x7f030056;
-        public static final int rc_fr_public_service_search=0x7f030057;
-        public static final int rc_fr_public_service_sub_list=0x7f030058;
-        public static final int rc_fr_test=0x7f030059;
-        public static final int rc_fragment_base_setting=0x7f03005a;
-        public static final int rc_item_albums=0x7f03005b;
-        public static final int rc_item_app_service_conversation=0x7f03005c;
-        public static final int rc_item_base_conversation=0x7f03005d;
-        public static final int rc_item_conversation=0x7f03005e;
-        public static final int rc_item_conversation_member=0x7f03005f;
-        public static final int rc_item_discussion_conversation=0x7f030060;
-        public static final int rc_item_discussion_notification_message=0x7f030061;
-        public static final int rc_item_group_conversation=0x7f030062;
-        public static final int rc_item_image_message=0x7f030063;
-        public static final int rc_item_information_notification_message=0x7f030064;
-        public static final int rc_item_location_message=0x7f030065;
-        public static final int rc_item_message=0x7f030066;
-        public static final int rc_item_preview_fragment=0x7f030067;
-        public static final int rc_item_progress=0x7f030068;
-        public static final int rc_item_public_service_conversation=0x7f030069;
-        public static final int rc_item_public_service_input_menu=0x7f03006a;
-        public static final int rc_item_public_service_input_menu_item=0x7f03006b;
-        public static final int rc_item_public_service_input_menus=0x7f03006c;
-        public static final int rc_item_public_service_list=0x7f03006d;
-        public static final int rc_item_public_service_message=0x7f03006e;
-        public static final int rc_item_public_service_multi_rich_content_message=0x7f03006f;
-        public static final int rc_item_public_service_rich_content_message=0x7f030070;
-        public static final int rc_item_public_service_search=0x7f030071;
-        public static final int rc_item_rich_content_message=0x7f030072;
-        public static final int rc_item_system_conversation=0x7f030073;
-        public static final int rc_item_text_message=0x7f030074;
-        public static final int rc_item_voice_message=0x7f030075;
-        public static final int rc_ui_voice_cover=0x7f030076;
-        public static final int rc_wi_block=0x7f030077;
-        public static final int rc_wi_block_popup=0x7f030078;
-        public static final int rc_wi_emoji_grid=0x7f030079;
-        public static final int rc_wi_emoji_txt=0x7f03007a;
-        public static final int rc_wi_ext_pager=0x7f03007b;
-        public static final int rc_wi_input=0x7f03007c;
-        public static final int rc_wi_notice=0x7f03007d;
-        public static final int rc_wi_notification_loading=0x7f03007e;
-        public static final int rc_wi_plugins=0x7f03007f;
-        public static final int rc_wi_text_btn=0x7f030080;
-        public static final int rc_wi_txt_provider=0x7f030081;
-        public static final int rc_wi_vo_popup=0x7f030082;
-        public static final int rc_wi_vo_provider=0x7f030083;
-        public static final int register=0x7f030084;
-        public static final int school_ambassdaor=0x7f030085;
-        public static final int school_ambassdaor_item=0x7f030086;
-        public static final int school_help_main=0x7f030087;
-        public static final int search=0x7f030088;
-        public static final int share_experience=0x7f030089;
-        public static final int tb_munion_aditem=0x7f03008a;
-        public static final int tb_munion_adview=0x7f03008b;
-        public static final int umeng_common_download_notification=0x7f03008c;
-        public static final int umeng_update_dialog=0x7f03008d;
-        public static final int verify_phone=0x7f03008e;
-        public static final int view_tips_loading=0x7f03008f;
-        public static final int xlistview_footer=0x7f030090;
+        public static final int activity_secret_setting=0x7f03000f;
+        public static final int activity_setting=0x7f030010;
+        public static final int activity_update_info=0x7f030011;
+        public static final int activity_user_home=0x7f030012;
+        public static final int activity_user_info=0x7f030013;
+        public static final int activity_video_detail=0x7f030014;
+        public static final int alertdialog=0x7f030015;
+        public static final int ask_question=0x7f030016;
+        public static final int ask_share_item=0x7f030017;
+        public static final int audio_record_dialog=0x7f030018;
+        public static final int city_item=0x7f030019;
+        public static final int citylist=0x7f03001a;
+        public static final int company_detail=0x7f03001b;
+        public static final int complaint=0x7f03001c;
+        public static final int conversation=0x7f03001d;
+        public static final int conversation_list=0x7f03001e;
+        public static final int find_teammate=0x7f03001f;
+        public static final int find_teammate_item=0x7f030020;
+        public static final int fragment_friends=0x7f030021;
+        public static final int friends_header=0x7f030022;
+        public static final int header_index=0x7f030023;
+        public static final int header_my_index=0x7f030024;
+        public static final int home=0x7f030025;
+        public static final int home_banner=0x7f030026;
+        public static final int home_item=0x7f030027;
+        public static final int home_item_ninegridlayout=0x7f030028;
+        public static final int home_view_stub_audios=0x7f030029;
+        public static final int home_view_stub_images=0x7f03002a;
+        public static final int home_view_stub_my_audios=0x7f03002b;
+        public static final int home_view_stub_my_images=0x7f03002c;
+        public static final int home_view_stub_my_videos=0x7f03002d;
+        public static final int home_view_stub_videos=0x7f03002e;
+        public static final int im_social_item_comment=0x7f03002f;
+        public static final int item_image_bucket=0x7f030030;
+        public static final int item_image_grid=0x7f030031;
+        public static final int item_pager_image=0x7f030032;
+        public static final int item_popupwindows=0x7f030033;
+        public static final int item_published_grida=0x7f030034;
+        public static final int items_friend_list=0x7f030035;
+        public static final int items_new_friend_list=0x7f030036;
+        public static final int items_search_friend_list=0x7f030037;
+        public static final int login=0x7f030038;
+        public static final int main_tab_friends=0x7f030039;
+        public static final int main_tab_indicator_home=0x7f03003a;
+        public static final int main_tab_indicator_my=0x7f03003b;
+        public static final int my=0x7f03003c;
+        public static final int my_advice=0x7f03003d;
+        public static final int my_collect=0x7f03003e;
+        public static final int my_item_ninegridlayout=0x7f03003f;
+        public static final int my_message=0x7f030040;
+        public static final int my_order=0x7f030041;
+        public static final int my_view_stub_my_text=0x7f030042;
+        public static final int out_source_entrance=0x7f030043;
+        public static final int out_source_read=0x7f030044;
+        public static final int part_time_detail=0x7f030045;
+        public static final int popup_comment=0x7f030046;
+        public static final int rc_ac_albums=0x7f030047;
+        public static final int rc_ac_camera=0x7f030048;
+        public static final int rc_ac_preview=0x7f030049;
+        public static final int rc_ac_selected_pictrue=0x7f03004a;
+        public static final int rc_ac_webview=0x7f03004b;
+        public static final int rc_activity=0x7f03004c;
+        public static final int rc_cs_alert_human_evaluation=0x7f03004d;
+        public static final int rc_cs_alert_robot_evaluation=0x7f03004e;
+        public static final int rc_cs_alert_warning=0x7f03004f;
+        public static final int rc_fr_conversation=0x7f030050;
+        public static final int rc_fr_conversation_member_list=0x7f030051;
+        public static final int rc_fr_conversationlist=0x7f030052;
+        public static final int rc_fr_dialog_alter=0x7f030053;
+        public static final int rc_fr_messageinput=0x7f030054;
+        public static final int rc_fr_messagelist=0x7f030055;
+        public static final int rc_fr_photo=0x7f030056;
+        public static final int rc_fr_photo2=0x7f030057;
+        public static final int rc_fr_public_service_inf=0x7f030058;
+        public static final int rc_fr_public_service_search=0x7f030059;
+        public static final int rc_fr_public_service_sub_list=0x7f03005a;
+        public static final int rc_fr_test=0x7f03005b;
+        public static final int rc_fragment_base_setting=0x7f03005c;
+        public static final int rc_item_albums=0x7f03005d;
+        public static final int rc_item_app_service_conversation=0x7f03005e;
+        public static final int rc_item_base_conversation=0x7f03005f;
+        public static final int rc_item_conversation=0x7f030060;
+        public static final int rc_item_conversation_member=0x7f030061;
+        public static final int rc_item_discussion_conversation=0x7f030062;
+        public static final int rc_item_discussion_notification_message=0x7f030063;
+        public static final int rc_item_group_conversation=0x7f030064;
+        public static final int rc_item_image_message=0x7f030065;
+        public static final int rc_item_information_notification_message=0x7f030066;
+        public static final int rc_item_location_message=0x7f030067;
+        public static final int rc_item_message=0x7f030068;
+        public static final int rc_item_preview_fragment=0x7f030069;
+        public static final int rc_item_progress=0x7f03006a;
+        public static final int rc_item_public_service_conversation=0x7f03006b;
+        public static final int rc_item_public_service_input_menu=0x7f03006c;
+        public static final int rc_item_public_service_input_menu_item=0x7f03006d;
+        public static final int rc_item_public_service_input_menus=0x7f03006e;
+        public static final int rc_item_public_service_list=0x7f03006f;
+        public static final int rc_item_public_service_message=0x7f030070;
+        public static final int rc_item_public_service_multi_rich_content_message=0x7f030071;
+        public static final int rc_item_public_service_rich_content_message=0x7f030072;
+        public static final int rc_item_public_service_search=0x7f030073;
+        public static final int rc_item_rich_content_message=0x7f030074;
+        public static final int rc_item_system_conversation=0x7f030075;
+        public static final int rc_item_text_message=0x7f030076;
+        public static final int rc_item_voice_message=0x7f030077;
+        public static final int rc_ui_voice_cover=0x7f030078;
+        public static final int rc_wi_block=0x7f030079;
+        public static final int rc_wi_block_popup=0x7f03007a;
+        public static final int rc_wi_emoji_grid=0x7f03007b;
+        public static final int rc_wi_emoji_txt=0x7f03007c;
+        public static final int rc_wi_ext_pager=0x7f03007d;
+        public static final int rc_wi_input=0x7f03007e;
+        public static final int rc_wi_notice=0x7f03007f;
+        public static final int rc_wi_notification_loading=0x7f030080;
+        public static final int rc_wi_plugins=0x7f030081;
+        public static final int rc_wi_text_btn=0x7f030082;
+        public static final int rc_wi_txt_provider=0x7f030083;
+        public static final int rc_wi_vo_popup=0x7f030084;
+        public static final int rc_wi_vo_provider=0x7f030085;
+        public static final int register=0x7f030086;
+        public static final int school_ambassdaor=0x7f030087;
+        public static final int school_ambassdaor_item=0x7f030088;
+        public static final int school_help_main=0x7f030089;
+        public static final int search=0x7f03008a;
+        public static final int share_experience=0x7f03008b;
+        public static final int tb_munion_aditem=0x7f03008c;
+        public static final int tb_munion_adview=0x7f03008d;
+        public static final int umeng_common_download_notification=0x7f03008e;
+        public static final int umeng_update_dialog=0x7f03008f;
+        public static final int verify_phone=0x7f030090;
+        public static final int view_tips_loading=0x7f030091;
+        public static final int xlistview_footer=0x7f030092;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
@@ -3111,6 +3165,118 @@ containing a value of this type.
           @attr name com.anda.moments:topPadding
         */
         public static final int TitlePageIndicator_topPadding = 14;
+        /** Attributes that can be used with a ToggleButton.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ToggleButton_animate com.anda.moments:animate}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_borderWidth com.anda.moments:borderWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_offBorderColor com.anda.moments:offBorderColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_offColor com.anda.moments:offColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_onColor com.anda.moments:onColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_spotColor com.anda.moments:spotColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #ToggleButton_toggleSwitch com.anda.moments:toggleSwitch}</code></td><td></td></tr>
+           </table>
+           @see #ToggleButton_animate
+           @see #ToggleButton_borderWidth
+           @see #ToggleButton_offBorderColor
+           @see #ToggleButton_offColor
+           @see #ToggleButton_onColor
+           @see #ToggleButton_spotColor
+           @see #ToggleButton_toggleSwitch
+         */
+        public static final int[] ToggleButton = {
+            0x7f010032, 0x7f010033, 0x7f010034, 0x7f010035,
+            0x7f010036, 0x7f010037, 0x7f010038
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#animate}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
+          @attr name com.anda.moments:animate
+        */
+        public static final int ToggleButton_animate = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#borderWidth}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.anda.moments:borderWidth
+        */
+        public static final int ToggleButton_borderWidth = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#offBorderColor}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.anda.moments:offBorderColor
+        */
+        public static final int ToggleButton_offBorderColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#offColor}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.anda.moments:offColor
+        */
+        public static final int ToggleButton_offColor = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#onColor}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.anda.moments:onColor
+        */
+        public static final int ToggleButton_onColor = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#spotColor}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.anda.moments:spotColor
+        */
+        public static final int ToggleButton_spotColor = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.anda.moments.R.attr#toggleSwitch}
+          attribute's value can be found in the {@link #ToggleButton} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
+          @attr name com.anda.moments:toggleSwitch
+        */
+        public static final int ToggleButton_toggleSwitch = 6;
         /** Attributes that can be used with a UnderlinePageIndicator.
            <p>Includes the following attributes:</p>
            <table>
@@ -3130,8 +3296,8 @@ containing a value of this type.
            @see #UnderlinePageIndicator_selectedColor
          */
         public static final int[] UnderlinePageIndicator = {
-            0x010100d4, 0x7f010001, 0x7f010032, 0x7f010033,
-            0x7f010034
+            0x010100d4, 0x7f010001, 0x7f010039, 0x7f01003a,
+            0x7f01003b
         };
         /**
           <p>This symbol is the offset where the {@link android.R.attr#background}
@@ -3217,8 +3383,8 @@ containing a value of this type.
            @see #ViewPagerIndicator_vpiUnderlinePageIndicatorStyle
          */
         public static final int[] ViewPagerIndicator = {
-            0x7f010035, 0x7f010036, 0x7f010037, 0x7f010038,
-            0x7f010039, 0x7f01003a
+            0x7f01003c, 0x7f01003d, 0x7f01003e, 0x7f01003f,
+            0x7f010040, 0x7f010041
         };
         /**
           <p>This symbol is the offset where the {@link com.anda.moments.R.attr#vpiCirclePageIndicatorStyle}
@@ -3291,7 +3457,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #myCiclePageColor_cicle_color
          */
         public static final int[] myCiclePageColor = {
-            0x7f01003b
+            0x7f010042
         };
         /**
           <p>This symbol is the offset where the {@link com.anda.moments.R.attr#cicle_color}
@@ -3323,7 +3489,7 @@ containing a value of this type.
            @see #roundedimageview_border_thickness
          */
         public static final int[] roundedimageview = {
-            0x7f01003c, 0x7f01003d, 0x7f01003e
+            0x7f010043, 0x7f010044, 0x7f010045
         };
         /**
           <p>This symbol is the offset where the {@link com.anda.moments.R.attr#border_inside_color}
@@ -3382,7 +3548,7 @@ containing a value of this type.
            @see #scaleStyle_scalableType
          */
         public static final int[] scaleStyle = {
-            0x7f01003f
+            0x7f010046
         };
         /**
           <p>This symbol is the offset where the {@link com.anda.moments.R.attr#scalableType}

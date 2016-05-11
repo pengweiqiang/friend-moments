@@ -10,7 +10,7 @@
         <com.yqritc.scalablevideoview.ScalableVideoView
             android:id="@+id/video_view"
             android:layout_width="280dp"
-            android:layout_height="160dp"
+            android:layout_height="165dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="7dp"
             android:layout_marginLeft="10dp"
@@ -20,7 +20,7 @@
         <ImageView
             android:id="@+id/thumbnailImageView"
             android:layout_width="280dp"
-            android:layout_height="160dp"
+            android:layout_height="165dp"
             android:scaleType="fitXY"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="7dp"
@@ -32,7 +32,7 @@
         <ImageView
             android:id="@+id/playImageView"
             android:layout_width="280dp"
-            android:layout_height="160dp"
+            android:layout_height="165dp"
             android:scaleType="centerInside"
             android:src="@drawable/video_play"
             android:layout_marginTop="6dp"

@@ -138,6 +138,7 @@ public class UserInfoActivity extends BaseActivity {
 		mBtnAddFriends.setOnClickListener(onClickListener);
 		mBtnSendMsg.setOnClickListener(onClickListener);
 //		mBtnAddSystem.setOnClickListener(onClickListener);
+		mIvUserHead.setOnClickListener(onClickListener);
 	}
 	
 	OnClickListener onClickListener = new OnClickListener() {
@@ -145,11 +146,18 @@ public class UserInfoActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()){
+				case R.id.iv_user_head://点击头像进入用户主页
+					//点击头像进入个人主页
+					Intent intentUserHome = new Intent(mContext,UserHomeActivity.class);
+					user.setFlag(1);//已接受好友
+					intentUserHome.putExtra("user",user);
+					startActivity(intentUserHome);
+					break;
 				case R.id.rl_remarks://备注
 					Intent intent = new Intent(mContext,UpdateInfoActivity.class);
 					intent.putExtra("type",2);
 					intent.putExtra("title","备注");
-					intent.putExtra("friendPhoneNum",user.getPhoneNum());
+					intent.putExtra("id",user.getRelationId()+"");
 					intent.putExtra("content",user.getDescTag());
 					startActivity(intent);
 					break;
@@ -210,7 +218,8 @@ public class UserInfoActivity extends BaseActivity {
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(mIvUserHead);
 			if(!StringUtils.isEmpty(user.getIcon())) {
-				Picasso.with(mContext).load(StringUtils.isEmpty(user.getIcon()) ? "" : user.getIcon()).placeholder(getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+				int width = DeviceInfo.dp2px(mContext,70);
+				Picasso.with(mContext).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			}
 			if(flag==1){
 				mBtnAddFriends.setVisibility(View.GONE);

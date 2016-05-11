@@ -341,7 +341,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("name", file.getName());
 		jsonObject.addProperty("type", ReqUrls.MEDIA_TYPE_VIDEO+"");
-		jsonObject.addProperty("icon",firstPictureFile.getName());//视频第一帧
+//		jsonObject.addProperty("icon",firstPictureFile.getName());//视频第一帧
 		fileMetaInfo.add(jsonObject);
 
 		Map<String,String> params = new HashMap<String, String>();
@@ -352,7 +352,8 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 		params.put("fileMetaInfo",fileMetaInfoStr);
 
-		OkHttpUtils.post().addFile(file.getName(),file.getName(),file).addFile(firstPictureFile.getName(),firstPictureFile.getName(),firstPictureFile)
+		OkHttpUtils.post().addFile(file.getName(),file.getName(),file)
+//				.addFile(firstPictureFile.getName(),firstPictureFile.getName(),firstPictureFile)
 				.url(url)
 				.params(params)
 				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)

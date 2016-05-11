@@ -236,6 +236,7 @@
         android:layout_height="1px"/>
     <!-- 地区 -->
     <RelativeLayout
+        android:id="@+id/rl_distrct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"

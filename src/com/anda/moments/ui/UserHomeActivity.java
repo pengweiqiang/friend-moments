@@ -235,7 +235,9 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 			if(myInfo.getPublishUser()!=null) {//个人信息
 				User user = myInfo.getPublishUser();
 				mTvUserSign.setText(user.getSummary());
-				Picasso.with(mContext).load(user.getIcon()).placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+//				Picasso.with(mContext).load(user.getIcon()).placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+				int width = DeviceInfo.dp2px(mContext,70);
+				Picasso.with(mContext).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 				mTvUserName.setText(user.getUserName());
 			}
 			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){

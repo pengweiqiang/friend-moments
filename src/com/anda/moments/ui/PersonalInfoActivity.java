@@ -87,6 +87,7 @@ public class PersonalInfoActivity extends BaseActivity {
 	private View mBtnUpdateUserName;//昵称
 	private View mBtnUserId;//userId
 	private View mBtnAddress;//地址
+	private View mBtnDistrict;//地区
 
 	private View mBtnLoginOut;//退出登陆
 
@@ -138,6 +139,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnUpdateUserName = findViewById(R.id.rl_update_username);
 		mBtnUserId = findViewById(R.id.rl_user_id);
 		mBtnAddress = findViewById(R.id.rl_address);
+		mBtnDistrict = findViewById(R.id.rl_distrct);
 
 	}
 
@@ -151,6 +153,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnUpdateUserName.setOnClickListener(onClickListener);
 		mBtnUserId.setOnClickListener(onClickListener);
 		mBtnAddress.setOnClickListener(onClickListener);
+		mBtnDistrict.setOnClickListener(onClickListener);
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -179,6 +182,9 @@ public class PersonalInfoActivity extends BaseActivity {
 					break;
 				case R.id.rl_sex://性别
 					showSexDialog();
+					break;
+				case R.id.rl_distrct://地区
+					startUpdateInfoActivity(5,"地区",user.getDistrict());
 					break;
 //				case R.id.rl_remarks://备注
 //					startUpdateInfoActivity(2,"备注");
@@ -233,7 +239,12 @@ public class PersonalInfoActivity extends BaseActivity {
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
 
-			Picasso.with(mContext).load(user.getIcon()).placeholder(R.drawable.default_useravatar).into(mIvHead);
+
+//			Picasso.with(mContext).load(user.getIcon()).placeholder(R.drawable.default_useravatar).into(mIvHead);
+			int width = DeviceInfo.dp2px(mContext,70);
+			Picasso.with(mContext).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvHead);
+			MyApplication.getInstance().setUser(user);
+			SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,"user",JsonUtils.toJson(user));
 		}
 	}
 

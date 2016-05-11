@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="4"
-    android:versionName="1.4" >
+    android:versionCode="9"
+    android:versionName="1.9" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,7 +20,7 @@
     </uses-permission>
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <application
@@ -77,7 +77,15 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".ui.publish.PublishVideoActivity"
+            android:label="录制视频"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.publish.PublishVideoSecondActivity"
             android:label="发布视频"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.VideoDetailActivity"
+            android:label="播放视频"
             android:screenOrientation="portrait"
             />
 
@@ -88,12 +96,28 @@
             android:screenOrientation="portrait"
             >
         </activity>
+        <activity
+            android:name=".ui.UpdateInfoActivity"
+            android:label="修改资料"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysVisible"
+            android:screenOrientation="portrait"
+            >
+        </activity>
         <activity android:name=".ui.PersonalInfoActivity"
             android:label="个人中心"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.UserHomeActivity"
+            android:label="用户主页"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".ui.SettingActivity"
             android:label="设置"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.SecretSettingActivity"
+            android:label="私密设置"
             android:screenOrientation="portrait"
             />
 
@@ -107,8 +131,9 @@
             />
 
         <activity android:name=".ui.ConversationActivity"
+            android:screenOrientation="portrait"
             android:label="单聊会话"
-            >
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter >
                 <action android:name="android.intent.action.VIEW"></action>
 
@@ -122,104 +147,38 @@
             </intent-filter>
 
         </activity>
+
+        <!-- 会话列表 Activity -->
         <activity
-            android:name="com.anda.moments.ui.MyOrderActivity"
-            android:label="我的单子"
-            android:launchMode="singleTask"
+            android:name=".ui.ConversationListActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             >
-            
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.anda.moments"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
         </activity>
-        <activity 
-            android:name="com.anda.moments.ui.MyCollectActivity"
-            android:label="我的收藏"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.MyMessageActivity"
-            android:label="我的信箱"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.MyAdviceActivity"
-            android:label="意见反馈"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-            
-        </activity>
+
+
         
         <activity 
             android:name="com.anda.moments.ui.MainActivity"
             android:label="主页面"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             >
             
             
         </activity>
-        <activity 
-            android:name="com.anda.moments.ui.RegisterActivity"
-            android:label="注册"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.PartTimeDetailActivity"
-            android:label="兼职详情"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.CompanyDetailActivity"
-            android:label="公司介绍"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.OutSourceEntranceActivity"
-            android:label="外包入口"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.OutSouceReadActivity"
-            android:label="功能及流程解读"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.ComplaintActivity"
-            android:label="投诉"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-        </activity>
-        <activity 
-            android:name="com.anda.moments.ui.VefityPhoneActivity"
-            android:label="手机号验证"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            >
-            
-            
-        </activity>
-        
-        <activity
-            android:name="com.anda.moments.ui.CityListActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            android:label="选择城市" >
-        </activity>
+
         
 
         <!-- umeng update  start -->
@@ -249,6 +208,8 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="umeng" />
+
+
     </application>
 
 </manifest>

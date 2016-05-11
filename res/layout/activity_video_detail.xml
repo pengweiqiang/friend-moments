@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+    </com.anda.moments.views.ActionBar>
+
+
+
+
+
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:background="@color/black"
+            >
+
+            <com.yqritc.scalablevideoview.ScalableVideoView
+                android:id="@+id/video_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:onClick="onClick"
+                app:scalableType="fitXY"/>
+
+            <ImageView
+                android:id="@+id/thumbnailImageView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:onClick="onClick"
+                />
+
+            <ImageView
+                android:id="@+id/playImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:onClick="onClick"
+                android:src="@drawable/video_play"
+                />
+
+        </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

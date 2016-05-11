@@ -41,6 +41,7 @@ import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
@@ -50,6 +51,7 @@ import com.anda.moments.utils.publish.Bimp;
 import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.squareup.picasso.Picasso;
 
 
 import org.json.JSONArray;
@@ -85,6 +87,8 @@ public class PublishPictureActivity extends BaseActivity {
 	private GridView mGridView;
 	private GridAdapter adapter;
 	ActionBar mActionBar;
+
+
 
 	LoadingDialog mLoadingDialog;
 
@@ -442,15 +446,20 @@ public class PublishPictureActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
+
 	/**
 	 * 发送成功跳转
 	 */
 	private void sendSuccess(){
 
-		if(Bimp.bmp!=null) {
-			Bimp.bmp.clear();
-			Bimp.bmp = null;
-		}
+//		if(Bimp.bmp!=null) {
+//			Bimp.bmp.clear();
+//			Bimp.bmp = null;
+//		}
 		if(Bimp.drr!=null) {
 			Bimp.drr.clear();
 			Bimp.drr = null;
@@ -468,15 +477,7 @@ public class PublishPictureActivity extends BaseActivity {
 	public class GridAdapter extends BaseAdapter {
 		private LayoutInflater inflater; // 视图容器
 		private int selectedPosition = -1;// 选中的位置
-		private boolean shape;
 
-		public boolean isShape() {
-			return shape;
-		}
-
-		public void setShape(boolean shape) {
-			this.shape = shape;
-		}
 
 		public GridAdapter(Context context) {
 			inflater = LayoutInflater.from(context);
@@ -484,11 +485,11 @@ public class PublishPictureActivity extends BaseActivity {
 
 		public void update() {
 			loading();
-			adapter.notifyDataSetChanged();
 		}
 
 		public int getCount() {
-			return (Bimp.bmp.size() + 1);
+
+			return (Bimp.drr.size() + 1);
 		}
 
 		public Object getItem(int arg0) {
@@ -514,27 +515,27 @@ public class PublishPictureActivity extends BaseActivity {
 		 */
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
-			if (convertView == null) {
+//			if (convertView == null) {
 
 				convertView = inflater.inflate(R.layout.item_published_grida,
 						parent, false);
 				holder = new ViewHolder();
-				holder.image = (ImageView) convertView
+				ImageView image = (ImageView) convertView
 						.findViewById(R.id.item_grida_image);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
+//				convertView.setTag(holder);
+//			} else {
+//				holder = (ViewHolder) convertView.getTag();
+//			}
 
-			if (position == Bimp.bmp.size()) {
-				holder.image.setImageBitmap(BitmapFactory.decodeResource(
+			if (position == Bimp.drr.size()) {
+				image.setImageBitmap(BitmapFactory.decodeResource(
 						getResources(), R.drawable.add_picture));
 				if (position == 9) {
-					holder.image.setVisibility(View.GONE);
+					image.setVisibility(View.GONE);
 				}
 			} else {
-//				Picasso.with(mContext).load(Bimp.drr.get(position)).into(holder.image);
-				holder.image.setImageBitmap(Bimp.bmp.get(position));
+				Picasso.with(mContext).load(new File(Bimp.drr.get(position))).resize(DeviceInfo.dp2px(mContext,68),DeviceInfo.dp2px(mContext,68)).centerCrop().into(image);
+//				holder.image.setImageBitmap(Bimp.bmp.get(position));
 			}
 
 			return convertView;
@@ -569,11 +570,15 @@ public class PublishPictureActivity extends BaseActivity {
 								String path = Bimp.drr.get(Bimp.max);
 								System.out.println(path);
 								Bitmap bm = Bimp.revitionImageSize(path);
-								Bimp.bmp.add(bm);
+//								Bimp.bmp.add(bm);
 								String newStr = path.substring(
 										path.lastIndexOf("/") + 1,
 										path.lastIndexOf("."));
 								FileUtils.saveBitmap(bm, "" + newStr);
+								if(bm!=null) {
+									bm.recycle();
+									bm = null;
+								}
 								Bimp.max += 1;
 								Message message = new Message();
 								message.what = 1;
@@ -599,7 +604,7 @@ public class PublishPictureActivity extends BaseActivity {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 									long arg3) {
-				if (arg2 == Bimp.bmp.size()) {
+				if (arg2 == Bimp.drr.size()) {
 					new PopupWindows(PublishPictureActivity.this, mGridView);
 				} else {
 					Intent intent = new Intent(PublishPictureActivity.this,
@@ -613,8 +618,8 @@ public class PublishPictureActivity extends BaseActivity {
 	}
 
 	protected void onRestart() {
-		adapter.update();
 		super.onRestart();
+		adapter.update();
 	}
 
 	public class PopupWindows extends PopupWindow {
@@ -669,10 +674,12 @@ public class PublishPictureActivity extends BaseActivity {
 	}
 
 	private static final int TAKE_PICTURE = 0x000000;
+	private static final int SELECT_PICTURE = 0x000001;
 	private String path = "";
 	public void photo() {
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(FileUtil.PICTURE_FILE_DIR, String.valueOf(System.currentTimeMillis())
+		FileUtil.createFile(FileUtil.PICTURE_FILE_DIR+"/camrea");
+		File file = new File(Environment.getExternalStorageDirectory()+FileUtil.PICTURE_FILE_DIR+"/camrea", String.valueOf(System.currentTimeMillis())
 				+ ".jpg");
 		path = file.getPath();
 		Uri imageUri = Uri.fromFile(file);
@@ -683,6 +690,39 @@ public class PublishPictureActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+				case TAKE_PICTURE:
+
+					try {
+						System.out.println(path);
+						Bitmap bm = Bimp.revitionImageSize(path);
+
+						String newStr = path.substring(
+								path.lastIndexOf("/") + 1,
+								path.lastIndexOf("."));
+						String filePath = FileUtils.saveBitmap(bm, "" + newStr);
+
+						if(bm!=null){
+							bm.recycle();
+							bm = null;
+							FileUtil.deleteFile(path);
+						}
+						Bimp.max += 1;
+						Bimp.drr.add(filePath);
+//						adapter.notifyDataSetChanged();
+					}catch (IOException e){
+
+					}
+
+					break;
+				case SELECT_PICTURE:
+
+					break;
+				default:
+					break;
+			}
+		}
 
 	}
 }

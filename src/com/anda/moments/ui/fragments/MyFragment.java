@@ -278,7 +278,9 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 			if(myInfo.getPublishUser()!=null) {//个人信息
 				User user = myInfo.getPublishUser();
 				mTvUserSign.setText(user.getSummary());
-				Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+				int width = DeviceInfo.dp2px(mActivity,70);
+				Picasso.with(mActivity).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+//				Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 				mTvUserName.setText(user.getUserName());
 			}
 			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){

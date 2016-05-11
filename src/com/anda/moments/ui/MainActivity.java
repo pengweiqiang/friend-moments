@@ -82,7 +82,8 @@ public class MainActivity extends BaseFragmentActivity {
         UmengUpdateAgent.update(this);
 
 
-		initRong();
+		getRongToken();
+//		initRong();
 
 		setUserInfo();
     }
@@ -248,12 +249,12 @@ public class MainActivity extends BaseFragmentActivity {
 	};
 
 
-	private void initRong(){
-		String rongToken = (String)SharePreferenceManager.getSharePreferenceValue(MainActivity.this,Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,"");
-		if(!StringUtils.isEmpty(rongToken)){
-			connect(rongToken);
-		}
-	}
+//	private void initRong(){
+//		String rongToken = (String)SharePreferenceManager.getSharePreferenceValue(MainActivity.this,Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,"");
+//		if(!StringUtils.isEmpty(rongToken)){
+//			connect(rongToken);
+//		}
+//	}
 
 	/**
 	 * 建立与融云服务器的连接
@@ -305,6 +306,132 @@ public class MainActivity extends BaseFragmentActivity {
 				}
 			});
 		}
+	}
+
+
+	/**
+	 * 获取融云token
+	 */
+	public void getRongToken(){
+
+//		String token = "yGajkmQC9/DeLpIfz1XZvGNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJNgFlqmA/Pmn/WKLLppfBIugP+UQYLzgjc6lsSvZ3KbZ";
+//		connect(token);
+		User user = MyApplication.getInstance().getCurrentUser();
+		final String userId = user.getPhoneNum();//手机号做userId
+		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
+		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+
+		//获取token
+		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+			@Override
+			public void run() {
+				SdkHttpResult result = null;
+				try {
+					result = HttpUtil.getToken(com.anda.moments.api.constant.ReqUrls.APPKEY_RONG, com.anda.moments.api.constant.ReqUrls.APPSERCERT_RONG, userId, name,
+							portraitUri);
+					if(result.getHttpCode()==200){
+						JSONObject resultJson = new JSONObject(result.getResult());
+						if(resultJson.getInt("code")==200){
+							String token = resultJson.getString("token");
+							SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,token);
+							Log.e("MainActivity_GET_TOKEN",token);
+							connect(token);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+
+
+//		User user = MyApplication.getInstance().getCurrentUser();
+//		//测试token
+//		String token = "5wLzR6P9/EpPd2wW9qmjIyauN5QPjImrHh1qCPp60JMDp1kwaSDEq2SM0YgN5kYZ0tn7uWz3mqcVhoxLgAvk2g==";
+//
+//		if(user.getUserId()==null){
+//			token = "y1XeKpFw6q6lE5oY2upqGmNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJHTJ02W4Du7ikJC1Yc2oVfmUFT8Da0IZdw==";
+//		}else {
+//			if ("richard1".equals(user.getUserId())) {
+//				token = "5wLzR6P9/EpPd2wW9qmjIyauN5QPjImrHh1qCPp60JMDp1kwaSDEq2SM0YgN5kYZ0tn7uWz3mqcVhoxLgAvk2g==";
+//			} else if ("2642".equals(user.getUserId())) {
+//				token = "y1XeKpFw6q6lE5oY2upqGmNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJHTJ02W4Du7ikJC1Yc2oVfmUFT8Da0IZdw==";
+//			}
+//		}
+
+//		SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,token);
+//
+//		connect(token);
+//		OkHttpClient client = new OkHttpClient();
+//
+//		JSONObject requestJson = new JSONObject();
+//
+//		try {
+//			requestJson.put("userId",user.getId());
+//			requestJson.put("name",);
+//			requestJson.put("portraitUri", StringUtils.isEmpty(user.getIcon())?"http://ww2.sinaimg.cn/crop.0.0.1080.1080.1024/d773ebfajw8eum57eobkwj20u00u075w.jpg":user.getIcon());
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//
+////		requestJson.put();
+////		requestJson.put("RC-Nonce",nonce);
+////		requestJson.put("RC-Timestamp",timestamp);
+////		requestJson.put("RC-Signature",sign);
+////		requestJson.put("Content-Type",contentType);
+//
+//		String nonce = String.valueOf(Math.random() * 1000000);
+//		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+//		StringBuilder toSign = new StringBuilder(appSecret).append(nonce)
+//				.append(timestamp);
+//		String sign = AESEncryptor.hexSHA1(toSign.toString());
+//
+//		RequestBody body = RequestBody.create(JSON,requestJson.toString());
+//
+//		Request request = new Request.Builder()
+//		.url("https://api.cn.ronghub.com/user/getToken.json")
+//		.addHeader("RC-App-Key",appKey).addHeader("RC-Nonce",nonce)
+//				.addHeader("RC-Timestamp",timestamp).addHeader("RC-Signature",sign).addHeader("Content-Type",contentType)
+//		.post(body)
+//		.build();
+//		client.newCall(request).enqueue(new Callback() {
+//			@Override
+//			public void onFailure(Request request, IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//			@Override
+//			public void onResponse(Response response) throws IOException {
+//				if (!response.isSuccessful()) {
+//					String token = "5wLzR6P9/EpPd2wW9qmjIyauN5QPjImrHh1qCPp60JMDp1kwaSDEq2SM0YgN5kYZ0tn7uWz3mqcVhoxLgAvk2g==";
+//					connect(token);
+//					runOnUiThread(new Runnable() {
+//						@Override
+//						public void run() {
+//							ToastUtils.showToast(MainActivity.this, "获取融云Token失败");
+//						}
+//					});
+//					return;
+//				}
+//				String result = response.body().toString();
+//				System.out.println(response.body().string());
+//				JSONObject object = null;
+//				try {
+//					object = new JSONObject(result);
+//					JSONObject jobj = object.getJSONObject("result");
+//
+//					if (object.getInt("code") == 200) {
+//						String token = jobj.getString("token");
+//						SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,token);
+//						connect(token);
+//					}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 	}
 
 

@@ -1,8 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:1-211:12
-	xmlns:android
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:11-69
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:1-215:12
 	package
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:3:5-31
 	android:versionName
@@ -10,9 +8,11 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 		INJECTED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml
 		INJECTED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml
 	android:versionCode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:4:5-28
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:4:5-29
 		INJECTED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml
 		INJECTED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:7:5-79
 MERGED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:22:5-79
@@ -82,7 +82,7 @@ MERGED from [com.zhy:okhttputils:2.4.1] /Users/pengweiqiang/Documents/android_my
 	android:minSdkVersion
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:23:9-35
 application
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:26:5-209:19
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:26:5-213:19
 MERGED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:34:5-115:19
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:30:9-41
@@ -100,10 +100,10 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:36:13-49
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:34:13-45
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:33:13-61
 	android:launchMode
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:35:13-44
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:33:13-61
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:37:13-41:29
 action#android.intent.action.MAIN
@@ -128,10 +128,10 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:54:13-49
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:52:13-33
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:51:19-68
 	android:launchMode
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:53:13-44
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:51:19-68
 activity#com.anda.moments.ui.publish.PhotoActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:56:9-59:15
 	android:screenOrientation
@@ -188,28 +188,36 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:84:13-33
 	android:name
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:83:19-72
+activity#com.anda.moments.ui.VideoDetailActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:87:9-90:15
+	android:screenOrientation
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:89:13-49
+	android:label
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:88:13-33
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:87:19-57
 activity#com.anda.moments.ui.UserInfoActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:92:9-98:20
 	android:screenOrientation
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:96:13-49
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:94:13-33
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:93:13-48
 	android:launchMode
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:95:13-44
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:93:13-48
 activity#com.anda.moments.ui.UpdateInfoActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:99:9-106:20
-	android:windowSoftInputMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:103:13-61
 	android:screenOrientation
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:104:13-49
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:101:13-33
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:100:13-50
 	android:launchMode
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:102:13-44
+	android:windowSoftInputMode
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:103:13-61
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:100:13-50
 activity#com.anda.moments.ui.PersonalInfoActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:107:9-110:15
 	android:screenOrientation
@@ -234,94 +242,102 @@ ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:116:13-31
 	android:name
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:115:19-53
-activity#com.anda.moments.ui.AddFriendsActivity
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:120:9-123:15
+activity#com.anda.moments.ui.SecretSettingActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:119:9-122:15
 	android:screenOrientation
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:122:13-49
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:121:13-49
 	android:label
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:121:13-33
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:120:13-33
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:120:19-56
-activity#com.anda.moments.ui.NewFriendsListActivity
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:119:19-59
+activity#com.anda.moments.ui.AddFriendsActivity
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:124:9-127:15
 	android:screenOrientation
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:126:13-49
 	android:label
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:125:13-34
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:125:13-33
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:124:19-60
-activity#com.anda.moments.ui.ConversationActivity
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:129:9-145:20
-	android:windowSoftInputMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:132:13-67
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:124:19-56
+activity#com.anda.moments.ui.NewFriendsListActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:128:9-131:15
 	android:screenOrientation
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:130:13-49
 	android:label
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:131:13-33
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:129:13-34
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:129:19-58
-intent-filter#android.intent.action.VIEW+android.intent.category.DEFAULT
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:133:13-143:29
-action#android.intent.action.VIEW
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:134:17-76
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:134:25-66
-category#android.intent.category.DEFAULT
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:136:17-85
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:136:27-73
-data
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:137:17-141:29
-	android:host
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:138:21-52
-	android:pathPrefix
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:139:21-56
-	android:scheme
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:140:21-42
-activity#com.anda.moments.ui.ConversationListActivity
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:148:9-163:20
-	android:windowSoftInputMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:151:13-67
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:128:19-60
+activity#com.anda.moments.ui.ConversationActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:133:9-149:20
 	android:screenOrientation
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:150:13-49
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:149:13-56
-activity#com.anda.moments.ui.MainActivity
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:167:9-176:20
-	android:windowSoftInputMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:171:13-52
-	android:screenOrientation
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:172:13-49
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:134:13-49
 	android:label
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:169:13-32
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:135:13-33
+	android:windowSoftInputMode
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:136:13-67
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:168:13-60
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:133:19-58
+intent-filter#android.intent.action.VIEW+android.intent.category.DEFAULT
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:137:13-147:29
+action#android.intent.action.VIEW
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:138:17-76
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:138:25-66
+category#android.intent.category.DEFAULT
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:140:17-85
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:140:27-73
+data
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:141:17-145:29
+	android:host
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:142:21-52
+	android:scheme
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:144:21-42
+	android:pathPrefix
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:143:21-56
+activity#com.anda.moments.ui.ConversationListActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:152:9-167:20
+	android:screenOrientation
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:154:13-49
+	android:windowSoftInputMode
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:155:13-67
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:153:13-56
+activity#com.anda.moments.ui.MainActivity
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:171:9-180:20
+	android:screenOrientation
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:176:13-49
+	android:label
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:173:13-32
 	android:launchMode
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:170:13-44
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:174:13-44
+	android:windowSoftInputMode
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:175:13-52
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:172:13-60
 service#com.umeng.update.net.DownloadingService
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:181:9-184:19
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:185:9-188:19
 	android:process
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:183:13-50
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:187:13-50
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:182:13-67
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:186:13-67
 activity#com.umeng.update.UpdateDialogActivity
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:186:9-189:20
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:190:9-193:20
 	android:theme
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:188:13-72
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:192:13-72
 	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:187:13-65
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:191:13-65
 meta-data#UMENG_APPKEY
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:201:9-203:56
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:202:13-40
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:205:9-207:56
 	android:value
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:203:13-53
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:207:13-53
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:206:13-40
 meta-data#UMENG_CHANNEL
-ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:204:9-206:37
-	android:name
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:205:13-41
+ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:208:9-210:37
 	android:value
-		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:206:13-34
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:210:13-34
+	android:name
+		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:209:13-41
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:13:5-81
 	android:name
@@ -482,10 +498,10 @@ ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/
 		ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:108:13-59
 meta-data#RONG_CLOUD_APP_KEY
 ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:111:9-113:45
-	android:name
-		ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:112:13-46
 	android:value
 		ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:113:13-42
+	android:name
+		ADDED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:112:13-46
 permission#android.permission.FLASHLIGHT
 ADDED from [Moments:WXLikeVideoRecorderLib:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/WXLikeVideoRecorderLib/unspecified/AndroidManifest.xml:17:5-20:44
 	android:protectionLevel

@@ -2,7 +2,11 @@ package com.anda.moments.apdater;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +24,33 @@ import com.anda.moments.entity.Media;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.TextViewUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.CustomImageView;
 import com.anda.moments.views.MultiMyImageView;
 import com.anda.moments.views.NineGridlayout;
+import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
 import com.anda.universalimageloader.core.assist.ImageSize;
 import com.yqritc.scalablevideoview.ScalableVideoView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import sz.itguy.utils.FileUtil;
 
 /**
  * Created by Pan_ on 2015/2/3.
@@ -133,6 +147,7 @@ public class MyAdapter extends BaseAdapter {
                     viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
                     viewHolder.mTvAudioSecond = (TextView)convertView.findViewById(R.id.tv_audio_second);
 
+                    viewHolder.mViewAudio.setOnClickListener(viewHolder);
 
                     break;
                 case ITEM_VIEW_TYPE_VIDEO://视频
@@ -149,6 +164,8 @@ public class MyAdapter extends BaseAdapter {
 //                    } catch (IOException e) {
 //                        e.printStackTrace();
 //                    }
+//                    viewHolder.mScalableVideoView.setOnClickListener(viewHolder);
+                    viewHolder.mPlayImageView.setOnClickListener(viewHolder);
 
 
                     break;
@@ -159,6 +176,7 @@ public class MyAdapter extends BaseAdapter {
             viewHolder.mTvPublishTime = (TextView) convertView.findViewById(R.id.tv_publish_time);
             viewHolder.mTvContent = (TextView)convertView.findViewById(R.id.tv_content);
             viewHolder.mLineTop = convertView.findViewById(R.id.line_top);
+
 
 
 //            viewHolder.mViewComment.setOnClickListener(viewHolder);
@@ -220,14 +238,14 @@ public class MyAdapter extends BaseAdapter {
                 break;
             case ITEM_VIEW_TYPE_AUDIO://语音
 
-                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(infos.getAudios()!=null && !infos.getAudios().isEmpty()) {
-//                            downloadMedia(infos.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
-                        }
-                    }
-                });
+//                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(infos.getAudios()!=null && !infos.getAudios().isEmpty()) {
+////                            downloadMedia(infos.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
+//                        }
+//                    }
+//                });
 
                 break;
             case ITEM_VIEW_TYPE_VIDEO://视频
@@ -248,6 +266,11 @@ public class MyAdapter extends BaseAdapter {
 //                        }
 //                    }
 //                });
+
+                String url = infos.getVideos().get(0).getPath();
+                String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
+                String fileName = url.substring(url.lastIndexOf("/")+1);
+                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
 
 
                 break;
@@ -284,10 +307,160 @@ public class MyAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
+            Infos infos = datalist.get(position);
             switch (v.getId()){
-
+                case R.id.view_record://音频播放
+                    if(infos.getAudios()!=null && !infos.getAudios().isEmpty()) {
+                        downloadMedia(infos.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,this);
+                    }
+                    break;
+                case R.id.playImageView://视频播放
+                    if(infos.getVideos()!=null && !infos.getVideos().isEmpty()){
+                        Intent intent = new Intent(context, VideoDetailActivity.class);
+                        intent.putExtra(VideoDetailActivity.KEY_FILE_PATH,getItem(position).getVideos().get(0).getPath());
+                        intent.putExtra("firstPicture","");
+                        context.startActivity(intent);
+                    }
+                    break;
             }
         }
+    }
+
+
+    private String TAG = "HomeAdapter";
+    public void downloadMedia(String url,final int type,final ViewHolder viewHolder){
+        if(CommonHelper.isFastClick()){
+            return;
+        }
+        String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+
+        if(new File(downLoadPath,fileName).exists()){//是否下载过
+            String filePath = downLoadPath+"/"+fileName;
+            switch (type){
+                case  ReqUrls.MEDIA_TYPE_AUDIO://音频
+                    playAudioRecord(filePath,viewHolder);
+                    break;
+                case  ReqUrls.MEDIA_TYPE_VIDEO://视频
+                    playerVideo(filePath,viewHolder);
+                    break;
+            }
+            return;
+        }
+
+        OkHttpUtils//
+                .get()//
+//                .tag(this)
+                .url(url)//
+                .build()//
+                .execute(new FileCallBack(downLoadPath+"/", fileName) {
+                    @Override
+                    public void inProgress(float progress, long total) {
+                        if(type == ReqUrls.MEDIA_TYPE_VIDEO) {
+                            int progressInt = (int) (100 * progress);
+                            viewHolder.mProgressBar.setProgress(progressInt);
+                            Log.e(TAG,progressInt+"  total "+total);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(File file) {
+                        if(file.exists()){
+                            switch (type){
+                                case  ReqUrls.MEDIA_TYPE_AUDIO://音频
+                                    playAudioRecord(file.getPath(),viewHolder);
+                                    break;
+                                case  ReqUrls.MEDIA_TYPE_VIDEO://视频
+                                    playerVideo(file.getPath(),viewHolder);
+                                    break;
+                            }
+                        }
+                        Log.e(TAG, "onResponse :" + file.getAbsolutePath());
+                    }
+                });
+
+    }
+
+
+    /**
+     * 播放录音
+     */
+    AnimationDrawable animationDrawable;
+    private void playAudioRecord(String filePath,final ViewHolder viewHolder){
+        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+        if(animationDrawable!=null && animationDrawable.isRunning()){
+            animationDrawable.selectDrawable(2);
+            animationDrawable.stop();
+        }
+//		if(animation==null) {
+        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
+//		}
+
+        animationDrawable.start();
+        MediaManager.playSound(filePath,
+                new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        animationDrawable.stop();
+                        viewHolder.mViewAnim
+                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
+                    }
+                });
+    }
+
+    private void playerVideo(String filePath,final  ViewHolder viewHolder){
+
+        try {
+            viewHolder.mScalableVideoView.setDataSource(filePath);
+            viewHolder.mScalableVideoView.setVolume(0,0);
+            viewHolder.mScalableVideoView.setLooping(true);
+            viewHolder.mScalableVideoView.prepare(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+//                    datalist.get(viewHolder.position).setPlay(true);
+                    viewHolder.mPlayImageView.setVisibility(View.GONE);
+                    viewHolder.mThumbnailImageView.setVisibility(View.GONE);
+                    viewHolder.mScalableVideoView.start();
+                }
+            });
+
+
+        } catch (IOException e) {
+            android.util.Log.e(TAG, e.getLocalizedMessage());
+            ToastUtils.showToast(context, "播放视频异常");
+        }
+
+
+    }
+
+    public Bitmap getVideoThumbnail(String filePath) {
+        if(!new File(filePath).exists()){
+            return null;
+        }
+        Bitmap bitmap = null;
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(filePath);
+            bitmap = retriever.getFrameAtTime(TimeUnit.SECONDS.toMicros(1));
+        }
+        catch(IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                retriever.release();
+            }
+            catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
     }
 
 

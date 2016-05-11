@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bg_color"
+    android:background="#fefefe"
     android:id="@+id/rl_root"
     >
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg_publish"
-        android:scaleType="fitStart"
+        android:src="@drawable/public_top_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
         />
 
 
@@ -20,6 +21,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
+        android:paddingBottom="80dp"
+
         >
         <!--照片-->
         <RelativeLayout
@@ -27,8 +30,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:layout_marginRight="5dp"
-            android:paddingBottom="80dp"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -59,7 +62,6 @@
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:paddingBottom="80dp"
             android:layout_height="wrap_content"
             >
 
@@ -90,7 +92,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:paddingBottom="80dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="5dp"
             android:gravity="center"
