@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:listSelector="@android:color/transparent"
                 android:divider="@color/grey_line"
-                android:dividerHeight="1dp" />
+                android:dividerHeight="0dp" />
 
             <LinearLayout
                 android:id="@+id/editTextBodyLl"

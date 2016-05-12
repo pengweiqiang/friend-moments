@@ -157,7 +157,7 @@ public class UserInfoActivity extends BaseActivity {
 					Intent intent = new Intent(mContext,UpdateInfoActivity.class);
 					intent.putExtra("type",2);
 					intent.putExtra("title","备注");
-					intent.putExtra("id",user.getRelationId()+"");
+					intent.putExtra("relationId",user.getRelationId()+"");
 					intent.putExtra("content",user.getDescTag());
 					startActivity(intent);
 					break;
@@ -190,7 +190,8 @@ public class UserInfoActivity extends BaseActivity {
 	private void getData(){
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
-		ApiMyUtils.getMyInformations(mContext, phoneNum, new HttpConnectionUtil.RequestCallback() {
+		String queryPhoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+		ApiMyUtils.getMyInformations(mContext, phoneNum,queryPhoneNum, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){

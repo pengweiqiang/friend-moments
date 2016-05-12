@@ -88,10 +88,11 @@ public class ApiMyUtils {
 	 * @param phoneNum 手机号码
 	 * @param requestCallback
 	 */
-	public static void getMyInformations(Context context, String phoneNum,
+	public static void getMyInformations(Context context, String phoneNum,String queryPhoneNum,
 			 RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum", phoneNum);
+		params.put("queryPhoneNum",queryPhoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_MY_INFORMATIONS, false,
 				requestCallback, MethodType.UPDATE, context);
 	}

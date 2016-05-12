@@ -216,7 +216,8 @@ public class PersonalInfoActivity extends BaseActivity {
 	private void getData(){
 		mLoadingDialog = new LoadingDialog(mContext);
 		mLoadingDialog.show();
-		ApiMyUtils.getMyInformations(mContext, phoneNum, new HttpConnectionUtil.RequestCallback() {
+		String queryPhoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+		ApiMyUtils.getMyInformations(mContext, phoneNum,queryPhoneNum, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){

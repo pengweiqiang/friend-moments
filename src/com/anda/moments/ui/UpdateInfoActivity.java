@@ -73,7 +73,7 @@ public class UpdateInfoActivity extends BaseActivity {
 	String district = "";//地区
 
 	private int type ;//0昵称  1 个性签名  2 备注 3 userId  4 地址  5地区
-	String id = "";//好友关系主键
+	String relationId = "";//好友关系主键
 
 
 
@@ -87,7 +87,7 @@ public class UpdateInfoActivity extends BaseActivity {
 		title = this.getIntent().getStringExtra("title");
 		type = this.getIntent().getIntExtra("type",-1);
 		content = this.getIntent().getStringExtra("content");
-		id = this.getIntent().getStringExtra("id");
+		relationId = this.getIntent().getStringExtra("relationId");
 
 		mActionbar.setTitle("修改"+title);
 		mEtContent.setHint("请输入"+title);
@@ -236,7 +236,7 @@ public class UpdateInfoActivity extends BaseActivity {
 			mLoadingDialog = new LoadingDialog(mContext);
 		}
 		mLoadingDialog.show();
-		ApiUserUtils.updateFriendTags(mContext, MyApplication.getInstance().getCurrentUser().getPhoneNum(),id , descTag, new HttpConnectionUtil.RequestCallback() {
+		ApiUserUtils.updateFriendTags(mContext, MyApplication.getInstance().getCurrentUser().getPhoneNum(),relationId , descTag, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();

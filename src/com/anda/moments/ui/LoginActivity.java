@@ -179,7 +179,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void getUserInfo(String phoneNum){
-		ApiMyUtils.getMyInformations(mContext, phoneNum, new HttpConnectionUtil.RequestCallback() {
+		ApiMyUtils.getMyInformations(mContext, phoneNum,phoneNum, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){

@@ -32,7 +32,7 @@ public class ApiUserUtils {
 	public static void updateFriendTags(Context context,String phoneNum,String id,String descTag,RequestCallback requestCallback){
 		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum",phoneNum);
-		params.put("id",id);
+		params.put("relationId",id);
 		params.put("descTag",descTag);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_UPDATE_FRIENDS_TAGS, false,
 				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);

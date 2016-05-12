@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,6 +150,8 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        // 开始计时
+        long startTime = System.nanoTime();
         ViewHolder viewHolder;
         final CircleMessage circleMessage = datalist.get(position);
 
@@ -208,14 +211,19 @@ public class HomeAdapter extends BaseAdapter {
 
             viewHolder.mViewComment = convertView.findViewById(R.id.iv_comment);//评论弹出框
 
-            viewHolder.digCommentBody = (LinearLayout) convertView.findViewById(R.id.digCommentBody);
+            viewHolder.digCommentBody = convertView.findViewById(R.id.digCommentBody);
             //评论列表
             viewHolder.commentListView = (CommentListView)convertView.findViewById(R.id.commentList);
+            viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
             viewHolder.commentAdapter = new CommentAdapter(context);
             viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
-
-
-
+            viewHolder.commentListView.setOnItemClick(viewHolder);
+//            viewHolder.commentListView = (RecyclerView) convertView.findViewById(R.id.commentList);
+//            viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
+//            viewHolder.commentAdapter = new CommentRecyclerViewAdapter(context,null);
+//            viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
+////            viewHolder.commentListView.setOnItemClick(viewHolder);
+//            viewHolder.commentAdapter.setOnItemClickListener(viewHolder);
 
 
             viewHolder.mViewComment.setOnClickListener(viewHolder);
@@ -252,37 +260,44 @@ public class HomeAdapter extends BaseAdapter {
         CommentInfo commentInfo = circleMessage.getCommentInfo();
         int commentNum = commentInfo.getCommentNum();
         if(commentNum>0) {
+            viewHolder.mTvCommentCount.setText(String.valueOf(commentNum));
             final List<CommentUser> commentUsers = commentInfo.getCommentUsers();
             viewHolder.commentAdapter.setDatas(commentUsers);
             viewHolder.commentAdapter.notifyDataSetChanged();
             viewHolder.commentListView.setVisibility(View.VISIBLE);
             viewHolder.digCommentBody.setVisibility(View.VISIBLE);
 
-            viewHolder.commentListView.setOnItemClick(new CommentListView.OnItemClickListener() {
-                @Override
-                public void onItemClick(int commentPosition) {
-                    //当前的评论
-                    CommentUser commentUser = commentUsers.get(commentPosition);
 
-                    if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
-
-                    }else{
-                        CommentConfig commentConfig = new CommentConfig();
-                        commentConfig.circlePosition = position;
-                        commentConfig.commentPosition = commentPosition;
-                        commentConfig.commentType = CommentConfig.Type.REPLY;
-                        commentConfig.replyUser = commentUser;
-
-                        homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
-                    }
-
-                }
-            });
+//            viewHolder.commentListView.setOnItemClick(new CommentListView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(int commentPosition) {
+//                    //当前的评论
+//                    CommentUser commentUser = commentUsers.get(commentPosition);
+//
+//                    if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
+//
+//                    }else{
+//                        CommentConfig commentConfig = new CommentConfig();
+//                        commentConfig.circlePosition = position;
+//                        commentConfig.commentPosition = commentPosition;
+//                        commentConfig.commentType = CommentConfig.Type.REPLY;
+//                        commentConfig.replyUser = commentUser;
+//
+//                        homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
+//                    }
+//
+//                }
+//            });
         }else{
             viewHolder.digCommentBody.setVisibility(View.GONE);
             viewHolder.commentListView.setVisibility(View.GONE);
         }
 
+        // 停止计时
+        long endTime = System.nanoTime();
+        // 计算耗时
+        long val = (endTime - startTime) / 1000L;
+        Log.e("Test", "---------Position:" + position + ":" + val);
 
         return convertView;
     }
@@ -353,7 +368,7 @@ public class HomeAdapter extends BaseAdapter {
                 String url = circleMessage.getVideos().get(0).getPath();
                 String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
                 String fileName = url.substring(url.lastIndexOf("/")+1);
-                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
+//                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
 
 
                 break;
@@ -430,7 +445,7 @@ public class HomeAdapter extends BaseAdapter {
     }
 
 
-    class ViewHolder implements View.OnClickListener{
+    class ViewHolder implements View.OnClickListener,CommentListView.OnItemClickListener {
         public View mViewComment;//萌化了
         //图片类型 start
         public NineGridlayout ivMore;//图片九宫格
@@ -456,11 +471,18 @@ public class HomeAdapter extends BaseAdapter {
         public TextView mTvContent;//评论内容
         public TextView mTvPublishTime;//发表时间
 
-        public LinearLayout digCommentBody;
+        public View digCommentBody;
         //评论列表控件
         public CommentListView commentListView;
+//        public RecyclerView commentListView;
+        public TextView mTvCommentCount;//评论总数
         //评论列表适配器
         public CommentAdapter commentAdapter;
+
+//        public CommentRecyclerViewAdapter commentAdapter;
+
+
+
 
         private int position;
 
@@ -486,6 +508,49 @@ public class HomeAdapter extends BaseAdapter {
                     intent.putExtra("firstPicture","");
                     context.startActivity(intent);
                     break;
+            }
+        }
+
+//        @Override
+//        public void onItemClick(View view, int commentPosition) {
+//            CircleMessage circleMessage = getItem(position);
+//            //当前的评论
+//            CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
+//
+//            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
+//
+//            }else{
+//                CommentConfig commentConfig = new CommentConfig();
+//                commentConfig.circlePosition = position;
+//                commentConfig.commentPosition = commentPosition;
+//                commentConfig.commentType = CommentConfig.Type.REPLY;
+//                commentConfig.replyUser = commentUser;
+//
+//                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
+//            }
+//        }
+//
+//        @Override
+//        public void onItemLongClick(View view, int position) {
+//
+//        }
+
+        @Override
+        public void onItemClick(int commentPosition) {
+            CircleMessage circleMessage = getItem(position);
+            //当前的评论
+            CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
+
+            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
+
+            }else{
+                CommentConfig commentConfig = new CommentConfig();
+                commentConfig.circlePosition = position;
+                commentConfig.commentPosition = commentPosition;
+                commentConfig.commentType = CommentConfig.Type.REPLY;
+                commentConfig.replyUser = commentUser;
+
+                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
             }
         }
     }
