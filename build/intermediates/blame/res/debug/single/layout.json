@@ -460,6 +460,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_fr_photo.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/parise_item.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/parise_item.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_cs_alert_human_evaluation.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_cs_alert_human_evaluation.xml"
     },

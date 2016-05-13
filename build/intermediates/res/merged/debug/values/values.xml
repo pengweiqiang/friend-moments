@@ -361,6 +361,7 @@
     <declare-styleable name="RCCircleFlowIndicator"><attr format="color" name="RCActiveColor"/><attr format="color" name="RCInactiveColor"/><attr format="dimension" name="RCRadius"/><attr format="dimension" name="RCSpacing"/><attr format="boolean" name="RCCentered"/><attr format="integer" name="RCFadeOut"/><attr name="RCInactiveType"><flag name="RCStroke" value="0"/><flag name="RCFill" value="1"/></attr><attr name="RCActiveType"><flag name="RCStroke" value="0"/><flag name="RCFill" value="1"/></attr><attr format="boolean" name="RCSnap"/></declare-styleable>
     <declare-styleable name="RCViewFlow"><attr format="integer" name="RCSideBuffer"/></declare-styleable>
     <declare-styleable name="RecordProgressBar"><attr format="color" name="rpb_backgroundColor"/><attr format="color" name="rpb_runningColor"/><attr format="color" name="rpb_cancelColor"/><attr format="integer" name="rpb_timeLength"/></declare-styleable>
+    <declare-styleable name="RecyclerView"><attr format="string" name="layoutManager"/><attr name="android:orientation"/><attr format="integer" name="spanCount"/><attr format="boolean" name="reverseLayout"/><attr format="boolean" name="stackFromEnd"/></declare-styleable>
     <declare-styleable name="SelectableRoundedImageView"><attr format="dimension" name="sriv_left_top_corner_radius"/><attr format="dimension" name="sriv_right_top_corner_radius"/><attr format="dimension" name="sriv_left_bottom_corner_radius"/><attr format="dimension" name="sriv_right_bottom_corner_radius"/><attr format="dimension" name="sriv_border_width"/><attr format="color" name="sriv_border_color"/><attr format="boolean" name="sriv_oval"/><attr name="android:scaleType"/></declare-styleable>
     <declare-styleable name="TitlePageIndicator"><attr format="dimension" name="clipPadding"/><attr format="color" name="footerColor"/><attr format="dimension" name="footerLineHeight"/><attr name="footerIndicatorStyle"><enum name="none" value="0"/><enum name="triangle" value="1"/><enum name="underline" value="2"/></attr><attr format="dimension" name="footerIndicatorHeight"/><attr format="dimension" name="footerIndicatorUnderlinePadding"/><attr format="dimension" name="footerPadding"/><attr name="linePosition"><enum name="bottom" value="0"/><enum name="top" value="1"/></attr><attr name="selectedColor"/><attr format="boolean" name="selectedBold"/><attr name="android:textColor"/><attr name="android:textSize"/><attr format="dimension" name="titlePadding"/><attr format="dimension" name="topPadding"/><attr name="android:background"/></declare-styleable>
     <declare-styleable name="ToggleButton"><attr format="dimension" name="borderWidth"/><attr format="reference|color" name="offBorderColor"/><attr format="reference|color" name="offColor"/><attr format="reference|color" name="onColor"/><attr format="reference|color" name="spotColor"/><attr format="reference|boolean" name="animate"/><attr format="reference|boolean" name="toggleSwitch"/></declare-styleable>
@@ -388,9 +389,11 @@
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
     <dimen name="gudieview_heigh">6dp</dimen>
     <dimen name="gudieview_width">6dp</dimen>
+    <dimen name="item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="rc_conversation_item_data_size">14sp</dimen>
     <dimen name="rc_conversation_item_name_size">16sp</dimen>
     <dimen name="rc_message_send_status_image_size">17dp</dimen>
+    <item name="item_touch_helper_previous_elevation" type="id"/>
     <item name="rc_actionbar" type="id"/>
     <item name="rc_back" type="id"/>
     <item name="rc_btn_cancel" type="id"/>

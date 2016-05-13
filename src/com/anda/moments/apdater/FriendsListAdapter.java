@@ -12,6 +12,7 @@ import com.anda.moments.R;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -103,7 +104,14 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 				holder.tvLetter.setVisibility(View.GONE);
 				holder.tvLine.setVisibility(View.GONE);
 			}
-			holder.tvUserName.setText(dto.getUserName());
+			String descTag = dto.getDescTag();
+			StringBuffer sbUserName = new StringBuffer();
+			if(!StringUtils.isEmpty(descTag)) {
+				sbUserName.append(descTag+"("+dto.getUserName()+")");
+			}else{
+				sbUserName.append(dto.getUserName());
+			}
+			holder.tvUserName.setText(sbUserName.toString());
 		}
 		return convertView;
 	}

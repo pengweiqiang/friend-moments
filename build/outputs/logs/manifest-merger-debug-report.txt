@@ -77,6 +77,8 @@ MERGED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my
 MERGED from [Moments:WXLikeVideoRecorderLib:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/WXLikeVideoRecorderLib/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [com.yqritc:android-scalablevideoview:1.0.3] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/com.yqritc/android-scalablevideoview/1.0.3/AndroidManifest.xml:8:5-10:41
 MERGED from [com.zhy:okhttputils:2.4.1] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/com.zhy/okhttputils/2.4.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
 	android:targetSdkVersion
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:24:9-38
 	android:minSdkVersion
@@ -84,6 +86,7 @@ MERGED from [com.zhy:okhttputils:2.4.1] /Users/pengweiqiang/Documents/android_my
 application
 ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:26:5-213:19
 MERGED from [Moments:IMKit:unspecified] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/AndroidManifest.xml:34:5-115:19
+MERGED from [com.android.support:support-v4:23.1.1] /Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 	android:label
 		ADDED from /Users/pengweiqiang/Documents/android_my/Moments/AndroidManifest.xml:30:9-41
 	android:allowBackup

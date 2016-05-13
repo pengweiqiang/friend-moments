@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -405,13 +406,27 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		});
 	}
 
+	/**
+	 * 更新评论列表
+	 * @param circlePosition
+	 * @param commentUser
+     */
 	private void update2AddComment(int circlePosition,CommentUser commentUser){
 		CommentInfo commentInfo = mHomeAdapter.getDatas().get(circlePosition).getCommentInfo();
 
 		commentInfo.setCommentNum(commentInfo.getCommentNum()+1);
 		commentInfo.getCommentUsers().add(commentUser);
 
+//		int visibleFirstPosi = mListView.getFirstVisiblePosition();
+//		int visibleLastPosi = mListView.getLastVisiblePosition();
+//		if (circlePosition >= visibleFirstPosi && circlePosition <= visibleLastPosi) {
+//			View view = mListView.getChildAt(circlePosition - visibleFirstPosi);
+//			HomeAdapter.ViewHolder holder = (HomeAdapter.ViewHolder) view.getTag();
+//			holder.commentAdapter.add(0,commentUser);
+//		}
+
 		mHomeAdapter.notifyDataSetChanged();
+
 		//清空评论文本
 		mEditTextComment.setText("");
 	}
@@ -565,5 +580,33 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		}
 	}
 
-	
+
+	public void updateView(int position,String text) {
+		int firstVisiblePosition = mListView.getFirstVisiblePosition();
+		int lastVisiblePosition = mListView.getLastVisiblePosition();
+		if(position>=firstVisiblePosition && position<=lastVisiblePosition){
+			View view = mListView.getChildAt(position - firstVisiblePosition);
+			if(view.getTag() instanceof HomeAdapter.ViewHolder){
+				HomeAdapter.ViewHolder vh = (HomeAdapter.ViewHolder)view.getTag();
+				vh.mTvPraiseCount.setText(text);
+			}
+		}
+
+	}
+//	public void updataView(int position,String text) {
+//
+//		int visibleFirstPosi = mListView.getFirstVisiblePosition();
+//		int visibleLastPosi = mListView.getLastVisiblePosition();
+//		if (position >= visibleFirstPosi && position <= visibleLastPosi) {
+//			View view = mListView.getChildAt(position - visibleFirstPosi);
+//			HomeAdapter.ViewHolder holder = (HomeAdapter.ViewHolder) view.getTag();
+//
+//			holder.mTvPraiseCount.setText(text);
+//		} else {
+//
+//		}
+//
+//	}
+
+
 }

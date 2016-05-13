@@ -138,6 +138,7 @@ public class MyAdapter extends BaseAdapter {
                     viewHolder.mediaViewStub.inflate();
 
                     viewHolder.multiMyImageView = (MultiMyImageView) convertView.findViewById(R.id.iv_multi_image);
+                    viewHolder.mTvImagesCount = (TextView)convertView.findViewById(R.id.tv_images_count);
                     break;
                 case ITEM_VIEW_TYPE_AUDIO://音频
                     viewHolder.mediaViewStub.setLayoutResource(R.layout.home_view_stub_my_audios);
@@ -223,7 +224,16 @@ public class MyAdapter extends BaseAdapter {
                 final List<Images> itemPicList = infos.getImages();
                 if (itemPicList ==null || itemPicList.isEmpty()) {
                     viewHolder.multiMyImageView.setVisibility(View.GONE);
+                    viewHolder.mTvImagesCount.setVisibility(View.GONE);
                 } else {
+                    int imageSize = itemPicList.size();
+                    if(imageSize>1){
+                        viewHolder.mTvImagesCount.setVisibility(View.VISIBLE);
+                        viewHolder.mTvImagesCount.setText("共"+itemPicList.size()+"张");
+                    }else{
+                        viewHolder.mTvImagesCount.setVisibility(View.GONE);
+                    }
+
                     viewHolder.multiMyImageView.setList(itemPicList);
                     viewHolder.multiMyImageView.setVisibility(View.VISIBLE);
                     viewHolder.multiMyImageView.setOnItemClickListener(new MultiMyImageView.OnItemClickListener() {
@@ -287,6 +297,7 @@ public class MyAdapter extends BaseAdapter {
 
         //图片
         public MultiMyImageView multiMyImageView;//图片四宫格
+        public TextView mTvImagesCount;
 
         //音频
         public View mViewAudio;//语音背景

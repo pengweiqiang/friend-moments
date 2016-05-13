@@ -9,6 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,8 @@ import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Images;
 import com.anda.moments.entity.Media;
 import com.anda.moments.entity.ParseModel;
+import com.anda.moments.entity.PraiseUser;
+import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserHomeActivity;
@@ -213,20 +218,46 @@ public class HomeAdapter extends BaseAdapter {
 
             viewHolder.digCommentBody = convertView.findViewById(R.id.digCommentBody);
             //评论列表
-            viewHolder.commentListView = (CommentListView)convertView.findViewById(R.id.commentList);
-            viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
-            viewHolder.commentAdapter = new CommentAdapter(context);
-            viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
-            viewHolder.commentListView.setOnItemClick(viewHolder);
-//            viewHolder.commentListView = (RecyclerView) convertView.findViewById(R.id.commentList);
+//            viewHolder.commentListView = (CommentListView)convertView.findViewById(R.id.commentList);
 //            viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
-//            viewHolder.commentAdapter = new CommentRecyclerViewAdapter(context,null);
+//            viewHolder.commentAdapter = new CommentAdapter(context);
 //            viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
-////            viewHolder.commentListView.setOnItemClick(viewHolder);
+//            viewHolder.commentListView.setOnItemClick(viewHolder);
+            viewHolder.commentListView = (RecyclerView) convertView.findViewById(R.id.commentList);
+            viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
+            viewHolder.commentAdapter = new CommentRecyclerViewAdapter(context,null);
 //            viewHolder.commentAdapter.setOnItemClickListener(viewHolder);
 
+            viewHolder.mViewPraiseCommentLine  = convertView.findViewById(R.id.line_praise_comment);
 
-            viewHolder.mViewComment.setOnClickListener(viewHolder);
+            //点赞列表
+            viewHolder.praiseListView = (RecyclerView) convertView.findViewById(R.id.praiseList);
+            viewHolder.mTvPraiseCount = (TextView)convertView.findViewById(R.id.tv_praise_count);
+            viewHolder.praiseRecyclerViewAdapter = new PraiseRecyclerViewAdapter(context,null);
+            viewHolder.praiseRecyclerViewAdapter.setOnItemClickListener(viewHolder);
+            //设置固定大小
+            viewHolder.praiseListView.setHasFixedSize(true);
+            //创建线性布局
+            LinearLayoutManager mLayoutManagerPraise = new LinearLayoutManager(context);
+            //垂直方向
+            mLayoutManagerPraise.setOrientation(OrientationHelper.HORIZONTAL);
+            //给RecyclerView设置布局管理器
+            viewHolder.praiseListView.setLayoutManager(mLayoutManagerPraise);
+            viewHolder.praiseListView.setAdapter(viewHolder.praiseRecyclerViewAdapter);
+
+
+            //设置固定大小
+            viewHolder.commentListView.setHasFixedSize(true);
+            //创建线性布局
+            LinearLayoutManager mLayoutManagerComment = new LinearLayoutManager(context);
+            //垂直方向
+            mLayoutManagerComment.setOrientation(OrientationHelper.VERTICAL);
+            //给RecyclerView设置布局管理器
+            viewHolder.commentListView.setLayoutManager(mLayoutManagerComment);
+            viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
+
+
+            viewHolder.mViewComment.setOnClickListener(viewHolder);//评论
             viewHolder.mIvUserHead.setOnClickListener(viewHolder);
             viewHolder.mTvUserName.setOnClickListener(viewHolder);
 
@@ -256,16 +287,45 @@ public class HomeAdapter extends BaseAdapter {
         viewHolder.mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
 
 
+        //点赞列表
+        PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
+        int praseInfoCount = praisedInfo.getPraiseNum();
+
         //回复列表
         CommentInfo commentInfo = circleMessage.getCommentInfo();
         int commentNum = commentInfo.getCommentNum();
-        if(commentNum>0) {
-            viewHolder.mTvCommentCount.setText(String.valueOf(commentNum));
-            final List<CommentUser> commentUsers = commentInfo.getCommentUsers();
-            viewHolder.commentAdapter.setDatas(commentUsers);
-            viewHolder.commentAdapter.notifyDataSetChanged();
-            viewHolder.commentListView.setVisibility(View.VISIBLE);
+        if(commentNum>0 || praseInfoCount > 0) {
             viewHolder.digCommentBody.setVisibility(View.VISIBLE);
+            //评论列表不为空
+            if(commentNum>0) {
+                viewHolder.mTvCommentCount.setText(String.valueOf(commentNum));
+                final List<CommentUser> commentUsers = commentInfo.getCommentUsers();
+                viewHolder.commentAdapter.setDatas(commentUsers);
+//            viewHolder.commentAdapter.notifyDataSetChanged();
+                calRecycleViewHeight(viewHolder.commentListView, commentNum);
+                viewHolder.mTvCommentCount.setVisibility(View.VISIBLE);
+                viewHolder.commentListView.setVisibility(View.VISIBLE);
+                viewHolder.digCommentBody.setVisibility(View.VISIBLE);
+                viewHolder.mViewPraiseCommentLine.setVisibility(View.VISIBLE);
+            }else{
+                viewHolder.mTvCommentCount.setVisibility(View.GONE);
+                viewHolder.commentListView.setVisibility(View.GONE);
+                viewHolder.mViewPraiseCommentLine.setVisibility(View.GONE);
+            }
+            //点赞列表不为空
+            if(praseInfoCount>0){
+                viewHolder.mTvPraiseCount.setText(String.valueOf(praseInfoCount));
+                final List<PraiseUser> praiseUsers = praisedInfo.getPraiseUsers();
+                viewHolder.praiseRecyclerViewAdapter.setDatas(praiseUsers);
+//            viewHolder.praiseRecyclerViewAdapter.notifyDataSetChanged();
+                viewHolder.praiseListView.setVisibility(View.VISIBLE);
+                viewHolder.mTvPraiseCount.setVisibility(View.VISIBLE);
+            }else{
+                viewHolder.praiseListView.setVisibility(View.GONE);
+                viewHolder.mTvPraiseCount.setVisibility(View.GONE);
+                viewHolder.mViewPraiseCommentLine.setVisibility(View.GONE);
+            }
+
 
 
 //            viewHolder.commentListView.setOnItemClick(new CommentListView.OnItemClickListener() {
@@ -293,6 +353,7 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.commentListView.setVisibility(View.GONE);
         }
 
+
         // 停止计时
         long endTime = System.nanoTime();
         // 计算耗时
@@ -300,6 +361,13 @@ public class HomeAdapter extends BaseAdapter {
         Log.e("Test", "---------Position:" + position + ":" + val);
 
         return convertView;
+    }
+
+    private void calRecycleViewHeight(RecyclerView recyclerView,int size){
+        ViewGroup.LayoutParams mParams = recyclerView.getLayoutParams();
+        mParams.height = DeviceInfo.dp2px(context,42) * size;
+        mParams.width = DeviceInfo.getScreenWidth(context);
+        recyclerView.setLayoutParams(mParams);
     }
 
     private void showItemTypeData(int itemViewType, final CircleMessage circleMessage, final ViewHolder viewHolder){
@@ -434,18 +502,18 @@ public class HomeAdapter extends BaseAdapter {
             if(viewHolder.mPlayImageView!=null){
                 viewHolder.mPlayImageView.setVisibility(View.VISIBLE);
             }
-//            if(viewHolder.mScalableVideoView!=null){
-//                try {
-//                    viewHolder.mScalableVideoView.setDataSource("");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            if(viewHolder.mScalableVideoView!=null){
+                try {
+                    viewHolder.mScalableVideoView.setDataSource("");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
 
-    class ViewHolder implements View.OnClickListener,CommentListView.OnItemClickListener {
+    public class ViewHolder implements View.OnClickListener,CommentRecyclerViewAdapter.OnItemClickListener,PraiseRecyclerViewAdapter.OnItemClickListener {
         public View mViewComment;//萌化了
         //图片类型 start
         public NineGridlayout ivMore;//图片九宫格
@@ -473,13 +541,19 @@ public class HomeAdapter extends BaseAdapter {
 
         public View digCommentBody;
         //评论列表控件
-        public CommentListView commentListView;
-//        public RecyclerView commentListView;
+//        public CommentListView commentListView;
+        public RecyclerView commentListView;
         public TextView mTvCommentCount;//评论总数
         //评论列表适配器
-        public CommentAdapter commentAdapter;
+//        public CommentAdapter commentAdapter;
 
-//        public CommentRecyclerViewAdapter commentAdapter;
+        public CommentRecyclerViewAdapter commentAdapter;
+        public View mViewPraiseCommentLine;
+
+        //点赞列表
+        public RecyclerView praiseListView;
+        public TextView mTvPraiseCount;
+        public PraiseRecyclerViewAdapter praiseRecyclerViewAdapter;
 
 
 
@@ -492,15 +566,18 @@ public class HomeAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
+            if(CommonHelper.isFastClick()){
+                return;
+            }
             switch (v.getId()){
                 case R.id.iv_comment://评论
-                    popup(v,position);
+                    popup(v,position,this);
                     break;
                 case R.id.iv_user_head://头像
-                    startUserInfoActivity(position);
+                    startUserInfoActivity(datalist.get(position).getPublishUser());
                     break;
                 case R.id.tv_user_name://昵称
-                    startUserInfoActivity(position);
+                    startUserInfoActivity(datalist.get(position).getPublishUser());
                     break;
                 case R.id.video_view://点击进入视频详情
                     Intent intent = new Intent(context, VideoDetailActivity.class);
@@ -511,32 +588,8 @@ public class HomeAdapter extends BaseAdapter {
             }
         }
 
-//        @Override
-//        public void onItemClick(View view, int commentPosition) {
-//            CircleMessage circleMessage = getItem(position);
-//            //当前的评论
-//            CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
-//
-//            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
-//
-//            }else{
-//                CommentConfig commentConfig = new CommentConfig();
-//                commentConfig.circlePosition = position;
-//                commentConfig.commentPosition = commentPosition;
-//                commentConfig.commentType = CommentConfig.Type.REPLY;
-//                commentConfig.replyUser = commentUser;
-//
-//                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
-//            }
-//        }
-//
-//        @Override
-//        public void onItemLongClick(View view, int position) {
-//
-//        }
-
         @Override
-        public void onItemClick(int commentPosition) {
+        public void onItemClick(View view, int commentPosition) {
             CircleMessage circleMessage = getItem(position);
             //当前的评论
             CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
@@ -553,12 +606,52 @@ public class HomeAdapter extends BaseAdapter {
                 homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
             }
         }
+
+        @Override
+        public void onItemLongClick(View view, int commentPosition) {
+
+        }
+
+        @Override
+        public void onItemPraiseClick(View view, int praisePosition) {
+            PraiseUser praiseUser = datalist.get(position).getPraisedInfo().getPraiseUsers().get(praisePosition);
+            User user = new User();
+            user.setIcon(praiseUser.getIcon());
+            user.setUserId(praiseUser.getUserId());
+            user.setUserName(praiseUser.getUserName());
+            user.setPhoneNum(praiseUser.getPhoneNum());
+            startUserInfoActivity(user);
+        }
+
+        @Override
+        public void onItemPraiseLongClick(View view, int position) {
+
+        }
+
+//        @Override
+//        public void onItemClick(int commentPosition) {
+//            CircleMessage circleMessage = getItem(position);
+//            //当前的评论
+//            CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
+//
+//            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
+//
+//            }else{
+//                CommentConfig commentConfig = new CommentConfig();
+//                commentConfig.circlePosition = position;
+//                commentConfig.commentPosition = commentPosition;
+//                commentConfig.commentType = CommentConfig.Type.REPLY;
+//                commentConfig.replyUser = commentUser;
+//
+//                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
+//            }
+//        }
     }
 
     //点击头像进入个人主页
-    private void startUserInfoActivity(int position){
+    private void startUserInfoActivity(User user){
         Intent intent = new Intent(context,UserHomeActivity.class);
-        User user = datalist.get(position).getPublishUser();
+//        User user = datalist.get(position).getPublishUser();
         user.setFlag(1);//已接受好友
         intent.putExtra("user",user);
         context.startActivity(intent);
@@ -568,16 +661,33 @@ public class HomeAdapter extends BaseAdapter {
     /**
      * 弹出评论,赞菜单加载
      */
-    private void popup(View view,int position) {
+    private void popup(View view,int position,ViewHolder viewHolder) {
 
 
         titlePopup = new TitlePopup(context, DeviceInfo.dp2px(context,265),DeviceInfo.dp2px(context,36));
-        titlePopup.addAction(new ActionItem(context, "赞", R.drawable.circle_praise));
-        titlePopup.addAction(new ActionItem(context, "萌化啦~",R.drawable.btn_comment_meng));
-        titlePopup.addAction(new ActionItem(context, "评论",R.drawable.circle_comment));
+        PraisedInfo praisedInfo = getItem(position).getPraisedInfo();
+        boolean isPraise = false;//自己是否赞过
+        String praiseText = "赞";
+        int praiseIndex = 0;//当前点赞位置
+        if(praisedInfo.getPraiseNum()>0 ){
+            List<PraiseUser> praiseUsers = praisedInfo.getPraiseUsers();
+            User user = MyApplication.getInstance().getCurrentUser();
+            for (int i = 0;i<praiseUsers.size();i++) {
+                if(praiseUsers.get(i).getPhoneNum().equals(user.getPhoneNum())){
+                    isPraise = true;
+                    praiseIndex = i;
+                    praiseText = "取消";
+                    break;
+                }
+            }
+        }
+        titlePopup.addAction(new ActionItem(context, praiseText, R.drawable.circle_praise,praiseIndex));
+        titlePopup.addAction(new ActionItem(context, "萌化啦~",R.drawable.btn_comment_meng,praiseIndex));
+        titlePopup.addAction(new ActionItem(context, "评论",R.drawable.circle_comment,praiseIndex));
 
         titlePopup.setItemOnClickListener(onItemOnClickListener);
         onItemOnClickListener.setParentPosition(position);
+        onItemOnClickListener.setViewHolder(viewHolder);
 
         titlePopup.setAnimationStyle(R.style.social_pop_anim);
         titlePopup.show(view);
@@ -586,12 +696,17 @@ public class HomeAdapter extends BaseAdapter {
 
     public TitlePopup.OnItemOnClickListener onItemOnClickListener = new TitlePopup.OnItemOnClickListener(){
 
-        private int positionParent;
+        private int positionParent;//当前评论id
+        public ViewHolder viewHolder;
         @Override
         public void onItemClick(ActionItem item, int position) {
             switch (position){
                 case  0:
-                    praise(positionParent);
+                    if(item.mTitle.equals("赞")) {
+                        praise(positionParent,item.position,viewHolder);
+                    }else{//取消赞
+                        cancelPraise(positionParent,item.position,viewHolder);
+                    }
                     break;
                 case 1:
                     addLoveSth(positionParent);
@@ -612,30 +727,105 @@ public class HomeAdapter extends BaseAdapter {
         public void setParentPosition(int parentPosition) {
             this.positionParent = parentPosition;
         }
+
+        @Override
+        public void setViewHolder(ViewHolder viewHolder) {
+            this.viewHolder = viewHolder;
+        }
+
+
     };
 
 
     /**
      * 点赞
      */
-    private void praise(int position){
-        User user = MyApplication.getInstance().getCurrentUser();
+    private void praise(final int circlePosition, final int praisePosition, final ViewHolder viewHolder){
+        final User user = MyApplication.getInstance().getCurrentUser();
         if(user==null){
             ToastUtils.showToast(context,"请先登录");
             return;
         }
-        String infoId = String.valueOf(datalist.get(position).getInfoId());
+        String infoId = String.valueOf(datalist.get(circlePosition).getInfoId());
         ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
             @Override
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
                     ToastUtils.showToast(context,parseModel.getInfo());
+                   notifyPraiseData(1,viewHolder,circlePosition,praisePosition);
                 }else{
                     ToastUtils.showToast(context,parseModel.getInfo());
                 }
             }
         });
     }
+
+    /**
+     * 取消点赞
+     * @param circlePostion 当前列表位置
+     * @param praisePosition 取消赞位置
+     * @param viewHolder
+     */
+    private void cancelPraise(int circlePostion,int praisePosition,final ViewHolder viewHolder){
+        final User user = MyApplication.getInstance().getCurrentUser();
+        if(user==null){
+            ToastUtils.showToast(context,"请先登录");
+            return;
+        }
+        notifyPraiseData(0,viewHolder,circlePostion,praisePosition);
+        //TODO 取消赞接口
+//        ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+//            @Override
+//            public void execute(ParseModel parseModel) {
+//                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+//                    ToastUtils.showToast(context,parseModel.getInfo());
+//                    PraiseUser praiseUser = new PraiseUser();
+//                    praiseUser.setIcon(user.getIcon());
+//                    viewHolder.praiseRecyclerViewAdapter.add(0,praiseUser);
+//                }else{
+//                    ToastUtils.showToast(context,parseModel.getInfo());
+//                }
+//            }
+//        });
+    }
+
+
+    /**
+     * //刷新点赞列表
+     * @param type 0 取消赞  1点赞
+     * @param viewholder
+     * @param circlePosition  当前列表位置
+     */
+    private void notifyPraiseData(int type,ViewHolder viewholder,int circlePosition,int praisePosition){
+
+        CircleMessage circleMessage = getItem(circlePosition);
+
+        PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
+        int count = praisedInfo.getPraiseNum();
+        if(type == 0){//取消赞
+            if(count >0){
+                count --;
+            }
+            praisedInfo.getPraiseUsers().remove(praisePosition);
+            viewholder.praiseRecyclerViewAdapter.remove(praisePosition);
+        }else{//点赞
+            count ++;
+            User user = MyApplication.getInstance().getCurrentUser();
+            PraiseUser praiseUser = new PraiseUser();
+            praiseUser.setIcon(user.getIcon());
+            praiseUser.setPhoneNum(user.getPhoneNum());
+            praiseUser.setUserName(user.getUserName());
+            praisedInfo.getPraiseUsers().add(0,praiseUser);
+            viewholder.praiseRecyclerViewAdapter.add(0,praiseUser);
+        }
+        praisedInfo.setPraiseNum(count);
+//        viewholder.mTvCommentCount.setText(String.valueOf(count));
+//        notifyDataSetChanged();
+        homeFragment.updateView(circlePosition,""+count);
+
+    }
+
+
 
     /**
      * 萌化啦

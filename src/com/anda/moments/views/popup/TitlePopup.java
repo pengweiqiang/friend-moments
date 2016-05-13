@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anda.moments.R;
+import com.anda.moments.apdater.HomeAdapter;
 
 import org.w3c.dom.Text;
 
@@ -184,5 +185,7 @@ public class TitlePopup extends PopupWindow {
         public void onItemClick(ActionItem item, int position);
 
         public void setParentPosition(int parentPosition);
+
+        public void setViewHolder(HomeAdapter.ViewHolder viewHolder);
     }
 }

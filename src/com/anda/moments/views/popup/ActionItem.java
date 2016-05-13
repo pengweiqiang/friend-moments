@@ -12,6 +12,8 @@ public class ActionItem {
     // 定义文本对象
     public CharSequence mTitle;
 
+    public int position ;
+
     public ActionItem(Drawable drawable, CharSequence title) {
         this.mDrawable = drawable;
         this.mTitle = title;
@@ -27,9 +29,10 @@ public class ActionItem {
         this.mDrawable = context.getResources().getDrawable(drawableId);
     }
 
-    public ActionItem(Context context, CharSequence title, int drawableId) {
+    public ActionItem(Context context, CharSequence title, int drawableId,int position) {
         this.mTitle = title;
         this.mDrawable = context.getResources().getDrawable(drawableId);
+        this.position = position;
     }
 
     public void setItemTv(CharSequence tv) {
