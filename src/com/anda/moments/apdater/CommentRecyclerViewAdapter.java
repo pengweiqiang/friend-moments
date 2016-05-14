@@ -1,6 +1,7 @@
 package com.anda.moments.apdater;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.anda.moments.R;
 import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.PraiseUser;
+import com.anda.moments.entity.User;
+import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
@@ -73,6 +76,22 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             holder.mViewLine.setVisibility(View.VISIBLE);
         }
 
+        if(!holder.mIvHead.hasOnClickListeners()){
+            holder.mIvHead.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,UserHomeActivity.class);
+                    User user = new User();
+                    user.setPhoneNum(bean.getPhoneNum());
+                    user.setIcon(bean.getIcon());
+                    user.setUserId(bean.getUserId());
+                    user.setUserName(bean.getUserName());
+                    user.setFlag(1);//已接受好友
+                    intent.putExtra("user",user);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
         if(!holder.itemView.hasOnClickListeners()){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

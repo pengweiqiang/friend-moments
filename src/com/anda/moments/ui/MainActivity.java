@@ -11,9 +11,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -21,6 +25,7 @@ import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
@@ -30,6 +35,7 @@ import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.ui.fragments.MyFragment;
 import com.anda.moments.ui.fragments.FriendsFragment;
 import com.anda.moments.utils.AESEncryptor;
+import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
@@ -45,6 +51,8 @@ import com.anda.moments.utils.rong.SdkHttpResult;
 //import com.squareup.okhttp.RequestBody;
 //import com.squareup.okhttp.Response;
 import com.umeng.update.UmengUpdateAgent;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +62,7 @@ import java.io.IOException;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
+import okhttp3.Call;
 
 public class MainActivity extends BaseFragmentActivity {
 	
@@ -74,12 +83,21 @@ public class MainActivity extends BaseFragmentActivity {
 	int[] tabIds = {R.id.home,R.id.friends,R.id.my};
 	
 	private int checkId = tabIds[0];
+
+
+
+	public LinearLayout mEditTextBody;
+	public EditText mEditTextComment;//评论文本框
+	private ImageView sendIv;//发送评论
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
         initView();
+
+		initListener();
 
 		getRongToken();
 //		initRong();
@@ -141,8 +159,37 @@ public class MainActivity extends BaseFragmentActivity {
 		});
 		Fragment fragment = getInstanceById(checkId);
 		hideFragment(checkId, fragment);
+
+
+		mEditTextComment = (EditText) findViewById(R.id.circleEt);
+		sendIv = (ImageView)findViewById(R.id.sendIv);
+		mEditTextBody = (LinearLayout)findViewById(R.id.editTextBodyLl);
     	
     }
+
+	private void initListener(){
+		sendIv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//发布评论
+				String content = mEditTextComment.getText().toString().trim();
+				if(TextUtils.isEmpty(content)){
+					ToastUtils.showToast(MainActivity.this,"评论内容不能为空...");
+					return;
+				}
+				mHomeFragment.addComment(content);
+
+				//隐藏键盘
+				try {
+					InputMethodUtils.hideSoftInput(mEditTextComment.getContext(), mEditTextComment);
+				}catch (Exception e){
+
+				}
+				mEditTextBody.setVisibility(View.GONE);
+
+			}
+		});
+	}
 
     public Fragment getInstanceById(int id){
     	switch (id) {
@@ -210,8 +257,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 
-			if(mHomeFragment.mEditTextBody != null && mHomeFragment.mEditTextBody.getVisibility() == View.VISIBLE){
-				mHomeFragment.mEditTextBody.setVisibility(View.GONE);
+			if(mEditTextBody != null && mEditTextBody.getVisibility() == View.VISIBLE){
+				mEditTextBody.setVisibility(View.GONE);
 				return true;
 			}
 			if (isExit == false) {
@@ -310,6 +357,39 @@ public class MainActivity extends BaseFragmentActivity {
 		final String userId = user.getPhoneNum();//手机号做userId
 		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
 		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+
+//		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_GET_RONGYUN_TOKEN;
+//		OkHttpUtils
+//				.get()//
+//				.addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
+//				.addParams("phoneNum",user.getPhoneNum())
+//				.url(url)//
+//				.build()//
+//				.execute(new StringCallback() {
+//					@Override
+//					public void onError(Call call, Exception e) {
+//
+//					}
+//
+//					@Override
+//					public void onResponse(String response) {
+//						JSONObject jsonObject = null;
+//						try {
+//							jsonObject = new JSONObject(response);
+//							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+//								String rongToken = new JSONObject(jsonObject.getString("tokenInfo")).getString("token");
+//								SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,
+//										com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,rongToken+"_&_"
+//										+ System.currentTimeMillis());
+//								Log.e("MainActivity_GET_TOKEN",rongToken);
+//								connect(rongToken);
+//							}
+//						} catch (JSONException e) {
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				});
 
 		//获取token
 		ThreadUtil.getTheadPool(true).submit(new Runnable() {

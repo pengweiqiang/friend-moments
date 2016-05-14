@@ -197,7 +197,9 @@ public abstract class BaseActivity extends Activity implements OnClickListener {
 	public void logOut() {
 
 		GlobalConfig.JSESSION_ID = "";
+		GlobalConfig.TOKEN_RONG = "";
 		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,ReqUrls.JSESSION_ID,"");
+		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,ReqUrls.TOKEN_RONG,"");
 		application.setUser(null);
 		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,"user","");
 		AppManager.getAppManager().finishAllActivity(LoginActivity.class);

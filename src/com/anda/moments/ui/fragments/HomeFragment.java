@@ -42,6 +42,7 @@ import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
 import com.anda.moments.ui.CircleDetailActivity;
+import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishTextActivity;
@@ -70,9 +71,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private XListView mListView;
 	private List<CircleMessage> circleMessageList = new ArrayList<CircleMessage>();
 
-	public LinearLayout mEditTextBody;
-	private EditText mEditTextComment;//评论文本框
-	private ImageView sendIv;//发送评论
+//	public LinearLayout mEditTextBody;
+//	private EditText mEditTextComment;//评论文本框
+//	private ImageView sendIv;//发送评论
 
 
 	private int mScreenHeight;
@@ -140,7 +141,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 
 				mCurrentKeyboardH = keyboardH;
 				mScreenHeight = screenH;//应用屏幕的高度
-				mEditTextBodyHeight = mEditTextBody.getHeight();
+				mEditTextBodyHeight = ((MainActivity)mActivity).mEditTextBody.getHeight();
 
 				//偏移listview
 				if(mListView!=null && mCommentConfig != null){
@@ -167,9 +168,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private void initView(){
 		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
 		mListView = (XListView)mContentView.findViewById(R.id.listView);
-		mEditTextComment = (EditText) mContentView.findViewById(R.id.circleEt);
-		sendIv = (ImageView)mContentView.findViewById(R.id.sendIv);
-		mEditTextBody = (LinearLayout)mContentView.findViewById(R.id.editTextBodyLl);
+//		mEditTextComment = (EditText) mContentView.findViewById(R.id.circleEt);
+//		sendIv = (ImageView)mContentView.findViewById(R.id.sendIv);
+//		mEditTextBody = (LinearLayout)mContentView.findViewById(R.id.editTextBodyLl);
 
 		//头部
 		View mHeadView = View.inflate(mActivity,R.layout.header_index,null);
@@ -331,25 +332,25 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			}
 		});
 
-		sendIv.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//发布评论
-				String content = mEditTextComment.getText().toString().trim();
-				if(TextUtils.isEmpty(content)){
-					ToastUtils.showToast(mActivity,"评论内容不能为空...");
-					return;
-				}
-				addComment(content,mCommentConfig);
-
-				updateEditTextBodyVisible(View.GONE,null);
-			}
-		});
+//		sendIv.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				//发布评论
+//				String content = mEditTextComment.getText().toString().trim();
+//				if(TextUtils.isEmpty(content)){
+//					ToastUtils.showToast(mActivity,"评论内容不能为空...");
+//					return;
+//				}
+//				addComment(content,mCommentConfig);
+//
+//				updateEditTextBodyVisible(View.GONE,null);
+//			}
+//		});
 
 		mListView.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				if (mEditTextBody.getVisibility() == View.VISIBLE) {
+				if (((MainActivity)mActivity).mEditTextBody.getVisibility() == View.VISIBLE) {
 					//mEditTextBody.setVisibility(View.GONE);
 					//CommonUtils.hideSoftInput(MainActivity.this, mEditText);
 					updateEditTextBodyVisible(View.GONE, null);
@@ -375,15 +376,14 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	/**
 	 * 评论
 	 * @param content
-	 * @param commentConfig
      */
-	private void addComment(final String content, final CommentConfig commentConfig){
+	public void addComment(final String content){
 		final User user = MyApplication.getInstance().getCurrentUser();
 		if(user==null){
 			ToastUtils.showToast(mActivity,"请先登录");
 			return;
 		}
-		String infoId = circleMessageList.get(commentConfig.circlePosition).getInfoId()+"";
+		String infoId = circleMessageList.get(mCommentConfig.circlePosition).getInfoId()+"";
 		ApiMomentsUtils.addComment(mActivity,infoId,content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
 
 			@Override
@@ -393,11 +393,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					CommentUser commentUser = new CommentUser();
 
 					commentUser.setText(content);
-					if(commentConfig.replyUser!=null) {
-						commentUser.setUserId(commentConfig.replyUser.getText());
-						commentUser.setIcon(commentConfig.replyUser.getIcon());
-						commentUser.setUserName(commentConfig.replyUser.getUserName());
-						commentUser.setPhoneNum(commentConfig.replyUser.getPhoneNum());
+					if(mCommentConfig!= null && mCommentConfig.replyUser!=null) {
+						commentUser.setUserId(mCommentConfig.replyUser.getText());
+						commentUser.setIcon(mCommentConfig.replyUser.getIcon());
+						commentUser.setUserName(mCommentConfig.replyUser.getUserName());
+						commentUser.setPhoneNum(mCommentConfig.replyUser.getPhoneNum());
 					}else{
 						commentUser.setUserId(user.getUserId());
 						commentUser.setIcon(user.getIcon());
@@ -406,7 +406,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					}
 					commentUser.setPublishTime(System.currentTimeMillis());
 
-					update2AddComment(commentConfig.circlePosition,commentUser);
+					update2AddComment(mCommentConfig.circlePosition,commentUser);
 				}else{
 					ToastUtils.showToast(mActivity,parseModel.getInfo());
 				}
@@ -436,7 +436,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		mHomeAdapter.notifyDataSetChanged();
 
 		//清空评论文本
-		mEditTextComment.setText("");
+		((MainActivity)mActivity).mEditTextComment.setText("");
 	}
 
 	/**
@@ -515,27 +515,29 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
      */
 	public void updateEditTextBodyVisible(int visibility,CommentConfig commentConfig) {
 		mCommentConfig = commentConfig;
-		mEditTextBody.setVisibility(visibility);
+		((MainActivity)mActivity).mEditTextBody.setVisibility(visibility);
 
 		measureCircleItemHighAndCommentItemOffset(commentConfig);
 
 		if(View.VISIBLE==visibility){
-			mEditTextComment.requestFocus();
+			((MainActivity)mActivity).mEditTextComment.requestFocus();
 			//弹出键盘
 			try {
-				InputMethodUtils.showSoftInput(mEditTextComment.getContext(), mEditTextComment);
+				InputMethodUtils.showSoftInput(((MainActivity)mActivity).mEditTextComment.getContext(), ((MainActivity)mActivity).mEditTextComment);
 			}catch (Exception e){
 
 			}
 		}else if(View.GONE==visibility){
 			//隐藏键盘
 			try {
-				InputMethodUtils.hideSoftInput(mEditTextComment.getContext(), mEditTextComment);
+				InputMethodUtils.hideSoftInput(((MainActivity)mActivity).mEditTextComment.getContext(), ((MainActivity)mActivity).mEditTextComment);
 			}catch (Exception e){
 
 			}
 		}
 	}
+
+
 
 
 	/**

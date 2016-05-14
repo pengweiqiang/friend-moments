@@ -156,6 +156,10 @@ public static final String PROJECT_NAME = "";
 	 */
 	public static final String REQUEST_DELETE_COMMENT = "friends/deleteComment.do";
 	/**
+	 * 获取融云token
+	 */
+	public static final String REQUEST_GET_RONGYUN_TOKEN = "friends/obtainRongCloudToken.do";
+	/**
 	 * 保存好友之间的聊天信息
 	 */
 	public static final String REQUEST_FRIENDS_ADD_MESSAGE = "friends/addMessage.do";

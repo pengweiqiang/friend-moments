@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/res/merged/androidTest/debug/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 485,
+                    "endColumn": 53,
+                    "endOffset": 534
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/bundles/debug/res/values/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 485,
+                        "endColumn": 53,
+                        "endOffset": 534
+                    }
+                }
+            }
+        ]
+    }
+]

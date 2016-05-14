@@ -1,2 +1,2 @@
-include  ':IMKit' ,':WXLikeVideoRecorderLib'
+include ':IMKit', ':WXLikeVideoRecorderLib'
 //':ninegridview',

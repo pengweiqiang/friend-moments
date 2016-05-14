@@ -15,38 +15,76 @@
         </FrameLayout>
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray_line" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray_line" />
 
 
-        <RadioGroup
-            android:id="@+id/tabIndicators"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_gravity="bottom"
+            >
 
-            <include
-                android:id="@+id/home"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                layout="@layout/main_tab_indicator_home" />
+            <RadioGroup
+                android:id="@+id/tabIndicators"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-            <include
-                android:id="@+id/friends"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                layout="@layout/main_tab_friends" />
+                <include
+                    android:id="@+id/home"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    layout="@layout/main_tab_indicator_home" />
 
-           
-            <include
-                android:id="@+id/my"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                layout="@layout/main_tab_indicator_my" />
-            
+                <include
+                    android:id="@+id/friends"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    layout="@layout/main_tab_friends" />
 
-        </RadioGroup>
+
+                <include
+                    android:id="@+id/my"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    layout="@layout/main_tab_indicator_my" />
+
+
+            </RadioGroup>
+
+
+            <LinearLayout
+                android:id="@+id/editTextBodyLl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="bottom"
+                android:background="#f6f6f6"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+                <EditText
+                    android:id="@+id/circleEt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:hint="说点什么..."
+                    />
+                <ImageView
+                    android:id="@+id/sendIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/selector_send" />
+            </LinearLayout>
+        </FrameLayout>
+
 
 </LinearLayout>

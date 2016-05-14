@@ -3,6 +3,7 @@ package com.anda.moments.ui;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -95,6 +96,27 @@ public class UpdateInfoActivity extends BaseActivity {
 			mEtContent.setText(content);
 		}
 		mEtContent.requestFocus();
+
+		int maxLength = 50;
+		if(type == 0){//昵称
+			maxLength = 10;
+		}else if(type == 1){//个性签名
+			maxLength = 100;
+		}else if(type == 2){//备注
+			maxLength = 10;
+		}else if(type ==3){//userId
+			maxLength = 20;
+		}else if(type == 4){//地址
+			maxLength = 60;
+		}else if(type == 5){//地区
+			maxLength = 60;
+		}
+		checkEditTextLength(maxLength);
+
+	}
+
+	private void checkEditTextLength(int maxLength){
+		mEtContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 	}
 
 
@@ -124,6 +146,7 @@ public class UpdateInfoActivity extends BaseActivity {
 
 				if(type == 0){//昵称
 					username = content;
+
 				}else if(type == 1){//个性签名
 					summary = content;
 				}else if(type == 2){//备注
@@ -139,9 +162,11 @@ public class UpdateInfoActivity extends BaseActivity {
 				}else if(type == 5){//地区
 					district = content;
 				}
+
 				updateInfoByOkHttp();
 			}
 		},R.color.main_tab_text_color_selected);
+
 
 	}
 
