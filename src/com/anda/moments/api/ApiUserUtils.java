@@ -22,6 +22,18 @@ import com.anda.moments.utils.StringUtils;
 public class ApiUserUtils {
 
 	/**
+	 * 获取省市地区列表
+	 * @param context
+	 * @param requestCallback
+     */
+	public static void getDistrictInfo(Context context,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_GET_DISTRICT_INFO, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
+
+	/**
 	 * 修改好友备注
 	 * @param context
 	 * @param phoneNum

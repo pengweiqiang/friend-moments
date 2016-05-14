@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
+import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
@@ -79,8 +80,6 @@ public class MainActivity extends BaseFragmentActivity {
         setContentView(R.layout.activity_main);
         
         initView();
-        UmengUpdateAgent.update(this);
-
 
 		getRongToken();
 //		initRong();
@@ -91,23 +90,11 @@ public class MainActivity extends BaseFragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-
+		UmengUpdateAgent.update(this);
 	}
 
-	private void setUserInfo(){
-		RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
-			@Override
-			public UserInfo getUserInfo(String userId) {
 
-				User user = MyApplication.getInstance().getCurrentUser();
-				final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
-				UserInfo userInfo = new UserInfo(user.getPhoneNum(),user.getUserName(), Uri.parse(portraitUri));
-				return userInfo;//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
-			}
-
-		}, true);
-	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -314,9 +301,12 @@ public class MainActivity extends BaseFragmentActivity {
 	 */
 	public void getRongToken(){
 
-//		String token = "yGajkmQC9/DeLpIfz1XZvGNmRv3vVKUm5Pd3X59B3Zrjb4e72wACJNgFlqmA/Pmn/WKLLppfBIugP+UQYLzgjc6lsSvZ3KbZ";
-//		connect(token);
 		User user = MyApplication.getInstance().getCurrentUser();
+
+		if(!StringUtils.isEmpty(GlobalConfig.TOKEN_RONG)){
+			connect(GlobalConfig.TOKEN_RONG);
+			return;
+		}
 		final String userId = user.getPhoneNum();//手机号做userId
 		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
 		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
@@ -333,7 +323,8 @@ public class MainActivity extends BaseFragmentActivity {
 						JSONObject resultJson = new JSONObject(result.getResult());
 						if(resultJson.getInt("code")==200){
 							String token = resultJson.getString("token");
-							SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG,token);
+							SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,token+"_&_"
+									+ System.currentTimeMillis());
 							Log.e("MainActivity_GET_TOKEN",token);
 							connect(token);
 						}
@@ -432,6 +423,21 @@ public class MainActivity extends BaseFragmentActivity {
 //				}
 //			}
 //		});
+	}
+
+	private void setUserInfo(){
+		RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+			@Override
+			public UserInfo getUserInfo(String userId) {
+
+				User user = MyApplication.getInstance().getCurrentUser();
+				final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+				UserInfo userInfo = new UserInfo(user.getPhoneNum(),user.getUserName(), Uri.parse(portraitUri));
+				return userInfo;//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+			}
+
+		}, true);
 	}
 
 

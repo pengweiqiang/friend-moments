@@ -35,6 +35,7 @@ public class GlobalConfig {
     public static String EQUIPMENT_V = "";
     public static String APP_NAME = "";
     public static String JSESSION_ID = "";//加密串
+    public static String TOKEN_RONG = "";//融云token
 
 
     //服务器返回码。

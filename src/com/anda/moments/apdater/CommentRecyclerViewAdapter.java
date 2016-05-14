@@ -73,24 +73,24 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             holder.mViewLine.setVisibility(View.VISIBLE);
         }
 
-//        if(!holder.itemView.hasOnClickListeners()){
-//            holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+        if(!holder.itemView.hasOnClickListeners()){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                    int position = holder.getPosition();
 //                    mOnItemClickListener.onItemClick(v,position);
-//                }
-//            });
-//
-//            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    int position = holder.getAdapterPosition();
-//                    mOnItemClickListener.onItemLongClick(v,position);
-//                    return true;
-//                }
-//            });
-//        }
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = holder.getAdapterPosition();
+                    mOnItemClickListener.onItemLongClick(v,position);
+                    return true;
+                }
+            });
+        }
 
         // 停止计时
         long endTime = System.nanoTime();

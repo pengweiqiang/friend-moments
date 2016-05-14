@@ -1,5 +1,7 @@
 package com.anda.moments.apdater;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMomentsUtils;
@@ -64,9 +68,14 @@ import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
 //import com.squareup.okhttp.Call;
 import com.squareup.picasso.Picasso;
+import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -226,7 +235,7 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.commentListView = (RecyclerView) convertView.findViewById(R.id.commentList);
             viewHolder.mTvCommentCount = (TextView)convertView.findViewById(R.id.tv_comment_count);
             viewHolder.commentAdapter = new CommentRecyclerViewAdapter(context,null);
-//            viewHolder.commentAdapter.setOnItemClickListener(viewHolder);
+            viewHolder.commentAdapter.setOnItemClickListener(viewHolder);
 
             viewHolder.mViewPraiseCommentLine  = convertView.findViewById(R.id.line_praise_comment);
 
@@ -609,6 +618,13 @@ public class HomeAdapter extends BaseAdapter {
 
         @Override
         public void onItemLongClick(View view, int commentPosition) {
+            CircleMessage circleMessage = getItem(position);
+            //当前的评论
+            CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
+            User user = MyApplication.getInstance().getCurrentUser();
+            if(commentUser.getUserId().equals(user.getUserId())) {//自己评论自己的
+                showDeleteWindow(position, commentPosition, this);
+            }
 
         }
 
@@ -648,7 +664,7 @@ public class HomeAdapter extends BaseAdapter {
 //        }
     }
 
-    //点击头像进入个人主页
+    //进入个人主页
     private void startUserInfoActivity(User user){
         Intent intent = new Intent(context,UserHomeActivity.class);
 //        User user = datalist.get(position).getPublishUser();
@@ -666,7 +682,7 @@ public class HomeAdapter extends BaseAdapter {
 
         titlePopup = new TitlePopup(context, DeviceInfo.dp2px(context,265),DeviceInfo.dp2px(context,36));
         PraisedInfo praisedInfo = getItem(position).getPraisedInfo();
-        boolean isPraise = false;//自己是否赞过
+//        boolean isPraise = false;//自己是否赞过
         String praiseText = "赞";
         int praiseIndex = 0;//当前点赞位置
         if(praisedInfo.getPraiseNum()>0 ){
@@ -674,7 +690,7 @@ public class HomeAdapter extends BaseAdapter {
             User user = MyApplication.getInstance().getCurrentUser();
             for (int i = 0;i<praiseUsers.size();i++) {
                 if(praiseUsers.get(i).getPhoneNum().equals(user.getPhoneNum())){
-                    isPraise = true;
+//                    isPraise = true;
                     praiseIndex = i;
                     praiseText = "取消";
                     break;
@@ -766,27 +782,114 @@ public class HomeAdapter extends BaseAdapter {
      * @param praisePosition 取消赞位置
      * @param viewHolder
      */
-    private void cancelPraise(int circlePostion,int praisePosition,final ViewHolder viewHolder){
-        final User user = MyApplication.getInstance().getCurrentUser();
+    private void cancelPraise(final int circlePostion,final int praisePosition,final ViewHolder viewHolder){
+        User user = MyApplication.getInstance().getCurrentUser();
         if(user==null){
             ToastUtils.showToast(context,"请先登录");
             return;
         }
-        notifyPraiseData(0,viewHolder,circlePostion,praisePosition);
-        //TODO 取消赞接口
-//        ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
-//            @Override
-//            public void execute(ParseModel parseModel) {
-//                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-//                    ToastUtils.showToast(context,parseModel.getInfo());
-//                    PraiseUser praiseUser = new PraiseUser();
-//                    praiseUser.setIcon(user.getIcon());
-//                    viewHolder.praiseRecyclerViewAdapter.add(0,praiseUser);
-//                }else{
-//                    ToastUtils.showToast(context,parseModel.getInfo());
-//                }
-//            }
-//        });
+        String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_CANCEL_PRAISE;
+        String infoId = String.valueOf(datalist.get(circlePostion).getInfoId());
+        OkHttpUtils//
+                .get()//
+                .addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
+                .addParams("infoId",infoId)
+                .addParams("phoneNum",user.getPhoneNum())
+                .url(url)//
+                .build()//
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+                        ToastUtils.showToast(context,"取消点赞失败");
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+                                notifyPraiseData(0, viewHolder, circlePostion, praisePosition);
+                            }else{
+                                ToastUtils.showToast(context,jsonObject.getString("info"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtils.showToast(context,"取消点赞失败,稍后再试");
+                        }
+
+                    }
+                });
+    }
+
+    /**
+     * 弹出删除评论对话框
+     * @param circlePosition
+     * @param commentPosition
+     * @param viewHolder
+     */
+    private void showDeleteWindow(final int circlePosition,final int commentPosition,final ViewHolder viewHolder){
+        final AlertDialog dlg = new AlertDialog.Builder(context).create();
+        dlg.show();
+        Window window = dlg.getWindow();
+        window.setContentView(R.layout.alertdialog);
+        TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+        tv_paizhao.setText("删除");
+        tv_paizhao.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SdCardPath")
+            public void onClick(View v) {
+                deleteComment(circlePosition,commentPosition,viewHolder);
+                dlg.cancel();
+            }
+        });
+        window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
+
+
+    }
+    /**
+     * 删除评论
+     * @param circlePostion 动态位置
+     * @param commentPosition 评论位置
+     * @param viewHolder
+     */
+    private void deleteComment(final int circlePostion,final int commentPosition,final ViewHolder viewHolder){
+        User user = MyApplication.getInstance().getCurrentUser();
+        if(user==null){
+            ToastUtils.showToast(context,"请先登录");
+            return;
+        }
+        String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_DELETE_COMMENT;
+        String infoId = String.valueOf(datalist.get(circlePostion).getInfoId());
+        OkHttpUtils//
+                .get()//
+                .addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
+                .addParams("infoId",infoId)
+                .addParams("phoneNum",user.getPhoneNum())
+                .url(url)//
+                .build()//
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+                        ToastUtils.showToast(context,"删除评论失败");
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+
+                            }else{
+                                ToastUtils.showToast(context,jsonObject.getString("info"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtils.showToast(context,"删除评论失败");
+                        }
+
+                    }
+                });
     }
 
 
@@ -819,9 +922,9 @@ public class HomeAdapter extends BaseAdapter {
             viewholder.praiseRecyclerViewAdapter.add(0,praiseUser);
         }
         praisedInfo.setPraiseNum(count);
-//        viewholder.mTvCommentCount.setText(String.valueOf(count));
-//        notifyDataSetChanged();
-        homeFragment.updateView(circlePosition,""+count);
+        viewholder.mTvCommentCount.setText(String.valueOf(count));
+        notifyDataSetChanged();
+//        homeFragment.updateView(circlePosition,""+count);
 
     }
 
@@ -885,12 +988,10 @@ public class HomeAdapter extends BaseAdapter {
                             viewHolder.mProgressBar.setProgress(progressInt);
                             Log.e(TAG,progressInt+"  total "+total);
                         }
-
                     }
 
                     @Override
                     public void onError(Call call, Exception e) {
-
                     }
 
                     @Override

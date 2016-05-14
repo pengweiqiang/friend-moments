@@ -116,7 +116,15 @@ public class ApiMomentsUtils {
 	 * @param requestCallback
 	 */
 	public static void praise(Context context, String infoId,String phoneNum,
-			 RequestCallback requestCallback) {
+							   RequestCallback requestCallback) {
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("infoId", infoId);
+		params.put("phoneNum", phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_PRAISE, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+	public static void cancelPraise(Context context, String infoId,String phoneNum,
+							  RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
 		params.put("phoneNum", phoneNum);

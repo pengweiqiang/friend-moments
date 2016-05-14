@@ -166,6 +166,7 @@ public class PersonalInfoActivity extends BaseActivity {
 			}
 			switch (v.getId()){
 				case R.id.rl_address:
+
 					startUpdateInfoActivity(4,"地址",user.getAddr());
 					break;
 				case R.id.rl_user_id://userId
@@ -184,7 +185,8 @@ public class PersonalInfoActivity extends BaseActivity {
 					showSexDialog();
 					break;
 				case R.id.rl_distrct://地区
-					startUpdateInfoActivity(5,"地区",user.getDistrict());
+					startActivity(ProvinceCityActivity.class);
+//					startUpdateInfoActivity(5,"地区",user.getDistrict());
 					break;
 //				case R.id.rl_remarks://备注
 //					startUpdateInfoActivity(2,"备注");

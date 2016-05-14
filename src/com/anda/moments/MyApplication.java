@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.anda.GlobalConfig;
+import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
 import com.anda.moments.entity.Images;
@@ -111,6 +112,7 @@ public class MyApplication extends Application {
 				user = JsonUtils.fromJson(userJson,User.class);
 			}
 
+			//获取缓存的后台jsessionId
 			String jsessionId = (String) SharePreferenceManager.getSharePreferenceValue(myApplication, Constant.FILE_NAME, ReqUrls.JSESSION_ID, "");
 			if(!StringUtils.isEmpty(jsessionId)){
 				String tokens[] = jsessionId.split("_&_");
@@ -122,6 +124,20 @@ public class MyApplication extends Application {
 //				}
 
 			}
+			//获取融云token  token_rong_手机号
+			if(user!=null) {
+				String rongToken = (String) SharePreferenceManager.getSharePreferenceValue(myApplication, Constant.FILE_NAME, com.anda.moments.constant.api.ReqUrls.TOKEN_RONG + "_" +user.getPhoneNum(),"");
+				if(!StringUtils.isEmpty(rongToken)) {
+					String rongTokens[] = rongToken.split("_&_");
+					long currentTime = System.currentTimeMillis();
+					long saveCurrentTime = Long.parseLong(rongTokens[1]);
+					if (currentTime - saveCurrentTime < 1000 * 60 * 60 * 24 * 5) {//未超过5天
+						//判断token的有效期(设置了一个礼拜,这里设置5天)
+						GlobalConfig.TOKEN_RONG = rongTokens[0];
+					}
+				}
+			}
+
 		}catch(Exception e){
 
 		}
@@ -129,7 +145,11 @@ public class MyApplication extends Application {
 		setConversionListener();
 
 
-		OkHttpUtils.getInstance().debug("OkHttpUtils").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
+		if(ApiConstants.ISDEBUG) {
+			OkHttpUtils.getInstance().debug("OkHttpUtils").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
+		}else{
+			OkHttpUtils.getInstance().setConnectTimeout(100000,TimeUnit.MICROSECONDS);
+		}
 
 
 	}

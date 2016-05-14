@@ -8,10 +8,11 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#ffffff"
+        android:background="@drawable/alert_dialog_bg"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+         >
 
         <LinearLayout
             android:id="@+id/ll_title"
@@ -27,7 +28,7 @@
                 android:background="@drawable/btn_selector"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                
+                android:text=""
                 android:textColor="#3cac17"
                 android:textSize="18sp" />
 
@@ -44,7 +45,6 @@
             android:background="@drawable/btn_selector"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
-   
             android:textColor="#353535"
             android:textSize="16sp" />
 

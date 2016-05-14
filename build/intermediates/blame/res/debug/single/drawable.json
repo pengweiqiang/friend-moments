@@ -240,6 +240,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/umeng_update_dialog_bg.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/alert_dialog_bg.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/alert_dialog_bg.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/comment_bg.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/comment_bg.xml"
     },

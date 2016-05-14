@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="10"
-    android:versionName="1.9" >
+    android:versionCode="12"
+    android:versionName="1.1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -48,7 +48,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.anda.moments.ui.LoginActivity"
+            android:name="com.anda.moments.ui.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
@@ -58,6 +58,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.anda.moments.ui.LoginActivity"
+            android:label="登陆"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.MainActivity"
+            android:label="主页面"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.publish.PublishActivity"
             android:label="发布"
@@ -82,6 +92,10 @@
         <activity
             android:name="com.anda.moments.ui.ImagePagerActivity"
             android:label="首页详情图片"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.publish.PublishTextActivity"
+            android:label="发布文字"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.publish.PublishVoiceActivity"
@@ -129,6 +143,14 @@
             android:label="私密设置"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.anda.moments.ui.ProvinceCityActivity"
+            android:label="地区"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.CityActivity"
+            android:label="城市地区"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.anda.moments.ui.AddFriendsActivity"
             android:label="添加好友"
             android:screenOrientation="portrait" />
@@ -168,13 +190,6 @@
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.anda.moments.ui.MainActivity"
-            android:label="主页面"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" >
         </activity>
 
         <!-- umeng update  start -->

@@ -142,6 +142,19 @@ public static final String PROJECT_NAME = "";
 	 * 点赞
 	 */
 	public static final String REQUEST_FRIENDS_PRAISE = "friends/praise.do";
+
+	/**
+	 * 取消点赞
+	 */
+	public static final String REQUEST_CANCEL_PRAISE = "friends/cancelPraise.do";
+	/**
+	 * 意见反馈接口
+	 */
+	public static final String REQUEST_SUBMIT_IDEA = "friends/submitIdea.do";
+	/**
+	 * 删除评论
+	 */
+	public static final String REQUEST_DELETE_COMMENT = "friends/deleteComment.do";
 	/**
 	 * 保存好友之间的聊天信息
 	 */
@@ -171,6 +184,9 @@ public static final String PROJECT_NAME = "";
 
 	//修改好友备注
 	public static final String REQUEST_UPDATE_FRIENDS_TAGS ="friends/updateFriendsTags.do";
+
+	//获取省市地区列表
+	public static final String REQUEST_GET_DISTRICT_INFO = "friends/getDistrictInfo.jsp";
 
 	/**
 	 * 查询是否存在该userId

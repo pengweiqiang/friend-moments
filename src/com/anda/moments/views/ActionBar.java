@@ -95,6 +95,9 @@ public class ActionBar extends FrameLayout {
 		}
 		mRightView.setOnClickListener(listener);
 	}
+	public void setRightActionButtonLongClickListener(OnLongClickListener longClickListener){
+		mRightView.setOnLongClickListener(longClickListener);
+	}
 	
 	public void setRightActionButton(int icon,String text,OnClickListener listener){
 		setRightActionButton(icon,text,listener,0);

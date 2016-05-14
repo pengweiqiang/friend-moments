@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -36,6 +37,7 @@ import com.anda.moments.views.LoadingDialog;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class LoginActivity extends BaseActivity {
 
@@ -186,6 +188,7 @@ public class LoginActivity extends BaseActivity {
 					User user = parseModel.getUser();
 
 					logined(user);
+//					setUserInfo();
 					loginSuccess();
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());
@@ -230,6 +233,8 @@ public class LoginActivity extends BaseActivity {
 			timer.cancel();
 		}
 	};
+
+
 
 
 

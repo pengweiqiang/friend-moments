@@ -19,20 +19,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anda.gson.reflect.TypeToken;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
-import com.anda.moments.apdater.HomeAapter;
 import com.anda.moments.apdater.HomeAdapter;
 import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.ApiMyUtils;
@@ -42,14 +37,12 @@ import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
 import com.anda.moments.entity.CommentUser;
-import com.anda.moments.entity.Image;
-import com.anda.moments.entity.Images;
 import com.anda.moments.entity.ParseModel;
-import com.anda.moments.entity.PartTimeJob;
 import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
+import com.anda.moments.ui.publish.PublishTextActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.InputMethodUtils;
@@ -63,7 +56,7 @@ import com.anda.moments.views.XListView.IXListViewListener;
 import com.squareup.picasso.Picasso;
 
 /**
- * 兼职
+ * 首页
  * @author will
  *
  */
@@ -208,6 +201,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		mActionBar.hideLeftActionButton();
 //		mActionBar.hideBottonLine();
 		mActionBar.setRightActionButton(publishOnclickListener);
+		mActionBar.setRightActionButtonLongClickListener(publishOnLongListener);
 		mSwipeRefreshLayout.setOnRefreshListener(this);
 
 		mListView.setPullLoadEnable(true);
@@ -478,6 +472,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		public void onClick(View v) {
 			Intent intent = new Intent(mActivity, PublishActivity.class);
 			startActivity(intent);
+		}
+	};
+	View.OnLongClickListener publishOnLongListener = new View.OnLongClickListener() {
+		@Override
+		public boolean onLongClick(View v) {
+			startActivity(PublishTextActivity.class);
+			return false;
 		}
 	};
 
