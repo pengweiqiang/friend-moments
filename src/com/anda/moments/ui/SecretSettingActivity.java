@@ -20,7 +20,8 @@ public class SecretSettingActivity extends BaseActivity {
 
 	ActionBar mActionbar;
 
-	private ToggleButton mTogglePublic,mToggleAddFriendCheck,mToggleFriendsPublic;
+	private ToggleButton mToggleAddFriendCheck;
+			//,mTogglePublic,mToggleFriendsPublic;
 
 
 
@@ -47,21 +48,21 @@ public class SecretSettingActivity extends BaseActivity {
 			}
 		});
 
-		mTogglePublic = (ToggleButton) findViewById(R.id.toggle_is_public);
+//		mTogglePublic = (ToggleButton) findViewById(R.id.toggle_is_public);
 		mToggleAddFriendCheck = (ToggleButton) findViewById(R.id.toggle_add_friend_check);
-		mToggleFriendsPublic = (ToggleButton) findViewById(R.id.toggle_friend_public);
+//		mToggleFriendsPublic = (ToggleButton) findViewById(R.id.toggle_friend_public);
 
 	}
 
 	@Override
 	public void initListener() {
-		//朋友圈公开
-		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
-			@Override
-			public void onToggle(boolean on) {
-
-			}
-		});
+//		//朋友圈公开
+//		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+//			@Override
+//			public void onToggle(boolean on) {
+//
+//			}
+//		});
 		//添加好友验证
 		mToggleAddFriendCheck.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
@@ -69,13 +70,13 @@ public class SecretSettingActivity extends BaseActivity {
 
 			}
 		});
-		//不看ta的朋友圈
-		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
-			@Override
-			public void onToggle(boolean on) {
-
-			}
-		});
+//		//不看ta的朋友圈
+//		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+//			@Override
+//			public void onToggle(boolean on) {
+//
+//			}
+//		});
 	}
 
 

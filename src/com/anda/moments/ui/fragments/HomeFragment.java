@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
+import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishTextActivity;
@@ -354,6 +356,18 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					return true;
 				}
 				return false;
+			}
+		});
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(position==0){
+					return;
+				}
+				CircleMessage circleMessage = circleMessageList.get(position-1);
+				Intent intent = new Intent(mActivity, CircleDetailActivity.class);
+				intent.putExtra("circleMessage",circleMessage);
+				startActivity(intent);
 			}
 		});
 	}

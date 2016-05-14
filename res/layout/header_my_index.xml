@@ -14,17 +14,7 @@
         android:scaleType="fitXY"
         />
 
-    <TextView
-        android:id="@+id/tv_user_name_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_marginRight="92dp"
-        android:layout_marginBottom="56dp"
-        android:layout_gravity="right|bottom"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        />
+
 
 
 
@@ -45,6 +35,17 @@
         android:layout_marginRight="10dp"
         >
 
+        <TextView
+            android:id="@+id/tv_user_name_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginRight="8dp"
+            android:paddingTop="10dp"
+            android:layout_toLeftOf="@+id/iv_user_head"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            />
         <com.anda.moments.views.round.SelectableRoundedImageView
             android:id="@+id/iv_user_head"
             android:layout_width="70dp"
@@ -68,6 +69,7 @@
             android:visibility="visible"
             android:text=""
             android:layout_gravity="right"
+            android:gravity="right"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -1,9 +1,11 @@
 package com.anda.moments.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by pengweiqiang on 16/5/8.
  */
-public class Media {
+public class Media implements Serializable {
     private String path;
     private String fileOrder;//预留的排序字段
 

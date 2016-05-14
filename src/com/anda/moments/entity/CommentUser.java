@@ -1,9 +1,11 @@
 package com.anda.moments.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by pengweiqiang on 16/5/8.
  */
-public class CommentUser {
+public class CommentUser implements Serializable {
 
     public CommentUser(){}
 

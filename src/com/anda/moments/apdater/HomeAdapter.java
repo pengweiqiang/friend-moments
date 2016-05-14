@@ -44,6 +44,7 @@ import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
+import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.ui.UserInfoActivity;
@@ -270,6 +271,7 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.mIvUserHead.setOnClickListener(viewHolder);
             viewHolder.mTvUserName.setOnClickListener(viewHolder);
 
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -298,12 +300,12 @@ public class HomeAdapter extends BaseAdapter {
 
         //点赞列表
         PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
-        int praseInfoCount = praisedInfo.getPraiseNum();
+        int praiseInfoCount = praisedInfo.getPraiseNum();
 
         //回复列表
         CommentInfo commentInfo = circleMessage.getCommentInfo();
         int commentNum = commentInfo.getCommentNum();
-        if(commentNum>0 || praseInfoCount > 0) {
+        if(commentNum>0 || praiseInfoCount > 0) {
             viewHolder.digCommentBody.setVisibility(View.VISIBLE);
             //评论列表不为空
             if(commentNum>0) {
@@ -322,8 +324,8 @@ public class HomeAdapter extends BaseAdapter {
                 viewHolder.mViewPraiseCommentLine.setVisibility(View.GONE);
             }
             //点赞列表不为空
-            if(praseInfoCount>0){
-                viewHolder.mTvPraiseCount.setText(String.valueOf(praseInfoCount));
+            if(praiseInfoCount>0){
+                viewHolder.mTvPraiseCount.setText(String.valueOf(praiseInfoCount));
                 final List<PraiseUser> praiseUsers = praisedInfo.getPraiseUsers();
                 viewHolder.praiseRecyclerViewAdapter.setDatas(praiseUsers);
 //            viewHolder.praiseRecyclerViewAdapter.notifyDataSetChanged();
@@ -335,28 +337,6 @@ public class HomeAdapter extends BaseAdapter {
                 viewHolder.mViewPraiseCommentLine.setVisibility(View.GONE);
             }
 
-
-
-//            viewHolder.commentListView.setOnItemClick(new CommentListView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(int commentPosition) {
-//                    //当前的评论
-//                    CommentUser commentUser = commentUsers.get(commentPosition);
-//
-//                    if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
-//
-//                    }else{
-//                        CommentConfig commentConfig = new CommentConfig();
-//                        commentConfig.circlePosition = position;
-//                        commentConfig.commentPosition = commentPosition;
-//                        commentConfig.commentType = CommentConfig.Type.REPLY;
-//                        commentConfig.replyUser = commentUser;
-//
-//                        homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
-//                    }
-//
-//                }
-//            });
         }else{
             viewHolder.digCommentBody.setVisibility(View.GONE);
             viewHolder.commentListView.setVisibility(View.GONE);
@@ -374,7 +354,7 @@ public class HomeAdapter extends BaseAdapter {
 
     private void calRecycleViewHeight(RecyclerView recyclerView,int size){
         ViewGroup.LayoutParams mParams = recyclerView.getLayoutParams();
-        mParams.height = DeviceInfo.dp2px(context,42) * size;
+        mParams.height = DeviceInfo.dp2px(context,42) * size+DeviceInfo.dp2px(context,1)+1;
         mParams.width = DeviceInfo.getScreenWidth(context);
         recyclerView.setLayoutParams(mParams);
     }
@@ -1028,6 +1008,7 @@ public class HomeAdapter extends BaseAdapter {
 //		}
 
         animationDrawable.start();
+
         MediaManager.playSound(filePath,
                 new MediaPlayer.OnCompletionListener() {
                     @Override

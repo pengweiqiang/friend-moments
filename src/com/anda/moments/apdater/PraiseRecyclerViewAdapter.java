@@ -146,7 +146,7 @@ public class PraiseRecyclerViewAdapter extends RecyclerView.Adapter<PraiseRecycl
     /**
      * 处理item的点击事件和长按事件
      */
-    interface  OnItemClickListener{
+    public interface  OnItemClickListener{
         public void onItemPraiseClick(View view, int position);
         public void onItemPraiseLongClick(View view, int position);
     }

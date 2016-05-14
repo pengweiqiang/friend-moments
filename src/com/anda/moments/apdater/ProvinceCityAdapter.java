@@ -59,11 +59,11 @@ public class ProvinceCityAdapter extends RecyclerView.Adapter<ProvinceCityAdapte
         String name = bean.getName();
         int type = bean.getType();
 
-        if(type == 1){
-            holder.mIvRightIn.setVisibility(View.GONE);
-        }else{
-            holder.mIvRightIn.setVisibility(View.VISIBLE);
-        }
+//        if(type == 1){
+//            holder.mIvRightIn.setVisibility(View.GONE);
+//        }else{
+//            holder.mIvRightIn.setVisibility(View.VISIBLE);
+//        }
 
         if(!holder.itemView.hasOnClickListeners()){
             holder.itemView.setOnClickListener(new View.OnClickListener() {

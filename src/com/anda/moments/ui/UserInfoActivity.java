@@ -29,6 +29,7 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.anda.moments.views.ToggleButton;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -48,6 +49,9 @@ public class UserInfoActivity extends BaseActivity {
 	private View mBtnSign,mBtnRemarks;
 	private TextView mTvUserName,mTvUserNameHead,mTvUserId,mTvSex,mTvAddressDetail,mTvAddressArea,mTvUserSign;
 	private TextView mTvUserDesc;
+
+	//好友的其他信息
+	public ToggleButton mTogglePublic,mToggleFriendsPublic;
 
 	private Button mBtnAddFriends;//添加好友
 	private Button mBtnSendMsg;//发送消息
@@ -128,6 +132,8 @@ public class UserInfoActivity extends BaseActivity {
 		mBtnSendMsg = (Button)findViewById(R.id.btn_send_msg);
 
 
+		mTogglePublic = (ToggleButton) findViewById(R.id.toggle_is_public);
+		mToggleFriendsPublic = (ToggleButton) findViewById(R.id.toggle_friend_public);
 
 	}
 
@@ -139,6 +145,21 @@ public class UserInfoActivity extends BaseActivity {
 		mBtnSendMsg.setOnClickListener(onClickListener);
 //		mBtnAddSystem.setOnClickListener(onClickListener);
 		mIvUserHead.setOnClickListener(onClickListener);
+
+		//朋友圈公开
+		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+
+			}
+		});
+
+		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+
+			}
+		});
 	}
 	
 	OnClickListener onClickListener = new OnClickListener() {
@@ -226,6 +247,11 @@ public class UserInfoActivity extends BaseActivity {
 				mBtnAddFriends.setVisibility(View.GONE);
 			}else{
 				mBtnAddFriends.setVisibility(View.VISIBLE);
+			}
+
+			User myInfo = MyApplication.getInstance().getCurrentUser();
+			if(user.getPhoneNum().equals(myInfo.getPhoneNum())){
+				findViewById(R.id.ll_friends_info).setVisibility(View.GONE);
 			}
 		}
 	}

@@ -159,7 +159,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     /**
      * 处理item的点击事件和长按事件
      */
-    interface  OnItemClickListener{
+    public interface  OnItemClickListener{
         public void onItemClick(View view,int position);
         public void onItemLongClick(View view,int position);
     }

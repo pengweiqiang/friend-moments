@@ -69,6 +69,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.anda.moments.ui.CircleDetailActivity"
+            android:label="动态详情"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.anda.moments.ui.publish.PublishActivity"
             android:label="发布"
             android:screenOrientation="portrait" />

@@ -180,6 +180,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_video_detail.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_circle_detail.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_circle_detail.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/school_help_main.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/school_help_main.xml"
     },

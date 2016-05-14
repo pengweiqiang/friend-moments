@@ -1,11 +1,12 @@
 package com.anda.moments.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 点赞列表
  */
-public class LovelyInfo extends ParseModel{
+public class LovelyInfo implements Serializable {
 
     private int lovelyNum;//萌化了总数
     private List<LovelyUsers> lovelyUsers;//点赞用户列表
@@ -26,7 +27,7 @@ public class LovelyInfo extends ParseModel{
         this.lovelyUsers = lovelyUsers;
     }
 
-    class LovelyUsers {
+    class LovelyUsers implements Serializable{
         private String userName;
         private String userId;
         private String icon;

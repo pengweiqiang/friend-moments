@@ -1,11 +1,12 @@
 package com.anda.moments.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 点赞列表
  */
-public class PraisedInfo {
+public class PraisedInfo implements Serializable{
 
     private int praiseNum;//点赞总数
     private List<PraiseUser> praiseUsers;//点赞用户列表

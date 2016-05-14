@@ -1,9 +1,11 @@
 package com.anda.moments.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by pengweiqiang on 16/5/12.
  */
-public class PraiseUser {
+public class PraiseUser implements Serializable {
 
         private String userName;
         private String userId;
