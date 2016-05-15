@@ -83,6 +83,7 @@ public class PersonalInfoActivity extends BaseActivity {
 
 	private View mBtnSex;//性别
 	private View mBtnSettings;//设置
+	private View mBtnFeedBack;//意见反馈
 	private View mBtnUserHead;//修改头像
 	private View mBtnUpdateUserName;//昵称
 	private View mBtnUserId;//userId
@@ -134,6 +135,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mTvUserSign = (TextView)findViewById(R.id.tv_user_sign);
 
 		mBtnSettings = findViewById(R.id.rl_setting);
+		mBtnFeedBack = findViewById(R.id.rl_feedback);
 		mBtnLoginOut = findViewById(R.id.rl_login_out);
 		mBtnSex = findViewById(R.id.rl_sex);
 		mBtnUpdateUserName = findViewById(R.id.rl_update_username);
@@ -148,6 +150,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnSign.setOnClickListener(onClickListener);
 		mBtnLoginOut.setOnClickListener(onClickListener);
 		mBtnSettings.setOnClickListener(onClickListener);
+		mBtnFeedBack.setOnClickListener(onClickListener);
 		mBtnSex.setOnClickListener(onClickListener);
 		mBtnUserHead.setOnClickListener(onClickListener);
 		mBtnUpdateUserName.setOnClickListener(onClickListener);
@@ -165,6 +168,9 @@ public class PersonalInfoActivity extends BaseActivity {
 				return;
 			}
 			switch (v.getId()){
+				case R.id.rl_feedback://意见反馈
+					startActivity(FeedBackActivity.class);
+					break;
 				case R.id.rl_address:
 
 					startUpdateInfoActivity(4,"地址",user.getAddr());
@@ -193,8 +199,7 @@ public class PersonalInfoActivity extends BaseActivity {
 //					break;
 				case R.id.rl_login_out://登出
 					logOut();
-					Intent intent = new Intent(mContext,LoginActivity.class);
-					startActivity(intent);
+					startActivity(LoginActivity.class);
 					break;
 				case R.id.rl_setting://设置
 					startActivity(SettingActivity.class);

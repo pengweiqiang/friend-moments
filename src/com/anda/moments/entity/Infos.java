@@ -11,8 +11,8 @@ public class Infos implements Serializable {
     private String phoneNum;
     private long createTime;
     private List<Images> images;
-    private List<Media> audios;
-    private List<Media> videos;
+    private List<Audio> audios;
+    private List<Video> videos;
 
 
     public long getInfoId() {
@@ -63,19 +63,19 @@ public class Infos implements Serializable {
         this.images = images;
     }
 
-    public List<Media> getAudios() {
+    public List<Audio> getAudios() {
         return audios;
     }
 
-    public void setAudios(List<Media> audios) {
+    public void setAudios(List<Audio> audios) {
         this.audios = audios;
     }
 
-    public List<Media> getVideos() {
+    public List<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos(List<Media> videos) {
+    public void setVideos(List<Video> videos) {
         this.videos = videos;
     }
 }

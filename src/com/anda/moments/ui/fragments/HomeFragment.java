@@ -6,6 +6,7 @@ import java.util.List;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -43,6 +45,7 @@ import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
 import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.MainActivity;
+import com.anda.moments.ui.SkinsActivity;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishTextActivity;
@@ -165,6 +168,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		return result;
 	}
 
+	private int width ,height;
 	private void initView(){
 		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
 		mListView = (XListView)mContentView.findViewById(R.id.listView);
@@ -181,11 +185,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		mTvUserName = (TextView)mHeadView.findViewById(R.id.tv_user_name_head);
 
 		//背景适配
-		int width = DeviceInfo.getDisplayMetricsWidth(mActivity);
+		width = DeviceInfo.getDisplayMetricsWidth(mActivity);
 		FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) mIvHeadBg.getLayoutParams();
 		params1.width = width;
 		params1.height = (int) (params1.width * 1.0 / 1080 * 480);
+		height = params1.height;
 		mIvHeadBg.setLayoutParams(params1);
+		Picasso.with(mActivity).load(getUser().getSkinPath()).resize(width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 
 		//头像距离顶部距离
 		FrameLayout.LayoutParams paramsUserHead = (FrameLayout.LayoutParams) mIvUserHead.getLayoutParams();
@@ -322,6 +328,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	}
 	private void initListener(){
 
+		mIvHeadBg.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showChangeBackground();
+			}
+		});
 
 		mActionBar.setTitleOnLongClickListener(new View.OnLongClickListener() {
 			@Override
@@ -503,6 +515,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			int width = DeviceInfo.dp2px(mActivity,70);
 			Picasso.with(mActivity).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			mTvUserName.setText(user.getUserName());
+			Picasso.with(mActivity).load(user.getSkinPath()).placeholder(R.drawable.bg_head).resize(this.width,height).centerCrop().error(R.drawable.bg_head).into(mIvHeadBg);
 		}
 	}
 
@@ -624,6 +637,29 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 //		}
 //
 //	}
+
+	/**
+	 * 更换封面
+	 *
+	 */
+	private void showChangeBackground(){
+		final AlertDialog dlg = new AlertDialog.Builder(mActivity).create();
+		dlg.show();
+		Window window = dlg.getWindow();
+		window.setContentView(R.layout.alertdialog);
+		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+		tv_paizhao.setText("更换封面");
+		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SdCardPath")
+			public void onClick(View v) {
+				startActivity(SkinsActivity.class);
+				dlg.cancel();
+			}
+		});
+		window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
+
+
+	}
 
 
 }

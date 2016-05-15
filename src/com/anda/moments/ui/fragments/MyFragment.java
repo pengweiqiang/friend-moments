@@ -1,6 +1,8 @@
 package com.anda.moments.ui.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.Tag;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -26,9 +29,11 @@ import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
 import com.anda.moments.entity.ParseModel;
+import com.anda.moments.entity.Skins;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.ui.PersonalInfoActivity;
+import com.anda.moments.ui.SkinsActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.utils.DeviceInfo;
@@ -94,7 +99,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 
 		return mContentView;
 	}
-
+	private int width,height;
 	private void initView(){
 		mActionBar = (ActionBar)mContentView.findViewById(R.id.actionBar);
 		mListView = (XListView)mContentView.findViewById(R.id.listView);
@@ -110,11 +115,13 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		mTvUserName = (TextView)mHeadView.findViewById(R.id.tv_user_name_head);//昵称
 
 		//背景适配
-		int width = DeviceInfo.getDisplayMetricsWidth(mActivity);
+		width = DeviceInfo.getDisplayMetricsWidth(mActivity);
 		FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) mIvHeadBg.getLayoutParams();
 		params1.width = width;
 		params1.height = (int) (params1.width * 1.0 / 1080 * 480);
+		height = params1.height;
 		mIvHeadBg.setLayoutParams(params1);
+		Picasso.with(mActivity).load(getUser().getSkinPath()).resize(width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 
 		//头像距离顶部距离
 //		FrameLayout.LayoutParams paramsUserHead = (FrameLayout.LayoutParams) mIvUserHead.getLayoutParams();
@@ -188,6 +195,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		getData();
 	}
 	private void initListener(){
+		mIvHeadBg.setOnClickListener(onClickListener);
 		mIvUserHead.setOnClickListener(onClickListener);
 		mActionBar.setTitleOnLongClickListener(new View.OnLongClickListener() {
 			@Override
@@ -217,6 +225,9 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
+				case R.id.iv_bg_head://更换封面
+					showChangeBackground();
+					break;
 				case R.id.iv_user_head://头像跳入个人中心
 					Intent intent = new Intent(mActivity,PersonalInfoActivity.class);
 					intent.putExtra("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
@@ -304,7 +315,31 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 			Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			mTvUserName.setText(user.getUserName());
 			mTvUserSign.setText(user.getSummary());
+			Picasso.with(mActivity).load(getUser().getSkinPath()).resize(width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 		}
+	}
+
+	/**
+	 * 更换封面
+	 *
+	 */
+	private void showChangeBackground(){
+		final AlertDialog dlg = new AlertDialog.Builder(mActivity).create();
+		dlg.show();
+		Window window = dlg.getWindow();
+		window.setContentView(R.layout.alertdialog);
+		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+		tv_paizhao.setText("更换封面");
+		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SdCardPath")
+			public void onClick(View v) {
+				startActivity(SkinsActivity.class);
+				dlg.cancel();
+			}
+		});
+		window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
+
+
 	}
 
 

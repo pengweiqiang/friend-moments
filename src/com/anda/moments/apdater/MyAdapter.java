@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -20,32 +21,25 @@ import com.anda.moments.R;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.entity.Images;
 import com.anda.moments.entity.Infos;
-import com.anda.moments.entity.Media;
-import com.anda.moments.entity.User;
+import com.anda.moments.entity.Audio;
+import com.anda.moments.entity.Video;
 import com.anda.moments.ui.ImagePagerActivity;
-import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.TextViewUtils;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.views.CustomImageView;
 import com.anda.moments.views.MultiMyImageView;
-import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
-import com.anda.moments.views.popup.ActionItem;
-import com.anda.moments.views.popup.TitlePopup;
-import com.anda.universalimageloader.core.assist.ImageSize;
+import com.squareup.picasso.Picasso;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -86,8 +80,8 @@ public class MyAdapter extends BaseAdapter {
         int itemType = ITEM_VIEW_TYPE_TEXT;
         Infos item = getItem(position);
 
-        List<Media> videos = item.getVideos();
-        List<Media> audios = item.getAudios();
+        List<Video> videos = item.getVideos();
+        List<Audio> audios = item.getAudios();
         List<Images> images = item.getImages();
 
         if (images!=null && !images.isEmpty()) {//图片
@@ -277,11 +271,12 @@ public class MyAdapter extends BaseAdapter {
 //                    }
 //                });
 
-                String url = infos.getVideos().get(0).getPath();
+                Video video = infos.getVideos().get(0);
+                String url = video.getPath();
                 String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
                 String fileName = url.substring(url.lastIndexOf("/")+1);
-                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
-
+//                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
+                Picasso.with(context).load(video.getIcon()).error(new ColorDrawable(Color.BLACK)).into(viewHolder.mThumbnailImageView);
 
                 break;
         }

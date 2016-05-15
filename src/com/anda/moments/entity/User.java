@@ -22,6 +22,8 @@ public class User implements Serializable{
 	private int flag;// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
 	private long createTime;
 	private long relationId;
+	private String skinPath;//皮肤地址
+	private String birthdayTime;//出生年月
 
 	private String sortLetters; // 显示数据拼音的首字母
 	private String suoxie;// 姓名缩写
@@ -152,5 +154,21 @@ public class User implements Serializable{
 
 	public void setRelationId(long relationId) {
 		this.relationId = relationId;
+	}
+
+	public String getSkinPath() {
+		return skinPath;
+	}
+
+	public void setSkinPath(String skinPath) {
+		this.skinPath = skinPath;
+	}
+
+	public String getBirthdayTime() {
+		return birthdayTime;
+	}
+
+	public void setBirthdayTime(String birthdayTime) {
+		this.birthdayTime = birthdayTime;
 	}
 }

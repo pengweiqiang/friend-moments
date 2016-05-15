@@ -138,7 +138,8 @@ public class PublishVoiceActivity extends BaseActivity {
 			//录制结束
 			PublishVoiceActivity.this.second = second;
 			PublishVoiceActivity.this.filePath = filePath;
-			mTvSeconds.setText(Math.round(second)+"''");
+			second = Math.round(second);
+			mTvSeconds.setText(second+"''");
 		}
 
 	}
@@ -205,6 +206,7 @@ public class PublishVoiceActivity extends BaseActivity {
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("name", file.getName());
 			jsonObject.addProperty("type", ReqUrls.MEDIA_TYPE_AUDIO+"");//1-图片，2-音频，3-视频
+			jsonObject.addProperty("audioTime",Math.round(second)+"");//音频时长
 			fileMetaInfo.add(jsonObject);
 			postFormBuilder.addFile(file.getName(),file.getName(),file);
 		}else{

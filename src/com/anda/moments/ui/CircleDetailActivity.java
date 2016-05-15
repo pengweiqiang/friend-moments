@@ -4,20 +4,24 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,16 +40,18 @@ import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
 import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.Images;
-import com.anda.moments.entity.Media;
+import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
+import com.anda.moments.entity.Video;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
+import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
@@ -116,16 +122,13 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	public TextView mTvContent;//评论内容
 	public TextView mTvPublishTime;//发表时间
 
-	public View digCommentBody;
+	public View digCommentBody;//整个赞和评论列表
 	//评论列表控件
-//        public CommentListView commentListView;
 	public RecyclerView commentListView;
 	public TextView mTvCommentCount;//评论总数
 	//评论列表适配器
-//        public CommentAdapter commentAdapter;
-
 	public CommentRecyclerViewAdapter commentAdapter;
-	public View mViewPraiseCommentLine;
+	public View mViewPraiseCommentLine;//赞和评论的分割线
 
 	//点赞列表
 	public RecyclerView praiseListView;
@@ -133,6 +136,11 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	public PraiseRecyclerViewAdapter praiseRecyclerViewAdapter;
 
 
+
+	//输入评论控件
+	public LinearLayout mEditTextBody;
+	public EditText mEditTextComment;//评论文本框
+	private ImageView sendIv;//发送评论
 
 
 	@Override
@@ -158,7 +166,6 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			}
 		});
 
-		long startTime = System.currentTimeMillis();
 
 		mIvUserHead = (ImageView)findViewById(R.id.iv_user_head);
 		mTvUserName = (TextView)findViewById(R.id.tv_user_name);
@@ -188,11 +195,11 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		mTvUserName.setOnClickListener(onClickListener);
 
 
-		// 停止计时
-		long endTime = System.nanoTime();
-		// 计算耗时
-		long val = (endTime - startTime) / 1000L;
-		Log.e(TAG," cirlceDetail:"+val);
+
+		mEditTextComment = (EditText) findViewById(R.id.circleEt);
+		sendIv = (ImageView)findViewById(R.id.sendIv);
+		mEditTextBody = (LinearLayout)findViewById(R.id.editTextBodyLl);
+
 
 	}
 
@@ -324,6 +331,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 //            praiseRecyclerViewAdapter.notifyDataSetChanged();
 				praiseListView.setVisibility(View.VISIBLE);
 				mTvPraiseCount.setVisibility(View.VISIBLE);
+				mViewPraiseCommentLine.setVisibility(View.VISIBLE);
 			}else{
 				praiseListView.setVisibility(View.GONE);
 				mTvPraiseCount.setVisibility(View.GONE);
@@ -362,7 +370,25 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 	@Override
 	public void initListener() {
+		sendIv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//发布评论
+				String content = mEditTextComment.getText().toString().trim();
+				if(TextUtils.isEmpty(content)){
+					ToastUtils.showToast(mContext,"评论内容不能为空...");
+					return;
+				}
+				addComment(content);
+				//隐藏键盘
+				try {
+					InputMethodUtils.hideSoftInput(mEditTextComment.getContext(), mEditTextComment);
+				}catch (Exception e){
 
+				}
+
+			}
+		});
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -464,9 +490,11 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 					}
 				});
 
-				String url = circleMessage.getVideos().get(0).getPath();
+				Video video = circleMessage.getVideos().get(0);
+				String url = video.getPath();
 				String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
 				String fileName = url.substring(url.lastIndexOf("/")+1);
+				Picasso.with(mContext).load(video.getIcon()).error(new ColorDrawable(Color.BLACK)).into(mThumbnailImageView);
 //                mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
 
 
@@ -676,8 +704,8 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	public int getItemViewType() {
 		int itemType = ITEM_VIEW_TYPE_TEXT;
 
-		List<Media> videos = circleMessage.getVideos();
-		List<Media> audios = circleMessage.getAudios();
+		List<Video> videos = circleMessage.getVideos();
+		List<Audio> audios = circleMessage.getAudios();
 		List<Images> images = circleMessage.getImages();
 
 		if (images!=null && !images.isEmpty()) {//图片
@@ -835,7 +863,6 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-					ToastUtils.showToast(mContext,parseModel.getInfo());
 					notifyPraiseData(1,praisePosition);
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());
@@ -874,7 +901,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 						JSONObject jsonObject = null;
 						try {
 							jsonObject = new JSONObject(response);
-							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
 								notifyPraiseData(0, praisePosition);
 							}else{
 								ToastUtils.showToast(mContext,jsonObject.getString("info"));
@@ -921,11 +948,11 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			return;
 		}
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_DELETE_COMMENT;
-		String infoId = String.valueOf(circleMessage.getInfoId());
+		String commentId = String.valueOf(circleMessage.getCommentInfo().getCommentUsers().get(commentPosition).getUserId());
 		OkHttpUtils//
 				.get()//
 				.addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
-				.addParams("infoId",infoId)
+				.addParams("commentId",commentId)
 				.addParams("phoneNum",user.getPhoneNum())
 				.url(url)//
 				.build()//
@@ -940,7 +967,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 						JSONObject jsonObject = null;
 						try {
 							jsonObject = new JSONObject(response);
-							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
 
 							}else{
 								ToastUtils.showToast(mContext,jsonObject.getString("info"));
@@ -964,19 +991,26 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 		PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
 		int count = praisedInfo.getPraiseNum();
+		int commentCount = circleMessage.getCommentInfo().getCommentNum();
 		if(type == 0){//取消赞
 			if(count >0){
 				count --;
 			}
 			praisedInfo.getPraiseUsers().remove(praisePosition);
 			praiseRecyclerViewAdapter.remove(praisePosition);
-			if(count<=0 || praiseListView.getVisibility()==View.VISIBLE){
+			if(count<=0 && praiseListView.getVisibility()==View.VISIBLE){
+
 				praiseListView.setVisibility(View.GONE);
 				mTvPraiseCount.setVisibility(View.GONE);
+				mViewPraiseCommentLine.setVisibility(View.GONE);
 			}
+
+			if(count <=0 && commentCount<=0){
+				digCommentBody.setVisibility(View.GONE);
+			}
+
 		}else{//点赞
 
-			count ++;
 			User user = MyApplication.getInstance().getCurrentUser();
 			PraiseUser praiseUser = new PraiseUser();
 			praiseUser.setIcon(user.getIcon());
@@ -984,18 +1018,65 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			praiseUser.setUserName(user.getUserName());
 			praisedInfo.getPraiseUsers().add(0,praiseUser);
 			praiseRecyclerViewAdapter.add(0,praiseUser);
-			if(count==0 || praiseListView.getVisibility()==View.GONE) {
-				digCommentBody.setVisibility(View.VISIBLE);
+			if(count==0 || digCommentBody.getVisibility()==View.GONE) {
+				if(commentCount==0){
+					mViewPraiseCommentLine.setVisibility(View.GONE);
+					commentListView.setVisibility(View.GONE);
+					mTvCommentCount.setVisibility(View.GONE);
+				}else{
+					mViewPraiseCommentLine.setVisibility(View.VISIBLE);
+				}
+
 				praiseRecyclerViewAdapter.setDatas(praisedInfo.getPraiseUsers());
 				praiseListView.setVisibility(View.VISIBLE);
 				mTvPraiseCount.setVisibility(View.VISIBLE);
 			}
+
+			digCommentBody.setVisibility(View.VISIBLE);
 		}
+		count ++;
 		praisedInfo.setPraiseNum(count);
 		mTvPraiseCount.setText(String.valueOf(count));
 //		notifyDataSetChanged();
 //        homeFragment.updateView(circlePosition,""+count);
 
 	}
+
+	/**
+	 * 评论
+	 * @param content
+	 */
+	public void addComment(final String content){
+		final User user = MyApplication.getInstance().getCurrentUser();
+
+		String infoId = circleMessage.getInfoId()+"";
+		ApiMomentsUtils.addComment(mContext,infoId,content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+
+			@Override
+			public void execute(ParseModel parseModel) {
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){//评论成功
+					CommentUser commentUser = new CommentUser();
+
+					commentUser.setUserId(user.getUserId());
+					commentUser.setIcon(user.getIcon());
+					commentUser.setUserName(user.getUserName());
+					commentUser.setPhoneNum(user.getPhoneNum());
+					commentUser.setPublishTime(System.currentTimeMillis());
+
+					//TODO
+//					update2AddComment(mCommentConfig.circlePosition,commentUser);
+					CommentInfo commentInfo = circleMessage.getCommentInfo();
+					commentInfo.setCommentNum(commentInfo.getCommentNum()+1);
+					commentInfo.getCommentUsers().add(0,commentUser);
+					commentAdapter.add(0,commentUser);
+					mEditTextComment.setText("");
+					mTvCommentCount.setText(commentInfo.getCommentNum()+"");
+				}else{
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
+	}
+
 
 }

@@ -140,9 +140,6 @@ public class ProvinceCityActivity extends BaseActivity {
 					{
 
 						try {
-							if(!response.endsWith("}")){
-								response +="}";
-							}
 							JSONObject jsonObject = new JSONObject(response);
 							if(jsonObject.getInt("retFlag")==200){
 								String result = jsonObject.getString("result");

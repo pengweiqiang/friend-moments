@@ -10,7 +10,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +20,8 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
@@ -37,39 +33,31 @@ import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
 import com.anda.moments.entity.CommentUser;
-import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Images;
-import com.anda.moments.entity.Media;
+import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.CircleDetailActivity;
+import com.anda.moments.entity.Video;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.UserHomeActivity;
-import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.utils.CommonHelper;
-import com.anda.moments.utils.DateUtil;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.Log;
-import com.anda.moments.utils.ScreenTools;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.views.CommentListView;
-import com.anda.moments.views.CustomImageView;
 import com.anda.moments.views.CustomSingleImageView;
-import com.anda.moments.views.MultiImageView;
 import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
 //import com.squareup.okhttp.Call;
 import com.squareup.picasso.Picasso;
-import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
@@ -124,8 +112,8 @@ public class HomeAdapter extends BaseAdapter {
         int itemType = ITEM_VIEW_TYPE_TEXT;
         CircleMessage item = getItem(position);
 
-        List<Media> videos = item.getVideos();
-        List<Media> audios = item.getAudios();
+        List<Video> videos = item.getVideos();
+        List<Audio> audios = item.getAudios();
         List<Images> images = item.getImages();
 
         if (images!=null && !images.isEmpty()) {//图片
@@ -206,11 +194,11 @@ public class HomeAdapter extends BaseAdapter {
                     viewHolder.mThumbnailImageView = (ImageView)convertView.findViewById(R.id.thumbnailImageView);
                     viewHolder.mProgressBar = (ProgressBar)convertView.findViewById(R.id.progressBar);
 
-                    try {
-                        viewHolder.mScalableVideoView.setDataSource("");
-                    } catch (IOException e) {
-                       // e.printStackTrace();
-                    }
+//                    try {
+//                        viewHolder.mScalableVideoView.setDataSource("");
+//                    } catch (IOException e) {
+//                       // e.printStackTrace();
+//                    }
 
                     viewHolder.mScalableVideoView.setOnClickListener(viewHolder);
 
@@ -392,7 +380,11 @@ public class HomeAdapter extends BaseAdapter {
                 //图片展示  end
                 break;
             case ITEM_VIEW_TYPE_AUDIO://语音
-
+                List<Audio> audios = circleMessage.getAudios();
+                if(audios!=null && !audios.isEmpty()) {
+                    String audioTime = StringUtils.isEmpty(audios.get(0).getAudioTime())?"0":audios.get(0).getAudioTime();
+                    viewHolder.mTvAudioSecond.setText(audioTime+"''");
+                }
                 viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -422,11 +414,17 @@ public class HomeAdapter extends BaseAdapter {
                     }
                 });
 
-                String url = circleMessage.getVideos().get(0).getPath();
+                Video video = circleMessage.getVideos().get(0);
+                String url = video.getPath();
                 String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
                 String fileName = url.substring(url.lastIndexOf("/")+1);
+                Picasso.with(context).load(video.getIcon()).error(new ColorDrawable(Color.BLACK)).into(viewHolder.mThumbnailImageView);
 //                viewHolder.mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
-
+                try {
+                    viewHolder.mScalableVideoView.setDataSource(url);
+                } catch (IOException e) {
+                    // e.printStackTrace();
+                }
 
                 break;
         }

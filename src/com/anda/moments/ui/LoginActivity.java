@@ -28,6 +28,7 @@ import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.CheckInputUtil;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
@@ -162,9 +163,11 @@ public class LoginActivity extends BaseActivity {
 			public void execute(ParseModel parseModel) {
 
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-//					User user = JsonUtils.fromJson(parseModel.getUserMessage().toString(), User.class);
-
-					getUserInfo(phone);
+					User user = parseModel.getUser();
+					logined(user);
+//					setUserInfo();
+					loginSuccess();
+//					getUserInfo(phone);
 
 				}else{
 					loadingDialog.cancel();

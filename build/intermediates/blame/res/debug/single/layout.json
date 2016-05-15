@@ -44,6 +44,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_item_public_service_input_menus.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_feed_back.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_feed_back.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/home.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/home.xml"
     },
@@ -252,6 +256,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/school_ambassdaor.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/activity_skins.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/activity_skins.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_wi_txt_provider.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_wi_txt_provider.xml"
     },
@@ -378,6 +386,10 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/rc_fr_public_service_sub_list.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/layout/rc_fr_public_service_sub_list.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/skins_item.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/layout/skins_item.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/layout/register.xml",

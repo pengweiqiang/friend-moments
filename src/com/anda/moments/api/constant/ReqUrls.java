@@ -160,6 +160,14 @@ public static final String PROJECT_NAME = "";
 	 */
 	public static final String REQUEST_GET_RONGYUN_TOKEN = "friends/obtainRongCloudToken.do";
 	/**
+	 * 获取APP皮肤列表
+	 */
+	public static final String REQUEST_GET_APP_SKINS = "friends/getAPPSkins.jsp";
+	/**
+	 * 更换APPP皮肤
+	 */
+	public static final String REQUEST_UPDATE_SKIN = "friends/updateSkin.do";
+	/**
 	 * 保存好友之间的聊天信息
 	 */
 	public static final String REQUEST_FRIENDS_ADD_MESSAGE = "friends/addMessage.do";

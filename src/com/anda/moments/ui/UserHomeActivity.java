@@ -2,6 +2,8 @@ package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -91,7 +93,7 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 
 
 	}
-
+	private int width ,height;
 	private void initViewAfter(){
 
 		View mHeadView = View.inflate(mContext,R.layout.header_my_index,null);
@@ -104,11 +106,14 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 
 
 		//背景适配
-		int width = DeviceInfo.getScreenWidth(mContext);
+		width = DeviceInfo.getScreenWidth(mContext);
 		FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) mIvHeadBg.getLayoutParams();
 		params1.width = width;
 		params1.height = (int) (params1.width * 1.0 / 1080 * 480);
+		height = params1.height;
 		mIvHeadBg.setLayoutParams(params1);
+//		Picasso.with(mContext).load(getUser().getSkinPath()).resize(width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
+
 
 		mListView.addHeaderView(mHeadView);
 
@@ -239,6 +244,7 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 //				Picasso.with(mContext).load(user.getIcon()).placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 				int width = DeviceInfo.dp2px(mContext,70);
 				Picasso.with(mContext).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
+				Picasso.with(mContext).load(user.getSkinPath()).resize(this.width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 				mTvUserName.setText(user.getUserName());
 			}
 			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){
