@@ -836,7 +836,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					ToastUtils.showToast(mContext,parseModel.getInfo());
-//					notifyPraiseData(1,viewHolder,circlePosition,praisePosition);
+					notifyPraiseData(1,praisePosition);
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}
@@ -875,7 +875,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 						try {
 							jsonObject = new JSONObject(response);
 							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
-//								notifyPraiseData(0, viewHolder, circlePostion, praisePosition);
+								notifyPraiseData(0, praisePosition);
 							}else{
 								ToastUtils.showToast(mContext,jsonObject.getString("info"));
 							}
@@ -953,4 +953,49 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 					}
 				});
 	}
+
+	/**
+	 * //刷新点赞列表
+	 * @param type 0 取消赞  1点赞
+	 * @param praisePosition  当前点赞位置
+	 */
+	private void notifyPraiseData(int type,int praisePosition){
+
+
+		PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
+		int count = praisedInfo.getPraiseNum();
+		if(type == 0){//取消赞
+			if(count >0){
+				count --;
+			}
+			praisedInfo.getPraiseUsers().remove(praisePosition);
+			praiseRecyclerViewAdapter.remove(praisePosition);
+			if(count<=0 || praiseListView.getVisibility()==View.VISIBLE){
+				praiseListView.setVisibility(View.GONE);
+				mTvPraiseCount.setVisibility(View.GONE);
+			}
+		}else{//点赞
+
+			count ++;
+			User user = MyApplication.getInstance().getCurrentUser();
+			PraiseUser praiseUser = new PraiseUser();
+			praiseUser.setIcon(user.getIcon());
+			praiseUser.setPhoneNum(user.getPhoneNum());
+			praiseUser.setUserName(user.getUserName());
+			praisedInfo.getPraiseUsers().add(0,praiseUser);
+			praiseRecyclerViewAdapter.add(0,praiseUser);
+			if(count==0 || praiseListView.getVisibility()==View.GONE) {
+				digCommentBody.setVisibility(View.VISIBLE);
+				praiseRecyclerViewAdapter.setDatas(praisedInfo.getPraiseUsers());
+				praiseListView.setVisibility(View.VISIBLE);
+				mTvPraiseCount.setVisibility(View.VISIBLE);
+			}
+		}
+		praisedInfo.setPraiseNum(count);
+		mTvPraiseCount.setText(String.valueOf(count));
+//		notifyDataSetChanged();
+//        homeFragment.updateView(circlePosition,""+count);
+
+	}
+
 }

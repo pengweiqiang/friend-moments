@@ -146,7 +146,7 @@ public static final String PROJECT_NAME = "";
 	/**
 	 * 取消点赞
 	 */
-	public static final String REQUEST_CANCEL_PRAISE = "friends/cancelPraise.do";
+	public static final String REQUEST_CANCEL_PRAISE = "friends/canclePraise.do";
 	/**
 	 * 意见反馈接口
 	 */

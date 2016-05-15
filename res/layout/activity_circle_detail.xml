@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.anda.moments"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
     android:background="@color/white"
     >
 
@@ -14,235 +13,208 @@
         android:layout_height="wrap_content" >
     </com.anda.moments.views.ActionBar>
 
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="53dp">
-
-        <com.anda.moments.views.round.SelectableRoundedImageView
-            android:id="@+id/iv_user_head"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"
-            app:sriv_left_top_corner_radius="5dip"
-            app:sriv_right_top_corner_radius="5dip"
-            app:sriv_left_bottom_corner_radius="5dip"
-            app:sriv_right_bottom_corner_radius="5dip"
-            app:sriv_border_width="1dip"
-            app:sriv_border_color="#ffffff"
-            android:src="@drawable/default_useravatar" />
-
-        <!--<RelativeLayout-->
-        <!---->
-        <!---->
-        <!--android:layout_width="fill_parent"-->
-        <!---->
-        <!--android:layout_marginBottom="3dp"-->
-        <!--android:layout_height="44dp">-->
-
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:textColor="#434343"
-            android:text="小明"
-            android:layout_marginTop="2dp"
-            android:gravity="top"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_user_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            />
-
-        <TextView
-            android:id="@+id/tv_create_time"
-            android:layout_toRightOf="@+id/iv_user_head"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="6dp"
-            android:layout_below="@+id/tv_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:text="2015-03-24 10:24"
-            android:textColor="#898989"
-            android:textSize="13sp"
-            />
-        <!--</RelativeLayout>-->
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_content"
-        android:text="今天好开心好开心!!!!!"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:textColor="#434343"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="7dp"
-        />
-
-    <!-- 不同的地方 -->
-    <ViewStub
-        android:id="@+id/media_view_stub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        />
-
-    <!--<com.anda.moments.views.MultiImageView-->
-    <!--android:id="@+id/multiImagView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--&gt;-->
-    <!--</com.anda.moments.views.MultiImageView>-->
-    <!--多张图片-->
-    <!--<com.anda.moments.views.NineGridlayout-->
-    <!--android:id="@+id/iv_ngrid_layout"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_width="match_parent" />-->
-
-    <!--&lt;!&ndash;单张图片&ndash;&gt;-->
-    <!--<com.anda.moments.views.CustomImageView-->
-    <!--android:id="@+id/iv_oneimage"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content" />-->
-    <!--<com.anda.moments.views.MultiImageView-->
-    <!--android:id="@+id/iv_multi_image"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--/>-->
-
-    <!--评论-->
-    <ImageView
-        android:id="@+id/iv_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/btn_comment"
-        android:layout_gravity="right"
-        android:layout_marginRight="13dp"
-        android:layout_marginBottom="5dp"
-        />
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/digCommentBody"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!---->
-    <!--android:orientation="vertical" >-->
-
-    <!--<com.yiw.circledemo.widgets.FavortListView-->
-    <!--android:id="@+id/favortListTv"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:lineSpacingMultiplier="1.1"-->
-    <!--android:textSize="14sp"-->
-    <!--android:textColor="@color/color_8290AF"-->
-    <!--/>-->
-
-
-    <RelativeLayout
-        android:id="@+id/digCommentBody"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="10dip"
-        android:paddingTop="12dip"
-        android:paddingBottom="0dip"
-        android:orientation="horizontal"
-        android:background="@drawable/im_distribute_comm_bg"
+        android:orientation="vertical"
+        android:layout_below="@+id/actionBar"
+        android:layout_above="@+id/bottom_line"
         >
+        <RelativeLayout
+            android:id="@+id/rl_publish_info"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="53dp">
+
+            <com.anda.moments.views.round.SelectableRoundedImageView
+                android:id="@+id/iv_user_head"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:sriv_left_top_corner_radius="5dip"
+                app:sriv_right_top_corner_radius="5dip"
+                app:sriv_left_bottom_corner_radius="5dip"
+                app:sriv_right_bottom_corner_radius="5dip"
+                app:sriv_border_width="1dip"
+                app:sriv_border_color="#ffffff"
+                android:src="@drawable/default_useravatar" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:textColor="#434343"
+                android:text="小明"
+                android:layout_marginTop="2dp"
+                android:gravity="top"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_user_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_create_time"
+                android:layout_toRightOf="@+id/iv_user_head"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:layout_below="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:text="2015-03-24 10:24"
+                android:textColor="#898989"
+                android:textSize="13sp"
+                />
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_praise_count"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:drawablePadding="2dp"
-            android:text="1"
-            android:paddingLeft="12dip"
-            android:paddingTop="1dp"
-            android:gravity="center"
-            android:textSize="11sp"
-            android:layout_marginRight="7dp"
-            android:drawableTop="@drawable/btn_praise_selected"
-            android:textColor="#898989"
-
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/praiseList"
-            android:layout_toRightOf="@+id/tv_praise_count"
+            android:layout_below="@+id/rl_publish_info"
+            android:id="@+id/tv_content"
+            android:text="今天好开心好开心!!!!!"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
-
-            android:paddingRight="12dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textColor="#434343"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="7dp"
             />
 
-        <View
-            android:id="@+id/line_praise_comment"
+        <!-- 不同的地方 -->
+        <ViewStub
+            android:layout_below="@+id/tv_content"
+            android:id="@+id/media_view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            />
+
+
+        <!--评论-->
+        <ImageView
+            android:layout_below="@+id/media_view_stub"
+            android:id="@+id/iv_comment"
             android:layout_width="wrap_content"
-            android:layout_height="1px"
-            android:layout_below="@+id/praiseList"
-            android:background="#d4d4d4"
-            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_comment"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="13dp"
             android:layout_marginBottom="5dp"
             />
 
 
-        <TextView
-            android:id="@+id/tv_comment_count"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/line_praise_comment"
-            android:layout_height="35dp"
-            android:drawablePadding="2dp"
-            android:text="1"
-            android:paddingLeft="12dip"
-            android:paddingTop="3dp"
-            android:gravity="center"
-            android:textSize="11sp"
-            android:layout_marginRight="7dp"
-            android:drawableTop="@drawable/btn_comment_count"
-            android:textColor="#898989"
-            />
-        <!--<com.anda.moments.views.CommentListView-->
-        <!--android:id="@+id/commentList"-->
-        <!--android:layout_toRightOf="@+id/tv_comment_count"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:listSelector="@android:color/transparent"-->
-        <!--android:orientation="vertical"-->
-        <!--/>-->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentList"
-            android:layout_below="@+id/line_praise_comment"
-            android:layout_toRightOf="@+id/tv_comment_count"
+        <RelativeLayout
+            android:id="@+id/digCommentBody"
+            android:layout_below="@+id/iv_comment"
+            android:layout_above="@+id/bottom_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="12dip"
-            />
+            android:minHeight="10dip"
+            android:paddingTop="12dip"
+            android:paddingBottom="0dip"
+            android:orientation="horizontal"
+            android:background="@drawable/im_distribute_comm_bg"
+            >
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_praise_count"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:drawablePadding="2dp"
+                android:text="1"
+                android:paddingLeft="12dip"
+                android:paddingTop="1dp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:layout_marginRight="7dp"
+                android:drawableTop="@drawable/btn_praise_selected"
+                android:textColor="#898989"
+
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/praiseList"
+                android:layout_toRightOf="@+id/tv_praise_count"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+
+                android:paddingRight="12dip"
+                />
+
+            <View
+                android:id="@+id/line_praise_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="1px"
+                android:layout_below="@+id/praiseList"
+                android:background="#d4d4d4"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="5dp"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/line_praise_comment"
+                android:layout_height="35dp"
+                android:drawablePadding="2dp"
+                android:text="1"
+                android:paddingLeft="12dip"
+                android:paddingTop="3dp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:layout_marginRight="7dp"
+                android:drawableTop="@drawable/btn_comment_count"
+                android:textColor="#898989"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/commentList"
+                android:layout_below="@+id/line_praise_comment"
+                android:layout_toRightOf="@+id/tv_comment_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="12dip"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
     <View
+        android:id="@+id/bottom_line"
+        android:layout_above="@+id/editTextBodyLl"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_line"
         />
 
+    <LinearLayout
+        android:id="@+id/editTextBodyLl"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="#f6f6f6"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/circleEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:hint="说点什么..."
+            />
+        <ImageView
+            android:id="@+id/sendIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:contentDescription="@null"
+            android:src="@drawable/selector_send" />
+    </LinearLayout>
 
-    <!--</LinearLayout>-->
 
-
-</LinearLayout>
+</RelativeLayout>

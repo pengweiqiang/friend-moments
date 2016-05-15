@@ -389,7 +389,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			@Override
 			public void execute(ParseModel parseModel) {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){//评论成功
-					ToastUtils.showToast(mActivity,parseModel.getInfo());
+//					ToastUtils.showToast(mActivity,parseModel.getInfo());
 					CommentUser commentUser = new CommentUser();
 
 					commentUser.setText(content);

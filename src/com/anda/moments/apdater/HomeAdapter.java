@@ -747,7 +747,7 @@ public class HomeAdapter extends BaseAdapter {
             @Override
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-                    ToastUtils.showToast(context,parseModel.getInfo());
+//                    ToastUtils.showToast(context,parseModel.getInfo());
                    notifyPraiseData(1,viewHolder,circlePosition,praisePosition);
                 }else{
                     ToastUtils.showToast(context,parseModel.getInfo());
@@ -788,7 +788,7 @@ public class HomeAdapter extends BaseAdapter {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response);
-                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
                                 notifyPraiseData(0, viewHolder, circlePostion, praisePosition);
                             }else{
                                 ToastUtils.showToast(context,jsonObject.getString("info"));
@@ -839,11 +839,11 @@ public class HomeAdapter extends BaseAdapter {
             return;
         }
         String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_DELETE_COMMENT;
-        String infoId = String.valueOf(datalist.get(circlePostion).getInfoId());
+        String commentId = String.valueOf(datalist.get(circlePostion).getCommentInfo().getCommentUsers().get(commentPosition).getUserId());
         OkHttpUtils//
                 .get()//
                 .addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
-                .addParams("infoId",infoId)
+                .addParams("commentId",commentId)
                 .addParams("phoneNum",user.getPhoneNum())
                 .url(url)//
                 .build()//
@@ -858,7 +858,7 @@ public class HomeAdapter extends BaseAdapter {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response);
-                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("rectFlag"))) {
+                            if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
 
                             }else{
                                 ToastUtils.showToast(context,jsonObject.getString("info"));

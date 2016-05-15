@@ -246,6 +246,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		if(user==null){
 			return;
 		}
+		mSwipeRefreshLayout.setRefreshing(true);
 		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
