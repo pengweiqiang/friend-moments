@@ -167,6 +167,11 @@ public static final String PROJECT_NAME = "";
 	 * 更换APPP皮肤
 	 */
 	public static final String REQUEST_UPDATE_SKIN = "friends/updateSkin.do";
+
+	/**
+	 * 刷新单个动态详情信息
+	 */
+	public static final String REQUEST_GET_NEW_INFOS_BYID = "friends/getNewsInfoById.do";
 	/**
 	 * 保存好友之间的聊天信息
 	 */

@@ -9,12 +9,21 @@ public class CommentUser implements Serializable {
 
     public CommentUser(){}
 
+    private long commentId;//评论id
     private String userName;
     private String userId;
     private String phoneNum;
     private String icon;
     private String text;
     private long publishTime;
+
+    public long getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(long commentId) {
+        this.commentId = commentId;
+    }
 
     public String getUserName() {
         return userName;

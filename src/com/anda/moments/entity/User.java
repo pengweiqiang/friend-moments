@@ -24,6 +24,9 @@ public class User implements Serializable{
 	private long relationId;
 	private String skinPath;//皮肤地址
 	private String birthdayTime;//出生年月
+	private String isNeedValidate;//加好友是否需要验证  默认yes需要  no为不需要
+	private String isLookMyInfo; //不让某人看我的朋友圈  默认no,yes为指定用户看我的朋友圈
+	private String isLookOtherInfo;//是否看别人的动态，默认yes,查看任何好友动态
 
 	private String sortLetters; // 显示数据拼音的首字母
 	private String suoxie;// 姓名缩写
@@ -170,5 +173,29 @@ public class User implements Serializable{
 
 	public void setBirthdayTime(String birthdayTime) {
 		this.birthdayTime = birthdayTime;
+	}
+
+	public String getIsNeedValidate() {
+		return isNeedValidate;
+	}
+
+	public void setIsNeedValidate(String isNeedValidate) {
+		this.isNeedValidate = isNeedValidate;
+	}
+
+	public String getIsLookMyInfo() {
+		return isLookMyInfo;
+	}
+
+	public void setIsLookMyInfo(String isLookMyInfo) {
+		this.isLookMyInfo = isLookMyInfo;
+	}
+
+	public String getIsLookOtherInfo() {
+		return isLookOtherInfo;
+	}
+
+	public void setIsLookOtherInfo(String isLookOtherInfo) {
+		this.isLookOtherInfo = isLookOtherInfo;
 	}
 }

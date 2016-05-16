@@ -65,6 +65,8 @@ public class UserInfoActivity extends BaseActivity {
 	String phoneNum = "";
 	int flag = 0;//0未添加好友 1已接受好友
 	User user;
+
+	private int width,height;
 	@Override
 	@SuppressLint("InlinedApi")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class UserInfoActivity extends BaseActivity {
 		ViewGroup.LayoutParams paramsImageView = mIvHeadBg.getLayoutParams();
 		paramsImageView.width = DeviceInfo.getDisplayMetricsWidth(UserInfoActivity.this);
 		paramsImageView.height = (int) (paramsImageView.width * 1.0 / 1080 * 480);
+		width = paramsImageView.width;
+		height = paramsImageView.height;
 		mIvHeadBg.setLayoutParams(paramsImageView);
 
 		user = (User)this.getIntent().getSerializableExtra("user");
@@ -150,14 +154,22 @@ public class UserInfoActivity extends BaseActivity {
 		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
+				if(on){
 
+				}else{
+
+				}
 			}
 		});
 
 		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
+				if(on){
 
+				}else{
+
+				}
 			}
 		});
 	}
@@ -243,16 +255,34 @@ public class UserInfoActivity extends BaseActivity {
 				int width = DeviceInfo.dp2px(mContext,70);
 				Picasso.with(mContext).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mContext.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 			}
+			Picasso.with(mContext).load(user.getSkinPath()).resize(this.width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 			if(flag==1){
 				mBtnAddFriends.setVisibility(View.GONE);
 			}else{
 				mBtnAddFriends.setVisibility(View.VISIBLE);
 			}
 
+			//如果是自己的信息不需要展示添加好友按钮
 			User myInfo = MyApplication.getInstance().getCurrentUser();
 			if(user.getPhoneNum().equals(myInfo.getPhoneNum())){
 				findViewById(R.id.ll_friends_info).setVisibility(View.GONE);
 			}
+
+			String isLookMyInfo = user.getIsLookMyInfo();//不让好友看我的朋友圈,
+			if("yes".equals(isLookMyInfo)){
+				mTogglePublic.setToggleOn(false);
+			}else{
+				mTogglePublic.setToggleOn(true);
+			}
+			String isLookOtherInfo = user.getIsLookOtherInfo();//是否看别人动态
+			if("no".equals(isLookOtherInfo)){
+				mToggleFriendsPublic.setToggleOff(false);
+			}else{
+				mToggleFriendsPublic.setToggleOn(false);
+			}
+
+
+
 		}
 	}
 
@@ -278,6 +308,9 @@ public class UserInfoActivity extends BaseActivity {
 		});
 	}
 
+	private void addNotNoticePerson(String isLook){
+		//S
+	}
 
 
 }

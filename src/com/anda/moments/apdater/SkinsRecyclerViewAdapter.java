@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anda.moments.R;
@@ -58,13 +59,16 @@ public class SkinsRecyclerViewAdapter extends RecyclerView.Adapter<SkinsRecycler
     @Override
     public SkinsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         SkinsViewHolder viewHolder = new SkinsViewHolder(mInflater.inflate(R.layout.skins_item,parent,false));
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.mIvSkins.getLayoutParams();
+        layoutParams.width = width;
+        layoutParams.height = height;
+        viewHolder.mIvSkins.setLayoutParams(layoutParams);
         return viewHolder;
     }
 
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(final SkinsViewHolder holder, final int position) {
-        long startTime = System.nanoTime();
         final Skins bean = mDatas.get(position);
         String name = bean.getName();
 
@@ -89,11 +93,6 @@ public class SkinsRecyclerViewAdapter extends RecyclerView.Adapter<SkinsRecycler
             });
         }
 
-        // 停止计时
-        long endTime = System.nanoTime();
-        // 计算耗时
-        long val = (endTime - startTime) / 1000L;
-        Log.e("Test", "---------Position CommentAdapter: " + position + ":" + val);
     }
 
 

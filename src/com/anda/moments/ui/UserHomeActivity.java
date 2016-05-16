@@ -213,7 +213,7 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 		if(user==null){
 			return;
 		}
-		mSwipeRefreshLayout.setRefreshing(true);
+
 		ApiMyUtils.getInfoDetails(mContext, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {

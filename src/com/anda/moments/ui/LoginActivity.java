@@ -161,7 +161,7 @@ public class LoginActivity extends BaseActivity {
 			
 			@Override
 			public void execute(ParseModel parseModel) {
-
+				loadingDialog.cancel();
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					User user = parseModel.getUser();
 					logined(user);
@@ -170,7 +170,6 @@ public class LoginActivity extends BaseActivity {
 //					getUserInfo(phone);
 
 				}else{
-					loadingDialog.cancel();
 					ToastUtils.showToast(mContext, StringUtils.isEmpty(parseModel.getInfo())?"登录失败，稍后请重试！":parseModel.getInfo());
 				}
 			}

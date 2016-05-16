@@ -250,7 +250,8 @@ public class MyAdapter extends BaseAdapter {
 //                        }
 //                    }
 //                });
-
+                Audio audio = infos.getAudios().get(0);
+                viewHolder.mTvAudioSecond.setText(audio.getAudioTime());
                 break;
             case ITEM_VIEW_TYPE_VIDEO://视频
 //                viewHolder.mIvPlay.setOnClickListener(new View.OnClickListener() {
