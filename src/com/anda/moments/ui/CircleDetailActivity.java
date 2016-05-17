@@ -383,7 +383,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 		//回复列表
 		CommentInfo commentInfo = circleMessage.getCommentInfo();
-		int commentNum = commentInfo.getCommentNum();
+		int commentNum = commentInfo.getTotalNum();
 		if(commentNum>0 || praseInfoCount > 0) {
 			digCommentBody.setVisibility(View.VISIBLE);
 			//评论列表不为空
@@ -1091,7 +1091,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 		PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
 		int count = praisedInfo.getPraiseNum();
-		int commentCount = circleMessage.getCommentInfo().getCommentNum();
+		int commentCount = circleMessage.getCommentInfo().getTotalNum();
 		if(type == 0){//取消赞
 			if(count >0){
 				count --;
@@ -1189,7 +1189,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	private void notifyCommentData(int type,int commentPosition,CommentUser commentUser){
 
 		CommentInfo commentInfo = circleMessage.getCommentInfo();
-		int commentCount = commentInfo.getCommentNum();
+		int commentCount = commentInfo.getTotalNum();
 		int praiseCount = circleMessage.getPraisedInfo().getPraiseNum();
 		if(type == 0){
 			commentCount -- ;
@@ -1224,8 +1224,8 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			digCommentBody.setVisibility(View.VISIBLE);
 		}
 		calRecycleViewHeight(commentListView, commentCount);
-		commentInfo.setCommentNum(commentCount);
-		mTvCommentCount.setText(commentInfo.getCommentNum()+"");
+		commentInfo.setTotalNum(commentCount);
+		mTvCommentCount.setText(commentInfo.getTotalNum()+"");
 	}
 
 

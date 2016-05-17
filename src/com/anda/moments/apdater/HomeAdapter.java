@@ -297,7 +297,7 @@ public class HomeAdapter extends BaseAdapter {
 
         //回复列表
         CommentInfo commentInfo = circleMessage.getCommentInfo();
-        int commentNum = commentInfo.getCommentNum();
+        int commentNum = commentInfo.getTotalNum();
         if(commentNum>0 || praiseInfoCount > 0) {
             viewHolder.digCommentBody.setVisibility(View.VISIBLE);
             //评论列表不为空
@@ -632,7 +632,7 @@ public class HomeAdapter extends BaseAdapter {
             //当前的评论
             CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
             User user = MyApplication.getInstance().getCurrentUser();
-            if(commentUser.getUserId().equals(user.getUserId())) {//自己评论自己的
+            if(commentUser.getUserId().equals(user.getUserId()) && commentUser.getType()!=2) {//自己评论自己的 并且不能删除萌化了操作
                 showDeleteWindow(position, commentPosition, this);
             }
 
@@ -892,7 +892,7 @@ public class HomeAdapter extends BaseAdapter {
                             jsonObject = new JSONObject(response);
                             if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
                                 commentInfo.getCommentUsers().remove(commentPosition);
-                                commentInfo.setCommentNum(commentInfo.getCommentNum()-1<0?0:commentInfo.getCommentNum()-1);
+                                commentInfo.setTotalNum(commentInfo.getTotalNum()-1<0?0:commentInfo.getTotalNum()-1);
                                 notifyDataSetChanged();
                             }else{
                                 ToastUtils.showToast(context,jsonObject.getString("info"));
@@ -948,8 +948,8 @@ public class HomeAdapter extends BaseAdapter {
      * 萌化啦
      * @param position
      */
-    private void addLoveSth(int position){
-        User user = MyApplication.getInstance().getCurrentUser();
+    private void addLoveSth(final int position){
+        final User user = MyApplication.getInstance().getCurrentUser();
         if(user==null){
             ToastUtils.showToast(context,"请先登录");
             return;
@@ -960,7 +960,24 @@ public class HomeAdapter extends BaseAdapter {
             @Override
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-                    ToastUtils.showToast(context,parseModel.getInfo());
+                    String info = parseModel.getInfo();
+                    if(!"不能重复萌化".equals(info)) {
+
+                        CommentUser commentUser = new CommentUser();
+                        commentUser.setUserName(user.getUserName());
+                        commentUser.setText("萌化了~");
+                        commentUser.setIcon(user.getIcon());
+                        commentUser.setPhoneNum(user.getPhoneNum());
+                        commentUser.setType(2);
+                        commentUser.setUserId(user.getUserId());
+
+                        CommentInfo commentInfo = getItem(position).getCommentInfo();
+                        commentInfo.getCommentUsers().add(0, commentUser);
+                        commentInfo.setTotalNum(commentInfo.getTotalNum() + 1);
+                        notifyDataSetChanged();
+                    }else{
+                        ToastUtils.showToast(context,parseModel.getInfo());
+                    }
                 }else{
                     ToastUtils.showToast(context,parseModel.getInfo());
                 }

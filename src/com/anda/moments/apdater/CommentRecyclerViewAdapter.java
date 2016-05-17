@@ -17,6 +17,7 @@ import com.anda.moments.ui.UserHomeActivity;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
+import com.anda.moments.utils.StringUtils;
 import com.anda.moments.views.CommentListView;
 import com.squareup.picasso.Picasso;
 
@@ -67,7 +68,11 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
 
         Picasso.with(mContext).load(bean.getIcon()).placeholder(R.drawable.default_useravatar).resize(headWidth,headWidth).centerCrop().into(holder.mIvHead);
         holder.mTvCommentUserName.setText(name);
-        holder.commentTv.setText(bean.getText());
+        if(StringUtils.isEmpty(bean.getText())){
+            holder.commentTv.setText("萌化了～");
+        }else {
+            holder.commentTv.setText(bean.getText());
+        }
         holder.mTvCommentTime.setText(DateUtils.getTimestampString(bean.getPublishTime()));
 
         if(position == size-1){

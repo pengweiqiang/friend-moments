@@ -10,6 +10,7 @@ public class CommentUser implements Serializable {
     public CommentUser(){}
 
     private long commentId;//评论id
+    private int type;//评论类型  1是评论 2是萌化了
     private String userName;
     private String userId;
     private String phoneNum;
@@ -71,5 +72,13 @@ public class CommentUser implements Serializable {
 
     public void setPublishTime(long publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

@@ -450,7 +450,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private void update2AddComment(int circlePosition,CommentUser commentUser){
 		CommentInfo commentInfo = mHomeAdapter.getDatas().get(circlePosition).getCommentInfo();
 
-		commentInfo.setCommentNum(commentInfo.getCommentNum()+1);
+		commentInfo.setTotalNum(commentInfo.getTotalNum()+1);
 		commentInfo.getCommentUsers().add(commentUser);
 
 //		int visibleFirstPosi = mListView.getFirstVisiblePosition();
