@@ -52,11 +52,13 @@ import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.InputMethodUtils;
+import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.CustomSingleImageView;
+import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
@@ -86,6 +88,7 @@ import sz.itguy.utils.FileUtil;
  */
 public class CircleDetailActivity extends BaseActivity implements CommentRecyclerViewAdapter.OnItemClickListener,PraiseRecyclerViewAdapter.OnItemClickListener{
 
+	public static int RESULT_CODE = 0x00002;
 	ActionBar mActionbar;
 	private static final int ITEM_VIEW_TYPE_IMAGES = 0;
 	private static final int ITEM_VIEW_TYPE_AUDIO = 1;
@@ -94,7 +97,9 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 	int headWidth =70;
 	int itemViewType;//显示类型  文字、图片、音频、视频
+	private int position;
 	private CircleMessage circleMessage;
+	private long id;//动态详情id
 
 
 	public View mViewComment;//萌化了
@@ -104,8 +109,8 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	//图片类型 end
 
 	//视频类型 start
-	public ScalableVideoView mScalableVideoView;
-	public ImageView mPlayImageView;//
+	public ScalableVideoView mScalableVideoView;//视频控件
+	public ImageView mPlayImageView;//播放按钮
 	public ImageView mThumbnailImageView;//缩略图
 	public ProgressBar mProgressBar;
 	//视频类型 end
@@ -150,8 +155,76 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		super.onCreate(savedInstanceState);
 		headWidth = DeviceInfo.dp2px(mContext,70);
 		circleMessage = (CircleMessage)this.getIntent().getSerializableExtra("circleMessage");
+		position = this.getIntent().getIntExtra("position",-1);
+		id = this.getIntent().getLongExtra("id",-1);
 
-		showData();
+		init();
+		if(circleMessage != null) {
+			showData();
+		}
+		getData();
+	}
+
+	LoadingDialog loadingDialog;
+
+	/**
+	 * 获取动态详情
+	 */
+	private void getData(){
+		if(id == -1){
+			return;
+		}
+		if(circleMessage==null){
+			loadingDialog = new LoadingDialog(mContext);
+			loadingDialog.show();
+		}
+		//TODO 获取动态详情
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_GET_NEW_INFOS_BYID;
+		String phoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+		OkHttpUtils//
+				.get()//
+				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+				.addParams("infoId",String.valueOf(id))
+				.addParams("phoneNum",phoneNum)
+				.url(url)//
+				.build()//
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e) {
+						loadingDialog.cancel();
+						ToastUtils.showToast(mContext,"获取详情失败.");
+					}
+
+					@Override
+					public void onResponse(String response) {
+						JSONObject jsonObject = null;
+						try {
+							jsonObject = new JSONObject(response);
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+								circleMessage = JsonUtils.fromJson(jsonObject.getString("detail"),CircleMessage.class);
+								showData();
+							}else{
+								ToastUtils.showToast(mContext,jsonObject.getString("info"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							ToastUtils.showToast(mContext,"获取详情失败,稍后再试");
+						}
+						loadingDialog.cancel();
+
+					}
+				});
+
+	}
+
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent();
+		intent.putExtra("position",position);
+		intent.putExtra("circleMessage",circleMessage);
+		setResult(RESULT_OK,intent);
+		AppManager.getAppManager().finishActivity();
+		super.onBackPressed();
 	}
 
 	@Override
@@ -162,6 +235,10 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.putExtra("position",position);
+				intent.putExtra("circleMessage",circleMessage);
+				setResult(RESULT_OK,intent);
 				AppManager.getAppManager().finishActivity();
 			}
 		});
@@ -203,8 +280,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 	}
 
-	private void showData(){
-
+	private void init(){
 		commentAdapter = new CommentRecyclerViewAdapter(mContext,null);
 		commentAdapter.setOnItemClickListener(this);
 
@@ -235,7 +311,9 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		praiseListView.setAdapter(praiseRecyclerViewAdapter);
 		commentListView.setAdapter(commentAdapter);
 
+	}
 
+	private void showData(){
 
 		itemViewType = getItemViewType();
 
@@ -369,6 +447,24 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	}
 
 	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MediaManager.release();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MediaManager.pause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		MediaManager.resume();
+	}
+
+	@Override
 	public void initListener() {
 		sendIv.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -461,14 +557,16 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 				break;
 			case ITEM_VIEW_TYPE_AUDIO://语音
 
-				mViewAudio.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
-							downloadMedia(circleMessage.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO);
+				if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
+					final Audio audio = circleMessage.getAudios().get(0);
+					mTvAudioSecond.setText(audio.getAudioTime());
+					mViewAudio.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+								downloadMedia(audio.getPath(), ReqUrls.MEDIA_TYPE_AUDIO);
 						}
-					}
-				});
+					});
+				}
 
 				break;
 			case ITEM_VIEW_TYPE_VIDEO://视频
@@ -480,22 +578,23 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 //                        }
 //                    }
 //                });
-				mPlayImageView.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						if(circleMessage.getVideos()!=null && !circleMessage.getVideos().isEmpty()) {
+				if(circleMessage.getVideos()!=null && !circleMessage.getVideos().isEmpty()) {
+					final Video video = circleMessage.getVideos().get(0);
+					mPlayImageView.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
 //                            playerVideo(circleMessage.getVideos().get(0).getPath(),viewHolder);
-							downloadMedia(circleMessage.getVideos().get(0).getPath(), ReqUrls.MEDIA_TYPE_VIDEO);
+								downloadMedia(video.getPath(), ReqUrls.MEDIA_TYPE_VIDEO);
 						}
-					}
-				});
+					});
 
-				Video video = circleMessage.getVideos().get(0);
-				String url = video.getPath();
-				String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
-				String fileName = url.substring(url.lastIndexOf("/")+1);
-				Picasso.with(mContext).load(video.getIcon()).error(new ColorDrawable(Color.BLACK)).into(mThumbnailImageView);
+					String url = video.getPath();
+					String downLoadPath =  FileUtil.createFile(FileUtil.DOWNLOAD_MEDIA_FILE_DIR);
+					String fileName = url.substring(url.lastIndexOf("/")+1);
+					Picasso.with(mContext).load(video.getIcon()).error(new ColorDrawable(Color.BLACK)).into(mThumbnailImageView);
 //                mThumbnailImageView.setImageBitmap(getVideoThumbnail(downLoadPath+"/"+fileName));
+				}
+
 
 
 				break;
@@ -948,7 +1047,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			return;
 		}
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_DELETE_COMMENT;
-		String commentId = String.valueOf(circleMessage.getCommentInfo().getCommentUsers().get(commentPosition).getUserId());
+		String commentId = String.valueOf(circleMessage.getCommentInfo().getCommentUsers().get(commentPosition).getCommentId());
 		OkHttpUtils//
 				.get()//
 				.addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
@@ -968,7 +1067,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 						try {
 							jsonObject = new JSONObject(response);
 							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
-
+								notifyCommentData(0,commentPosition,null);
 							}else{
 								ToastUtils.showToast(mContext,jsonObject.getString("info"));
 							}
@@ -1033,8 +1132,9 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			}
 
 			digCommentBody.setVisibility(View.VISIBLE);
+			count ++;
 		}
-		count ++;
+
 		praisedInfo.setPraiseNum(count);
 		mTvPraiseCount.setText(String.valueOf(count));
 //		notifyDataSetChanged();
@@ -1062,20 +1162,69 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 					commentUser.setUserName(user.getUserName());
 					commentUser.setPhoneNum(user.getPhoneNum());
 					commentUser.setPublishTime(System.currentTimeMillis());
+					commentUser.setText(content);
 
 					//TODO
 //					update2AddComment(mCommentConfig.circlePosition,commentUser);
-					CommentInfo commentInfo = circleMessage.getCommentInfo();
-					commentInfo.setCommentNum(commentInfo.getCommentNum()+1);
-					commentInfo.getCommentUsers().add(0,commentUser);
-					commentAdapter.add(0,commentUser);
+
 					mEditTextComment.setText("");
-					mTvCommentCount.setText(commentInfo.getCommentNum()+"");
+
+
+					notifyCommentData(1,0,commentUser);
+
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}
 			}
 		});
+	}
+
+	/**
+	 *刷新评论列表
+	 * @param type  type 0 删除评论  1添加评论
+	 * @param commentPosition 评论当前位置
+	 * @param commentUser 新增的评论
+     */
+	private void notifyCommentData(int type,int commentPosition,CommentUser commentUser){
+
+		CommentInfo commentInfo = circleMessage.getCommentInfo();
+		int commentCount = commentInfo.getCommentNum();
+		int praiseCount = circleMessage.getPraisedInfo().getPraiseNum();
+		if(type == 0){
+			commentCount -- ;
+			commentInfo.getCommentUsers().remove(commentPosition);
+			commentAdapter.remove(commentPosition);
+			if(commentCount==0){
+				if(praiseCount == 0){
+					digCommentBody.setVisibility(View.GONE);
+				}
+			}
+
+		}else if(type == 1){//添加评论
+			commentInfo.getCommentUsers().add(0,commentUser);
+			commentAdapter.add(0,commentUser);
+
+			if(commentCount==0 || digCommentBody.getVisibility()==View.GONE) {
+				commentAdapter.setDatas(commentInfo.getCommentUsers());
+
+				if(praiseCount==0){
+					mViewPraiseCommentLine.setVisibility(View.GONE);
+					praiseListView.setVisibility(View.GONE);
+					mTvPraiseCount.setVisibility(View.GONE);
+				}else{
+					mViewPraiseCommentLine.setVisibility(View.VISIBLE);
+				}
+
+				commentListView.setVisibility(View.VISIBLE);
+				mTvCommentCount.setVisibility(View.VISIBLE);
+			}
+			commentCount++;
+
+			digCommentBody.setVisibility(View.VISIBLE);
+		}
+		calRecycleViewHeight(commentListView, commentCount);
+		commentInfo.setCommentNum(commentCount);
+		mTvCommentCount.setText(commentInfo.getCommentNum()+"");
 	}
 
 
