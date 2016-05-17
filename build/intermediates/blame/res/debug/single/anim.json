@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/avatar_animation_right_in.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/avatar_animation_right_in.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/pop_exit_anim.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/pop_exit_anim.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/avatar_animation_right_in.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/avatar_animation_right_in.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/pop_enter_anim.xml",
@@ -32,16 +32,16 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/push_up_out.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/focus_animation.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/WXLikeVideoRecorderLib/unspecified/res/anim/focus_animation.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/hold.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/hold.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/fade_ins.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/fade_ins.xml"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/hold.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/anim/hold.xml"
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/focus_animation.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/WXLikeVideoRecorderLib/unspecified/res/anim/focus_animation.xml"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/anim/home_rotate.xml",

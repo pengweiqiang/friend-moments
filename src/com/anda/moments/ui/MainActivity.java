@@ -43,15 +43,6 @@ import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.utils.rong.HttpUtil;
-import com.anda.moments.utils.rong.SdkHttpResult;
-//import com.squareup.okhttp.Callback;
-//import com.squareup.okhttp.FormEncodingBuilder;
-//import com.squareup.okhttp.MediaType;
-//import com.squareup.okhttp.OkHttpClient;
-//import com.squareup.okhttp.Request;
-//import com.squareup.okhttp.RequestBody;
-//import com.squareup.okhttp.Response;
 import com.anda.moments.views.audio.MediaManager;
 import com.umeng.update.UmengUpdateAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -365,63 +356,63 @@ public class MainActivity extends BaseFragmentActivity {
 		final String name = StringUtils.isEmpty(user.getUserName())?userId:user.getUserName();
 		final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
 
-//		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_GET_RONGYUN_TOKEN;
-//		OkHttpUtils
-//				.get()//
-//				.addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
-//				.addParams("phoneNum",user.getPhoneNum())
-//				.url(url)//
-//				.build()//
-//				.execute(new StringCallback() {
-//					@Override
-//					public void onError(Call call, Exception e) {
-//
-//					}
-//
-//					@Override
-//					public void onResponse(String response) {
-//						JSONObject jsonObject = null;
-//						try {
-//							jsonObject = new JSONObject(response);
-//							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
-//								String rongToken = new JSONObject(jsonObject.getString("tokenInfo")).getString("token");
-//								SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,
-//										com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,rongToken+"_&_"
-//										+ System.currentTimeMillis());
-//								Log.e("MainActivity_GET_TOKEN",rongToken);
-//								connect(rongToken);
-//							}
-//						} catch (JSONException e) {
-//							e.printStackTrace();
-//						}
-//
-//					}
-//				});
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_GET_RONGYUN_TOKEN;
+		OkHttpUtils
+				.get()//
+				.addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
+				.addParams("phoneNum",user.getPhoneNum())
+				.url(url)//
+				.build()//
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e) {
 
-		//获取token
-		ThreadUtil.getTheadPool(true).submit(new Runnable() {
-			@Override
-			public void run() {
-				SdkHttpResult result = null;
-				try {
-					result = HttpUtil.getToken(com.anda.moments.api.constant.ReqUrls.APPKEY_RONG, com.anda.moments.api.constant.ReqUrls.APPSERCERT_RONG, userId, name,
-							portraitUri);
-					if(result.getHttpCode()==200){
-						JSONObject resultJson = new JSONObject(result.getResult());
-						if(resultJson.getInt("code")==200){
-							String token = resultJson.getString("token");
-							SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,token+"_&_"
-									+ System.currentTimeMillis());
-							Log.e("MainActivity_GET_TOKEN",token);
-							connect(token);
-						}
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
-			}
-		});
+					@Override
+					public void onResponse(String response) {
+						JSONObject jsonObject = null;
+						try {
+							jsonObject = new JSONObject(response);
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+								String rongToken = new JSONObject(jsonObject.getString("tokenInfo")).getString("token");
+								SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,
+										com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,rongToken+"_&_"
+										+ System.currentTimeMillis());
+								Log.e("MainActivity_GET_TOKEN",rongToken);
+								connect(rongToken);
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
+
+//		//获取token
+//		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+//			@Override
+//			public void run() {
+//				SdkHttpResult result = null;
+//				try {
+//					result = HttpUtil.getToken(com.anda.moments.api.constant.ReqUrls.APPKEY_RONG, com.anda.moments.api.constant.ReqUrls.APPSERCERT_RONG, userId, name,
+//							portraitUri);
+//					if(result.getHttpCode()==200){
+//						JSONObject resultJson = new JSONObject(result.getResult());
+//						if(resultJson.getInt("code")==200){
+//							String token = resultJson.getString("token");
+//							SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME,com.anda.moments.constant.api.ReqUrls.TOKEN_RONG+"_"+userId,token+"_&_"
+//									+ System.currentTimeMillis());
+//							Log.e("MainActivity_GET_TOKEN",token);
+//							connect(token);
+//						}
+//					}
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+//		});
 
 	}
 

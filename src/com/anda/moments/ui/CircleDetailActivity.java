@@ -644,29 +644,6 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	}
 
 
-	/**
-	 * 萌化啦
-	 */
-	private void addLoveSth(){
-		User user = MyApplication.getInstance().getCurrentUser();
-		if(user==null){
-			ToastUtils.showToast(mContext,"请先登录");
-			return;
-		}
-		String infoId = String.valueOf(circleMessage.getInfoId());
-		ApiMomentsUtils.addLoveSth(mContext,infoId,"1",user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
-
-			@Override
-			public void execute(ParseModel parseModel) {
-				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-					ToastUtils.showToast(mContext,parseModel.getInfo());
-				}else{
-					ToastUtils.showToast(mContext,parseModel.getInfo());
-				}
-			}
-		});
-	}
-
 	private String TAG = "HomeAdapter";
 	public void downloadMedia(String url,final int type){
 		if(CommonHelper.isFastClick()){
@@ -1226,6 +1203,48 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		calRecycleViewHeight(commentListView, commentCount);
 		commentInfo.setTotalNum(commentCount);
 		mTvCommentCount.setText(commentInfo.getTotalNum()+"");
+	}
+
+	/**
+	 * 萌化啦
+	 */
+	private void addLoveSth(){
+		final User user = MyApplication.getInstance().getCurrentUser();
+		if(user==null){
+			ToastUtils.showToast(mContext,"请先登录");
+			return;
+		}
+		String infoId = String.valueOf(circleMessage.getInfoId());
+		ApiMomentsUtils.addLoveSth(mContext,infoId,"1",user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+
+			@Override
+			public void execute(ParseModel parseModel) {
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					String info = parseModel.getInfo();
+					if(!"不能重复萌化".equals(info)) {
+
+						CommentUser commentUser = new CommentUser();
+						commentUser.setUserName(user.getUserName());
+						commentUser.setText("萌化了~");
+						commentUser.setIcon(user.getIcon());
+						commentUser.setPhoneNum(user.getPhoneNum());
+						commentUser.setType(2);
+						commentUser.setUserId(user.getUserId());
+						commentUser.setPublishTime(System.currentTimeMillis());
+
+//						CommentInfo commentInfo = circleMessage.getCommentInfo();
+//						commentInfo.getCommentUsers().add(0, commentUser);
+//						commentInfo.setTotalNum(commentInfo.getTotalNum() + 1);
+
+						notifyCommentData(1,0,commentUser);
+					}else{
+						ToastUtils.showToast(mContext,parseModel.getInfo());
+					}
+				}else{
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
 	}
 
 

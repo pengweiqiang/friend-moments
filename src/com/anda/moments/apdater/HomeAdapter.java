@@ -970,6 +970,7 @@ public class HomeAdapter extends BaseAdapter {
                         commentUser.setPhoneNum(user.getPhoneNum());
                         commentUser.setType(2);
                         commentUser.setUserId(user.getUserId());
+                        commentUser.setPublishTime(System.currentTimeMillis());
 
                         CommentInfo commentInfo = getItem(position).getCommentInfo();
                         commentInfo.getCommentUsers().add(0, commentUser);

@@ -11,10 +11,15 @@ import com.anda.moments.R;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.SharePreferenceManager;
+import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
+import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.ToggleButton;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -22,7 +27,15 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * 私密设置
@@ -46,6 +59,12 @@ public class SecretSettingActivity extends BaseActivity {
 		setContentView(R.layout.activity_secret_setting);
 		super.onCreate(savedInstanceState);
 
+		String isNeed = MyApplication.getInstance().getCurrentUser().getIsNeedValidate();
+		if("yes".equals(isNeed)){
+			mToggleAddFriendCheck.setToggleOn();
+		}else{
+			mToggleAddFriendCheck.setToggleOff();
+		}
 	}
 
 	@Override
@@ -98,45 +117,110 @@ public class SecretSettingActivity extends BaseActivity {
 //		});
 	}
 
-	/**
-	 * 加我是否要校验
-	 * @param ischeck yes需要 no不需要
-	 */
-	private void addMyIscheck(String ischeck){
-		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_ADD_NOT_NOTICE_PERSON;
-		User myUser = MyApplication.getInstance().getCurrentUser();
-		OkHttpUtils//
-				.get()//
-				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-				.addParams("phoneNum",myUser.getPhoneNum())
-				.addParams("isLook",ischeck)
-				.url(url)//
-				.build()//
-				.execute(new StringCallback() {
+	private LoadingDialog mLoadingDialog;
+	private OkHttpClient client = new OkHttpClient();
+	private void addMyIscheck(final String ischeck){
+
+		if(mLoadingDialog==null) {
+			mLoadingDialog = new LoadingDialog(mContext);
+		}
+		mLoadingDialog.show();
+
+		ThreadUtil.getTheadPool(true).submit(new Runnable() {
+			@Override
+			public void run() {
+
+				//多文件表单上传构造器
+				MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+				//添加一个文本表单参数
+				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+
+				builder.addFormDataPart("isNeedValidate",ischeck);
+
+
+				RequestBody requestBody = builder.build();
+				//构造文件上传时的请求对象Request
+				String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
+				Request request = new Request.Builder().url(url)
+						.post(requestBody)
+						.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+						.build();
+
+				Call call = client.newCall(request);
+				call.enqueue(new Callback() {
 					@Override
-					public void onError(Call call, Exception e) {
-						ToastUtils.showToast(mContext,"保存失败.");
+					public void onFailure(Call call, IOException e) {
+						mLoadingDialog.cancel();
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								ToastUtils.showToast(mContext, "更新失败");
+							}
+						});
 					}
 
 					@Override
-					public void onResponse(String response) {
-						JSONObject jsonObject = null;
+					public void onResponse(Call call, Response response) throws IOException {
+						mLoadingDialog.cancel();
 						try {
-							jsonObject = new JSONObject(response);
-							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+							if (!response.isSuccessful()) {
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										ToastUtils.showToast(mContext, "更新失败");
+									}
+								});
 
-							}else{
-								ToastUtils.showToast(mContext,jsonObject.getString("info"));
+							} else {
+								try {
+									JSONObject jsonResult = new JSONObject(response.body().string());
+									int retFlag = jsonResult.getInt("retFlag");
+									if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												ToastUtils.showToast(mContext,"修改成功");
+												updateSuccessRefreshCache(ischeck);
+											}
+										});
+
+									} else {
+										final String info = jsonResult.getString("info");
+										runOnUiThread(new Runnable() {
+											@Override
+											public void run() {
+												ToastUtils.showToast(mContext, info);
+											}
+										});
+
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+
 							}
-						} catch (JSONException e) {
+						} catch (IOException e) {
+							mLoadingDialog.cancel();
 							e.printStackTrace();
-							ToastUtils.showToast(mContext,"保存失败");
 						}
-
 					}
 				});
+			}
 
 
+		});
+
+
+	}
+
+	private void updateSuccessRefreshCache(String isCheck){
+		User user = MyApplication.getInstance().getCurrentUser();
+
+		user.setIsNeedValidate(isCheck);
+
+		MyApplication.getInstance().setUser(user);
+		SharePreferenceManager.saveBatchSharedPreference(mContext, Constant.FILE_NAME,"user", JsonUtils.toJson(user));
 	}
 
 
