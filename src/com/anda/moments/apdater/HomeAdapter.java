@@ -924,7 +924,7 @@ public class HomeAdapter extends BaseAdapter {
                 count --;
             }
             praisedInfo.getPraiseUsers().remove(praisePosition);
-            viewholder.praiseRecyclerViewAdapter.remove(praisePosition);
+//            viewholder.praiseRecyclerViewAdapter.remove(praisePosition);
         }else{//点赞
             count ++;
             User user = MyApplication.getInstance().getCurrentUser();
@@ -933,7 +933,7 @@ public class HomeAdapter extends BaseAdapter {
             praiseUser.setPhoneNum(user.getPhoneNum());
             praiseUser.setUserName(user.getUserName());
             praisedInfo.getPraiseUsers().add(0,praiseUser);
-            viewholder.praiseRecyclerViewAdapter.add(0,praiseUser);
+//            viewholder.praiseRecyclerViewAdapter.add(0,praiseUser);
         }
         praisedInfo.setPraiseNum(count);
         viewholder.mTvCommentCount.setText(String.valueOf(count));
