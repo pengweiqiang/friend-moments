@@ -219,6 +219,15 @@ public static final String PROJECT_NAME = "";
 	 * 修改个人资料
 	 */
 	public static final String REQUEST_UPDATE_USER_INFO = "friends/updateMyInfos.do";
+
+	/**
+	 * 保存我是否看他的动态
+	 */
+	public static final String REQUEST_ADD_NOT_NOTICE_PERSON = "friends/addNotNoticePerson.do";
+	/**
+	 * 保存是否允许查看我的朋友圈接口
+	 */
+	public static final String REQUEST_ADD_NOT_PERM_LOOK_PERSON = "friends/addNotPermLookPerson.do";
 	
 	
 	/**

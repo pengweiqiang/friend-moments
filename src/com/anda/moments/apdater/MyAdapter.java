@@ -56,6 +56,7 @@ public class MyAdapter extends BaseAdapter {
     private static final int ITEM_VIEW_TYPE_VIDEO = 2;
     private static final int ITEM_VIEW_TYPE_TEXT = 3;
 
+    public int playingAudioIndex = -1;
 
     private static final int ITEM_VIEW_TYPE_COUNT = 4;
 
@@ -140,9 +141,11 @@ public class MyAdapter extends BaseAdapter {
 
                     viewHolder.mViewAudio = convertView.findViewById(R.id.view_record);
                     viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
+                    viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+                    viewHolder.animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
                     viewHolder.mTvAudioSecond = (TextView)convertView.findViewById(R.id.tv_audio_second);
 
-                    viewHolder.mViewAudio.setOnClickListener(viewHolder);
+//                    viewHolder.mViewAudio.setOnClickListener(viewHolder);
 
                     break;
                 case ITEM_VIEW_TYPE_VIDEO://视频
@@ -241,17 +244,29 @@ public class MyAdapter extends BaseAdapter {
                 }
                 break;
             case ITEM_VIEW_TYPE_AUDIO://语音
-
-//                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(infos.getAudios()!=null && !infos.getAudios().isEmpty()) {
-////                            downloadMedia(infos.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
-//                        }
-//                    }
-//                });
                 Audio audio = infos.getAudios().get(0);
-                viewHolder.mTvAudioSecond.setText(audio.getAudioTime());
+                viewHolder.mTvAudioSecond.setText(audio.getAudioTime()+"''");
+                if(viewHolder.position == playingAudioIndex){
+                    startAnimAudio(viewHolder);
+                }else{
+                    stopAnimAudio(viewHolder);
+                }
+                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        stopCurrentAnimAudio();
+                        if(viewHolder.position == playingAudioIndex){//正在播放的再次点击暂停音频
+                            MediaManager.pause();
+                            playingAudioIndex = -1;
+//                            stopAnimAudio();
+                            return;
+                        }
+                        if(infos.getAudios()!=null && !infos.getAudios().isEmpty()) {
+                            downloadMedia(infos.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
+                        }
+                    }
+                });
+
                 break;
             case ITEM_VIEW_TYPE_VIDEO://视频
 //                viewHolder.mIvPlay.setOnClickListener(new View.OnClickListener() {
@@ -298,6 +313,7 @@ public class MyAdapter extends BaseAdapter {
         //音频
         public View mViewAudio;//语音背景
         public View mViewAnim;//语音动画
+        public AnimationDrawable animationDrawable;
         public TextView mTvAudioSecond;//时长
 
         //视频
@@ -400,23 +416,24 @@ public class MyAdapter extends BaseAdapter {
      */
     AnimationDrawable animationDrawable;
     private void playAudioRecord(String filePath,final ViewHolder viewHolder){
-        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
-        if(animationDrawable!=null && animationDrawable.isRunning()){
+//        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+        if(viewHolder.animationDrawable!=null && viewHolder.animationDrawable.isRunning()){
             animationDrawable.selectDrawable(2);
             animationDrawable.stop();
         }
 //		if(animation==null) {
-        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
+//        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
 //		}
-
-        animationDrawable.start();
+        playingAudioIndex = viewHolder.position;
+        animationDrawable = viewHolder.animationDrawable;
+        viewHolder.animationDrawable.start();
         MediaManager.playSound(filePath,
                 new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        animationDrawable.stop();
-                        viewHolder.mViewAnim
-                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
+                        viewHolder.animationDrawable.stop();
+                        playingAudioIndex = -1;//音频播放停止
+                        viewHolder.animationDrawable.selectDrawable(2);
                     }
                 });
     }
@@ -468,6 +485,23 @@ public class MyAdapter extends BaseAdapter {
             }
         }
         return bitmap;
+    }
+    public void stopAnimAudio(ViewHolder viewHolder){
+        if(viewHolder.animationDrawable!=null){
+            viewHolder.animationDrawable.selectDrawable(2);
+            viewHolder.animationDrawable.stop();
+        }
+    }
+    public void stopCurrentAnimAudio(){
+        if(animationDrawable!=null){
+            animationDrawable.selectDrawable(2);
+            animationDrawable.stop();
+        }
+    }
+    public void startAnimAudio(ViewHolder viewHolder){
+        if(viewHolder.animationDrawable!=null) {
+            viewHolder.animationDrawable.start();
+        }
     }
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,12 +26,14 @@ import com.anda.moments.apdater.MyAdapter;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
+import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.Skins;
 import com.anda.moments.entity.User;
+import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.ui.PersonalInfoActivity;
 import com.anda.moments.ui.SkinsActivity;
@@ -181,8 +184,10 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	@Override
 	public void onPause() {
 		super.onPause();
-	}
+		mMyAdapter.stopCurrentAnimAudio();
+		mMyAdapter.playingAudioIndex = -1;
 
+	}
 	@Override
 	public void onRefresh() {
 		page = 1;
@@ -202,6 +207,20 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 			public boolean onLongClick(View v) {
 				topListViewFirst();
 				return false;
+			}
+		});
+
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(position==0){
+					return;
+				}
+				Infos infos = infosList.get(position-1);
+				Intent intent = new Intent(mActivity, CircleDetailActivity.class);
+				intent.putExtra("position",position-1);
+				intent.putExtra("id",infos.getInfoId());
+				startActivity(intent);
 			}
 		});
 	}
@@ -251,19 +270,16 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 
 
 
-
 	private void getData(){
 		User user = getUser();
 		if(user==null){
 			return;
 		}
-		mSwipeRefreshLayout.setRefreshing(true);
 		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mSwipeRefreshLayout.setRefreshing(false);
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-//					Log.e("MyFragment",parseModel.getResults().getAsString());
 					myInfo = new MyInfo();
 					myInfo.setPublishUser(parseModel.getPublishUser());
 					myInfo.setInfos(parseModel.getInfos());
@@ -289,6 +305,8 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 				Picasso.with(mActivity).load(user.getIcon()).resize(width,width).centerCrop().placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 //				Picasso.with(mActivity).load(user.getIcon()).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvUserHead);
 				mTvUserName.setText(user.getUserName());
+				Picasso.with(mActivity).load(user.getSkinPath()).resize(this.width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
+
 			}
 			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){
 				if(page == 1){
@@ -328,9 +346,9 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		dlg.show();
 		Window window = dlg.getWindow();
 		window.setContentView(R.layout.alertdialog);
-		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
-		tv_paizhao.setText("更换封面");
-		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+		TextView tvContent = (TextView) window.findViewById(R.id.tv_content1);
+		tvContent.setText("更换封面");
+		tvContent.setOnClickListener(new View.OnClickListener() {
 			@SuppressLint("SdCardPath")
 			public void onClick(View v) {
 				startActivity(SkinsActivity.class);
@@ -339,8 +357,8 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		});
 		window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
 
-
 	}
+
 
 
 }

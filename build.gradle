@@ -11,13 +11,13 @@ allprojects {
         jcenter()
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir:'libs', include:['*.jar'])
     //compile files('libs/photoview-library-1.2.2.jar')
     compile project('IMKit')
-    compile project('WXLikeVideoRecorderLib')
+    compile project(':WXLikeVideoRecorderLib')
     compile files('libs/commons-codec-1.4.jar')
     compile 'com.yqritc:android-scalablevideoview:1.0.3'
     compile 'com.zhy:okhttputils:2.4.1'

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
@@ -31,11 +32,16 @@ import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.ToggleButton;
 import com.squareup.picasso.Picasso;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
+import okhttp3.Call;
 
 /**
  * 个人信息(自己、以及好友信息)
@@ -154,22 +160,27 @@ public class UserInfoActivity extends BaseActivity {
 		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
+				String isLook = "";
 				if(on){
-
+					isLook = "no";
 				}else{
-
+					isLook = "yes";
 				}
+				addNotNoticePerson(isLook);
+
 			}
 		});
 
 		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
+				String isPermi = "";
 				if(on){
-
+					isPermi = "no";
 				}else{
-
+					isPermi = "yes";
 				}
+				addNotPermLookPerson(isPermi);
 			}
 		});
 	}
@@ -269,16 +280,20 @@ public class UserInfoActivity extends BaseActivity {
 			}
 
 			String isLookMyInfo = user.getIsLookMyInfo();//不让好友看我的朋友圈,
-			if("yes".equals(isLookMyInfo)){
-				mTogglePublic.setToggleOn(false);
-			}else{
-				mTogglePublic.setToggleOn(true);
+			if(!StringUtils.isEmpty(isLookMyInfo)) {
+				if ("yes".equals(isLookMyInfo)) {
+					mTogglePublic.setToggleOff();
+				} else {
+					mTogglePublic.setToggleOn();
+				}
 			}
 			String isLookOtherInfo = user.getIsLookOtherInfo();//是否看别人动态
-			if("no".equals(isLookOtherInfo)){
-				mToggleFriendsPublic.setToggleOff(false);
-			}else{
-				mToggleFriendsPublic.setToggleOn(false);
+			if(!StringUtils.isEmpty(isLookOtherInfo)) {
+				if ("yes".equals(isLookOtherInfo)) {
+					mToggleFriendsPublic.setToggleOff();
+				} else {
+					mToggleFriendsPublic.setToggleOn();
+				}
 			}
 
 
@@ -308,8 +323,88 @@ public class UserInfoActivity extends BaseActivity {
 		});
 	}
 
+	/**
+	 * 保存我是否看他的动态
+	 * @param isLook yes看 no不看
+     */
 	private void addNotNoticePerson(String isLook){
-		//S
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_ADD_NOT_NOTICE_PERSON;
+		User myUser = MyApplication.getInstance().getCurrentUser();
+		OkHttpUtils//
+				.get()//
+				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+				.addParams("myPhoneNum",myUser.getPhoneNum())
+				.addParams("otherPhoneNum",user.getPhoneNum())
+				.addParams("relationId",String.valueOf(user.getRelationId()))
+				.addParams("isLook",isLook)
+				.url(url)//
+				.build()//
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e) {
+						ToastUtils.showToast(mContext,"保存失败.");
+					}
+
+					@Override
+					public void onResponse(String response) {
+						JSONObject jsonObject = null;
+						try {
+							jsonObject = new JSONObject(response);
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+
+							}else{
+								ToastUtils.showToast(mContext,jsonObject.getString("info"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							ToastUtils.showToast(mContext,"保存失败");
+						}
+
+					}
+				});
+
+
+	}
+
+	/**
+	 * 是否允许查看我的朋友圈
+	 * @param isPermi
+     */
+	private void addNotPermLookPerson(String isPermi){
+		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_ADD_NOT_PERM_LOOK_PERSON;
+		User myUser = MyApplication.getInstance().getCurrentUser();
+		OkHttpUtils//
+				.get()//
+				.addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
+				.addParams("myPhoneNum",myUser.getPhoneNum())
+				.addParams("otherPhoneNum",user.getPhoneNum())
+				.addParams("relationId",String.valueOf(user.getRelationId()))
+				.addParams("isPermi",isPermi)
+				.url(url)//
+				.build()//
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e) {
+						ToastUtils.showToast(mContext,"保存失败.");
+					}
+
+					@Override
+					public void onResponse(String response) {
+						JSONObject jsonObject = null;
+						try {
+							jsonObject = new JSONObject(response);
+							if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
+
+							}else{
+								ToastUtils.showToast(mContext,jsonObject.getString("info"));
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							ToastUtils.showToast(mContext,"保存失败");
+						}
+
+					}
+				});
 	}
 
 

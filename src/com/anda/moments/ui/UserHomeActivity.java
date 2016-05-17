@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -165,6 +166,19 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 		mListView.setPullLoadEnable(true);
 		mListView.setXListViewListener(this);
 
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(position==0){
+					return;
+				}
+				Infos infos = infosList.get(position-1);
+				Intent intent = new Intent(mContext, CircleDetailActivity.class);
+				intent.putExtra("position",position-1);
+				intent.putExtra("id",infos.getInfoId());
+				startActivity(intent);
+			}
+		});
 
 	}
 

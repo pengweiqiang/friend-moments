@@ -87,6 +87,7 @@ public class HomeAdapter extends BaseAdapter {
 
     private static final int ITEM_VIEW_TYPE_COUNT = 4;
 
+    public int playingAudioIndex = -1;
 
     private Context context;
     private List<CircleMessage> datalist;
@@ -181,7 +182,11 @@ public class HomeAdapter extends BaseAdapter {
 
                     viewHolder.mViewAudio = convertView.findViewById(R.id.view_record);
                     viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
+                    viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+                    viewHolder.animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
                     viewHolder.mTvAudioSecond = (TextView)convertView.findViewById(R.id.tv_audio_second);
+
+
 
 
                     break;
@@ -385,9 +390,26 @@ public class HomeAdapter extends BaseAdapter {
                     String audioTime = StringUtils.isEmpty(audios.get(0).getAudioTime())?"0":audios.get(0).getAudioTime();
                     viewHolder.mTvAudioSecond.setText(audioTime+"''");
                 }
+//                if(animationDrawable!=null && animationDrawable.isRunning()){
+//                    animationDrawable.stop();
+//                    viewHolder.mViewAnim
+//                            .setBackgroundResource(R.drawable.icon_voice_anim_3);
+//                }
+                if(viewHolder.position == playingAudioIndex){
+                    startAnimAudio(viewHolder);
+                }else{
+                    stopAnimAudio(viewHolder);
+                }
                 viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        stopCurrentAnimAudio();
+                        if(viewHolder.position == playingAudioIndex){//正在播放的再次点击暂停音频
+                            MediaManager.pause();
+                            playingAudioIndex = -1;
+//                            stopAnimAudio(viewHolder);
+                            return;
+                        }
                         if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
                             downloadMedia(circleMessage.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
                         }
@@ -472,6 +494,7 @@ public class HomeAdapter extends BaseAdapter {
     }
 
     private void resetViewHolder(ViewHolder viewHolder,int position){
+
         if(datalist.get(position).isPlay()){
             if(viewHolder.mThumbnailImageView!=null){
                 viewHolder.mThumbnailImageView.setVisibility(View.GONE);
@@ -480,22 +503,28 @@ public class HomeAdapter extends BaseAdapter {
             if(viewHolder.mPlayImageView!=null){
                 viewHolder.mPlayImageView.setVisibility(View.GONE);
             }
+            if(viewHolder.mPlayImageView!=null){
+                viewHolder.mPlayImageView.setVisibility(View.VISIBLE);
+            }
            //playerVideo(datalist.get(position).getVideos().get(0).getPath(),viewHolder);
         }else{
+            if(viewHolder.mScalableVideoView!=null){
+                try {
+                    viewHolder.mScalableVideoView.setDataSource(datalist.get(position).getVideos().get(0).getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             if(viewHolder.mThumbnailImageView!=null){
                 viewHolder.mThumbnailImageView.setVisibility(View.VISIBLE);
+                Picasso.with(context).load(datalist.get(position).getVideos().get(0).getIcon()).error(new ColorDrawable(Color.BLACK)).into(viewHolder.mThumbnailImageView);
 
             }
             if(viewHolder.mPlayImageView!=null){
                 viewHolder.mPlayImageView.setVisibility(View.VISIBLE);
             }
-            if(viewHolder.mScalableVideoView!=null){
-                try {
-                    viewHolder.mScalableVideoView.setDataSource("");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+
+
         }
     }
 
@@ -517,6 +546,7 @@ public class HomeAdapter extends BaseAdapter {
         //音频类型 start
         public View mViewAudio;//语音背景
         public View mViewAnim;//语音动画
+        public AnimationDrawable animationDrawable;
         public TextView mTvAudioSecond;//时长
 
         //音频类型 end
@@ -544,13 +574,15 @@ public class HomeAdapter extends BaseAdapter {
 
 
 
-
         private int position;
 
         public void setPosition(int position){
             this.position = position;
         }
 
+        public int getPosition(){
+            return position;
+        }
         @Override
         public void onClick(View v) {
             if(CommonHelper.isFastClick()){
@@ -837,7 +869,9 @@ public class HomeAdapter extends BaseAdapter {
             return;
         }
         String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_DELETE_COMMENT;
-        String commentId = String.valueOf(datalist.get(circlePostion).getCommentInfo().getCommentUsers().get(commentPosition).getUserId());
+        CircleMessage circleMessage = getItem(circlePostion);
+        final CommentInfo commentInfo = circleMessage.getCommentInfo();
+        final String commentId = String.valueOf(commentInfo.getCommentUsers().get(commentPosition).getCommentId());
         OkHttpUtils//
                 .get()//
                 .addHeader("JSESSIONID",GlobalConfig.JSESSION_ID)
@@ -857,7 +891,9 @@ public class HomeAdapter extends BaseAdapter {
                         try {
                             jsonObject = new JSONObject(response);
                             if(ApiConstants.RESULT_SUCCESS.equals(jsonObject.getString("retFlag"))) {
-
+                                commentInfo.getCommentUsers().remove(commentPosition);
+                                commentInfo.setCommentNum(commentInfo.getCommentNum()-1<0?0:commentInfo.getCommentNum()-1);
+                                notifyDataSetChanged();
                             }else{
                                 ToastUtils.showToast(context,jsonObject.getString("info"));
                             }
@@ -996,26 +1032,49 @@ public class HomeAdapter extends BaseAdapter {
      */
     AnimationDrawable animationDrawable;
     private void playAudioRecord(String filePath,final ViewHolder viewHolder){
-        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
-        if(animationDrawable!=null && animationDrawable.isRunning()){
-            animationDrawable.selectDrawable(2);
-            animationDrawable.stop();
+//        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
+        if(viewHolder.animationDrawable!=null && viewHolder.animationDrawable.isRunning()){
+            viewHolder.animationDrawable.selectDrawable(2);
+            viewHolder.animationDrawable.stop();
         }
 //		if(animation==null) {
-        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
+//        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
 //		}
-
-        animationDrawable.start();
+        playingAudioIndex = viewHolder.position;
+        animationDrawable = viewHolder.animationDrawable;
+        viewHolder.animationDrawable.start();
 
         MediaManager.playSound(filePath,
                 new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        animationDrawable.stop();
-                        viewHolder.mViewAnim
-                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
+                        viewHolder.animationDrawable.stop();
+                        playingAudioIndex = -1;//音频播放停止
+                        viewHolder.animationDrawable.selectDrawable(2);
+//                        viewHolder.mViewAnim
+//                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
                     }
                 });
+    }
+
+    public void stopAnimAudio(ViewHolder viewHolder){
+        if(viewHolder.animationDrawable!=null){
+            viewHolder.animationDrawable.selectDrawable(2);
+            viewHolder.animationDrawable.stop();
+        }
+    }
+    public void stopCurrentAnimAudio(){
+
+        if(animationDrawable!=null){
+            animationDrawable.selectDrawable(2);
+            animationDrawable.stop();
+        }
+    }
+
+    public void startAnimAudio(ViewHolder viewHolder){
+        if(viewHolder.animationDrawable!=null) {
+            viewHolder.animationDrawable.start();
+        }
     }
 
     private void playerVideo(String filePath,final  ViewHolder viewHolder){

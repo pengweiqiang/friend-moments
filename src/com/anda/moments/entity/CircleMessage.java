@@ -17,7 +17,7 @@ public class CircleMessage implements Serializable {
     private LovelyInfo lovelyInfo;//萌化了列表
     private CommentInfo commentInfo;//评论列表
 
-    private boolean isPlay;
+    private boolean isPlay;//是否正在播放视频
 
 
 

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="ffmpeg">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/WXLikeVideoRecorderLib/libs/ffmpeg.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WXLikeVideoRecorderLib/src/main/libs/ffmpeg.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -47,6 +47,7 @@ import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
 import com.anda.moments.entity.Video;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;

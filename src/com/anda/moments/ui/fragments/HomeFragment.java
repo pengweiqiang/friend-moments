@@ -59,6 +59,7 @@ import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.CommentListView;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
+import com.anda.moments.views.audio.MediaManager;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -69,6 +70,7 @@ import com.squareup.picasso.Picasso;
 @SuppressLint("NewApi") 
 public class HomeFragment extends BaseFragment implements OnRefreshListener,IXListViewListener{
 
+	public static int REQUEST_CODE_DETAIL = 0x000001;//启动动态详情标识
 	private View mContentView;
 	private ActionBar mActionBar;
 	private XListView mListView;
@@ -301,10 +303,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 //		}
 //	}
 
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
 
 	@Override
 	public void onRefresh() {
@@ -379,10 +377,28 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 				}
 				CircleMessage circleMessage = circleMessageList.get(position-1);
 				Intent intent = new Intent(mActivity, CircleDetailActivity.class);
+				intent.putExtra("position",position-1);
 				intent.putExtra("circleMessage",circleMessage);
-				startActivity(intent);
+				startActivityForResult(intent,REQUEST_CODE_DETAIL);
 			}
 		});
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		//刷新进入动态详情的数据
+		if(requestCode == REQUEST_CODE_DETAIL && data!=null){
+			if(circleMessageList!=null && !circleMessageList.isEmpty()){
+				int position = data.getIntExtra("position",-1);
+				CircleMessage circleMessage = (CircleMessage)data.getSerializableExtra("circleMessage");
+				if(position>=0 && circleMessage!=null) {
+					circleMessageList.get(position).setCommentInfo(circleMessage.getCommentInfo());
+					circleMessageList.get(position).setPraisedInfo(circleMessage.getPraisedInfo());
+					mHomeAdapter.notifyDataSetChanged();
+				}
+			}
+		}
 	}
 
 	/**
@@ -657,9 +673,18 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			}
 		});
 		window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
-
-
 	}
 
+	@Override
+	public void onPause() {
+		super.onPause();
+		mHomeAdapter.stopCurrentAnimAudio();
+		mHomeAdapter.playingAudioIndex = -1;
 
+	}
+	public void resetVideoList(){
+		for(CircleMessage circleMessage:circleMessageList){
+			circleMessage.setPlay(false);
+		}
+	}
 }
