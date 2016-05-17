@@ -9,6 +9,8 @@ import java.util.List;
 public class CommentInfo implements Serializable{
 
    private int commentNum;//评论总数
+   private int lovelyNum;//萌化了总数
+   private int totalNum;//评论+萌化了总数
    private List<CommentUser> commentUsers;
 
 
@@ -28,6 +30,19 @@ public class CommentInfo implements Serializable{
       this.commentUsers = commentUsers;
    }
 
+   public int getLovelyNum() {
+      return lovelyNum;
+   }
 
+   public void setLovelyNum(int lovelyNum) {
+      this.lovelyNum = lovelyNum;
+   }
 
+   public int getTotalNum() {
+      return totalNum;
+   }
+
+   public void setTotalNum(int totalNum) {
+      this.totalNum = totalNum;
+   }
 }

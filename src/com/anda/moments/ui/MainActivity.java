@@ -24,6 +24,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
+import com.anda.moments.RongCloudEvent;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
@@ -321,7 +322,7 @@ public class MainActivity extends BaseFragmentActivity {
 				 */
 				@Override
 				public void onSuccess(String userid) {
-
+					RongCloudEvent.getInstance().setOtherListener();
 					Log.d("LoginActivity", "--onSuccess" + userid);
 
 				}

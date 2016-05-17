@@ -20,7 +20,7 @@ public class FileUtils {
 			+ FileUtil.PICTURE_FILE_DIR;
 
 	public static String saveBitmap(Bitmap bm, String picName) {
-		Log.e("", "保存图片");
+//		Log.e("", "保存图片");
 		String filePath = "";
 		try {
 			if (!isFileExist("")) {

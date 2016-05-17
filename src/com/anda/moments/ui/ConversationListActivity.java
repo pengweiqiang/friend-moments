@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
+import com.anda.moments.RongCloudEvent;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
@@ -126,7 +127,8 @@ public class ConversationListActivity extends BaseFragmentActivity{
 
 				@Override
 				public void onSuccess(String s) {
-
+					if (RongCloudEvent.getInstance() != null)
+						RongCloudEvent.getInstance().setOtherListener();
 					enterFragment();
 				}
 

@@ -60,7 +60,9 @@ public class MyApplication extends Application {
 
 	private static MyApplication myApplication = null;
 	private User user;
-	
+
+
+
 	public static MyApplication getInstance() {
 		return myApplication;
 	}
@@ -102,6 +104,16 @@ public class MyApplication extends Application {
 			 * IMKit SDK调用第一步 初始化
 			 */
 			RongIM.init(this);
+
+			/**
+			 * 融云SDK事件监听处理
+			 *
+			 * 注册相关代码，只需要在主进程里做。
+			 */
+			if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
+
+				RongCloudEvent.init(this);
+			}
 		}
 
 		try{
@@ -332,7 +344,6 @@ public class MyApplication extends Application {
 //			}
 //		});
 	}
-
 
 
 
