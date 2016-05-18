@@ -107,7 +107,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	public static final String KEY_FILE_PATH = "file_path";
 
 	private String filePath;
-	private String firstPicturePath;
+	private String firstPicturePath;//缩略图
 
 	private ScalableVideoView mScalableVideoView;
 	private ImageView mPlayImageView;
@@ -334,7 +334,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		mLoadingDialog.show();
 
 		File file = new File(filePath);
-		File firstPictureFile = new File(firstPicturePath);
+		final File firstPictureFile = new File(firstPicturePath);
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_FRIENDS_PUBLISH_INFORMATION;
 
 		JsonArray fileMetaInfo = new JsonArray();
@@ -387,9 +387,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 							JSONObject jsonResult = new JSONObject(response);
 							int retFlag = jsonResult.getInt("retFlag");
 							if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
-
-								// 完成上传服务器后 .........
-								FileUtil.deleteFile(filePath);
+								deleteFile();
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
@@ -415,6 +413,19 @@ public class PublishVideoSecondActivity extends BaseActivity {
 					}
 
 				});
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		deleteFile();
+	}
+
+	private void deleteFile(){
+		// 完成上传服务器后 .........
+		FileUtil.deleteFile(filePath);
+		FileUtil.deleteFile(firstPicturePath);
 	}
 
 	/**

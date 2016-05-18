@@ -37,6 +37,7 @@ import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.ui.fragments.MyFragment;
 import com.anda.moments.ui.fragments.FriendsFragment;
 import com.anda.moments.utils.AESEncryptor;
+import com.anda.moments.utils.FileUtil;
 import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
@@ -261,6 +262,8 @@ public class MainActivity extends BaseFragmentActivity {
 				ToastUtils.showToast(this, "再按一次退出朋友圈");
 				return true;
 			} else {
+				FileUtil.deleteCache();
+				SharePreferenceManager.saveBatchSharedPreference(MainActivity.this,Constant.FILE_NAME, "lastTime","");
 				AppManager.getAppManager().finishAllActivity();
 				return false;
 			}

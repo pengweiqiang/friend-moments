@@ -173,6 +173,7 @@ public class PublishVoiceActivity extends BaseActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		MediaManager.release();
+		FileUtil.deleteFile(filePath);
 	}
 
 	@Override
@@ -186,6 +187,7 @@ public class PublishVoiceActivity extends BaseActivity {
 		super.onResume();
 		MediaManager.resume();
 	}
+
 
 
 	/**
@@ -269,7 +271,7 @@ public class PublishVoiceActivity extends BaseActivity {
 							if(ApiConstants.RESULT_SUCCESS.equals(""+retFlag)){
 								// 完成上传服务器后 .........
 //								FileUtils.deleteAudioDir();
-								FileUtils.delFile(filePath);
+								FileUtil.deleteFile(filePath);
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
