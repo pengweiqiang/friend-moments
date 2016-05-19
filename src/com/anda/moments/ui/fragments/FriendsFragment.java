@@ -42,6 +42,7 @@ import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.AddFriendsActivity;
+import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.NewFriendsListActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.utils.HttpConnectionUtil;
@@ -91,6 +92,10 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	LoadingDialog mLoadingDialog;
 	private TextView mTvReqCount;//新用户请求个数
 	private TextView mTvUnReadMsg;//未读消息
+
+
+	private int reqCount;//好友请求个数
+	private int unReadMsgCount;//未读消息数
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -258,7 +263,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					isLoadData = true;
 					Log.e("FriendsFragment","获取好友列表："+parseModel.getResults().toString());
-					int reqCount = parseModel.getReqCount();//好友请求个数
+					reqCount = parseModel.getReqCount();//好友请求个数
 					if(reqCount>0) {
 						mTvReqCount.setVisibility(View.VISIBLE);
 						mTvReqCount.setText(String.valueOf(reqCount));
@@ -267,12 +272,14 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 					}
 					List<User> friends = JsonUtils.fromJson(parseModel.getResults().toString(),new TypeToken<List<User>>(){});
 					initData(friends);
+					showFriendMsg();
 				}else{
 					ToastUtils.showToast(mActivity,parseModel.getInfo());
 				}
 			}
 		});
 	}
+
 
 	private void initData(List<User> friends){
 
@@ -406,6 +413,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
 		@Override
 		public void onMessageIncreased(int count) {
+			unReadMsgCount = count;
 			if (count == 0) {
 				mTvUnReadMsg.setVisibility(View.GONE);
 			} else if (count > 0 && count < 100) {
@@ -415,8 +423,18 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				mTvUnReadMsg.setVisibility(View.VISIBLE);
 				mTvUnReadMsg.setText("...");
 			}
+			showFriendMsg();
+
 		}
 	};
+
+	private void showFriendMsg(){
+		if(unReadMsgCount==0 && reqCount==0){
+			((MainActivity)mActivity).showMessage(View.GONE);
+		}else if(unReadMsgCount!=0 || reqCount !=0){
+			((MainActivity)mActivity).showMessage(View.VISIBLE);
+		}
+	}
 
 
 	private boolean isLoadData = false;//是否已经加载数据

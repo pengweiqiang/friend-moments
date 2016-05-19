@@ -53,6 +53,7 @@
         <item name="android:drawablePadding">3dip</item>
         <item name="android:paddingBottom">3dp</item>
     </style>
+
     
     <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/myratingbar</item>

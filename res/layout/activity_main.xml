@@ -36,24 +36,47 @@
                 <include
                     android:id="@+id/home"
                     android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     layout="@layout/main_tab_indicator_home" />
 
                 <include
                     android:id="@+id/friends"
                     android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     layout="@layout/main_tab_friends" />
+
 
 
                 <include
                     android:id="@+id/my"
                     android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     layout="@layout/main_tab_indicator_my" />
 
 
             </RadioGroup>
+            <LinearLayout
+                android:id="@+id/ll_message"
+                android:layout_width="match_parent"
+                android:layout_height="11dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:gravity="center|top"
+                >
+                <TextView
+                    android:layout_width="6dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/unread_message_drawable"
+                    />
+
+
+
+            </LinearLayout>
 
 
             <LinearLayout

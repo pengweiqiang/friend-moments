@@ -79,6 +79,7 @@ public class MainActivity extends BaseFragmentActivity {
 	
 	private int checkId = tabIds[0];
 
+	private View mViewMessage;//消息提醒
 
 
 	public LinearLayout mEditTextBody;
@@ -159,8 +160,13 @@ public class MainActivity extends BaseFragmentActivity {
 		mEditTextComment = (EditText) findViewById(R.id.circleEt);
 		sendIv = (ImageView)findViewById(R.id.sendIv);
 		mEditTextBody = (LinearLayout)findViewById(R.id.editTextBodyLl);
+		mViewMessage = findViewById(R.id.ll_message);
+		mViewMessage.setVisibility(View.GONE);
     	
     }
+	public void showMessage(int visibily){
+		mViewMessage.setVisibility(visibily);
+	}
 
 	private void initListener(){
 		sendIv.setOnClickListener(new View.OnClickListener() {
