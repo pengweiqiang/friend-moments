@@ -103,9 +103,9 @@ public class MyApplication extends Application {
 				user = JsonUtils.fromJson(userJson,User.class);
 				if(user==null){
 					SharePreferenceManager.saveBatchSharedPreference(myApplication,Constant.FILE_NAME,"user","");
-					Intent intent = new Intent(myApplication, LoginActivity.class);
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					myApplication.startActivity(intent);
+//					Intent intent = new Intent(myApplication, LoginActivity.class);
+//					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//					myApplication.startActivity(intent);
 				}
 			}
 		}

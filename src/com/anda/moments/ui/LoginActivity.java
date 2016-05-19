@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.login);
 		super.onCreate(savedInstanceState);
 
-		if(!StringUtils.isEmpty(GlobalConfig.JSESSION_ID)){
+		if(!StringUtils.isEmpty(GlobalConfig.JSESSION_ID) && application.getCurrentUser()!=null){
 			loginSuccess();
 			return;
 		}

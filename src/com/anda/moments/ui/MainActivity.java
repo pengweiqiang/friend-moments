@@ -349,10 +349,15 @@ public class MainActivity extends BaseFragmentActivity {
 	 */
 	public void getRongToken(){
 
-		User user = MyApplication.getInstance().getCurrentUser();
-
 		if(!StringUtils.isEmpty(GlobalConfig.TOKEN_RONG)){
 			connect(GlobalConfig.TOKEN_RONG);
+			return;
+		}
+		User user = MyApplication.getInstance().getCurrentUser();
+		if(user==null){
+			Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			return;
 		}
 		final String userId = user.getPhoneNum();//手机号做userId
