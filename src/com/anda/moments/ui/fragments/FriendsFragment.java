@@ -284,16 +284,22 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 			for(User user:friends){
 				int flag = user.getFlag();// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
 				if(flag == 1) {
-					String pinyin = characterParser.getSelling(user.getUserName());
-					String suoxie = CharacterParser.getFirstSpell(user.getUserName());
-
-					user.setSuoxie(suoxie);
-					String sortString = pinyin.substring(0, 1).toUpperCase();
-
-					if (sortString.matches("[A-Z]")) {// 正则表达式，判断首字母是否是英文字母
-						user.setSortLetters(sortString);
-					} else {
+					String userName = user.getUserName();
+					if(StringUtils.isEmpty(userName)){
+						user.setSuoxie("");
 						user.setSortLetters("#");
+					}else {
+						String pinyin = characterParser.getSelling(user.getUserName());
+						String suoxie = CharacterParser.getFirstSpell(user.getUserName());
+
+						user.setSuoxie(suoxie);
+						String sortString = pinyin.substring(0, 1).toUpperCase();
+
+						if (sortString.matches("[A-Z]")) {// 正则表达式，判断首字母是否是英文字母
+							user.setSortLetters(sortString);
+						} else {
+							user.setSortLetters("#");
+						}
 					}
 					friendLists.add(user);
 				}else{

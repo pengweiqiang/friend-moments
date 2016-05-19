@@ -22,6 +22,7 @@ import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.utils.DiskLruCacheUtils;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
@@ -34,10 +35,12 @@ import com.anda.universalimageloader.core.ImageLoader;
 import com.anda.universalimageloader.core.ImageLoaderConfiguration;
 import com.anda.universalimageloader.core.assist.ImageScaleType;
 import com.anda.universalimageloader.core.assist.QueueProcessingType;
+import com.sea_monster.cache.DiskLruCache;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -57,6 +60,31 @@ public class MyApplication extends Application {
 
 	private static MyApplication myApplication = null;
 	private User user;
+
+
+	//DIskLruCache中对文件的最大缓存值
+//	private int maxSize = 10*1024*1024;//10M
+//	private static DiskLruCache mDiskLruCache;
+
+//	public static DiskLruCache getDiskLruCache(){
+//		return mDiskLruCache;
+//	}
+//
+//	private void initDiskLruCache(){
+//		try {
+//			File cacheDir= DiskLruCacheUtils.getDiskLruCacheDir(myApplication, "download");
+//			if (!cacheDir.exists()) {
+//				cacheDir.mkdirs();
+//			}
+//			int versionCode=DiskLruCacheUtils.getAppVersionCode(myApplication);
+//			mDiskLruCache= DiskLruCache.open(cacheDir, versionCode, 1, maxSize);
+//
+////			DiskLruCacheUtils.saveDataToDiskLruCache();
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//	}
 
 
 
@@ -159,7 +187,7 @@ public class MyApplication extends Application {
 		}else{
 			OkHttpUtils.getInstance().setConnectTimeout(100000,TimeUnit.MICROSECONDS);
 		}
-
+//		initDiskLruCache();
 
 	}
 

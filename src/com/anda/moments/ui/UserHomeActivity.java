@@ -29,6 +29,7 @@ import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
+import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.XListView;
 import com.squareup.picasso.Picasso;
 
@@ -223,9 +224,14 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 		getData();
 	}
 
+	private LoadingDialog loadingDialog;
 	private void getData(){
 		if(user==null){
 			return;
+		}
+		if(page==1) {
+			loadingDialog = new LoadingDialog(mContext);
+			loadingDialog.show();
 		}
 
 		ApiMyUtils.getInfoDetails(mContext, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
@@ -244,6 +250,9 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 						page --;
 					}
 					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+				if(loadingDialog!=null && loadingDialog.isShowing()) {
+					loadingDialog.cancel();
 				}
 			}
 		});

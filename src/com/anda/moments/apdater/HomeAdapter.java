@@ -56,10 +56,11 @@ import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
-//import com.squareup.okhttp.Call;
+import com.sea_monster.cache.DiskLruCache;
 import com.squareup.picasso.Picasso;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -67,12 +68,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -1012,6 +1015,33 @@ public class HomeAdapter extends BaseAdapter {
 //                .tag(this)
                 .url(url)//
                 .build()//
+//                .execute(new com.anda.moments.callBack.FileCallBack(downLoadPath+"/", fileName,url) {
+//                    @Override
+//                    public void inProgress(float progress, long total) {
+//                        if(type == ReqUrls.MEDIA_TYPE_VIDEO) {
+//                            int progressInt = (int) (100 * progress);
+//                            viewHolder.mProgressBar.setProgress(progressInt);
+//                            Log.e(TAG,progressInt+"  total "+total);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Call call, Exception e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String filePath) {
+//                        switch (type){
+//                            case  ReqUrls.MEDIA_TYPE_AUDIO://音频
+//                                playAudioRecord(filePath,viewHolder);
+//                                break;
+//                            case  ReqUrls.MEDIA_TYPE_VIDEO://视频
+//                                playerVideo(filePath,viewHolder);
+//                                break;
+//                        }
+//                    }
+//                });
                 .execute(new FileCallBack(downLoadPath+"/", fileName) {
                     @Override
                     public void inProgress(float progress, long total) {

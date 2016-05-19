@@ -24,6 +24,7 @@ dependencies {
     //    compile files('libs/okhttputils-2_4_1.jar')
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
 
 android {
@@ -53,4 +54,5 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
 }

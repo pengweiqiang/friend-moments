@@ -106,10 +106,14 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 			}
 			String descTag = dto.getDescTag();
 			StringBuffer sbUserName = new StringBuffer();
+			String userName = dto.getUserName();
+			if(StringUtils.isEmpty(userName)){
+				userName = "";
+			}
 			if(!StringUtils.isEmpty(descTag)) {
-				sbUserName.append(descTag+"("+dto.getUserName()+")");
+				sbUserName.append(descTag+"("+userName+")");
 			}else{
-				sbUserName.append(dto.getUserName());
+				sbUserName.append(userName);
 			}
 			holder.tvUserName.setText(sbUserName.toString());
 		}

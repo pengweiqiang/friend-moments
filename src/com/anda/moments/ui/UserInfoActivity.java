@@ -160,6 +160,20 @@ public class UserInfoActivity extends BaseActivity {
 		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
+				String isPermi = "";
+				if(on){
+					isPermi = "no";
+				}else{
+					isPermi = "yes";
+				}
+				addNotPermLookPerson(isPermi);
+
+			}
+		});
+
+		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
 				String isLook = "";
 				if(on){
 					isLook = "no";
@@ -168,19 +182,6 @@ public class UserInfoActivity extends BaseActivity {
 				}
 				addNotNoticePerson(isLook);
 
-			}
-		});
-
-		mToggleFriendsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
-			@Override
-			public void onToggle(boolean on) {
-				String isPermi = "";
-				if(on){
-					isPermi = "no";
-				}else{
-					isPermi = "yes";
-				}
-				addNotPermLookPerson(isPermi);
 			}
 		});
 	}
@@ -281,7 +282,7 @@ public class UserInfoActivity extends BaseActivity {
 
 			String isLookMyInfo = user.getIsLookMyInfo();//不让好友看我的朋友圈,
 			if(!StringUtils.isEmpty(isLookMyInfo)) {
-				if ("yes".equals(isLookMyInfo)) {
+				if ("yes".equalsIgnoreCase(isLookMyInfo)) {
 					mTogglePublic.setToggleOff();
 				} else {
 					mTogglePublic.setToggleOn();
@@ -289,7 +290,7 @@ public class UserInfoActivity extends BaseActivity {
 			}
 			String isLookOtherInfo = user.getIsLookOtherInfo();//是否看别人动态
 			if(!StringUtils.isEmpty(isLookOtherInfo)) {
-				if ("yes".equals(isLookOtherInfo)) {
+				if ("yes".equalsIgnoreCase(isLookOtherInfo)) {
 					mToggleFriendsPublic.setToggleOff();
 				} else {
 					mToggleFriendsPublic.setToggleOn();
