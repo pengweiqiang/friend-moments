@@ -82,6 +82,20 @@
                 android:textColor="#959595"
                 />
             <TextView
+                android:id="@+id/tv_refuse_add_friend"
+                android:layout_toLeftOf="@+id/tv_accept_add_friend"
+                android:layout_marginRight="14dp"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/btn_refuse_add_friends"
+                android:text="拒绝"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                />
+            <TextView
                 android:id="@+id/tv_accept_add_friend"
                 android:layout_width="60dp"
                 android:layout_height="40dp"

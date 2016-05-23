@@ -2,8 +2,7 @@ package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +24,6 @@ import com.anda.moments.entity.User;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
-import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
@@ -37,10 +35,11 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 
 /**
@@ -223,7 +222,13 @@ public class UserInfoActivity extends BaseActivity {
 					if(user==null){
 						return;
 					}
-					RongIM.getInstance().startConversation(mContext, Conversation.ConversationType.PRIVATE, String.valueOf(user.getPhoneNum()), user.getUserName());
+
+					String userName = StringUtils.isEmpty(user.getDescTag())?user.getUserName():user.getDescTag();
+					//刷新用户信息头像
+					Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
+					RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),userName, headUri));
+
+					RongIM.getInstance().startConversation(mContext, Conversation.ConversationType.PRIVATE, String.valueOf(user.getPhoneNum()), userName);
 					break;
 			}
 		}

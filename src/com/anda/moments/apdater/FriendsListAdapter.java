@@ -111,7 +111,7 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 				userName = "";
 			}
 			if(!StringUtils.isEmpty(descTag)) {
-				sbUserName.append(descTag+"("+userName+")");
+				sbUserName.append(descTag);
 			}else{
 				sbUserName.append(userName);
 			}

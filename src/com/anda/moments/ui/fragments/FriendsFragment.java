@@ -1,43 +1,25 @@
 package com.anda.moments.ui.fragments;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.zip.Inflater;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anda.gson.reflect.TypeToken;
-import com.anda.moments.MyApplication;
 import com.anda.moments.R;
-import com.anda.moments.apdater.BannerPagerAdapter;
 import com.anda.moments.apdater.FriendsListAdapter;
-import com.anda.moments.apdater.HomeAdapter;
 import com.anda.moments.api.ApiMomentsUtils;
-import com.anda.moments.api.ApiMyUtils;
-import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
@@ -56,6 +38,9 @@ import com.anda.moments.views.widget.slide.CharacterParser;
 import com.anda.moments.views.widget.slide.PinyinComparator;
 import com.anda.moments.views.widget.slide.SideBar;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
@@ -290,14 +275,14 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 			friendLists.clear();
 			for(User user:friends){
 				int flag = user.getFlag();// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
+				String userName = StringUtils.isEmpty(user.getDescTag())?user.getUserName():user.getDescTag();
 				if(flag == 1) {
-					String userName = user.getUserName();
 					if(StringUtils.isEmpty(userName)){
 						user.setSuoxie("");
 						user.setSortLetters("#");
 					}else {
-						String pinyin = characterParser.getSelling(user.getUserName());
-						String suoxie = CharacterParser.getFirstSpell(user.getUserName());
+						String pinyin = characterParser.getSelling(userName);
+						String suoxie = CharacterParser.getFirstSpell(userName);
 
 						user.setSuoxie(suoxie);
 						String sortString = pinyin.substring(0, 1).toUpperCase();
@@ -314,7 +299,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				}
 				//刷新用户信息头像
 				Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
-				RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),user.getUserName(), headUri));
+				RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),userName, headUri));
 
 
 

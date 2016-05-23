@@ -1,6 +1,5 @@
 package com.anda.moments.apdater;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
-import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
@@ -24,8 +22,6 @@ import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.LoadingDialog;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +86,11 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			holder.tvContent = (LinearLayout) convertView.findViewById(R.id.content);
 			holder.mTvStatus = (TextView)convertView.findViewById(R.id.tv_status);
 			holder.mTvAccept = (TextView)convertView.findViewById(R.id.tv_accept_add_friend);
+			holder.mTvRefuse = (TextView)convertView.findViewById(R.id.tv_refuse_add_friend);
 
 			holder.tvContent.setOnClickListener(holder);
 			holder.mTvAccept.setOnClickListener(holder);
+			holder.mTvRefuse.setOnClickListener(holder);
 
 			convertView.setTag(holder);
 		} else {
@@ -108,14 +106,17 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			int flag = dto.getFlag();
 			if(flag == 0){//flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
 				holder.mTvAccept.setVisibility(View.VISIBLE);
+				holder.mTvRefuse.setVisibility(View.VISIBLE);
 				holder.mTvStatus.setVisibility(View.GONE);
 				holder.mTvStatus.setText("已添加");
 			}else if(flag == 1){
 				holder.mTvAccept.setVisibility(View.GONE);
+				holder.mTvRefuse.setVisibility(View.GONE);
 				holder.mTvStatus.setVisibility(View.VISIBLE);
 				holder.mTvStatus.setText("已接受");
 			}else if(flag == 2){
 				holder.mTvAccept.setVisibility(View.GONE);
+				holder.mTvRefuse.setVisibility(View.GONE);
 				holder.mTvStatus.setVisibility(View.VISIBLE);
 				holder.mTvStatus.setText("已拒绝");
 			}
@@ -141,6 +142,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 		LinearLayout tvContent;
 		TextView mTvStatus;//添加好友状态
 		TextView mTvAccept;//接受
+		TextView mTvRefuse;//拒绝
 
 		public int position ;
 
@@ -148,8 +150,11 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 		public void onClick(View v) {
 			User user = list.get(position);
 			switch (v.getId()){
-				case R.id.tv_accept_add_friend:
-					addFriend(position,String.valueOf(user.getRelationId()));
+				case R.id.tv_refuse_add_friend://拒绝
+					addFriend(position,String.valueOf(user.getRelationId()),2);
+					break;
+				case R.id.tv_accept_add_friend://接受
+					addFriend(position,String.valueOf(user.getRelationId()),1);
 					break;
 				case R.id.content:
 
@@ -162,12 +167,15 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 		}
 	}
 
-	/**
-	 * 添加好友
-	 * @param friendId
-     */
+
 	LoadingDialog mLoadingDialog;
-	private void addFriend(final int position, String relId){
+	/**
+	 *
+	 * @param position
+	 * @param relId 好友关联id
+	 * @param flag 1接受 2拒绝
+     */
+	private void addFriend(final int position, String relId,final int flag){
 		User user = MyApplication.getInstance().getCurrentUser();
 		if(user==null){
 			Intent intent = new Intent(context, LoginActivity.class);
@@ -178,14 +186,13 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			mLoadingDialog = new LoadingDialog(context);
 
 		}
-		int flag = 1;//接受好友请求
 		mLoadingDialog.show();
 		ApiUserUtils.dealFriendsRequest(context, user.getPhoneNum(), relId,flag, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-					list.get(position).setFlag(1);
+					list.get(position).setFlag(flag);
 					notifyDataSetChanged();
 					ToastUtils.showToast(context,parseModel.getInfo());
 
@@ -195,6 +202,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			}
 		});
 	}
+
 
 
 
