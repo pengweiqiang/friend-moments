@@ -25,7 +25,7 @@
             android:drawablePadding="5dp"
             android:background="@drawable/bg_search_friends"
             android:padding="10dp"
-            android:hint="搜索用户ID..."
+            android:hint="搜索用户..."
             android:textColorHint="#979797"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

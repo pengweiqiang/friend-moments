@@ -11,8 +11,8 @@
         android:background="@color/white"
         android:textColor="#434343"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="北京"
 
         >

@@ -14,7 +14,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.util.JsonReader;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import com.anda.GlobalConfig;
-import com.anda.gson.Gson;
 import com.anda.gson.JsonArray;
 import com.anda.gson.JsonObject;
 import com.anda.moments.MyApplication;
@@ -43,7 +41,6 @@ import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
@@ -53,17 +50,12 @@ import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.squareup.picasso.Picasso;
 
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -269,7 +261,8 @@ public class PublishPictureActivity extends BaseActivity {
 //		}
 		if(Bimp.drr!=null) {
 			Bimp.drr.clear();
-			Bimp.drr = null;
+			Bimp.max = 0;
+//			Bimp.drr = null;
 		}
 		AppManager.getAppManager().finishActivity(PublishActivity.class);
 		AppManager.getAppManager().finishActivity();
@@ -295,7 +288,9 @@ public class PublishPictureActivity extends BaseActivity {
 		}
 
 		public int getCount() {
-
+			if(Bimp.drr==null){
+				Bimp.drr = new ArrayList<String>();
+			}
 			return (Bimp.drr.size() + 1);
 		}
 
@@ -412,6 +407,7 @@ public class PublishPictureActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 									long arg3) {
 				if (arg2 == Bimp.drr.size()) {
+					hideInputMethod();
 					new PopupWindows(PublishPictureActivity.this, mGridView);
 				} else {
 					Intent intent = new Intent(PublishPictureActivity.this,
