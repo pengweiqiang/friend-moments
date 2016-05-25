@@ -357,7 +357,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		} else {
 			filterDateList.clear();
 			for (User sortModel : list) {
-				String name = sortModel.getUserName();
+				String name = StringUtils.isEmpty(sortModel.getDescTag())?sortModel.getUserName():sortModel.getDescTag();
 				String suoxie = sortModel.getSuoxie();
 				if (name.indexOf(filterStr.toString()) != -1 || suoxie.indexOf(filterStr.toString()) != -1 || characterParser.getSelling(name).startsWith(filterStr.toString())) {
 					filterDateList.add(sortModel);

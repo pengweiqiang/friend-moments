@@ -4,6 +4,7 @@
     android:layout_height="63dp"
     android:gravity="center_vertical"
     android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <View

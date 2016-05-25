@@ -1,29 +1,18 @@
 package com.anda.moments.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.AdapterView;
 
 import com.anda.gson.reflect.TypeToken;
-import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.apdater.NewFriendsListAdapter;
-import com.anda.moments.apdater.SearchFriendsListAdapter;
 import com.anda.moments.api.ApiMomentsUtils;
-import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
@@ -92,7 +81,15 @@ public class NewFriendsListActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
-
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				User user = newUsers.get(position);
+				Intent intent = new Intent(mContext, UserInfoActivity.class);
+				intent.putExtra("user",user);
+				mContext.startActivity(intent);
+			}
+		});
 
 	}
 
@@ -201,29 +198,29 @@ public class NewFriendsListActivity extends BaseActivity {
 
 					switch (index) {
 						case 0:
-							if(flag == 0) {
-								addFriend(position, String.valueOf(user.getRelationId()));
-							}else {
-								newUsers.remove(position);
-								mFriendListAdapter.notifyDataSetChanged();
-							}
+//							if(flag == 0) {
+//								addFriend(position, String.valueOf(user.getRelationId()));
+//							}else {
+							deleteItem(position,String.valueOf(user.getRelationId()));
+
+//							}
 							break;
 					}
 			}
 		});
-//		// set SwipeListener
-//		mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-//
-//			@Override
-//			public void onSwipeStart(int position) {
-//				// swipe start
-//			}
-//
-//			@Override
-//			public void onSwipeEnd(int position) {
-//				// swipe end
-//			}
-//		});
+		// set SwipeListener
+		mListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+			@Override
+			public void onSwipeStart(int position) {
+				// swipe start
+			}
+
+			@Override
+			public void onSwipeEnd(int position) {
+				// swipe end
+			}
+		});
 
 	}
 
@@ -232,7 +229,34 @@ public class NewFriendsListActivity extends BaseActivity {
 	 * 添加好友 flag 2 拒绝好友
 	 * @param friendId
 	 */
-	private void addFriend(final int position, String friendId){
+//	private void addFriend(final int position, String friendId){
+//		User user = getUser();
+//		if(user==null){
+//			return;
+//		}
+//		if(mLoadingDialog==null){
+//			mLoadingDialog = new LoadingDialog(mContext);
+//
+//		}
+//		int flag = 2;//拒绝添加好友
+//		mLoadingDialog.show();
+//		ApiUserUtils.dealFriendsRequest(mContext, user.getPhoneNum(), friendId,flag, new HttpConnectionUtil.RequestCallback() {
+//			@Override
+//			public void execute(ParseModel parseModel) {
+//				mLoadingDialog.cancel();
+//				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+//					newUsers.get(position).setFlag(2);
+//					newUsers.remove(position);
+//					mFriendListAdapter.notifyDataSetChanged();
+//					ToastUtils.showToast(mContext,parseModel.getInfo());
+//				}else{
+//					ToastUtils.showToast(mContext,parseModel.getInfo());
+//				}
+//			}
+//		});
+//	}
+
+	private void deleteItem(final int position, String friendId){
 		User user = getUser();
 		if(user==null){
 			return;
@@ -241,19 +265,16 @@ public class NewFriendsListActivity extends BaseActivity {
 			mLoadingDialog = new LoadingDialog(mContext);
 
 		}
-		int flag = 2;//拒绝添加好友
 		mLoadingDialog.show();
-		ApiUserUtils.dealFriendsRequest(mContext, user.getPhoneNum(), friendId,flag, new HttpConnectionUtil.RequestCallback() {
+		ApiUserUtils.deleteFriendRequest(mContext, String.valueOf(user.getId()), new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
-					newUsers.get(position).setFlag(2);
 					newUsers.remove(position);
 					mFriendListAdapter.notifyDataSetChanged();
-					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}else{
-					ToastUtils.showToast(mContext,parseModel.getInfo());
+					ToastUtils.showToast(mContext, StringUtils.isEmpty(parseModel.getInfo())?"删除失败":parseModel.getInfo());
 				}
 			}
 		});

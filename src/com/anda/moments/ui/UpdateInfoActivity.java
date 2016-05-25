@@ -28,29 +28,21 @@ import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import sz.itguy.utils.FileUtil;
 
 /**
  * 修改个人信息
@@ -394,8 +386,13 @@ public class UpdateInfoActivity extends BaseActivity {
 		User user = MyApplication.getInstance().getCurrentUser();
 		if(!StringUtils.isEmpty(username)){
 			user.setUserName(username);
+			String headIcon = user.getIcon();
+			Uri uri = null;
+			if(!StringUtils.isEmpty(user.getIcon())){
+				uri = Uri.parse(headIcon);
+			}
 			//刷新融云用户信息
-			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), user.getUserName(), Uri.parse(user.getIcon())));
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), user.getUserName(), uri));
 		}
 		if(!StringUtils.isEmpty(descTag)){
 			user.setDescTag(descTag);

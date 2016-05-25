@@ -106,7 +106,7 @@ public class UserInfoActivity extends BaseActivity {
 		phoneNum = user.getPhoneNum();
 		flag = user.getFlag();
 		showData();
-		getData();
+//		getData();
 	}
 
 	@Override

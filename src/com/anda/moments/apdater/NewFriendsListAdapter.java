@@ -88,7 +88,7 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 			holder.mTvAccept = (TextView)convertView.findViewById(R.id.tv_accept_add_friend);
 			holder.mTvRefuse = (TextView)convertView.findViewById(R.id.tv_refuse_add_friend);
 
-			holder.tvContent.setOnClickListener(holder);
+//			holder.tvContent.setOnClickListener(holder);
 			holder.mTvAccept.setOnClickListener(holder);
 			holder.mTvRefuse.setOnClickListener(holder);
 
@@ -157,7 +157,6 @@ public class NewFriendsListAdapter extends BaseAdapter  {
 					addFriend(position,String.valueOf(user.getRelationId()),1);
 					break;
 				case R.id.content:
-
 					Intent intent = new Intent(context, UserInfoActivity.class);
 					intent.putExtra("user",user);
 					context.startActivity(intent);

@@ -1,9 +1,5 @@
 package com.anda.moments.ui.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,8 +8,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,10 +16,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anda.gson.reflect.TypeToken;
@@ -46,21 +38,22 @@ import com.anda.moments.listener.SwpipeListViewOnScrollListener;
 import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.SkinsActivity;
-import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.base.BaseFragment;
+import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.publish.PublishTextActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.CommentListView;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
-import com.anda.moments.views.audio.MediaManager;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页
@@ -451,7 +444,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		CommentInfo commentInfo = mHomeAdapter.getDatas().get(circlePosition).getCommentInfo();
 
 		commentInfo.setTotalNum(commentInfo.getTotalNum()+1);
-		commentInfo.getCommentUsers().add(commentUser);
+		commentInfo.getCommentUsers().add(0,commentUser);
 
 //		int visibleFirstPosi = mListView.getFirstVisiblePosition();
 //		int visibleLastPosi = mListView.getLastVisiblePosition();

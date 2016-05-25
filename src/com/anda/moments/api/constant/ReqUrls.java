@@ -216,6 +216,11 @@ public static final String PROJECT_NAME = "";
 	public static final String REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST = "friends/dealFriendRequest.do";
 
 	/**
+	 * 删除好友请求
+	 */
+	public static final String REQUEST_DELETE_FRIENDS_REQUEST = "friends/deleteFriendRequest.do";
+
+	/**
 	 * 修改个人资料
 	 */
 	public static final String REQUEST_UPDATE_USER_INFO = "friends/updateMyInfos.do";

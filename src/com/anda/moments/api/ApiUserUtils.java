@@ -1,18 +1,15 @@
 package com.anda.moments.api;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
-import com.anda.moments.commons.HttpBodyData;
 import com.anda.moments.http.HttpClientAddHeaders;
 import com.anda.moments.utils.HttpConnectionUtil.HttpMethod;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
-import com.anda.moments.utils.StringUtils;
+
+import java.io.File;
+import java.util.Map;
 
 /**
  * api user相关的接口
@@ -107,6 +104,19 @@ public class ApiUserUtils {
 		params.put("relationId",relationId);
 		params.put("flag",String.valueOf(flag));
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_DEAL_FRIENDS_REQUEST, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
+	/**
+	 * 删除好友请求
+	 * @param context
+	 * @param id
+	 * @param requestCallback
+     */
+	public static void deleteFriendRequest(Context context,String id,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("id", id);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_DELETE_FRIENDS_REQUEST, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
 
