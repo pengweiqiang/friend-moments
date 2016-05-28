@@ -14,6 +14,7 @@ public class Infos implements Serializable {
     private List<Audio> audios;
     private List<Video> videos;
 
+    private String dateTitle;//时间描述
 
     public long getInfoId() {
         return infoId;
@@ -77,5 +78,13 @@ public class Infos implements Serializable {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
+    }
+
+    public String getDateTitle() {
+        return dateTitle;
+    }
+
+    public void setDateTitle(String dateTitle) {
+        this.dateTitle = dateTitle;
     }
 }

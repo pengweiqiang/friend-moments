@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.anda.moments.R;
 import com.anda.moments.api.constant.ReqUrls;
+import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.Images;
 import com.anda.moments.entity.Infos;
-import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.Video;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.VideoDetailActivity;
@@ -196,19 +196,50 @@ public class MyAdapter extends BaseAdapter {
 
         showItemTypeData(itemViewType,infos,viewHolder);
 
-        viewHolder.mTvContent.setText(StringUtils.ToDBC(infos.getInfoText()));
+
         String dateStr = DateUtils.getTimestampString2(infos.getCreateTime());
-        if(dateStr.equals("今天")){
-            viewHolder.mTvPublishTime.setText(dateStr);
-        }else{
-            if(!StringUtils.isEmpty(dateStr)){
-                dateStr = dateStr.substring(0,2)+"\n"+dateStr.substring(2);
-                viewHolder.mTvPublishTime.setText(TextViewUtils.getSpannableStringSizeAndColor(dateStr,2,dateStr.length(), 11,Color.parseColor("#434343")));
+        infos.setDateTitle(dateStr);
+
+        String section = getSectionForPosition(position);
+        if(position == getPositionForSection(section)){
+            viewHolder.mTvPublishTime.setVisibility(View.VISIBLE);
+            if(dateStr.equals("今天")){
+                viewHolder.mTvPublishTime.setText(dateStr);
+            }else{
+                if(!StringUtils.isEmpty(dateStr)){
+                    dateStr = dateStr.substring(0,2)+"\n"+dateStr.substring(2);
+                    viewHolder.mTvPublishTime.setText(TextViewUtils.
+                            getSpannableStringSizeAndColor(dateStr,2,dateStr.length(), 11,Color.parseColor("#434343")));
+                }
             }
+        }else{
+            viewHolder.mTvPublishTime.setVisibility(View.GONE);
         }
+
+        viewHolder.mTvContent.setText(StringUtils.ToDBC(infos.getInfoText()));
+
+
 
 
         return convertView;
+    }
+
+    /**
+     */
+    public String getSectionForPosition(int position) {
+        return datalist.get(position).getDateTitle();
+    }
+
+    /**
+     */
+    public int getPositionForSection(String section) {
+        for (int i = 0; i < getCount(); i++) {
+            String sortStr = datalist.get(i).getDateTitle();
+            if (sortStr.equals(section)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 

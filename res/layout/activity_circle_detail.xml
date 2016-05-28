@@ -48,7 +48,7 @@
                 <TextView
                     android:id="@+id/tv_user_name"
                     android:textColor="#434343"
-                    android:text="小明"
+                    android:text=""
                     android:layout_marginTop="2dp"
                     android:gravity="top"
                     android:layout_marginLeft="10dp"
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
-                    android:text="2015-03-24 10:24"
+                    android:text=""
                     android:textColor="#898989"
                     android:textSize="13sp"
                     />
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_below="@+id/rl_publish_info"
                 android:id="@+id/tv_content"
-                android:text="今天好开心好开心!!!!!"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -110,7 +110,7 @@
                     android:id="@+id/tv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="删除"
+                    android:text=""
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
                     android:textColor="#6473ce"
