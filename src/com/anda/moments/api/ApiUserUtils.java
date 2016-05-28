@@ -110,13 +110,30 @@ public class ApiUserUtils {
 	/**
 	 * 删除好友请求
 	 * @param context
-	 * @param id
+	 * @param relationId
+	 * @param phoneNum
 	 * @param requestCallback
      */
-	public static void deleteFriendRequest(Context context,String id,RequestCallback requestCallback){
+	public static void deleteFriendRequest(Context context,String relationId,String phoneNum,RequestCallback requestCallback){
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
-		params.put("id", id);
+		params.put("relationId", relationId);
+		params.put("phoneNum",phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_DELETE_FRIENDS_REQUEST, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
+	/**
+	 * 删除好友
+	 * @param context
+	 * @param relationId
+	 * @param phoneNum
+	 * @param requestCallback
+     */
+	public static void deleteFriend(Context context,String relationId,String phoneNum,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("relationId", relationId);
+		params.put("phoneNum",phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_DELETE_FRIENDS, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
 

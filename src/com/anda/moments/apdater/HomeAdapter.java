@@ -29,12 +29,12 @@ import com.anda.moments.R;
 import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
+import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
 import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.Images;
-import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.PraisedInfo;
@@ -56,11 +56,9 @@ import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
 import com.anda.moments.views.popup.TitlePopup;
-import com.sea_monster.cache.DiskLruCache;
 import com.squareup.picasso.Picasso;
 import com.yqritc.scalablevideoview.ScalableVideoView;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -68,14 +66,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
-import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
 /**
@@ -94,12 +90,14 @@ public class HomeAdapter extends BaseAdapter {
 
     private Context context;
     private List<CircleMessage> datalist;
+    private User myUser ;//我的资料
 
     private int headWidth= 80;
     public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
         headWidth = DeviceInfo.dp2px(context,70);
+        myUser = MyApplication.getInstance().getCurrentUser();
     }
 
     private HomeFragment homeFragment;
@@ -221,6 +219,7 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.mTvPublishTime = (TextView)convertView.findViewById(R.id.tv_create_time);
 
             viewHolder.mViewComment = convertView.findViewById(R.id.iv_comment);//评论弹出框
+            viewHolder.mTvDelete = (TextView) convertView.findViewById(R.id.tv_delete);//删除动态
 
             viewHolder.digCommentBody = convertView.findViewById(R.id.digCommentBody);
             //评论列表
@@ -266,6 +265,7 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.mViewComment.setOnClickListener(viewHolder);//评论
             viewHolder.mIvUserHead.setOnClickListener(viewHolder);
             viewHolder.mTvUserName.setOnClickListener(viewHolder);
+            viewHolder.mTvDelete.setOnClickListener(viewHolder);
 
 
             convertView.setTag(viewHolder);
@@ -275,6 +275,8 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         viewHolder.setPosition(position);
+
+
 
 
         //展示不同的类型
@@ -292,6 +294,13 @@ public class HomeAdapter extends BaseAdapter {
         }
         //发表时间
         viewHolder.mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
+
+        //如果是我的，显示删除动态按钮
+        if(publishUser!=null && publishUser.getId() == myUser.getId()){
+            viewHolder.mTvDelete.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.mTvDelete.setVisibility(View.GONE);
+        }
 
 
         //点赞列表
@@ -559,6 +568,8 @@ public class HomeAdapter extends BaseAdapter {
         public TextView mTvContent;//评论内容
         public TextView mTvPublishTime;//发表时间
 
+        public TextView mTvDelete;//删除动态
+
         public View digCommentBody;
         //评论列表控件
 //        public CommentListView commentListView;
@@ -592,6 +603,9 @@ public class HomeAdapter extends BaseAdapter {
                 return;
             }
             switch (v.getId()){
+                case R.id.tv_delete://删除动态
+                    deleteCircleMessage(position);
+                    break;
                 case R.id.iv_comment://评论
                     popup(v,position,this);
                     break;
@@ -765,6 +779,24 @@ public class HomeAdapter extends BaseAdapter {
 
     };
 
+    /**
+     * 删除动态
+     * @param circlePosition
+     */
+    private void deleteCircleMessage(final int circlePosition){
+        String infoId = String.valueOf(datalist.get(circlePosition).getInfoId());
+        ApiMomentsUtils.deleteCircleMessage(context, infoId, myUser.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+            @Override
+            public void execute(ParseModel parseModel) {
+                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+                    datalist.remove(circlePosition);
+                    notifyDataSetChanged();
+                }else{
+                    ToastUtils.showToast(context,parseModel.getInfo());
+                }
+            }
+        });
+    }
 
     /**
      * 点赞

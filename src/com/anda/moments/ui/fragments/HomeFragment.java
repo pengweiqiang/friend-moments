@@ -37,6 +37,7 @@ import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
 import com.anda.moments.ui.CircleDetailActivity;
 import com.anda.moments.ui.MainActivity;
+import com.anda.moments.ui.PersonalInfoActivity;
 import com.anda.moments.ui.SkinsActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishActivity;
@@ -250,13 +251,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	 * @param circleMessages
      */
 	private void showData2View(List<CircleMessage> circleMessages){
-		if(circleMessages!=null && !circleMessages.isEmpty()){
+		if(circleMessages!=null ){
+
 			if(page == 1){
 				circleMessageList.clear();
 			}
 			circleMessageList.addAll(circleMessages);
-
-
 
 
 			mHomeAdapter.notifyDataSetChanged();
@@ -265,8 +265,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			}else {
 				mListView.onLoadFinish(page,circleMessages.size(),"加载更多");
 			}
-
-
 
 		}else{
 			mListView.hideFooterView();
@@ -335,6 +333,15 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			}
 		});
 
+		mIvUserHead.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mActivity,PersonalInfoActivity.class);
+				intent.putExtra("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				startActivity(intent);
+			}
+		});
+
 //		sendIv.setOnClickListener(new OnClickListener() {
 //			@Override
 //			public void onClick(View v) {
@@ -383,12 +390,18 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		//刷新进入动态详情的数据
 		if(requestCode == REQUEST_CODE_DETAIL && data!=null){
 			if(circleMessageList!=null && !circleMessageList.isEmpty()){
-				int position = data.getIntExtra("position",-1);
-				CircleMessage circleMessage = (CircleMessage)data.getSerializableExtra("circleMessage");
-				if(position>=0 && circleMessage!=null) {
-					circleMessageList.get(position).setCommentInfo(circleMessage.getCommentInfo());
-					circleMessageList.get(position).setPraisedInfo(circleMessage.getPraisedInfo());
+				boolean isDeleted = data.getBooleanExtra("isDeleted",false);
+				int position = data.getIntExtra("position", -1);
+				if(isDeleted){
+					circleMessageList.remove(position);
 					mHomeAdapter.notifyDataSetChanged();
+				}else {
+					CircleMessage circleMessage = (CircleMessage) data.getSerializableExtra("circleMessage");
+					if (position >= 0 && circleMessage != null) {
+						circleMessageList.get(position).setCommentInfo(circleMessage.getCommentInfo());
+						circleMessageList.get(position).setPraisedInfo(circleMessage.getPraisedInfo());
+						mHomeAdapter.notifyDataSetChanged();
+					}
 				}
 			}
 		}

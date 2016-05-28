@@ -144,6 +144,11 @@ public static final String PROJECT_NAME = "";
 	public static final String REQUEST_FRIENDS_PRAISE = "friends/praise.do";
 
 	/**
+	 * 删除动态
+	 */
+	public static final String REQUEST_DELETE_MESSAGE = "friends/deleteNews.do";
+
+	/**
 	 * 取消点赞
 	 */
 	public static final String REQUEST_CANCEL_PRAISE = "friends/canclePraise.do";
@@ -218,7 +223,12 @@ public static final String PROJECT_NAME = "";
 	/**
 	 * 删除好友请求
 	 */
-	public static final String REQUEST_DELETE_FRIENDS_REQUEST = "friends/deleteFriendRequest.do";
+	public static final String REQUEST_DELETE_FRIENDS_REQUEST = "friends/deleteFriendMsg.do";
+
+	/**
+	 * 删除好友
+	 */
+	public static final String REQUEST_DELETE_FRIENDS = "friends/deleteFriend.do";
 
 	/**
 	 * 修改个人资料

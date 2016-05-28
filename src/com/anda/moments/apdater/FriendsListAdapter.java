@@ -1,18 +1,28 @@
 package com.anda.moments.apdater;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.*;
 
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
+import com.anda.moments.api.ApiUserUtils;
+import com.anda.moments.api.constant.ApiConstants;
+import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.UserInfoActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.StringUtils;
+import com.anda.moments.utils.ToastUtils;
+import com.anda.moments.views.LoadingDialog;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -78,9 +88,12 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 			holder.tvUserName = (TextView) convertView.findViewById(R.id.tv_user_name);
 			holder.tvLetter = (TextView) convertView.findViewById(R.id.catalog);
 			holder.tvLine = convertView.findViewById(R.id.line);
+			holder.tvBottomLine = convertView.findViewById(R.id.line_bottom);
+			holder.layoutParams = (LinearLayout.LayoutParams)holder.tvBottomLine.getLayoutParams();
 			holder.tvContent = (LinearLayout) convertView.findViewById(R.id.content);
 
 			holder.tvContent.setOnClickListener(holder);
+			holder.tvContent.setOnLongClickListener(holder);
 
 			convertView.setTag(holder);
 		} else {
@@ -116,16 +129,26 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 				sbUserName.append(userName);
 			}
 			holder.tvUserName.setText(sbUserName.toString());
+
+			if(position == list.size()-1){
+				holder.layoutParams.setMargins(0,0,0,0);
+			}else{
+				holder.layoutParams.setMargins(DeviceInfo.dp2px(mActivity,10),0,0,0);
+			}
+			holder.tvBottomLine.setLayoutParams(holder.layoutParams);
+
 		}
 		return convertView;
 	}
 
-	class ViewHolder implements View.OnClickListener{
+	class ViewHolder implements View.OnClickListener,View.OnLongClickListener{
 		ImageView ivHead;
 		TextView tvLetter;
 		TextView tvUserName;
 		View tvLine;
 		LinearLayout tvContent;
+		View tvBottomLine;
+		LinearLayout.LayoutParams layoutParams;
 
 		public int position ;
 
@@ -136,6 +159,59 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 			intent.putExtra("user",user);
 			mActivity.startActivity(intent);
 		}
+
+		@Override
+		public boolean onLongClick(View v) {
+			User user = list.get(position);
+			showDeleteWindow(position,user.getRelationId()+"");
+			return false;
+		}
+	}
+
+	/**
+	 * 弹出删除对话框
+	 * @param position
+	 * @param relationId
+     */
+	private void showDeleteWindow(final int position, final String relationId){
+		final AlertDialog dlg = new AlertDialog.Builder(mActivity).create();
+		dlg.show();
+		Window window = dlg.getWindow();
+		window.setContentView(R.layout.alertdialog);
+		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+		tv_paizhao.setText("删除好友");
+		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SdCardPath")
+			public void onClick(View v) {
+				deleteItem(position,relationId);
+				dlg.cancel();
+			}
+		});
+		window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
+
+
+	}
+
+	private void deleteItem(final int position, String relationId){
+		User user = MyApplication.getInstance().getCurrentUser();
+		if(user==null){
+			return;
+		}
+		final LoadingDialog mLoadingDialog = new LoadingDialog(mActivity);
+
+		mLoadingDialog.show();
+		ApiUserUtils.deleteFriend(mActivity, relationId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				mLoadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					list.remove(position);
+					notifyDataSetChanged();
+				}else{
+					ToastUtils.showToast(mActivity, StringUtils.isEmpty(parseModel.getInfo())?"删除失败":parseModel.getInfo());
+				}
+			}
+		});
 	}
 
 	/**

@@ -1,37 +1,17 @@
 package com.anda.moments.ui.publish;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.anda.GlobalConfig;
@@ -46,10 +26,7 @@ import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.StringUtils;
-import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.utils.publish.Bimp;
-import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.lidroid.xutils.HttpUtils;
@@ -58,6 +35,25 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.yqritc.scalablevideoview.ScalableVideoView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import sz.itguy.utils.FileUtil;
+
 //import com.squareup.okhttp.Call;
 //import com.squareup.okhttp.Callback;
 //import com.squareup.okhttp.Headers;
@@ -67,30 +63,6 @@ import com.lidroid.xutils.http.client.HttpRequest;
 //import com.squareup.okhttp.Request;
 //import com.squareup.okhttp.RequestBody;
 //import com.squareup.okhttp.Response;
-import com.yqritc.scalablevideoview.ScalableVideoView;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.FileCallBack;
-import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.Call;
-import okhttp3.Response;
-import sz.itguy.utils.FileUtil;
 
 /**
  * 发布视频
@@ -325,8 +297,8 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	 */
 	public void sendVideo(){
 		final String content = mEtContent.getText().toString().trim();
-		if(StringUtils.isEmpty(content)){
-			ToastUtils.showToast(mContext,"请输入内容");
+		if(StringUtils.isEmpty(content) && StringUtils.isEmpty(filePath)){
+//			ToastUtils.showToast(mContext,"请输入内容");
 			mEtContent.requestFocus();
 			return;
 		}

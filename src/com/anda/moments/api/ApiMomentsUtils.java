@@ -1,15 +1,14 @@
 package com.anda.moments.api;
 
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.http.HttpClientAddHeaders;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * api 朋友圈相关的接口
@@ -107,7 +106,22 @@ public class ApiMomentsUtils {
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_LOVE_STH, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
-	
+
+	/**
+	 * 删除动态
+	 * @param context
+	 * @param infoId 动态信息id
+	 * @param phoneNum 操作人手机号
+	 * @param requestCallback
+     */
+	public static void deleteCircleMessage(Context context, String infoId,String phoneNum,
+							  RequestCallback requestCallback) {
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("infoId", infoId);
+		params.put("phoneNum", phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_DELETE_MESSAGE, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
 
 	/**
 	 * 点赞
@@ -123,6 +137,7 @@ public class ApiMomentsUtils {
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_PRAISE, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
+
 	public static void cancelPraise(Context context, String infoId,String phoneNum,
 							  RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);

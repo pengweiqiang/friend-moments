@@ -86,51 +86,40 @@
         android:layout_marginLeft="4dp"
         />
 
-    <!--<com.anda.moments.views.MultiImageView-->
-        <!--android:id="@+id/multiImagView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--&gt;-->
-    <!--</com.anda.moments.views.MultiImageView>-->
-    <!--多张图片-->
-    <!--<com.anda.moments.views.NineGridlayout-->
-        <!--android:id="@+id/iv_ngrid_layout"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="match_parent" />-->
-
-    <!--&lt;!&ndash;单张图片&ndash;&gt;-->
-    <!--<com.anda.moments.views.CustomImageView-->
-        <!--android:id="@+id/iv_oneimage"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-    <!--<com.anda.moments.views.MultiImageView-->
-        <!--android:id="@+id/iv_multi_image"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="6dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--/>-->
 
     <!--评论-->
-    <ImageView
-        android:id="@+id/iv_comment"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_comment"
-        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="13dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        />
+        >
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:textColor="#6473ce"
+
+            />
+
+        <ImageView
+            android:id="@+id/iv_comment"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_comment"
+            android:layout_gravity="right"
+
+            />
+
+    </RelativeLayout>
+
 
     <!--<LinearLayout-->
         <!--android:id="@+id/digCommentBody"-->

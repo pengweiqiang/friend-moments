@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -16,41 +14,28 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
-import com.anda.moments.apdater.HomeAdapter;
 import com.anda.moments.apdater.MyAdapter;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
-import com.anda.moments.entity.CircleMessage;
-import com.anda.moments.entity.Image;
 import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
 import com.anda.moments.entity.ParseModel;
-import com.anda.moments.entity.Skins;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.CircleDetailActivity;
-import com.anda.moments.ui.LoginActivity;
 import com.anda.moments.ui.PersonalInfoActivity;
 import com.anda.moments.ui.SkinsActivity;
 import com.anda.moments.ui.base.BaseFragment;
-import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
-import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.XListView;
 import com.squareup.picasso.Picasso;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +47,7 @@ import java.util.List;
  */
 public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,XListView.IXListViewListener {
 
+	public static int REQUEST_CODE_DETAIL = 0x102;
 	private View mContentView;
 	private ActionBar mActionBar;
 	private XListView mListView;
@@ -220,9 +206,26 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 				Intent intent = new Intent(mActivity, CircleDetailActivity.class);
 				intent.putExtra("position",position-1);
 				intent.putExtra("id",infos.getInfoId());
-				startActivity(intent);
+				startActivityForResult(intent,REQUEST_CODE_DETAIL);
+
 			}
 		});
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		//刷新进入动态详情的数据
+		if(requestCode == REQUEST_CODE_DETAIL && data!=null){
+			if(infosList!=null && !infosList.isEmpty()){
+				boolean isDeleted = data.getBooleanExtra("isDeleted",false);
+				int position = data.getIntExtra("position", -1);
+				if(isDeleted){
+					infosList.remove(position);
+					mMyAdapter.notifyDataSetChanged();
+				}
+			}
+		}
 	}
 
 	/**
@@ -308,7 +311,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 				Picasso.with(mActivity).load(user.getSkinPath()).resize(this.width,height).centerCrop().placeholder(R.drawable.bg_head).error(R.drawable.bg_head).into(mIvHeadBg);
 
 			}
-			if(myInfo.getInfos()!=null && !myInfo.getInfos().isEmpty()){
+			if(myInfo.getInfos()!=null){
 				if(page == 1){
 					infosList.clear();
 				}

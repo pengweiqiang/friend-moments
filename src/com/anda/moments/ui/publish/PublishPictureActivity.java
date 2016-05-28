@@ -138,8 +138,8 @@ public class PublishPictureActivity extends BaseActivity {
 	private void sendPicture(){
 		client = client.newBuilder().writeTimeout(30,TimeUnit.SECONDS).readTimeout(30,TimeUnit.SECONDS).connectTimeout(30, TimeUnit.SECONDS).build();
 		final String content = mEtContent.getText().toString().trim();
-		if(StringUtils.isEmpty(content)){
-			ToastUtils.showToast(mContext,"请输入内容");
+		if(StringUtils.isEmpty(content)&& (Bimp.drr == null || Bimp.drr.isEmpty())){
+//			ToastUtils.showToast(mContext,"请输入内容");
 			mEtContent.requestFocus();
 			return;
 		}

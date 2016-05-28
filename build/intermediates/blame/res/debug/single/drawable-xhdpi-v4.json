@@ -416,16 +416,16 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/rc_voice_unread.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f6b2.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/u1f6b2.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f64f.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/u1f64f.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_conversation_newmsg.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/rc_conversation_newmsg.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f6b2.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/u1f6b2.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_no.png",

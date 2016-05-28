@@ -35,19 +35,18 @@ import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.CommentConfig;
 import com.anda.moments.entity.CommentInfo;
 import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.Images;
-import com.anda.moments.entity.Audio;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
 import com.anda.moments.entity.Video;
 import com.anda.moments.ui.base.BaseActivity;
-import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
@@ -127,6 +126,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	public TextView mTvUserName;//昵称
 	public TextView mTvContent;//评论内容
 	public TextView mTvPublishTime;//发表时间
+	public TextView mTvDeleteCircle;//删除动态
 
 	public View digCommentBody;//整个赞和评论列表
 	//评论列表控件
@@ -179,7 +179,6 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			loadingDialog = new LoadingDialog(mContext);
 			loadingDialog.show();
 		}
-		//TODO 获取动态详情
 		String url = ReqUrls.DEFAULT_REQ_HOST_IP+ReqUrls.REQUEST_GET_NEW_INFOS_BYID;
 		String phoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
 		OkHttpUtils//
@@ -249,6 +248,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		mTvUserName = (TextView)findViewById(R.id.tv_user_name);
 		mTvContent = (TextView)findViewById(R.id.tv_content);
 		mTvPublishTime = (TextView)findViewById(R.id.tv_create_time);
+		mTvDeleteCircle = (TextView)findViewById(R.id.tv_delete);
 
 		mViewComment = findViewById(R.id.iv_comment);//评论弹出框
 
@@ -376,6 +376,12 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		//发表时间
 		mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
 
+		if(publishUser!=null && publishUser.getId() == MyApplication.getInstance().getCurrentUser().getId()){
+			mTvDeleteCircle.setVisibility(View.VISIBLE);
+		}else{
+			mTvDeleteCircle.setVisibility(View.GONE);
+		}
+
 
 		//点赞列表
 		PraisedInfo praisedInfo = circleMessage.getPraisedInfo();
@@ -484,6 +490,12 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 				}
 
+			}
+		});
+		mTvDeleteCircle.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				deleteCircleMessage();
 			}
 		});
 	}
@@ -1240,6 +1252,34 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 					}else{
 						ToastUtils.showToast(mContext,parseModel.getInfo());
 					}
+				}else{
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
+	}
+
+	/**
+	 * 删除动态
+	 */
+	private void deleteCircleMessage(){
+		if(loadingDialog==null){
+			loadingDialog = new LoadingDialog(mContext);
+		}
+		loadingDialog.show();
+		String infoId = String.valueOf(circleMessage.getInfoId());
+
+		ApiMomentsUtils.deleteCircleMessage(mContext, infoId, MyApplication.getInstance().getCurrentUser().getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				loadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					Intent intent = new Intent();
+					intent.putExtra("isDeleted",true);
+					intent.putExtra("position",position);
+					intent.putExtra("circleMessage",circleMessage);
+					setResult(RESULT_OK,intent);
+					AppManager.getAppManager().finishActivity();
 				}else{
 					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}

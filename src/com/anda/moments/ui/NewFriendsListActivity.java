@@ -194,8 +194,6 @@ public class NewFriendsListActivity extends BaseActivity {
 			@Override
 			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
 				User user = newUsers.get(position);
-				int flag = user.getFlag();
-
 					switch (index) {
 						case 0:
 //							if(flag == 0) {
@@ -256,7 +254,7 @@ public class NewFriendsListActivity extends BaseActivity {
 //		});
 //	}
 
-	private void deleteItem(final int position, String friendId){
+	private void deleteItem(final int position, String relationId){
 		User user = getUser();
 		if(user==null){
 			return;
@@ -266,7 +264,7 @@ public class NewFriendsListActivity extends BaseActivity {
 
 		}
 		mLoadingDialog.show();
-		ApiUserUtils.deleteFriendRequest(mContext, String.valueOf(user.getId()), new HttpConnectionUtil.RequestCallback() {
+		ApiUserUtils.deleteFriendRequest(mContext, relationId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mLoadingDialog.cancel();

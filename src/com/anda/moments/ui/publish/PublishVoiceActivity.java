@@ -1,20 +1,14 @@
 package com.anda.moments.ui.publish;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.BounceInterpolator;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.anda.GlobalConfig;
@@ -27,37 +21,25 @@ import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
-import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.utils.publish.Bimp;
-import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.audio.AudioRecordButton;
 import com.anda.moments.views.audio.MediaManager;
-import com.squareup.picasso.OkHttpDownloader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.FileCallBack;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
-import okhttp3.FormBody;
 import okhttp3.Response;
 import sz.itguy.utils.FileUtil;
 
@@ -195,8 +177,7 @@ public class PublishVoiceActivity extends BaseActivity {
 	 */
 	private void sendAudio(){
 		final String content = mEtContent.getText().toString().trim();
-		if(StringUtils.isEmpty(content)){
-			ToastUtils.showToast(mContext,"请输入内容");
+		if(StringUtils.isEmpty(content) && TextUtils.isEmpty(filePath)){
 			mEtContent.requestFocus();
 			return;
 		}

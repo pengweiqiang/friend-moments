@@ -12,7 +12,7 @@ public class CircleMessage implements Serializable {
     private String infoText;
     private String isPublic;
     private long createTime;
-    private User publishUser;
+    private User publishUser;//发布人的信息
     private PraisedInfo praisedInfo;//点赞列表
     private LovelyInfo lovelyInfo;//萌化了列表
     private CommentInfo commentInfo;//评论列表
