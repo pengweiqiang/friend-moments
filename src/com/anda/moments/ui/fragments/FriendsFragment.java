@@ -362,8 +362,8 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				String phoneNum = sortModel.getPhoneNum();
 				String userId = sortModel.getUserId();
 				if ((name!=null && name.indexOf(filterStr.toString()) != -1 )||
-						suoxie.indexOf(filterStr.toString()) != -1 ||
-						characterParser.getSelling(name).startsWith(filterStr.toString())||
+						(suoxie!=null && suoxie.indexOf(filterStr.toString()) != -1) ||
+						(name!=null && characterParser.getSelling(name).startsWith(filterStr.toString()))||
 						(userId!=null && userId.contains(filterStr))||
 						(phoneNum!=null && phoneNum.contains(filterStr))
 						) {

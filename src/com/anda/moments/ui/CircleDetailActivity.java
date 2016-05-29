@@ -376,7 +376,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		//发表时间
 		mTvPublishTime.setText(DateUtils.getTimestampString(circleMessage.getCreateTime()));
 
-		if(publishUser!=null && publishUser.getId() == MyApplication.getInstance().getCurrentUser().getId()){
+		if(publishUser!=null && publishUser.getPhoneNum().equals(MyApplication.getInstance().getCurrentUser().getPhoneNum())){
 			mTvDeleteCircle.setVisibility(View.VISIBLE);
 		}else{
 			mTvDeleteCircle.setVisibility(View.GONE);
@@ -1105,8 +1105,8 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			praiseUser.setIcon(user.getIcon());
 			praiseUser.setPhoneNum(user.getPhoneNum());
 			praiseUser.setUserName(user.getUserName());
-			praisedInfo.getPraiseUsers().add(0,praiseUser);
-			praiseRecyclerViewAdapter.add(0,praiseUser);
+			praisedInfo.getPraiseUsers().add(praiseUser);
+			praiseRecyclerViewAdapter.add(praisedInfo.getPraiseUsers().size(),praiseUser);
 			if(count==0 || digCommentBody.getVisibility()==View.GONE) {
 				if(commentCount==0){
 					mViewPraiseCommentLine.setVisibility(View.GONE);
@@ -1191,8 +1191,8 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 			}
 
 		}else if(type == 1){//添加评论
-			commentInfo.getCommentUsers().add(0,commentUser);
-			commentAdapter.add(0,commentUser);
+			commentInfo.getCommentUsers().add(commentUser);
+			commentAdapter.add(commentInfo.getCommentUsers().size(),commentUser);
 
 			if(commentCount==0 || digCommentBody.getVisibility()==View.GONE) {
 				commentAdapter.setDatas(commentInfo.getCommentUsers());

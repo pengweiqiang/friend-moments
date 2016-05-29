@@ -649,7 +649,7 @@ public class HomeAdapter extends BaseAdapter {
             //当前的评论
             CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
             User user = MyApplication.getInstance().getCurrentUser();
-            if(commentUser.getUserId().equals(user.getUserId()) && commentUser.getType()!=2) {//自己评论自己的 并且不能删除萌化了操作
+            if(commentUser.getPhoneNum().equals(user.getPhoneNum()) && commentUser.getType()!=2) {//自己评论自己的 并且不能删除萌化了操作
                 showDeleteWindow(position, commentPosition, this);
             }
 
