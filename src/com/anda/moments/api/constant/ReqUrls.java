@@ -121,6 +121,11 @@ public static final String PROJECT_NAME = "";
 	 * 添加好友
 	 */
 	public static final String REQUEST_FRIENDS_ADDFRIEND = "friends/addFriend.do";
+
+	/**
+	 * 判断是否已添加好友(判断是否收到对方添加好友请求)
+	 */
+	public static final String REQUEST_IS_EXISTS_FRIENDS= "friends/isExistsFriends.do";
 	/**
 	 * 获取好友列表
 	 */
@@ -203,6 +208,11 @@ public static final String PROJECT_NAME = "";
 	 * 根据USERID查询添加好友–已完成
 	 */
 	public static final String REQUEST_FRIENDS_SEARCH_BY_USERID = "friends/searchFriendsByUserId.do";
+
+	/**
+	 * 根据昵称、备注、ID、手机号进行模糊查询自己的好友
+	 */
+	public static final String REQUEST_FRIENDS_SEARCH = "friends/searchMyFriendsByConditions.do";
 
 	//修改好友备注
 	public static final String REQUEST_UPDATE_FRIENDS_TAGS ="friends/updateFriendsTags.do";

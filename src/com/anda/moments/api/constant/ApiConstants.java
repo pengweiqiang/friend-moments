@@ -31,6 +31,11 @@ public interface ApiConstants {
 	 * 接口正常
 	 */
 	public static final String RESULT_SUCCESS = "200";
+
+    /**
+     * 不是好友关系
+     */
+    public static final String RESULT_IS_NOT_FRIENDS = "201";
 	
 	/**
 	 * 系统异常

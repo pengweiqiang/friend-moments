@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:toggle="http://schemas.android.com/apk/res/com.anda.moments"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingBottom="5dp"
         >
 
         <EditText
@@ -41,10 +43,11 @@
             android:id="@+id/noScrollgridview"
             android:layout_below="@+id/et_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:horizontalSpacing="3dp"
+
             android:numColumns="4"
             android:scrollbars="none"
             android:verticalSpacing="5dp" >
@@ -57,12 +60,40 @@
         android:layout_height="1dp"
         android:background="@color/light_gray_line"
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是否公开"
+            android:textColor="#434343"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            />
 
-
-
-
-
-
+        <com.anda.moments.views.ToggleButton
+            android:id="@+id/toggle_is_public"
+            android:layout_marginRight="15dp"
+            android:layout_width="56dp"
+            toggle:onColor="#7bb501"
+            toggle:offColor="#c9c8c8"
+            toggle:spotColor="@color/white"
+            toggle:offBorderColor="#c9c8c8"
+            toggle:borderWidth="1px"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray_line"
+        />
 
 
 </LinearLayout>

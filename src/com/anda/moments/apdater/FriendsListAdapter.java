@@ -17,7 +17,7 @@ import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.ui.my.UserInfoActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.StringUtils;

@@ -48,6 +48,7 @@ import com.anda.moments.utils.publish.Bimp;
 import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.anda.moments.views.ToggleButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -79,6 +80,9 @@ public class PublishPictureActivity extends BaseActivity {
 	private GridView mGridView;
 	private GridAdapter adapter;
 	ActionBar mActionBar;
+
+	private ToggleButton mToggleButtonIsPublic;//是否公开
+	String isPublic = "1";//是否公开 1公开 0 不公开
 
 
 
@@ -119,12 +123,19 @@ public class PublishPictureActivity extends BaseActivity {
 		},R.color.main_tab_text_color_selected);
 		mEtContent = (EditText)findViewById(R.id.et_content);
 		mGridView = (GridView) findViewById(R.id.noScrollgridview);
+		mToggleButtonIsPublic = (ToggleButton)findViewById(R.id.toggle_is_public);
+		mToggleButtonIsPublic.setToggleOn();
 
 	}
 
 	@Override
 	public void initListener() {
-
+		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+				isPublic = on?"1":"0";
+			}
+		});
 	}
 
 
@@ -172,7 +183,7 @@ public class PublishPictureActivity extends BaseActivity {
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
 				multipartBuilder.addFormDataPart("infoText",content);//动态内容
-				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
+				multipartBuilder.addFormDataPart("isPublic",isPublic);//是否公开 0：私有 1：公开（必填）
 
 				RequestBody requestBody = multipartBuilder.build();
 

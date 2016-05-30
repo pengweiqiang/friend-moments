@@ -1,16 +1,11 @@
 package com.anda.moments;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.view.View;
 
 import com.anda.GlobalConfig;
@@ -20,11 +15,8 @@ import com.anda.moments.constant.api.ReqUrls;
 import com.anda.moments.entity.Images;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
-import com.anda.moments.ui.LoginActivity;
-import com.anda.moments.ui.UserInfoActivity;
-import com.anda.moments.utils.DiskLruCacheUtils;
+import com.anda.moments.ui.my.UserInfoActivity;
 import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -35,23 +27,17 @@ import com.anda.universalimageloader.core.ImageLoader;
 import com.anda.universalimageloader.core.ImageLoaderConfiguration;
 import com.anda.universalimageloader.core.assist.ImageScaleType;
 import com.anda.universalimageloader.core.assist.QueueProcessingType;
-import com.sea_monster.cache.DiskLruCache;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
-import io.rong.message.RichContentMessage;
 
 public class MyApplication extends Application {
 

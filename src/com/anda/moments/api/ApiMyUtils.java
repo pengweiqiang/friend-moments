@@ -1,14 +1,13 @@
 package com.anda.moments.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.http.HttpClientAddHeaders;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+
+import java.util.Map;
 
 /**
  * api 我的相关的接口
@@ -36,10 +35,26 @@ public class ApiMyUtils {
 	 * @param userId
 	 * @param requestCallback
      */
-	public static void searchFriendByUserID(Context context,String userId,RequestCallback requestCallback){
+	public static void searchFriendByUserID(Context context,String userId,String phoneNum,RequestCallback requestCallback){
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("userId", userId);
+		params.put("phoneNum", phoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_SEARCH_BY_USERID, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
+	/**
+	 * 根据昵称、备注、ID、手机号进行模糊查询自己的好友
+	 * @param context
+	 * @param condition
+	 * @param phoneNum
+	 * @param requestCallback
+     */
+	public static void searchFriends(Context context,String condition,String phoneNum,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("condition", condition);
+		params.put("phoneNum", phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_SEARCH, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
 

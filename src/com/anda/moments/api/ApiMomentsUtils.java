@@ -45,7 +45,7 @@ public class ApiMomentsUtils {
 		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum", phoneNum);
 		if(flag != -1) {
-			params.put("flag", String.valueOf(flag));
+			params.put("reqFlag", String.valueOf(flag));
 		}
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_MY_FRIENDS_LIST, false, 
 				requestCallBack, MethodType.FRIENDS, context);
@@ -94,7 +94,7 @@ public class ApiMomentsUtils {
 	 * 萌化了
 	 * @param context
 	 * @param infoId 动态信息id
-	 * @param type  1
+	 * @param type  2
 	 * @param requestCallback
 	 */
 	public static void addLoveSth(Context context, String infoId,

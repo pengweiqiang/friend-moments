@@ -26,9 +26,9 @@ import com.anda.moments.entity.Infos;
 import com.anda.moments.entity.MyInfo;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.CircleDetailActivity;
-import com.anda.moments.ui.PersonalInfoActivity;
-import com.anda.moments.ui.SkinsActivity;
+import com.anda.moments.ui.my.CircleDetailActivity;
+import com.anda.moments.ui.my.PersonalInfoActivity;
+import com.anda.moments.ui.my.SkinsActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
@@ -254,9 +254,6 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 					Intent intent = new Intent(mActivity,PersonalInfoActivity.class);
 					intent.putExtra("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
 					startActivity(intent);
-					break;
-				case R.id.btn_distance:
-//				openRotation(mContentView.findViewById(R.id.down2));
 					break;
 				case R.id.btn_capacity_sort:
 //				openRotation(mContentView.findViewById(R.id.down3));

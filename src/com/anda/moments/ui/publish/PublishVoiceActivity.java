@@ -26,6 +26,7 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.anda.moments.views.ToggleButton;
 import com.anda.moments.views.audio.AudioRecordButton;
 import com.anda.moments.views.audio.MediaManager;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -53,6 +54,8 @@ public class PublishVoiceActivity extends BaseActivity {
 	private AudioRecordButton mBtnAudio;//录制语音
 	ActionBar mActionBar;
 	EditText mEtContent;
+	private ToggleButton mToggleButtonIsPublic;//是否公开
+	String isPublic = "1";//是否公开 1公开 0 不公开
 
 	LoadingDialog mLoadingDialog;
 
@@ -96,6 +99,8 @@ public class PublishVoiceActivity extends BaseActivity {
 		mViewRecordAnim = findViewById(R.id.voice_anim);
 		mTvSeconds = (TextView)findViewById(R.id.tv_audio_second);
 		mEtContent = (EditText)findViewById(R.id.et_content);
+		mToggleButtonIsPublic = (ToggleButton)findViewById(R.id.toggle_is_public);
+		mToggleButtonIsPublic.setToggleOn();
 
 
 	}
@@ -109,6 +114,13 @@ public class PublishVoiceActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				playAudioRecord();
+			}
+		});
+
+		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+				isPublic = on?"1":"0";
 			}
 		});
 	}
@@ -192,10 +204,11 @@ public class PublishVoiceActivity extends BaseActivity {
 			jsonObject.addProperty("audioTime",Math.round(second)+"");//音频时长
 			fileMetaInfo.add(jsonObject);
 			postFormBuilder.addFile(file.getName(),file.getName(),file);
-		}else{
-			ToastUtils.showToast(mContext,"请录入语音");
-			return;
 		}
+//		else{
+//			ToastUtils.showToast(mContext,"请录入语音");
+//			return;
+//		}
 
 		mLoadingDialog = new LoadingDialog(mContext,"上传中...");
 		mLoadingDialog.show();
@@ -208,7 +221,7 @@ public class PublishVoiceActivity extends BaseActivity {
 		Map<String,String> params = new HashMap<String, String>();
 		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
 		params.put("infoText",content);
-		params.put("isPublic","1");
+		params.put("isPublic",isPublic);
 
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 		params.put("fileMetaInfo",fileMetaInfoStr);

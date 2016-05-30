@@ -41,7 +41,7 @@ import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
 import com.anda.moments.entity.Video;
 import com.anda.moments.ui.ImagePagerActivity;
-import com.anda.moments.ui.UserHomeActivity;
+import com.anda.moments.ui.my.UserHomeActivity;
 import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.utils.CommonHelper;
@@ -649,7 +649,7 @@ public class HomeAdapter extends BaseAdapter {
             //当前的评论
             CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
             User user = MyApplication.getInstance().getCurrentUser();
-            if(commentUser.getPhoneNum().equals(user.getPhoneNum()) && commentUser.getType()!=2) {//自己评论自己的 并且不能删除萌化了操作
+            if(commentUser.getPhoneNum().equals(user.getPhoneNum()) && commentUser.getType()!=2) {//自己评论的 并且不能删除萌化了操作
                 showDeleteWindow(position, commentPosition, this);
             }
 
@@ -990,7 +990,7 @@ public class HomeAdapter extends BaseAdapter {
             return;
         }
         String infoId = String.valueOf(datalist.get(position).getInfoId());
-        ApiMomentsUtils.addLoveSth(context,infoId,"1",user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+        ApiMomentsUtils.addLoveSth(context,infoId,"2",user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
 
             @Override
             public void execute(ParseModel parseModel) {
@@ -1008,7 +1008,7 @@ public class HomeAdapter extends BaseAdapter {
                         commentUser.setPublishTime(System.currentTimeMillis());
 
                         CommentInfo commentInfo = getItem(position).getCommentInfo();
-                        commentInfo.getCommentUsers().add(0, commentUser);
+                        commentInfo.getCommentUsers().add(commentUser);
                         commentInfo.setTotalNum(commentInfo.getTotalNum() + 1);
                         notifyDataSetChanged();
                     }else{

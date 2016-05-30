@@ -1,37 +1,14 @@
 package com.anda.moments.ui.publish;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import com.anda.GlobalConfig;
 import com.anda.gson.JsonArray;
-import com.anda.gson.JsonObject;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.constant.ApiConstants;
@@ -39,21 +16,18 @@ import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseActivity;
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.JsonUtils;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.utils.publish.Bimp;
-import com.anda.moments.utils.publish.FileUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
-import com.squareup.picasso.Picasso;
+import com.anda.moments.views.ToggleButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +39,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import sz.itguy.utils.FileUtil;
 
 /**
  * 发布文字
@@ -76,6 +49,8 @@ public class PublishTextActivity extends BaseActivity {
 
 	private EditText mEtContent;
 	ActionBar mActionBar;
+	private ToggleButton mToggleButtonIsPublic;//是否公开
+	String isPublic = "1";//是否公开 1公开 0 不公开
 
 
 
@@ -111,12 +86,19 @@ public class PublishTextActivity extends BaseActivity {
 			}
 		},R.color.main_tab_text_color_selected);
 		mEtContent = (EditText)findViewById(R.id.et_content);
+		mToggleButtonIsPublic = (ToggleButton)findViewById(R.id.toggle_is_public);
+		mToggleButtonIsPublic.setToggleOn();
 
 	}
 
 	@Override
 	public void initListener() {
-
+		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+				isPublic = on?"1":"0";
+			}
+		});
 	}
 
 
@@ -149,7 +131,7 @@ public class PublishTextActivity extends BaseActivity {
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
 				multipartBuilder.addFormDataPart("infoText",content);//动态内容
-				multipartBuilder.addFormDataPart("isPublic","1");//是否公开 0：私有 1：公开（必填）
+				multipartBuilder.addFormDataPart("isPublic",isPublic);//是否公开 0：私有 1：公开（必填）
 
 				RequestBody requestBody = multipartBuilder.build();
 
@@ -201,6 +183,12 @@ public class PublishTextActivity extends BaseActivity {
 
 							}
 						} catch (JSONException e) {
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									ToastUtils.showToast(mContext,"发布失败.");
+								}
+							});
 							e.printStackTrace();
 						}
 

@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.anda.moments.R;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.UserInfoActivity;
+import com.anda.moments.ui.my.UserInfoActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

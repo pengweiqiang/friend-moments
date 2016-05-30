@@ -1,7 +1,6 @@
 package com.anda.moments.apdater;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
@@ -10,16 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.anda.moments.R;
-import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.Skins;
-import com.anda.moments.entity.User;
-import com.anda.moments.ui.UserHomeActivity;
-import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
-import com.anda.moments.utils.Log;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -23,9 +23,9 @@ import com.anda.moments.api.ApiMomentsUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.AddFriendsActivity;
+import com.anda.moments.ui.friends.AddFriendsActivity;
 import com.anda.moments.ui.MainActivity;
-import com.anda.moments.ui.NewFriendsListActivity;
+import com.anda.moments.ui.friends.NewFriendsListActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.JsonUtils;
@@ -274,9 +274,9 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		if(friends!=null && !friends.isEmpty()){
 			friendLists.clear();
 			for(User user:friends){
-				int flag = user.getFlag();// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
+//				int flag = user.getFlag();// flag—0表示已添加，flag-1表示接受好友请求，flag-2表示拒绝好友邀请,flag-4未添加
 				String userName = StringUtils.isEmpty(user.getDescTag())?user.getUserName():user.getDescTag();
-				if(flag == 1) {
+//				if(flag == 1) {
 					if(StringUtils.isEmpty(userName)){
 						user.setSuoxie("");
 						user.setSortLetters("#");
@@ -294,9 +294,9 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 						}
 					}
 					friendLists.add(user);
-				}else{
-					continue;
-				}
+//				}else{
+//					continue;
+//				}
 				//刷新用户信息头像
 				Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
 				RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),userName, headUri));

@@ -11,14 +11,12 @@ import android.widget.TextView;
 
 import com.anda.moments.R;
 import com.anda.moments.entity.CommentUser;
-import com.anda.moments.entity.PraiseUser;
 import com.anda.moments.entity.User;
-import com.anda.moments.ui.UserHomeActivity;
+import com.anda.moments.ui.my.UserHomeActivity;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
-import com.anda.moments.views.CommentListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

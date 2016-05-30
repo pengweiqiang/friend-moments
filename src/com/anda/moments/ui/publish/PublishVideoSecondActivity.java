@@ -29,6 +29,7 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
+import com.anda.moments.views.ToggleButton;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -84,6 +85,11 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	private ScalableVideoView mScalableVideoView;
 	private ImageView mPlayImageView;
 	private ImageView mThumbnailImageView;
+
+
+
+	private ToggleButton mToggleButtonIsPublic;//是否公开
+	String isPublic = "1";//是否公开 1公开 0 不公开
 
 	@Override
 	@SuppressLint("InlinedApi")
@@ -141,6 +147,8 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		mPlayImageView = (ImageView) findViewById(R.id.playImageView);
 
 		mThumbnailImageView = (ImageView) findViewById(R.id.thumbnailImageView);
+		mToggleButtonIsPublic = (ToggleButton)findViewById(R.id.toggle_is_public);
+		mToggleButtonIsPublic.setToggleOn();
 
 	}
 
@@ -209,7 +217,12 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	}
 	@Override
 	public void initListener() {
-
+		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+				isPublic = on?"1":"0";
+			}
+		});
 	}
 
 
@@ -319,7 +332,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		Map<String,String> params = new HashMap<String, String>();
 		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
 		params.put("infoText",content);
-		params.put("isPublic","1");
+		params.put("isPublic",isPublic);
 
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 		params.put("fileMetaInfo",fileMetaInfoStr);
@@ -349,7 +362,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 //					public void inProgress(float progress) {
 //						super.inProgress(progress);
 ////						Log.i(TAG,"p:"+progress);
-//						mLoadingDialog.setText(progress+"%");
+//						mLoadingDialog.setText(Math.round(progress)+"%");
 //					}
 
 					@Override

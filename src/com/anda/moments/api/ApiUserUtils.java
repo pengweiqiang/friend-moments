@@ -108,6 +108,21 @@ public class ApiUserUtils {
 	}
 
 	/**
+	 * 判断是否已添加好友(判断是否收到对方添加好友请求)
+	 * @param context
+	 * @param phoneNum
+	 * @param friendPhoneNum
+	 * @param requestCallback
+     */
+	public static void isExistsFriends(Context context,String phoneNum,String friendPhoneNum,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("myPhoneNum", phoneNum);
+		params.put("friendPhoneNum",friendPhoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_IS_EXISTS_FRIENDS, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
+	/**
 	 * 删除好友请求
 	 * @param context
 	 * @param relationId

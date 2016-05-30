@@ -35,10 +35,10 @@ import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
-import com.anda.moments.ui.CircleDetailActivity;
+import com.anda.moments.ui.my.CircleDetailActivity;
 import com.anda.moments.ui.MainActivity;
-import com.anda.moments.ui.PersonalInfoActivity;
-import com.anda.moments.ui.SkinsActivity;
+import com.anda.moments.ui.my.PersonalInfoActivity;
+import com.anda.moments.ui.my.SkinsActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.publish.PublishActivity;
 import com.anda.moments.ui.publish.PublishTextActivity;
@@ -494,9 +494,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			switch (v.getId()) {
 			case R.id.btn_classification:
 //				openRotation(mContentView.findViewById(R.id.down1));
-				break;
-			case R.id.btn_distance:
-//				openRotation(mContentView.findViewById(R.id.down2));
 				break;
 			case R.id.btn_capacity_sort:
 //				openRotation(mContentView.findViewById(R.id.down3));
