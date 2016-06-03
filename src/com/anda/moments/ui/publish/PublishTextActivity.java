@@ -50,7 +50,7 @@ public class PublishTextActivity extends BaseActivity {
 	private EditText mEtContent;
 	ActionBar mActionBar;
 	private ToggleButton mToggleButtonIsPublic;//是否公开
-	String isPublic = "1";//是否公开 1公开 0 不公开
+	String isPublic = "0";//是否公开 1不公开 0 公开
 
 
 
@@ -96,7 +96,7 @@ public class PublishTextActivity extends BaseActivity {
 		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
-				isPublic = on?"1":"0";
+				isPublic = on?"0":"1";
 			}
 		});
 	}
@@ -131,7 +131,7 @@ public class PublishTextActivity extends BaseActivity {
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
 				multipartBuilder.addFormDataPart("infoText",content);//动态内容
-				multipartBuilder.addFormDataPart("isPublic",isPublic);//是否公开 0：私有 1：公开（必填）
+				multipartBuilder.addFormDataPart("isPublic",isPublic);
 
 				RequestBody requestBody = multipartBuilder.build();
 

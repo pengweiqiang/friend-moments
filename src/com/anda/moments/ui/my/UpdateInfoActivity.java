@@ -131,10 +131,10 @@ public class UpdateInfoActivity extends BaseActivity {
 			public void onClick(View v) {
 
 				String content = mEtContent.getText().toString().trim();
-				if(StringUtils.isEmpty(content)){
-					ToastUtils.showToast(mContext,"请输入"+title);
-					return;
-				}
+//				if(StringUtils.isEmpty(content)){
+//					ToastUtils.showToast(mContext,"请输入"+title);
+//					return;
+//				}
 
 				if(type == 0){//昵称
 					username = content;
@@ -168,83 +168,6 @@ public class UpdateInfoActivity extends BaseActivity {
 	}
 
 	LoadingDialog mLoadingDialog;
-
-//	private void updateInfoByOkHttp(){
-//		if(mLoadingDialog==null) {
-//			mLoadingDialog = new LoadingDialog(mContext);
-//		}
-//		mLoadingDialog.show();
-//
-//		Map<String,String> params = new HashMap<String, String>();
-//		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
-//
-//		if(!StringUtils.isEmpty(username)) {
-//			params.put("userName", username);
-//		}
-//		if(!StringUtils.isEmpty(descTag)) {
-//			params.put("descTag", descTag);
-//		}
-//		if(!StringUtils.isEmpty(summary)) {
-//			params.put("summary", summary);
-//		}
-//		if(!StringUtils.isEmpty(userId)){
-//			params.put("userId", userId);
-//		}
-//
-//
-//		if(!StringUtils.isEmpty(address)){
-//			params.put("address", address);
-//		}
-//		String url = ReqUrls.DEFAULT_REQ_HOST_IP + ReqUrls.REQUEST_UPDATE_USER_INFO;
-//
-//		OkHttpUtils.post().url(url).params(params).addHeader("JSESSIONID", GlobalConfig.JSESSION_ID)
-//				.build().execute(new StringCallback() {
-//			@Override
-//			public void onError(Call call, Exception e) {
-//				mLoadingDialog.cancel();
-//				runOnUiThread(new Runnable() {
-//					@Override
-//					public void run() {
-//						ToastUtils.showToast(mContext, "更新失败");
-//					}
-//				});
-//			}
-//
-//			@Override
-//			public void onResponse(String response) {
-//				mLoadingDialog.cancel();
-//				try {
-//					JSONObject jsonResult = new JSONObject(response);
-//					int retFlag = jsonResult.getInt("retFlag");
-//					if (ApiConstants.RESULT_SUCCESS.equals("" + retFlag)) {
-//						runOnUiThread(new Runnable() {
-//							@Override
-//							public void run() {
-//								ToastUtils.showToast(mContext,"修改成功");
-//								updateSuccessRefreshCache();
-//								AppManager.getAppManager().finishActivity();
-//							}
-//						});
-//
-//					} else {
-//						final String info = jsonResult.getString("info");
-//						runOnUiThread(new Runnable() {
-//							@Override
-//							public void run() {
-//								ToastUtils.showToast(mContext, info);
-//							}
-//						});
-//
-//					}
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//
-//
-//			}
-//		});
-//	}
-
 	/**
 	 * 修改好友备注
 	 */
@@ -282,27 +205,23 @@ public class UpdateInfoActivity extends BaseActivity {
 				//多文件表单上传构造器
 				MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-				//添加一个文本表单参数
-				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				if(!StringUtils.isEmpty(username)) {
-					builder.addFormDataPart("userName", username);
-				}
-				if(!StringUtils.isEmpty(descTag)) {
-					builder.addFormDataPart("descTag", descTag);
-				}
-				if(!StringUtils.isEmpty(summary)) {
-					builder.addFormDataPart("summary", summary);
-				}
-				if(!StringUtils.isEmpty(userId)){
-					builder.addFormDataPart("userId", userId);
-				}
-
-				if(!StringUtils.isEmpty(address)){
-					builder.addFormDataPart("address", address);
-				}
-				if(!StringUtils.isEmpty(district)){
-					builder.addFormDataPart("district",district);
-				}
+				setParams(builder);
+//				//添加一个文本表单参数
+//				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+//
+//				if(type == 0){//昵称
+//					builder.addFormDataPart("userName", username);
+//				}else if(type == 1){//个性签名
+//					builder.addFormDataPart("summary", summary);
+//				}else if(type == 2){//备注
+//					builder.addFormDataPart("descTag", descTag);
+//				}else if(type ==3){//userId
+//					builder.addFormDataPart("userId", userId);
+//				}else if(type == 4){//地址
+//					builder.addFormDataPart("address", address);
+//				}else if(type == 5){//地区
+//					builder.addFormDataPart("district",district);
+//				}
 
 
 				RequestBody requestBody = builder.build();
@@ -384,32 +303,31 @@ public class UpdateInfoActivity extends BaseActivity {
 
 	private void updateSuccessRefreshCache(){
 		User user = MyApplication.getInstance().getCurrentUser();
-		if(!StringUtils.isEmpty(username)){
+
+		if(type == 0){//昵称
 			user.setUserName(username);
 			String headIcon = user.getIcon();
 			Uri uri = null;
 			if(!StringUtils.isEmpty(user.getIcon())){
 				uri = Uri.parse(headIcon);
 			}
+			String rongUserName = StringUtils.isEmpty(username)?user.getDescTag():username;
+			if(StringUtils.isEmpty(rongUserName)){
+				rongUserName = user.getPhoneNum();
+			}
 			//刷新融云用户信息
-			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), user.getUserName(), uri));
-		}
-		if(!StringUtils.isEmpty(descTag)){
-			user.setDescTag(descTag);
-		}
-		if(!StringUtils.isEmpty(summary)){
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(user.getPhoneNum(), rongUserName, uri));
+		}else if(type == 1){//个性签名
 			user.setSummary(summary);
-		}
-		if(!StringUtils.isEmpty(userId)){
+		}else if(type == 2){//备注
+			user.setDescTag(descTag);
+		}else if(type ==3){//userId
 			user.setUserId(userId);
-		}
-		if(!StringUtils.isEmpty(address)){
+		}else if(type == 4){//地址
 			user.setAddr(address);
-		}
-		if(!StringUtils.isEmpty(district)){
+		}else if(type == 5){//地区
 			user.setDistrict(district);
 		}
-
 
 		MyApplication.getInstance().setUser(user);
 		SharePreferenceManager.saveBatchSharedPreference(mContext, Constant.FILE_NAME,"user", JsonUtils.toJson(user));
@@ -427,11 +345,69 @@ public class UpdateInfoActivity extends BaseActivity {
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					updateInfoByOkHttp();
 				}else{
+					mLoadingDialog.cancel();
 					ToastUtils.showToast(mContext,parseModel.getInfo());
 				}
 			}
 		});
 
+	}
+
+
+	private void setParams(MultipartBody.Builder builder){
+		User user = MyApplication.getInstance().getCurrentUser();
+		//添加一个文本表单参数
+		builder.addFormDataPart("phoneNum", user.getPhoneNum());
+
+		if(type == 0){//昵称
+			builder.addFormDataPart("userName", username);
+			builder.addFormDataPart("summary", user.getSummary());
+			builder.addFormDataPart("descTag", user.getDescTag());
+			builder.addFormDataPart("userId", user.getUserId());
+			builder.addFormDataPart("address", user.getAddr());
+			builder.addFormDataPart("district",user.getDistrict());
+
+		}else if(type == 1){//个性签名
+			builder.addFormDataPart("userName", user.getUserName());
+			builder.addFormDataPart("summary", summary);
+			builder.addFormDataPart("descTag", user.getDescTag());
+			builder.addFormDataPart("userId", user.getUserId());
+			builder.addFormDataPart("address", user.getAddr());
+			builder.addFormDataPart("district",user.getDistrict());
+		}else if(type == 2){//备注
+			builder.addFormDataPart("userName", user.getUserName());
+			builder.addFormDataPart("summary", user.getSummary());
+			builder.addFormDataPart("descTag", descTag);
+			builder.addFormDataPart("userId", user.getUserId());
+			builder.addFormDataPart("address", user.getAddr());
+			builder.addFormDataPart("district",user.getDistrict());
+		}else if(type ==3){//userId
+			builder.addFormDataPart("userName", user.getUserName());
+			builder.addFormDataPart("summary", user.getSummary());
+			builder.addFormDataPart("descTag", user.getDescTag());
+			builder.addFormDataPart("userId", userId);
+			builder.addFormDataPart("address", user.getAddr());
+			builder.addFormDataPart("district",user.getDistrict());
+		}else if(type == 4){//地址
+			builder.addFormDataPart("userName", user.getUserName());
+			builder.addFormDataPart("summary", user.getSummary());
+			builder.addFormDataPart("descTag", user.getDescTag());
+			builder.addFormDataPart("userId", user.getUserId());
+			builder.addFormDataPart("address", address);
+			builder.addFormDataPart("district",user.getDistrict());
+		}else if(type == 5){//地区
+			builder.addFormDataPart("userName", user.getUserName());
+			builder.addFormDataPart("summary", user.getSummary());
+			builder.addFormDataPart("descTag", user.getDescTag());
+			builder.addFormDataPart("userId", user.getUserId());
+			builder.addFormDataPart("address", user.getAddr());
+			builder.addFormDataPart("district",district);
+		}
+
+		builder.addFormDataPart("gender",user.getGender());
+		builder.addFormDataPart("isNeedValidate",user.getIsNeedValidate());
+		builder.addFormDataPart("isLookMyInfo",user.getIsLookMyInfo());
+		builder.addFormDataPart("isLookOtherInfo",user.getIsLookOtherInfo());
 	}
 
 

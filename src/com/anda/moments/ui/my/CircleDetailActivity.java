@@ -2,6 +2,7 @@ package com.anda.moments.ui.my;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -497,7 +498,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 		mTvDeleteCircle.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				deleteCircleMessage();
+				showDeleteCircleWindow();
 			}
 		});
 	}
@@ -1259,6 +1260,26 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 				}
 			}
 		});
+	}
+
+	private void showDeleteCircleWindow(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+		// 设置图标
+		builder.setTitle("确定删除？");
+		builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+			}
+		}).setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				deleteCircleMessage();
+			}
+		});
+		builder.show();
 	}
 
 	/**

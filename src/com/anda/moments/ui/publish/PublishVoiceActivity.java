@@ -55,7 +55,7 @@ public class PublishVoiceActivity extends BaseActivity {
 	ActionBar mActionBar;
 	EditText mEtContent;
 	private ToggleButton mToggleButtonIsPublic;//是否公开
-	String isPublic = "1";//是否公开 1公开 0 不公开
+	String isPublic = "0";//是否公开 1不公开 0 公开
 
 	LoadingDialog mLoadingDialog;
 
@@ -120,7 +120,7 @@ public class PublishVoiceActivity extends BaseActivity {
 		mToggleButtonIsPublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
 			@Override
 			public void onToggle(boolean on) {
-				isPublic = on?"1":"0";
+				isPublic = on?"0":"1";
 			}
 		});
 	}

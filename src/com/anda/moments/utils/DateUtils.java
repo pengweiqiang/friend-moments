@@ -433,9 +433,9 @@ public class DateUtils {
 
     public static String getTimestampString2(long time) {
         Date curDate = new Date();
-
+        Date paramDate = new Date(time);
         long splitTime = curDate.getTime() - time;
-        if (splitTime < (1 * ONE_DAY)) {
+        if (splitTime < (1 * ONE_DAY) && curDate.getDay() == paramDate.getDay()) {
             return "今天";
         }
         String result;

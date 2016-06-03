@@ -21,8 +21,6 @@ import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 import com.anda.moments.views.ToggleButton;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,10 +111,9 @@ public class SecretSettingActivity extends BaseActivity {
 				//多文件表单上传构造器
 				MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-				//添加一个文本表单参数
-				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				setParams(builder,ischeck);
 
-				builder.addFormDataPart("isNeedValidate",ischeck);
+
 
 
 				RequestBody requestBody = builder.build();
@@ -203,6 +200,31 @@ public class SecretSettingActivity extends BaseActivity {
 		SharePreferenceManager.saveBatchSharedPreference(mContext, Constant.FILE_NAME,"user", JsonUtils.toJson(user));
 	}
 
+
+	private void setParams(MultipartBody.Builder builder,String ischeck){
+		User user = MyApplication.getInstance().getCurrentUser();
+		//添加一个文本表单参数
+		builder.addFormDataPart("phoneNum", user.getPhoneNum());
+
+		builder.addFormDataPart("userName", user.getUserName());
+		builder.addFormDataPart("summary", user.getSummary());
+		builder.addFormDataPart("descTag", user.getDescTag());
+		builder.addFormDataPart("userId", user.getUserId());
+		builder.addFormDataPart("address", user.getAddr());
+
+
+
+		builder.addFormDataPart("isNeedValidate",user.getIsNeedValidate());
+		builder.addFormDataPart("isLookMyInfo",user.getIsLookMyInfo());
+		builder.addFormDataPart("isLookOtherInfo",user.getIsLookOtherInfo());
+
+		//添加性别表单参数
+		builder.addFormDataPart("gender", user.getGender());
+		builder.addFormDataPart("district",user.getDistrict());
+
+		builder.addFormDataPart("isNeedValidate",ischeck);
+
+	}
 
 
 

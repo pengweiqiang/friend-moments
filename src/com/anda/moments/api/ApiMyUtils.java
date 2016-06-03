@@ -84,15 +84,17 @@ public class ApiMyUtils {
 	 * @param pageSize 每页请求记录条数
 	 * @param pageNo 当前页数
 	 * @param type   0全部动态，1好友动态，2我的动态
+	 * @param currPhoneNum  当前登陆用户
 	 * @param requestCallBack
 	 */
-	public static void getInfoDetails(Context context, String phoneNum,String pageSize,String pageNo,String type,
+	public static void getInfoDetails(Context context, String phoneNum,String pageSize,String pageNo,String type,String currPhoneNum,
 			RequestCallback requestCallBack) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("phoneNum", phoneNum);
 		params.put("pageSize", pageSize);
 		params.put("pageNo", pageNo);
 		params.put("type", type);
+		params.put("currPhoneNum",currPhoneNum);
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_GET_INFO_DETAILS, false,
 				requestCallBack, MethodType.GET_INFO_DETAILS, context);
 	}

@@ -1,9 +1,5 @@
 package com.anda.moments.ui.publish;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -11,19 +7,14 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.animation.BounceInterpolator;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseActivity;
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.ToastUtils;
-import com.anda.moments.views.LoadingDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
@@ -163,20 +154,22 @@ public class PublishVideoActivity extends BaseActivity implements View.OnTouchLi
 
 			@Override
 			public void run() {
-				handler.sendEmptyMessage(time++);
+//				handler.sendEmptyMessage(time++);
+				time++;
+				if (time >1000) {
+					stopRecord();//停止录像
+				} else {
+					if(mRecorder.isRecording()) {
+						recordProgressBar.setProgress(time);
+					}
+				}
 			}
 		}, 0, 15);
 	}
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			if (msg.what >1000) {
-				stopRecord();//停止录像
-			} else {
-				if(mRecorder.isRecording()) {
-					recordProgressBar.setProgress(msg.what);
-				}
-			}
+
 		};
 	};
 

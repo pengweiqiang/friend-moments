@@ -298,11 +298,11 @@ public class UserInfoActivity extends BaseActivity {
 				mBtnAddFriends.setVisibility(View.GONE);
 				findViewById(R.id.ll_friends_info).setVisibility(View.GONE);
 			}else{
-				if (flag == 1) {
-					mBtnAddFriends.setVisibility(View.GONE);
-				} else {
-					mBtnAddFriends.setVisibility(View.VISIBLE);
-				}
+//				if (flag == 1) {
+//					mBtnAddFriends.setVisibility(View.GONE);
+//				} else {
+//					mBtnAddFriends.setVisibility(View.VISIBLE);
+//				}
 			}
 
 			String isLookMyInfo = user.getIsLookMyInfo();//不让好友看我的朋友圈,

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.apdater.MyAdapter;
 import com.anda.moments.api.ApiMyUtils;
@@ -231,8 +232,8 @@ public class UserHomeActivity extends BaseActivity implements SwipeRefreshLayout
 			loadingDialog = new LoadingDialog(mContext);
 			loadingDialog.show();
 		}
-
-		ApiMyUtils.getInfoDetails(mContext, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
+		String myPhoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+		ApiMyUtils.getInfoDetails(mContext, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2",myPhoneNum, new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mSwipeRefreshLayout.setRefreshing(false);

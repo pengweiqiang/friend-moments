@@ -1,9 +1,9 @@
 package com.anda.moments.commons;
 
+import android.app.Activity;
+
 import java.util.Iterator;
 import java.util.Stack;
-
-import android.app.Activity;
 
 /**
  * 应用程序Activity管理类：用于Activity管理和应用程序
@@ -75,7 +75,7 @@ public class AppManager {
 	 * 结束指定的Activity
 	 */
 	public void finishActivity(Activity activity) {
-		if (activity != null) {
+		if (activity != null && activityStack!=null) {
 			activityStack.remove(activity);
 			activity.finish();
 			activity = null;

@@ -3,6 +3,7 @@ package com.anda.moments.apdater;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -89,6 +90,7 @@ public class HomeAdapter extends BaseAdapter {
     public int playingAudioIndex = -1;
 
     private Context context;
+    private LayoutInflater layoutInflater;
     private List<CircleMessage> datalist;
     private User myUser ;//我的资料
 
@@ -96,6 +98,7 @@ public class HomeAdapter extends BaseAdapter {
     public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
+        layoutInflater = LayoutInflater.from(context);
         headWidth = DeviceInfo.dp2px(context,70);
         myUser = MyApplication.getInstance().getCurrentUser();
     }
@@ -164,7 +167,7 @@ public class HomeAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.home_item_ninegridlayout, parent, false);
+            convertView = layoutInflater.inflate(R.layout.home_item_ninegridlayout, parent, false);
             ViewStub mediaViewStub = (ViewStub) convertView.findViewById(R.id.media_view_stub);
             switch (itemViewType){
                 case ITEM_VIEW_TYPE_TEXT:
@@ -604,7 +607,7 @@ public class HomeAdapter extends BaseAdapter {
             }
             switch (v.getId()){
                 case R.id.tv_delete://删除动态
-                    deleteCircleMessage(position);
+                    showDeleteCircleWindow(position);
                     break;
                 case R.id.iv_comment://评论
                     popup(v,position,this);
@@ -779,6 +782,25 @@ public class HomeAdapter extends BaseAdapter {
 
     };
 
+    private void showDeleteCircleWindow(final int circlePosition){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        // 设置图标
+        builder.setTitle("确定删除？");
+        builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteCircleMessage(circlePosition);
+            }
+        });
+        builder.show();
+    }
     /**
      * 删除动态
      * @param circlePosition
@@ -967,7 +989,7 @@ public class HomeAdapter extends BaseAdapter {
             praiseUser.setIcon(user.getIcon());
             praiseUser.setPhoneNum(user.getPhoneNum());
             praiseUser.setUserName(user.getUserName());
-            praisedInfo.getPraiseUsers().add(0,praiseUser);
+            praisedInfo.getPraiseUsers().add(praiseUser);
 //            viewholder.praiseRecyclerViewAdapter.add(0,praiseUser);
         }
         praisedInfo.setPraiseNum(count);

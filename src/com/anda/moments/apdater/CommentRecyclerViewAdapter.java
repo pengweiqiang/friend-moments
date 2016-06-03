@@ -59,9 +59,9 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final CommentViewHolder holder, int position) {
+    public void onBindViewHolder(final CommentViewHolder holder, final int position) {
         long startTime = System.nanoTime();
-        final CommentUser bean = mDatas.get(position);
+        CommentUser bean = mDatas.get(position);
         String name = bean.getUserName();
 
         Picasso.with(mContext).load(bean.getIcon()).placeholder(R.drawable.default_useravatar).resize(headWidth,headWidth).centerCrop().into(holder.mIvHead);
@@ -85,10 +85,11 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext,UserHomeActivity.class);
                     User user = new User();
-                    user.setPhoneNum(bean.getPhoneNum());
-                    user.setIcon(bean.getIcon());
-                    user.setUserId(bean.getUserId());
-                    user.setUserName(bean.getUserName());
+                    CommentUser commentUser = mDatas.get(position);
+                    user.setPhoneNum(commentUser.getPhoneNum());
+                    user.setIcon(commentUser.getIcon());
+                    user.setUserId(commentUser.getUserId());
+                    user.setUserName(commentUser.getUserName());
                     user.setFlag(1);//已接受好友
                     intent.putExtra("user",user);
                     mContext.startActivity(intent);

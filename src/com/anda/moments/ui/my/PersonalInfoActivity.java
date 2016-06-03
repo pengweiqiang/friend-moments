@@ -513,11 +513,8 @@ public class PersonalInfoActivity extends BaseActivity {
 					RequestBody fileBody = RequestBody.create(MEDIA_TYPE_PNG, file);
 					multipartBuilder.addFormDataPart(file.getName(), file.getName(), fileBody);
 				}
-				//添加一个文本表单参数
-				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
-				if(!StringUtils.isEmpty(sex)) {
-					multipartBuilder.addFormDataPart("gender", sex);
-				}
+
+				setParams(multipartBuilder);
 
 				RequestBody requestBody = multipartBuilder.build();
 				//构造文件上传时的请求对象Request
@@ -638,6 +635,32 @@ public class PersonalInfoActivity extends BaseActivity {
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
 
+		}
+	}
+
+	private void setParams(MultipartBody.Builder builder){
+		User user = MyApplication.getInstance().getCurrentUser();
+		//添加一个文本表单参数
+		builder.addFormDataPart("phoneNum", user.getPhoneNum());
+
+		builder.addFormDataPart("userName", user.getUserName());
+		builder.addFormDataPart("summary", user.getSummary());
+		builder.addFormDataPart("descTag", user.getDescTag());
+		builder.addFormDataPart("userId", user.getUserId());
+		builder.addFormDataPart("address", user.getAddr());
+		builder.addFormDataPart("district",user.getDistrict());
+
+
+
+		builder.addFormDataPart("isNeedValidate",user.getIsNeedValidate());
+		builder.addFormDataPart("isLookMyInfo",user.getIsLookMyInfo());
+		builder.addFormDataPart("isLookOtherInfo",user.getIsLookOtherInfo());
+
+		//添加性别表单参数
+		if(StringUtils.isEmpty(sex)) {
+			builder.addFormDataPart("gender", user.getGender());
+		}else{
+			builder.addFormDataPart("gender", sex);
 		}
 	}
 }

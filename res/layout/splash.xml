@@ -5,17 +5,22 @@
     android:background="@color/white"
     >
 
+    <!--<pl.droidsonroids.gif.GifImageView-->
+        <!--android:id="@+id/splash"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
     <ImageView
         android:id="@+id/splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:src="@drawable/splash"
          >
     </ImageView>
 
     <TextView
         android:id="@+id/loading"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

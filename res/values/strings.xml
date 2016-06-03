@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">朋友圈</string>
+    <string name="app_name">微萌</string>
     <string name="tab_friends_source">好友</string>
     <string name="tab_part_time">首页</string>
     <string name="tab_my">我的</string>

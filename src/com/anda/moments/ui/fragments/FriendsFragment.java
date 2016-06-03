@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -53,11 +54,12 @@ import io.rong.imlib.model.UserInfo;
  * @author will
  *
  */
-public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingLetterChangedListener, TextWatcher {
+public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingLetterChangedListener, TextWatcher,SwipeRefreshLayout.OnRefreshListener {
 
 	private View mContentView;
 	private ActionBar mActionBar;
 
+	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ListView mListView;
 	private View mBtnNewFriendsRequest;//新好友请求
 	private View mBtnFriendsMessage;//好友消息
@@ -137,6 +139,15 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 		mDialog = (TextView) mContentView.findViewById(R.id.friend_dialog);
 		mSideBar.setTextView(mDialog);
 		mSideBar.setOnTouchingLetterChangedListener(this);
+
+		mSwipeRefreshLayout = (SwipeRefreshLayout)mContentView.findViewById(R.id.swipe_container);
+
+
+		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light, android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
+
+		mSwipeRefreshLayout.setOnRefreshListener(this);
 
 
 		mListView = (ListView)mContentView.findViewById(R.id.listView);
@@ -245,6 +256,7 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 				if(mLoadingDialog!=null && mLoadingDialog.isShowing()){
 					mLoadingDialog.cancel();
 				}
+				mSwipeRefreshLayout.setRefreshing(false);
 				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
 					isLoadData = true;
 					Log.e("FriendsFragment","获取好友列表："+parseModel.getResults().toString());
@@ -431,6 +443,11 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 
 	private boolean isLoadData = false;//是否已经加载数据
 	private boolean isPrepared = false;//标志已经初始化完成
+
+	@Override
+	public void onRefresh() {
+		getFriendsList();
+	}
 
 //	@Override
 //	public void setUserVisibleHint(boolean isVisibleToUser) {

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.TextViewUtils;
@@ -62,10 +64,12 @@ public class MyAdapter extends BaseAdapter {
 
     private Context context;
     private List<Infos> datalist;
+    private LayoutInflater layoutInflater;
 
     public MyAdapter(Context context, List<Infos> datalist) {
         this.context = context;
         this.datalist = datalist;
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -120,7 +124,7 @@ public class MyAdapter extends BaseAdapter {
         int itemViewType = getItemViewType(position);
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.my_item_ninegridlayout, parent, false);
+            convertView = layoutInflater.inflate(R.layout.my_item_ninegridlayout, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mediaViewStub = (ViewStub) convertView.findViewById(R.id.media_view_stub);
             switch (itemViewType){
@@ -202,6 +206,16 @@ public class MyAdapter extends BaseAdapter {
 
         String section = getSectionForPosition(position);
         if(position == getPositionForSection(section)){
+            if(position != 0) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) viewHolder.mediaViewStub.getLayoutParams();
+                layoutParams.setMargins(0, DeviceInfo.dp2px(context, 10), 0, 0);
+                viewHolder.mediaViewStub.setLayoutParams(layoutParams);
+            }else{
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.mediaViewStub.getLayoutParams();
+                params.setMargins(0,0,0,0);
+                viewHolder.mediaViewStub.setLayoutParams(params);
+                viewHolder.mTvPublishTime.setVisibility(View.GONE);
+            }
             viewHolder.mTvPublishTime.setVisibility(View.VISIBLE);
             if(dateStr.equals("今天")){
                 viewHolder.mTvPublishTime.setText(dateStr);
@@ -213,6 +227,9 @@ public class MyAdapter extends BaseAdapter {
                 }
             }
         }else{
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) viewHolder.mediaViewStub.getLayoutParams();
+            params.setMargins(0,0,0,0);
+            viewHolder.mediaViewStub.setLayoutParams(params);
             viewHolder.mTvPublishTime.setVisibility(View.GONE);
         }
 

@@ -275,7 +275,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		if(user==null){
 			return;
 		}
-		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2", new HttpConnectionUtil.RequestCallback() {
+		ApiMyUtils.getInfoDetails(mActivity, user.getPhoneNum(), ReqUrls.LIMIT_DEFAULT_NUM+"",String.valueOf(page),"2",user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
 			@Override
 			public void execute(ParseModel parseModel) {
 				mSwipeRefreshLayout.setRefreshing(false);

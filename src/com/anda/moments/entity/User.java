@@ -48,7 +48,7 @@ public class User implements Serializable{
 	}
 
 	public String getUserName() {
-		return userName;
+		return userName==null?"":userName;
 	}
 
 	public void setUserName(String userName) {
@@ -56,7 +56,7 @@ public class User implements Serializable{
 	}
 
 	public String getUserId() {
-		return userId;
+		return userId==null?"":userId;
 	}
 
 	public void setUserId(String userId) {
@@ -64,7 +64,7 @@ public class User implements Serializable{
 	}
 
 	public String getGender() {
-		return gender;
+		return gender==null?"":gender;
 	}
 
 	public void setGender(String gender) {
@@ -80,7 +80,7 @@ public class User implements Serializable{
 //	}
 
 	public String getDistrict() {
-		return district;
+		return district==null?"":district;
 	}
 
 	public void setDistrict(String district) {
@@ -88,7 +88,7 @@ public class User implements Serializable{
 	}
 
 	public String getSummary() {
-		return summary;
+		return summary==null?"":summary;
 	}
 
 	public void setSummary(String summary) {
@@ -96,7 +96,7 @@ public class User implements Serializable{
 	}
 
 	public String getDescTag() {
-		return descTag;
+		return descTag==null?"":descTag;
 	}
 
 	public void setDescTag(String descTag) {
@@ -136,7 +136,7 @@ public class User implements Serializable{
 	}
 
 	public String getAddr() {
-		return addr;
+		return addr==null?"":addr;
 	}
 
 	public void setAddr(String addr) {
@@ -176,7 +176,7 @@ public class User implements Serializable{
 	}
 
 	public String getIsNeedValidate() {
-		return isNeedValidate;
+		return isNeedValidate==null?"":isNeedValidate;
 	}
 
 	public void setIsNeedValidate(String isNeedValidate) {
@@ -184,7 +184,7 @@ public class User implements Serializable{
 	}
 
 	public String getIsLookMyInfo() {
-		return isLookMyInfo;
+		return isLookMyInfo==null?"":isLookMyInfo;
 	}
 
 	public void setIsLookMyInfo(String isLookMyInfo) {
@@ -192,7 +192,7 @@ public class User implements Serializable{
 	}
 
 	public String getIsLookOtherInfo() {
-		return isLookOtherInfo;
+		return isLookOtherInfo==null?"":isLookOtherInfo;
 	}
 
 	public void setIsLookOtherInfo(String isLookOtherInfo) {

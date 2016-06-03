@@ -136,9 +136,8 @@ public class CityActivity extends BaseActivity {
 				MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
 				//添加一个文本表单参数
-				builder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
+				setParams(builder);
 
-				builder.addFormDataPart("district",district);
 
 
 				RequestBody requestBody = builder.build();
@@ -225,6 +224,29 @@ public class CityActivity extends BaseActivity {
 
 		MyApplication.getInstance().setUser(user);
 		SharePreferenceManager.saveBatchSharedPreference(mContext, Constant.FILE_NAME,"user", JsonUtils.toJson(user));
+	}
+
+	private void setParams(MultipartBody.Builder builder){
+		User user = MyApplication.getInstance().getCurrentUser();
+		//添加一个文本表单参数
+		builder.addFormDataPart("phoneNum", user.getPhoneNum());
+
+		builder.addFormDataPart("userName", user.getUserName());
+		builder.addFormDataPart("summary", user.getSummary());
+		builder.addFormDataPart("descTag", user.getDescTag());
+		builder.addFormDataPart("userId", user.getUserId());
+		builder.addFormDataPart("address", user.getAddr());
+
+
+
+		builder.addFormDataPart("isNeedValidate",user.getIsNeedValidate());
+		builder.addFormDataPart("isLookMyInfo",user.getIsLookMyInfo());
+		builder.addFormDataPart("isLookOtherInfo",user.getIsLookOtherInfo());
+
+		//添加性别表单参数
+		builder.addFormDataPart("gender", user.getGender());
+		builder.addFormDataPart("district",district);
+
 	}
 
 
