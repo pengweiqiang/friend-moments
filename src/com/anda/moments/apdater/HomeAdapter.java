@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anda.GlobalConfig;
@@ -42,9 +43,9 @@ import com.anda.moments.entity.PraisedInfo;
 import com.anda.moments.entity.User;
 import com.anda.moments.entity.Video;
 import com.anda.moments.ui.ImagePagerActivity;
-import com.anda.moments.ui.my.UserHomeActivity;
 import com.anda.moments.ui.VideoDetailActivity;
 import com.anda.moments.ui.fragments.HomeFragment;
+import com.anda.moments.ui.my.UserHomeActivity;
 import com.anda.moments.utils.CommonHelper;
 import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.DeviceInfo;
@@ -95,12 +96,18 @@ public class HomeAdapter extends BaseAdapter {
     private User myUser ;//我的资料
 
     private int headWidth= 80;
+
+    private int mMinItemWidth; //最小的item宽度
+    private int mMaxItemWidth; //最大的item宽度
     public HomeAdapter(Context context, List<CircleMessage> datalist) {
         this.context = context;
         this.datalist = datalist;
         layoutInflater = LayoutInflater.from(context);
         headWidth = DeviceInfo.dp2px(context,70);
         myUser = MyApplication.getInstance().getCurrentUser();
+
+        mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.7f);
+        mMinItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.15f);
     }
 
     private HomeFragment homeFragment;
@@ -185,6 +192,7 @@ public class HomeAdapter extends BaseAdapter {
                     mediaViewStub.inflate();
 
                     viewHolder.mViewAudio = convertView.findViewById(R.id.view_record);
+                    viewHolder.mIvAudio = (ImageView)convertView.findViewById(R.id.iv_audio);
                     viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
                     viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
                     viewHolder.animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
@@ -404,7 +412,35 @@ public class HomeAdapter extends BaseAdapter {
                 if(audios!=null && !audios.isEmpty()) {
                     String audioTime = StringUtils.isEmpty(audios.get(0).getAudioTime())?"0":audios.get(0).getAudioTime();
                     viewHolder.mTvAudioSecond.setText(audioTime+"''");
+                    float audioLength = 0;
+                    try{
+                        audioLength = Float.valueOf(audioTime);
+                        RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
+                        paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                        paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
+//  audioLength = (20-audioLength)*40;
+////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){
+////                            paramsAudio.width=DeviceInfo.dp2px(context,audioLength*40);
+//                        if(audioLength>0&&audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)) {
+////                        int marginRight = DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)-(int)audioLength*10;
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, (int) audioLength, 0);
+//                        }else{
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, DeviceInfo.dp2px(context,70), 0);
+//                        }
+//
+//                        viewHolder.mIvAudio.setLayoutParams(paramsAudio);
+////                            paramsAudio.height = DeviceInfo.dp2px(context,50);
+////                            viewHolder.mViewAudio.setLayoutParams(paramsAudio);
+////                        }
+                    }catch (Exception e){
+                        audioLength = 20;
+                        RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
+                        paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                        paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
+                    }
+
                 }
+
 //                if(animationDrawable!=null && animationDrawable.isRunning()){
 //                    animationDrawable.stop();
 //                    viewHolder.mViewAnim
@@ -415,7 +451,7 @@ public class HomeAdapter extends BaseAdapter {
                 }else{
                     stopAnimAudio(viewHolder);
                 }
-                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
+                viewHolder.mIvAudio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         stopCurrentAnimAudio();
@@ -560,6 +596,7 @@ public class HomeAdapter extends BaseAdapter {
 
         //音频类型 start
         public View mViewAudio;//语音背景
+        public ImageView mIvAudio;
         public View mViewAnim;//语音动画
         public AnimationDrawable animationDrawable;
         public TextView mTvAudioSecond;//时长

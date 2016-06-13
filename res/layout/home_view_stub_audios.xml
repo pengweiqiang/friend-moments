@@ -7,28 +7,39 @@
         android:paddingTop="6dp"
         android:layout_marginLeft="11dp"
         >
+
+        <ImageView
+        android:id="@+id/iv_audio"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/audio_background"
+        />
+
+    <View
+        android:id="@+id/voice_anim"
+        android:layout_width="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_height="25dp"
+        android:background="@drawable/icon_voice_anim_3"
+        />
+
         <RelativeLayout
             android:id="@+id/view_record"
-            android:layout_toLeftOf="@+id/tv_audio_second"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="38dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/audio_background"
             >
-            <View
-                android:id="@+id/voice_anim"
-                android:layout_width="25dp"
-                android:layout_centerVertical="true"
-                android:layout_height="25dp"
-                android:background="@drawable/icon_voice_anim_3"
-                />
+
+
 
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_audio_second"
-            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/iv_audio"
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

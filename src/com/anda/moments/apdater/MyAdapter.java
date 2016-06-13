@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anda.moments.R;
@@ -66,10 +67,16 @@ public class MyAdapter extends BaseAdapter {
     private List<Infos> datalist;
     private LayoutInflater layoutInflater;
 
+    private int mMinItemWidth; //最小的item宽度
+    private int mMaxItemWidth; //最大的item宽度
+
     public MyAdapter(Context context, List<Infos> datalist) {
         this.context = context;
         this.datalist = datalist;
         layoutInflater = LayoutInflater.from(context);
+
+        mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.7f);
+        mMinItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.15f);
     }
 
     @Override
@@ -144,6 +151,7 @@ public class MyAdapter extends BaseAdapter {
                     viewHolder.mediaViewStub.inflate();
 
                     viewHolder.mViewAudio = convertView.findViewById(R.id.view_record);
+                    viewHolder.mIvAudio = (ImageView)convertView.findViewById(R.id.iv_audio);
                     viewHolder.mViewAnim = convertView.findViewById(R.id.voice_anim);
                     viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
                     viewHolder.animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
@@ -293,7 +301,34 @@ public class MyAdapter extends BaseAdapter {
                 break;
             case ITEM_VIEW_TYPE_AUDIO://语音
                 Audio audio = infos.getAudios().get(0);
+                String audioTime = audio.getAudioTime();
                 viewHolder.mTvAudioSecond.setText(audio.getAudioTime()+"''");
+                float audioLength = 0;
+                try{
+                    audioLength = Float.valueOf(audioTime);
+                    RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
+                    paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                    paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
+//  audioLength = (20-audioLength)*40;
+////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){
+////                            paramsAudio.width=DeviceInfo.dp2px(context,audioLength*40);
+//                        if(audioLength>0&&audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)) {
+////                        int marginRight = DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)-(int)audioLength*10;
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, (int) audioLength, 0);
+//                        }else{
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, DeviceInfo.dp2px(context,70), 0);
+//                        }
+//
+//                        viewHolder.mIvAudio.setLayoutParams(paramsAudio);
+////                            paramsAudio.height = DeviceInfo.dp2px(context,50);
+////                            viewHolder.mViewAudio.setLayoutParams(paramsAudio);
+////                        }
+                }catch (Exception e){
+                    audioLength = 20;
+                    RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
+                    paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                    paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
+                }
                 if(viewHolder.position == playingAudioIndex){
                     startAnimAudio(viewHolder);
                 }else{
@@ -360,6 +395,7 @@ public class MyAdapter extends BaseAdapter {
 
         //音频
         public View mViewAudio;//语音背景
+        public ImageView mIvAudio;
         public View mViewAnim;//语音动画
         public AnimationDrawable animationDrawable;
         public TextView mTvAudioSecond;//时长

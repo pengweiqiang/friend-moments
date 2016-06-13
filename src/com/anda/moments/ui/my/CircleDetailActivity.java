@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anda.GlobalConfig;
@@ -120,6 +121,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 	//音频类型 start
 	public View mViewAudio;//语音背景
+	public ImageView mIvAudio;
 	public View mViewAnim;//语音动画
 	public TextView mTvAudioSecond;//时长
 
@@ -150,6 +152,10 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	public LinearLayout mEditTextBody;
 	public EditText mEditTextComment;//评论文本框
 	private ImageView sendIv;//发送评论
+
+
+	private int mMinItemWidth; //最小的item宽度
+	private int mMaxItemWidth; //最大的item宽度
 
 
 	@Override
@@ -338,6 +344,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 				mediaViewStub.inflate();
 
 				mViewAudio = findViewById(R.id.view_record);
+				mIvAudio = (ImageView)findViewById(R.id.iv_audio);
 				mViewAnim = findViewById(R.id.voice_anim);
 				mTvAudioSecond = (TextView)findViewById(R.id.tv_audio_second);
 
@@ -575,8 +582,39 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 
 				if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
 					final Audio audio = circleMessage.getAudios().get(0);
+					String audioTime = audio.getAudioTime();
 					mTvAudioSecond.setText(audio.getAudioTime());
-					mViewAudio.setOnClickListener(new View.OnClickListener() {
+
+					float audioLength = 0;
+					try{
+						mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(mContext) * 0.7f);
+						mMinItemWidth = (int) (DeviceInfo.getScreenWidth(mContext) * 0.15f);
+						audioLength = Float.valueOf(audioTime);
+						RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) mIvAudio.getLayoutParams();
+						paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+						paramsAudio.setMargins(DeviceInfo.dp2px(mContext, 11), 0, 0, 0);
+//  audioLength = (20-audioLength)*40;
+////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){
+////                            paramsAudio.width=DeviceInfo.dp2px(context,audioLength*40);
+//                        if(audioLength>0&&audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)) {
+////                        int marginRight = DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)-(int)audioLength*10;
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, (int) audioLength, 0);
+//                        }else{
+//                            paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, DeviceInfo.dp2px(context,70), 0);
+//                        }
+//
+//                        viewHolder.mIvAudio.setLayoutParams(paramsAudio);
+////                            paramsAudio.height = DeviceInfo.dp2px(context,50);
+////                            viewHolder.mViewAudio.setLayoutParams(paramsAudio);
+////                        }
+					}catch (Exception e){
+						audioLength = 20;
+						RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) mIvAudio.getLayoutParams();
+						paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+						paramsAudio.setMargins(DeviceInfo.dp2px(mContext, 11), 0, 0, 0);
+					}
+
+					mIvAudio.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
 								downloadMedia(audio.getPath(), ReqUrls.MEDIA_TYPE_AUDIO);
