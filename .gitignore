@@ -594,3 +594,9 @@ build/tmp/
 moment.jks
 proguard-rules.pro
 build
+.classpath
+gen
+.idea
+*.iml
+.gradle
+.settings
