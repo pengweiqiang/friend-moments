@@ -232,7 +232,6 @@ public class ConversationActivity extends BaseFragmentActivity{
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
                     final User user = parseModel.getUser();
-                    System.out.println("ByPhone "+user.getUserName());
                     Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
                     RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),user.getUserName(), headUri));
                 }
