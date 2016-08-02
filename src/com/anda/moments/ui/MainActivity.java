@@ -25,34 +25,32 @@ import com.anda.GlobalConfig;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.RongCloudEvent;
-import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
-import com.anda.moments.entity.CircleMessage;
 import com.anda.moments.entity.User;
+import com.anda.moments.receive.MyReceiveMessageListener;
 import com.anda.moments.ui.base.BaseFragmentActivity;
+import com.anda.moments.ui.fragments.FriendsFragment;
 import com.anda.moments.ui.fragments.HomeFragment;
 import com.anda.moments.ui.fragments.MyFragment;
-import com.anda.moments.ui.fragments.FriendsFragment;
-import com.anda.moments.utils.AESEncryptor;
 import com.anda.moments.utils.FileUtil;
 import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
-import com.anda.moments.utils.ThreadUtil;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.audio.MediaManager;
+import com.umeng.onlineconfig.OnlineConfigAgent;
+import com.umeng.onlineconfig.OnlineConfigLog;
+import com.umeng.onlineconfig.UmengOnlineConfigureListener;
 import com.umeng.update.UmengUpdateAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -99,7 +97,22 @@ public class MainActivity extends BaseFragmentActivity {
 //		initRong();
 
 		setUserInfo();
+		OnlineConfigAgent.getInstance().updateOnlineConfig(MainActivity.this);
+		String value = OnlineConfigAgent.getInstance().getConfigParams(MainActivity.this, "isopen");
+		if(StringUtils.isEmpty(value)){
+			value = "true";
+		}
+		GlobalConfig.GLOBAL_NET_STATE = Boolean.valueOf(value);
+
+		OnlineConfigAgent.getInstance().setOnlineConfigListener(configureListener);
     }
+
+	UmengOnlineConfigureListener configureListener = new UmengOnlineConfigureListener() {
+		@Override
+		public void onDataReceived(JSONObject json) {
+			OnlineConfigLog.d("OnlineConfig", "json="+json);
+		}
+	};
 
 	@Override
 	protected void onStart() {
@@ -265,7 +278,7 @@ public class MainActivity extends BaseFragmentActivity {
 			if (isExit == false) {
 				isExit = true;
 				handler.sendEmptyMessageDelayed(0, 3000);
-				ToastUtils.showToast(this, "再按一次退出朋友圈");
+				ToastUtils.showToast(this, "再按一次退出应用");
 				return true;
 			} else {
 				FileUtil.deleteCache();
@@ -299,6 +312,8 @@ public class MainActivity extends BaseFragmentActivity {
 	 * @param token
 	 */
 	private void connect(String token) {
+
+		RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
 
 		if (getApplicationInfo().packageName.equals(MyApplication.getCurProcessName(getApplicationContext()))) {
 
@@ -449,6 +464,7 @@ public class MainActivity extends BaseFragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		MediaManager.release();
+		OnlineConfigAgent.getInstance().removeOnlineConfigListener();
 	}
 
 	@Override

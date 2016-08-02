@@ -583,15 +583,29 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 				if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
 					final Audio audio = circleMessage.getAudios().get(0);
 					String audioTime = audio.getAudioTime();
-					mTvAudioSecond.setText(audio.getAudioTime());
+					mTvAudioSecond.setText(audio.getAudioTime()+"''");
 
 					float audioLength = 0;
 					try{
-						mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(mContext) * 0.7f);
+						mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(mContext) * 0.75f);
 						mMinItemWidth = (int) (DeviceInfo.getScreenWidth(mContext) * 0.15f);
 						audioLength = Float.valueOf(audioTime);
+						if(audioLength<15){
+							audioLength = 15;
+						}else if(audioLength>=15&&audioLength<30){
+							audioLength = 30;
+						}else if(audioLength>=30 && audioLength<45){
+							audioLength = 45;
+						}else if(audioLength>=45){
+							audioLength = 60;
+						}
 						RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) mIvAudio.getLayoutParams();
-						paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+
+						int width = (int) (mMinItemWidth + (mMaxItemWidth / 50f)* audioLength);
+						if(width>mMaxItemWidth){
+							width = mMaxItemWidth;
+						}
+						paramsAudio.width = width;
 						paramsAudio.setMargins(DeviceInfo.dp2px(mContext, 11), 0, 0, 0);
 //  audioLength = (20-audioLength)*40;
 ////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){
@@ -610,6 +624,7 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 					}catch (Exception e){
 						audioLength = 20;
 						RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) mIvAudio.getLayoutParams();
+
 						paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
 						paramsAudio.setMargins(DeviceInfo.dp2px(mContext, 11), 0, 0, 0);
 					}

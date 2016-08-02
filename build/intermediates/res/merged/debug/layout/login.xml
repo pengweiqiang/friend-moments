@@ -135,4 +135,32 @@
         android:text="登录"
         android:textColor="@color/white" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <CheckBox
+            android:id="@+id/rc_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+
+            android:textSize="13sp"
+            android:textColor="#434343"
+
+            />
+        <TextView
+            android:id="@+id/tv_to_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#434343"
+            android:text="阅读并同意登录注册协议"
+            />
+
+
+    </LinearLayout>
+
+
 </LinearLayout>

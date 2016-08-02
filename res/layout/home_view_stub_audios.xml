@@ -5,7 +5,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="6dp"
         android:paddingTop="6dp"
-        android:layout_marginLeft="11dp"
+        android:layout_marginLeft="15dp"
         >
 
         <ImageView

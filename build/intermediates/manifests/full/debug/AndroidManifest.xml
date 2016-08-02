@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="37"
-    android:versionName="1.1.2" >
+    android:versionCode="4"
+    android:versionName="1.0.4" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -154,6 +154,14 @@
         <activity
             android:name="com.anda.moments.ui.SecretSettingActivity"
             android:label="私密设置"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.AboutUsActivity"
+            android:label="关于我们"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.anda.moments.ui.AgreementActivity"
+            android:label="协议"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.anda.moments.ui.my.ProvinceCityActivity"

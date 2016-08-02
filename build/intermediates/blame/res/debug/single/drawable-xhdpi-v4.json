@@ -264,6 +264,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/u1f4a3.png"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_launcher.jpg",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/ic_launcher.jpg"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/add_friends_phone.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/add_friends_phone.png"
     },
@@ -518,10 +522,6 @@
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u2744.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/u2744.png"
-    },
-    {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_launcher.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/ic_launcher.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/search_edittext.png",
@@ -820,12 +820,12 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/icon_volume_6.png"
     },
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/icon_dialog_background.9.png",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/icon_dialog_background.9.png"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_btn_pub_service_enter_hover.png",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable-xhdpi-v4/rc_btn_pub_service_enter_hover.png"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/icon_dialog_background.9.png",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable-xhdpi/icon_dialog_background.9.png"
     },
     {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_unread_message_count.png",

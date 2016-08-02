@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.squareup.picasso.Picasso;
 
@@ -93,6 +92,7 @@ public class CustomSingleImageView extends ImageView {
 
             if(MAX_WIDTH > 0){
                 pxOneMaxWandH = MAX_WIDTH * 2 / 3;
+                pxOneMaxWandH = MAX_WIDTH;
                 initImageLayoutParams();
             }
 
@@ -148,9 +148,11 @@ public class CustomSingleImageView extends ImageView {
         int wrap = LinearLayout.LayoutParams.WRAP_CONTENT;
         int match = LinearLayout.LayoutParams.MATCH_PARENT;
 
-        onePicPara = new LinearLayout.LayoutParams(pxOneMaxWandH, wrap);
-        onePicPara.setMargins(DeviceInfo.dp2px(getContext(),10),DeviceInfo.dp2px(getContext(),6),0,0);
-
+//        onePicPara = new LinearLayout.LayoutParams(pxOneMaxWandH, wrap);
+//        onePicPara.setMargins(DeviceInfo.dp2px(getContext(),10),DeviceInfo.dp2px(getContext(),6),0,0);
+        //填充整个宽度
+        onePicPara = new LinearLayout.LayoutParams(match, wrap);
+        onePicPara.setMargins(0,0,0,0);
     }
 
     // 根据imageView的数量初始化不同的View布局,还要为每一个View作点击效果

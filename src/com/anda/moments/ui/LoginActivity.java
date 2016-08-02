@@ -1,44 +1,35 @@
 package com.anda.moments.ui;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anda.GlobalConfig;
-import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.api.ApiMyUtils;
 import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
-import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.CheckInputUtil;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
-import com.anda.moments.utils.JsonUtils;
-import com.anda.moments.utils.Log;
-import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 import com.anda.moments.views.LoadingDialog;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.UserInfo;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LoginActivity extends BaseActivity {
 
@@ -50,6 +41,9 @@ public class LoginActivity extends BaseActivity {
 	private TextView mGetCode;//获取验证码
 	
 	String sessionId = "";
+
+	CheckBox checkBox;
+	TextView mTvAgreement;
 	
 	@Override
 	@SuppressLint("InlinedApi")
@@ -74,12 +68,15 @@ public class LoginActivity extends BaseActivity {
 		mEtPhone = (EditText)findViewById(R.id.et_phone);
 		mEtCode = (EditText)findViewById(R.id.et_code);
 		mGetCode = (TextView)findViewById(R.id.tv_get_code);
+		checkBox = (CheckBox)findViewById(R.id.rc_checkbox);
+		mTvAgreement = (TextView)findViewById(R.id.tv_to_agreement);
 	}
 
 	@Override
 	public void initListener() {
 		mBtnLogin.setOnClickListener(onClickListener);
 		mGetCode.setOnClickListener(onClickListener);
+		mTvAgreement.setOnClickListener(onClickListener);
 	}
 	
 	OnClickListener onClickListener = new OnClickListener() {
@@ -87,12 +84,16 @@ public class LoginActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.tv_get_code:
-				getCode();
+				case R.id.tv_get_code:
+					getCode();
 				break;
-			case R.id.btn_login:
-				login();
+				case R.id.btn_login:
+					login();
 				break;
+				case R.id.tv_to_agreement:
+					Intent intent = new Intent(mContext,AgreementActivity.class);
+					startActivity(intent);
+					break;
 
 			default:
 				break;
@@ -150,6 +151,11 @@ public class LoginActivity extends BaseActivity {
 		if(StringUtils.isEmpty(sessionId)){
 			mEtCode.requestFocus();
 			ToastUtils.showToast(mContext, "请先获取验证码");
+			return;
+		}
+
+		if(!checkBox.isChecked()){
+			ToastUtils.showToast(mContext, "请先阅读并同意登录注册协议");
 			return;
 		}
 

@@ -106,7 +106,7 @@ public class HomeAdapter extends BaseAdapter {
         headWidth = DeviceInfo.dp2px(context,70);
         myUser = MyApplication.getInstance().getCurrentUser();
 
-        mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.7f);
+        mMaxItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.75f);
         mMinItemWidth = (int) (DeviceInfo.getScreenWidth(context) * 0.15f);
     }
 
@@ -165,8 +165,7 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        // 开始计时
-        long startTime = System.nanoTime();
+
         ViewHolder viewHolder;
         final CircleMessage circleMessage = datalist.get(position);
 
@@ -358,13 +357,6 @@ public class HomeAdapter extends BaseAdapter {
             viewHolder.commentListView.setVisibility(View.GONE);
         }
 
-
-        // 停止计时
-        long endTime = System.nanoTime();
-        // 计算耗时
-        long val = (endTime - startTime) / 1000L;
-        Log.e("Test", "---------Position:" + position + ":" + val);
-
         return convertView;
     }
 
@@ -415,8 +407,21 @@ public class HomeAdapter extends BaseAdapter {
                     float audioLength = 0;
                     try{
                         audioLength = Float.valueOf(audioTime);
+                        if(audioLength<15){
+                            audioLength = 15;
+                        }else if(audioLength>=15&&audioLength<30){
+                            audioLength = 30;
+                        }else if(audioLength>=30 && audioLength<45){
+                            audioLength = 45;
+                        }else if(audioLength>=45){
+                            audioLength = 60;
+                        }
                         RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
-                        paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                        int width = (int) (mMinItemWidth + (mMaxItemWidth / 50f)* audioLength);
+                        if(width>mMaxItemWidth){
+                            width = mMaxItemWidth;
+                        }
+                        paramsAudio.width = width;
                         paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
 //  audioLength = (20-audioLength)*40;
 ////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){

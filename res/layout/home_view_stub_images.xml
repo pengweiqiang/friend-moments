@@ -9,17 +9,20 @@
     <com.anda.moments.views.NineGridlayout
         android:id="@+id/iv_ngrid_layout"
         android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
     <!--单张图片-->
+    <!--<com.anda.moments.views.CustomSingleImageView-->
+        <!--android:id="@+id/iv_oneimage"-->
+        <!--android:layout_marginTop="6dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
     <com.anda.moments.views.CustomSingleImageView
         android:id="@+id/iv_oneimage"
         android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

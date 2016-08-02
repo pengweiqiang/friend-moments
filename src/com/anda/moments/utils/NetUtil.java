@@ -1,24 +1,17 @@
 package com.anda.moments.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import android.content.Context;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Proxy;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+
+import com.anda.GlobalConfig;
+import com.anda.moments.R;
+import com.anda.moments.api.constant.ReqUrls;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -39,19 +32,25 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import android.content.Context;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Proxy;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-
-import com.anda.GlobalConfig;
-import com.anda.moments.R;
-import com.anda.moments.api.constant.ReqUrls;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 网络连接
@@ -577,7 +576,7 @@ public class NetUtil {
 			url += HOST_IP;
 		}
 		url += ReqUrls.PROJECT_NAME + path;
-		System.out.println("-------------------请求的URL:" + url);
+		com.anda.moments.utils.Log.e(TAG,"-------------------请求的URL:" + url);
 		return url;
 	}
 	

@@ -130,4 +130,13 @@ public class AppManager {
 			}
 		}
 	}
+
+	public boolean isOnlyOne(Activity currentAcvitity){
+		if(activityStack!=null && !activityStack.isEmpty()){
+			if(activityStack.contains(currentAcvitity) && activityStack.size() ==1){
+				return true;
+			}
+		}
+		return false;
+	}
 }

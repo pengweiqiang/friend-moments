@@ -2,6 +2,7 @@ package com.anda.moments.ui.my;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +48,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
@@ -73,8 +76,10 @@ public class PersonalInfoActivity extends BaseActivity {
 	private TextView mTvUserName,//昵称
 			mTvUserId,//ID
 			mTvSex,mTvAddressDetail,mTvAddressArea,mTvUserSign;
+	private TextView mTvAge;
 
 	private View mBtnSex;//性别
+	private View mBtnAge;//年龄
 	private View mBtnSettings;//设置
 	private View mBtnFeedBack;//意见反馈
 	private View mBtnUserHead;//修改头像
@@ -89,6 +94,7 @@ public class PersonalInfoActivity extends BaseActivity {
 
 	String phoneNum = "";
 	String sex = "";
+	String age = "";
 
 	User user;
 	@Override
@@ -126,11 +132,13 @@ public class PersonalInfoActivity extends BaseActivity {
 		mTvAddressDetail = (TextView)findViewById(R.id.tv_address_detail);
 		mTvAddressArea = (TextView)findViewById(R.id.tv_address_area);
 		mTvUserSign = (TextView)findViewById(R.id.tv_user_sign);
+		mTvAge = (TextView)findViewById(R.id.tv_age);
 
 		mBtnSettings = findViewById(R.id.rl_setting);
 		mBtnFeedBack = findViewById(R.id.rl_feedback);
 		mBtnLoginOut = findViewById(R.id.rl_login_out);
 		mBtnSex = findViewById(R.id.rl_sex);
+		mBtnAge = findViewById(R.id.rl_age);
 		mBtnUpdateUserName = findViewById(R.id.rl_update_username);
 		mBtnUserId = findViewById(R.id.rl_user_id);
 		mBtnAddress = findViewById(R.id.rl_address);
@@ -150,6 +158,7 @@ public class PersonalInfoActivity extends BaseActivity {
 		mBtnUserId.setOnClickListener(onClickListener);
 		mBtnAddress.setOnClickListener(onClickListener);
 		mBtnDistrict.setOnClickListener(onClickListener);
+		mBtnAge.setOnClickListener(onClickListener);
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -197,6 +206,9 @@ public class PersonalInfoActivity extends BaseActivity {
 				case R.id.rl_setting://设置
 					startActivity(SettingActivity.class);
 					break;
+				case R.id.rl_age://年龄
+					showUpdateAge();
+					break;
 
 			}
 		}
@@ -239,6 +251,7 @@ public class PersonalInfoActivity extends BaseActivity {
 			mTvAddressDetail.setText(StringUtils.isEmpty(user.getAddr())?"":user.getAddr());
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
+			mTvAge.setText(StringUtils.isEmpty(user.getBirthdayTime())?"":user.getBirthdayTime());
 
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(R.drawable.default_useravatar).into(mIvHead);
@@ -607,12 +620,17 @@ public class PersonalInfoActivity extends BaseActivity {
 			user.setGender(sex);
 			sex = "";
 		}
+		if(!StringUtils.isEmpty(age)){
+			user.setBirthdayTime(age);
+			age = "";
+		}
 		SharePreferenceManager.saveBatchSharedPreference(mContext,Constant.FILE_NAME,"user",JsonUtils.toJson(user));
 		MyApplication.getInstance().setUser(user);
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 				mTvSex.setText(user.getGender());
+				mTvAge.setText(user.getBirthdayTime());
 				ToastUtils.showToast(mContext, "更新成功");
 			}
 		});
@@ -662,5 +680,28 @@ public class PersonalInfoActivity extends BaseActivity {
 		}else{
 			builder.addFormDataPart("gender", sex);
 		}
+
+		//添加年龄表单参数
+		if(StringUtils.isEmpty(age)) {
+			builder.addFormDataPart("birthdayTime", user.getBirthdayTime());
+		}else{
+			builder.addFormDataPart("birthdayTime", age);
+		}
+	}
+
+	private void showUpdateAge(){
+		DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+				age = (nowYear-year)+"岁";
+				mTvAge.setText(age);
+				updateMyInfo("");
+//				mTvAge.setText(String.format("%d-%d-%d",year,monthOfYear+1,dayOfMonth));
+			}
+		},Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+		datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());//设置最大日期
+		datePickerDialog.setTitle("");
+		datePickerDialog.show();
 	}
 }

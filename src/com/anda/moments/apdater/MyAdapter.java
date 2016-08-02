@@ -306,8 +306,21 @@ public class MyAdapter extends BaseAdapter {
                 float audioLength = 0;
                 try{
                     audioLength = Float.valueOf(audioTime);
+                    if(audioLength<15){
+                        audioLength = 15;
+                    }else if(audioLength>=15&&audioLength<30){
+                        audioLength = 30;
+                    }else if(audioLength>=30 && audioLength<45){
+                        audioLength = 45;
+                    }else if(audioLength>=45){
+                        audioLength = 60;
+                    }
                     RelativeLayout.LayoutParams paramsAudio = (RelativeLayout.LayoutParams) viewHolder.mIvAudio.getLayoutParams();
-                    paramsAudio.width = (int) (mMinItemWidth + (mMaxItemWidth / 40f)* audioLength);
+                    int width = (int) (mMinItemWidth + (mMaxItemWidth / 50f)* audioLength);
+                    if(width>mMaxItemWidth){
+                        width = mMaxItemWidth;
+                    }
+                    paramsAudio.width = width;
                     paramsAudio.setMargins(DeviceInfo.dp2px(context, 11), 0, 0, 0);
 //  audioLength = (20-audioLength)*40;
 ////                        if(audioLength<DeviceInfo.getScreenWidth(context)-DeviceInfo.dp2px(context,70)){
@@ -334,7 +347,7 @@ public class MyAdapter extends BaseAdapter {
                 }else{
                     stopAnimAudio(viewHolder);
                 }
-                viewHolder.mViewAudio.setOnClickListener(new View.OnClickListener() {
+                viewHolder.mIvAudio.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         stopCurrentAnimAudio();

@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/actionBar"
         android:layout_above="@+id/bottom_line"
+        android:scrollbars="none"
         >
 
         <LinearLayout
@@ -93,7 +94,6 @@
                 android:id="@+id/media_view_stub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 />
 
 

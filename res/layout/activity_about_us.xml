@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </com.anda.moments.views.ActionBar>
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="10dp"
+        android:textColor="#646464"
+        android:text="微萌"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
+
+</RelativeLayout>

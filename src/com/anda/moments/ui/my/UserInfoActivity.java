@@ -53,6 +53,7 @@ public class UserInfoActivity extends BaseActivity {
 	
 	private View mBtnSign,mBtnRemarks;
 	private TextView mTvUserName,mTvUserNameHead,mTvUserId,mTvSex,mTvAddressDetail,mTvAddressArea,mTvUserSign;
+	private TextView mTvAge;
 	private TextView mTvUserDesc;
 
 	//好友的其他信息
@@ -136,6 +137,7 @@ public class UserInfoActivity extends BaseActivity {
 		mTvUserSign = (TextView)findViewById(R.id.tv_user_sign);
 		mTvUserNameHead = (TextView)findViewById(R.id.tv_user_name_head);
 		mTvUserDesc = (TextView)findViewById(R.id.tv_user_desc);
+		mTvAge = (TextView)findViewById(R.id.tv_age);
 
 		mBtnAddFriends = (Button)findViewById(R.id.btn_add_friend);
 		mBtnSendMsg = (Button)findViewById(R.id.btn_send_msg);
@@ -284,6 +286,7 @@ public class UserInfoActivity extends BaseActivity {
 			mTvAddressArea.setText(StringUtils.isEmpty(user.getDistrict())?"":user.getDistrict());
 			mTvUserSign.setText(StringUtils.isEmpty(user.getSummary())?"":user.getSummary());
 			mTvUserDesc.setText(user.getDescTag());
+			mTvAge.setText(StringUtils.isEmpty(user.getBirthdayTime())?"":user.getBirthdayTime());
 
 //			Picasso.with(mContext).load(user.getIcon()).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(mIvUserHead);
 			if(!StringUtils.isEmpty(user.getIcon())) {

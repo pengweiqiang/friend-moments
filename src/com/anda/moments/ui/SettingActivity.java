@@ -4,21 +4,11 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.anda.moments.R;
-import com.anda.moments.api.ApiMyUtils;
-import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
-import com.anda.moments.entity.ParseModel;
-import com.anda.moments.entity.User;
 import com.anda.moments.ui.base.BaseActivity;
-import com.anda.moments.utils.HttpConnectionUtil;
-import com.anda.moments.utils.StringUtils;
-import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
-import com.anda.moments.views.LoadingDialog;
 
 /**
  * 设置
@@ -76,7 +66,7 @@ public class SettingActivity extends BaseActivity {
 					startActivity(SecretSettingActivity.class);
 					break;
 				case R.id.rl_about_us://关于我们
-
+					startActivity(AboutUsActivity.class);
 					break;
 
 			}

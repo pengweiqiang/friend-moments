@@ -11,7 +11,7 @@ public interface ApiConstants {
     // APP_ID 替换为你的应用从官方网站申请到的合法appId
     public static final String APP_ID = "wx7bec0410d07b8654";
 
-    public static final String WEB_URL = "http://www.baidu.com";
+    public static final String WEB_URL = "http://wmeng.bmob.cn/";
 
     public static final String SHARE_TITLE = "朋友圈";
 
@@ -81,7 +81,7 @@ public interface ApiConstants {
     public static final int MAX_STATUS = 99999;
     
     //是否打印日志 上线改为false
-    public static boolean ISDEBUG = true;
+    public static boolean ISDEBUG = false;
     
     //充值
     public static int TYPE_RECHARGE = 1001;

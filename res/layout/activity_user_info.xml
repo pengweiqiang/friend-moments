@@ -171,6 +171,38 @@
             android:background="@color/light_gray_line2"
             android:layout_width="match_parent"
             android:layout_height="1px"/>
+        <!-- 年龄 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="年龄"
+                android:textColor="@color/color_action_bar_title"
+                />
+
+            <TextView
+                android:id="@+id/tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_alignParentRight="true"
+                android:textColor="#979797"
+                />
+
+        </RelativeLayout>
+        <View
+            android:background="@color/light_gray_line2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
         <!-- 地址 -->
         <RelativeLayout
             android:layout_width="match_parent"

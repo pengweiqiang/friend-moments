@@ -2361,987 +2361,101 @@
                     "startLine": 475,
                     "startColumn": 4,
                     "startOffset": 26356,
+                    "endLine": 549,
                     "endColumn": 39,
-                    "endOffset": 26391
+                    "endOffset": 31467
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml",
                     "position": {
-                        "startLine": 3,
+                        "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 56,
+                        "startOffset": 983,
+                        "endLine": 97,
                         "endColumn": 39,
-                        "endOffset": 91
+                        "endOffset": 6094
                     }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 476,
-                    "startColumn": 4,
-                    "startOffset": 26396,
-                    "endColumn": 52,
-                    "endOffset": 26444
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 477,
-                    "startColumn": 4,
-                    "startOffset": 26449,
-                    "endColumn": 55,
-                    "endOffset": 26500
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 478,
-                    "startColumn": 4,
-                    "startOffset": 26505,
-                    "endColumn": 62,
-                    "endOffset": 26563
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 479,
-                    "startColumn": 4,
-                    "startOffset": 26568,
-                    "endColumn": 52,
-                    "endOffset": 26616
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 480,
-                    "startColumn": 4,
-                    "startOffset": 26621,
-                    "endColumn": 47,
-                    "endOffset": 26664
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 481,
-                    "startColumn": 4,
-                    "startOffset": 26669,
-                    "endColumn": 54,
-                    "endOffset": 26719
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 482,
-                    "startColumn": 4,
-                    "startOffset": 26724,
-                    "endColumn": 56,
-                    "endOffset": 26776
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 483,
-                    "startColumn": 4,
-                    "startOffset": 26781,
-                    "endColumn": 54,
-                    "endOffset": 26831
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 484,
-                    "startColumn": 4,
-                    "startOffset": 26836,
-                    "endColumn": 51,
-                    "endOffset": 26883
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 485,
-                    "startColumn": 4,
-                    "startOffset": 26888,
-                    "endColumn": 71,
-                    "endOffset": 26955
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 486,
-                    "startColumn": 4,
-                    "startOffset": 26960,
-                    "endColumn": 74,
-                    "endOffset": 27030
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 487,
-                    "startColumn": 4,
-                    "startOffset": 27035,
-                    "endColumn": 78,
-                    "endOffset": 27109
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 488,
-                    "startColumn": 4,
-                    "startOffset": 27114,
-                    "endColumn": 71,
-                    "endOffset": 27181
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 489,
-                    "startColumn": 4,
-                    "startOffset": 27186,
-                    "endColumn": 71,
-                    "endOffset": 27253
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 490,
-                    "startColumn": 4,
-                    "startOffset": 27258,
-                    "endColumn": 69,
-                    "endOffset": 27323
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 491,
-                    "startColumn": 4,
-                    "startOffset": 27328,
-                    "endColumn": 70,
-                    "endOffset": 27394
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 492,
-                    "startColumn": 4,
-                    "startOffset": 27399,
-                    "endColumn": 66,
-                    "endOffset": 27461
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 493,
-                    "startColumn": 4,
-                    "startOffset": 27466,
-                    "endColumn": 73,
-                    "endOffset": 27535
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 494,
-                    "startColumn": 4,
-                    "startOffset": 27540,
-                    "endColumn": 68,
-                    "endOffset": 27604
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 495,
-                    "startColumn": 4,
-                    "startOffset": 27609,
-                    "endColumn": 62,
-                    "endOffset": 27667
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 496,
-                    "startColumn": 4,
-                    "startOffset": 27672,
-                    "endColumn": 79,
-                    "endOffset": 27747
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 497,
-                    "startColumn": 4,
-                    "startOffset": 27752,
-                    "endColumn": 70,
-                    "endOffset": 27818
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 498,
-                    "startColumn": 4,
-                    "startOffset": 27823,
-                    "endColumn": 70,
-                    "endOffset": 27889
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 499,
-                    "startColumn": 4,
-                    "startOffset": 27894,
-                    "endColumn": 66,
-                    "endOffset": 27956
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 500,
-                    "startColumn": 4,
-                    "startOffset": 27961,
-                    "endColumn": 68,
-                    "endOffset": 28025
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 501,
-                    "startColumn": 4,
-                    "startOffset": 28030,
-                    "endColumn": 73,
-                    "endOffset": 28099
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 502,
-                    "startColumn": 4,
-                    "startOffset": 28104,
-                    "endColumn": 43,
-                    "endOffset": 28143
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 503,
-                    "startColumn": 4,
-                    "startOffset": 28148,
-                    "endColumn": 59,
-                    "endOffset": 28203
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 504,
-                    "startColumn": 4,
-                    "startOffset": 28208,
-                    "endColumn": 61,
-                    "endOffset": 28265
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 505,
-                    "startColumn": 4,
-                    "startOffset": 28270,
-                    "endColumn": 43,
-                    "endOffset": 28309
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 506,
-                    "startColumn": 4,
-                    "startOffset": 28314,
-                    "endColumn": 47,
-                    "endOffset": 28357
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 507,
-                    "startColumn": 4,
-                    "startOffset": 28362,
-                    "endColumn": 60,
-                    "endOffset": 28418
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 508,
-                    "startColumn": 4,
-                    "startOffset": 28423,
-                    "endColumn": 62,
-                    "endOffset": 28481
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 509,
-                    "startColumn": 4,
-                    "startOffset": 28486,
-                    "endColumn": 43,
-                    "endOffset": 28525
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 510,
-                    "startColumn": 4,
-                    "startOffset": 28530,
-                    "endColumn": 80,
-                    "endOffset": 28606
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 511,
-                    "startColumn": 4,
-                    "startOffset": 28611,
-                    "endColumn": 80,
-                    "endOffset": 28687
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 512,
-                    "startColumn": 4,
-                    "startOffset": 28692,
-                    "endColumn": 71,
-                    "endOffset": 28759
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 513,
-                    "startColumn": 4,
-                    "startOffset": 28764,
-                    "endColumn": 88,
-                    "endOffset": 28848
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 514,
-                    "startColumn": 4,
-                    "startOffset": 28853,
-                    "endColumn": 87,
-                    "endOffset": 28936
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 515,
-                    "startColumn": 4,
-                    "startOffset": 28941,
-                    "endColumn": 77,
-                    "endOffset": 29014
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 516,
-                    "startColumn": 4,
-                    "startOffset": 29019,
-                    "endColumn": 80,
-                    "endOffset": 29095
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 517,
-                    "startColumn": 4,
-                    "startOffset": 29100,
-                    "endColumn": 85,
-                    "endOffset": 29181
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 518,
-                    "startColumn": 4,
-                    "startOffset": 29186,
-                    "endColumn": 60,
-                    "endOffset": 29242
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 519,
-                    "startColumn": 4,
-                    "startOffset": 29247,
-                    "endColumn": 53,
-                    "endOffset": 29296
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 520,
-                    "startColumn": 4,
-                    "startOffset": 29301,
-                    "endColumn": 51,
-                    "endOffset": 29348
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 521,
-                    "startColumn": 4,
-                    "startOffset": 29353,
-                    "endColumn": 65,
-                    "endOffset": 29414
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 522,
-                    "startColumn": 4,
-                    "startOffset": 29419,
-                    "endColumn": 64,
-                    "endOffset": 29479
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 523,
-                    "startColumn": 4,
-                    "startOffset": 29484,
-                    "endColumn": 59,
-                    "endOffset": 29539
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 524,
-                    "startColumn": 4,
-                    "startOffset": 29544,
-                    "endColumn": 61,
-                    "endOffset": 29601
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 525,
-                    "startColumn": 4,
-                    "startOffset": 29606,
-                    "endColumn": 54,
-                    "endOffset": 29656
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 526,
-                    "startColumn": 4,
-                    "startOffset": 29661,
-                    "endColumn": 49,
-                    "endOffset": 29706
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 527,
-                    "startColumn": 4,
-                    "startOffset": 29711,
-                    "endColumn": 44,
-                    "endOffset": 29751
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 528,
-                    "startColumn": 4,
-                    "startOffset": 29756,
-                    "endColumn": 48,
-                    "endOffset": 29800
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 529,
-                    "startColumn": 4,
-                    "startOffset": 29805,
-                    "endColumn": 60,
-                    "endOffset": 29861
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 530,
-                    "startColumn": 4,
-                    "startOffset": 29866,
-                    "endColumn": 57,
-                    "endOffset": 29919
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 531,
-                    "startColumn": 4,
-                    "startOffset": 29924,
-                    "endColumn": 57,
-                    "endOffset": 29977
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 532,
-                    "startColumn": 4,
-                    "startOffset": 29982,
-                    "endColumn": 60,
-                    "endOffset": 30038
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 533,
-                    "startColumn": 4,
-                    "startOffset": 30043,
-                    "endColumn": 61,
-                    "endOffset": 30100
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 534,
-                    "startColumn": 4,
-                    "startOffset": 30105,
-                    "endColumn": 57,
-                    "endOffset": 30158
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 535,
-                    "startColumn": 4,
-                    "startOffset": 30163,
-                    "endColumn": 60,
-                    "endOffset": 30219
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 536,
-                    "startColumn": 4,
-                    "startOffset": 30224,
-                    "endColumn": 57,
-                    "endOffset": 30277
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 537,
-                    "startColumn": 4,
-                    "startOffset": 30282,
-                    "endColumn": 38,
-                    "endOffset": 30316
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 538,
-                    "startColumn": 4,
-                    "startOffset": 30321,
-                    "endColumn": 51,
-                    "endOffset": 30368
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 539,
-                    "startColumn": 4,
-                    "startOffset": 30373,
-                    "endColumn": 58,
-                    "endOffset": 30427
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 540,
-                    "startColumn": 4,
-                    "startOffset": 30432,
-                    "endColumn": 51,
-                    "endOffset": 30479
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 541,
-                    "startColumn": 4,
-                    "startOffset": 30484,
-                    "endColumn": 56,
-                    "endOffset": 30536
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 542,
-                    "startColumn": 4,
-                    "startOffset": 30541,
-                    "endColumn": 63,
-                    "endOffset": 30600
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 543,
-                    "startColumn": 4,
-                    "startOffset": 30605,
-                    "endColumn": 68,
-                    "endOffset": 30669
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 544,
-                    "startColumn": 4,
-                    "startOffset": 30674,
-                    "endColumn": 59,
-                    "endOffset": 30729
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 545,
-                    "startColumn": 4,
-                    "startOffset": 30734,
-                    "endColumn": 57,
-                    "endOffset": 30787
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 546,
-                    "startColumn": 4,
-                    "startOffset": 30792,
-                    "endColumn": 57,
-                    "endOffset": 30845
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 547,
-                    "startColumn": 4,
-                    "startOffset": 30850,
-                    "endColumn": 58,
-                    "endOffset": 30904
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 548,
-                    "startColumn": 4,
-                    "startOffset": 30909,
-                    "endColumn": 69,
-                    "endOffset": 30974
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 549,
-                    "startColumn": 4,
-                    "startOffset": 30979,
-                    "endColumn": 59,
-                    "endOffset": 31034
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 550,
                     "startColumn": 4,
-                    "startOffset": 31039,
-                    "endColumn": 65,
-                    "endOffset": 31100
+                    "startOffset": 31472,
+                    "endColumn": 39,
+                    "endOffset": 31507
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 551,
                     "startColumn": 4,
-                    "startOffset": 31105,
-                    "endColumn": 74,
-                    "endOffset": 31175
+                    "startOffset": 31512,
+                    "endColumn": 52,
+                    "endOffset": 31560
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 552,
                     "startColumn": 4,
-                    "startOffset": 31180,
+                    "startOffset": 31565,
                     "endColumn": 55,
-                    "endOffset": 31231
+                    "endOffset": 31616
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 553,
                     "startColumn": 4,
-                    "startOffset": 31236,
-                    "endColumn": 66,
-                    "endOffset": 31298
+                    "startOffset": 31621,
+                    "endColumn": 62,
+                    "endOffset": 31679
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 554,
                     "startColumn": 4,
-                    "startOffset": 31303,
-                    "endColumn": 77,
-                    "endOffset": 31376
+                    "startOffset": 31684,
+                    "endColumn": 52,
+                    "endOffset": 31732
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 555,
                     "startColumn": 4,
-                    "startOffset": 31381,
-                    "endColumn": 64,
-                    "endOffset": 31441
+                    "startOffset": 31737,
+                    "endColumn": 47,
+                    "endOffset": 31780
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 556,
                     "startColumn": 4,
-                    "startOffset": 31446,
-                    "endColumn": 48,
-                    "endOffset": 31490
+                    "startOffset": 31785,
+                    "endColumn": 54,
+                    "endOffset": 31835
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3351,9 +2465,9 @@
                 "to": {
                     "startLine": 557,
                     "startColumn": 4,
-                    "startOffset": 31495,
-                    "endColumn": 47,
-                    "endOffset": 31538
+                    "startOffset": 31840,
+                    "endColumn": 56,
+                    "endOffset": 31892
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3363,9 +2477,9 @@
                 "to": {
                     "startLine": 558,
                     "startColumn": 4,
-                    "startOffset": 31543,
-                    "endColumn": 50,
-                    "endOffset": 31589
+                    "startOffset": 31897,
+                    "endColumn": 54,
+                    "endOffset": 31947
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3375,9 +2489,9 @@
                 "to": {
                     "startLine": 559,
                     "startColumn": 4,
-                    "startOffset": 31594,
-                    "endColumn": 48,
-                    "endOffset": 31638
+                    "startOffset": 31952,
+                    "endColumn": 51,
+                    "endOffset": 31999
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3387,9 +2501,9 @@
                 "to": {
                     "startLine": 560,
                     "startColumn": 4,
-                    "startOffset": 31643,
-                    "endColumn": 64,
-                    "endOffset": 31703
+                    "startOffset": 32004,
+                    "endColumn": 71,
+                    "endOffset": 32071
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3399,9 +2513,9 @@
                 "to": {
                     "startLine": 561,
                     "startColumn": 4,
-                    "startOffset": 31708,
-                    "endColumn": 64,
-                    "endOffset": 31768
+                    "startOffset": 32076,
+                    "endColumn": 74,
+                    "endOffset": 32146
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3411,9 +2525,9 @@
                 "to": {
                     "startLine": 562,
                     "startColumn": 4,
-                    "startOffset": 31773,
-                    "endColumn": 59,
-                    "endOffset": 31828
+                    "startOffset": 32151,
+                    "endColumn": 78,
+                    "endOffset": 32225
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3423,9 +2537,9 @@
                 "to": {
                     "startLine": 563,
                     "startColumn": 4,
-                    "startOffset": 31833,
-                    "endColumn": 57,
-                    "endOffset": 31886
+                    "startOffset": 32230,
+                    "endColumn": 71,
+                    "endOffset": 32297
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3435,9 +2549,9 @@
                 "to": {
                     "startLine": 564,
                     "startColumn": 4,
-                    "startOffset": 31891,
-                    "endColumn": 61,
-                    "endOffset": 31948
+                    "startOffset": 32302,
+                    "endColumn": 71,
+                    "endOffset": 32369
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3447,9 +2561,9 @@
                 "to": {
                     "startLine": 565,
                     "startColumn": 4,
-                    "startOffset": 31953,
-                    "endColumn": 56,
-                    "endOffset": 32005
+                    "startOffset": 32374,
+                    "endColumn": 69,
+                    "endOffset": 32439
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3459,9 +2573,9 @@
                 "to": {
                     "startLine": 566,
                     "startColumn": 4,
-                    "startOffset": 32010,
-                    "endColumn": 44,
-                    "endOffset": 32050
+                    "startOffset": 32444,
+                    "endColumn": 70,
+                    "endOffset": 32510
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3471,9 +2585,9 @@
                 "to": {
                     "startLine": 567,
                     "startColumn": 4,
-                    "startOffset": 32055,
-                    "endColumn": 75,
-                    "endOffset": 32126
+                    "startOffset": 32515,
+                    "endColumn": 66,
+                    "endOffset": 32577
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3483,9 +2597,9 @@
                 "to": {
                     "startLine": 568,
                     "startColumn": 4,
-                    "startOffset": 32131,
-                    "endColumn": 51,
-                    "endOffset": 32178
+                    "startOffset": 32582,
+                    "endColumn": 73,
+                    "endOffset": 32651
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3495,9 +2609,9 @@
                 "to": {
                     "startLine": 569,
                     "startColumn": 4,
-                    "startOffset": 32183,
-                    "endColumn": 60,
-                    "endOffset": 32239
+                    "startOffset": 32656,
+                    "endColumn": 68,
+                    "endOffset": 32720
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3507,9 +2621,9 @@
                 "to": {
                     "startLine": 570,
                     "startColumn": 4,
-                    "startOffset": 32244,
-                    "endColumn": 60,
-                    "endOffset": 32300
+                    "startOffset": 32725,
+                    "endColumn": 62,
+                    "endOffset": 32783
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3519,9 +2633,9 @@
                 "to": {
                     "startLine": 571,
                     "startColumn": 4,
-                    "startOffset": 32305,
-                    "endColumn": 68,
-                    "endOffset": 32369
+                    "startOffset": 32788,
+                    "endColumn": 79,
+                    "endOffset": 32863
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3531,9 +2645,9 @@
                 "to": {
                     "startLine": 572,
                     "startColumn": 4,
-                    "startOffset": 32374,
-                    "endColumn": 63,
-                    "endOffset": 32433
+                    "startOffset": 32868,
+                    "endColumn": 70,
+                    "endOffset": 32934
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3543,9 +2657,9 @@
                 "to": {
                     "startLine": 573,
                     "startColumn": 4,
-                    "startOffset": 32438,
-                    "endColumn": 64,
-                    "endOffset": 32498
+                    "startOffset": 32939,
+                    "endColumn": 70,
+                    "endOffset": 33005
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3555,9 +2669,9 @@
                 "to": {
                     "startLine": 574,
                     "startColumn": 4,
-                    "startOffset": 32503,
-                    "endColumn": 73,
-                    "endOffset": 32572
+                    "startOffset": 33010,
+                    "endColumn": 66,
+                    "endOffset": 33072
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3567,9 +2681,9 @@
                 "to": {
                     "startLine": 575,
                     "startColumn": 4,
-                    "startOffset": 32577,
-                    "endColumn": 77,
-                    "endOffset": 32650
+                    "startOffset": 33077,
+                    "endColumn": 68,
+                    "endOffset": 33141
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3579,9 +2693,9 @@
                 "to": {
                     "startLine": 576,
                     "startColumn": 4,
-                    "startOffset": 32655,
-                    "endColumn": 46,
-                    "endOffset": 32697
+                    "startOffset": 33146,
+                    "endColumn": 73,
+                    "endOffset": 33215
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3591,9 +2705,9 @@
                 "to": {
                     "startLine": 577,
                     "startColumn": 4,
-                    "startOffset": 32702,
-                    "endColumn": 49,
-                    "endOffset": 32747
+                    "startOffset": 33220,
+                    "endColumn": 43,
+                    "endOffset": 33259
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3603,9 +2717,9 @@
                 "to": {
                     "startLine": 578,
                     "startColumn": 4,
-                    "startOffset": 32752,
-                    "endColumn": 58,
-                    "endOffset": 32806
+                    "startOffset": 33264,
+                    "endColumn": 59,
+                    "endOffset": 33319
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3615,9 +2729,9 @@
                 "to": {
                     "startLine": 579,
                     "startColumn": 4,
-                    "startOffset": 32811,
-                    "endColumn": 53,
-                    "endOffset": 32860
+                    "startOffset": 33324,
+                    "endColumn": 61,
+                    "endOffset": 33381
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3627,9 +2741,9 @@
                 "to": {
                     "startLine": 580,
                     "startColumn": 4,
-                    "startOffset": 32865,
-                    "endColumn": 65,
-                    "endOffset": 32926
+                    "startOffset": 33386,
+                    "endColumn": 43,
+                    "endOffset": 33425
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3639,9 +2753,9 @@
                 "to": {
                     "startLine": 581,
                     "startColumn": 4,
-                    "startOffset": 32931,
-                    "endColumn": 59,
-                    "endOffset": 32986
+                    "startOffset": 33430,
+                    "endColumn": 47,
+                    "endOffset": 33473
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3651,9 +2765,9 @@
                 "to": {
                     "startLine": 582,
                     "startColumn": 4,
-                    "startOffset": 32991,
-                    "endColumn": 61,
-                    "endOffset": 33048
+                    "startOffset": 33478,
+                    "endColumn": 60,
+                    "endOffset": 33534
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3663,9 +2777,9 @@
                 "to": {
                     "startLine": 583,
                     "startColumn": 4,
-                    "startOffset": 33053,
-                    "endColumn": 50,
-                    "endOffset": 33099
+                    "startOffset": 33539,
+                    "endColumn": 62,
+                    "endOffset": 33597
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3675,9 +2789,9 @@
                 "to": {
                     "startLine": 584,
                     "startColumn": 4,
-                    "startOffset": 33104,
-                    "endColumn": 50,
-                    "endOffset": 33150
+                    "startOffset": 33602,
+                    "endColumn": 43,
+                    "endOffset": 33641
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3687,9 +2801,9 @@
                 "to": {
                     "startLine": 585,
                     "startColumn": 4,
-                    "startOffset": 33155,
-                    "endColumn": 49,
-                    "endOffset": 33200
+                    "startOffset": 33646,
+                    "endColumn": 80,
+                    "endOffset": 33722
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3699,9 +2813,9 @@
                 "to": {
                     "startLine": 586,
                     "startColumn": 4,
-                    "startOffset": 33205,
-                    "endColumn": 62,
-                    "endOffset": 33263
+                    "startOffset": 33727,
+                    "endColumn": 80,
+                    "endOffset": 33803
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3711,9 +2825,9 @@
                 "to": {
                     "startLine": 587,
                     "startColumn": 4,
-                    "startOffset": 33268,
-                    "endColumn": 42,
-                    "endOffset": 33306
+                    "startOffset": 33808,
+                    "endColumn": 71,
+                    "endOffset": 33875
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3723,9 +2837,9 @@
                 "to": {
                     "startLine": 588,
                     "startColumn": 4,
-                    "startOffset": 33311,
-                    "endColumn": 36,
-                    "endOffset": 33343
+                    "startOffset": 33880,
+                    "endColumn": 88,
+                    "endOffset": 33964
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3735,9 +2849,9 @@
                 "to": {
                     "startLine": 589,
                     "startColumn": 4,
-                    "startOffset": 33348,
-                    "endColumn": 55,
-                    "endOffset": 33399
+                    "startOffset": 33969,
+                    "endColumn": 87,
+                    "endOffset": 34052
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -3747,33 +2861,909 @@
                 "to": {
                     "startLine": 590,
                     "startColumn": 4,
-                    "startOffset": 33404,
-                    "endColumn": 49,
-                    "endOffset": 33449
+                    "startOffset": 34057,
+                    "endColumn": 77,
+                    "endOffset": 34130
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 591,
                     "startColumn": 4,
-                    "startOffset": 33454,
-                    "endColumn": 37,
-                    "endOffset": 33487
+                    "startOffset": 34135,
+                    "endColumn": 80,
+                    "endOffset": 34211
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 592,
                     "startColumn": 4,
-                    "startOffset": 33492,
+                    "startOffset": 34216,
+                    "endColumn": 85,
+                    "endOffset": 34297
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 593,
+                    "startColumn": 4,
+                    "startOffset": 34302,
+                    "endColumn": 60,
+                    "endOffset": 34358
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 594,
+                    "startColumn": 4,
+                    "startOffset": 34363,
+                    "endColumn": 53,
+                    "endOffset": 34412
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 595,
+                    "startColumn": 4,
+                    "startOffset": 34417,
+                    "endColumn": 51,
+                    "endOffset": 34464
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 596,
+                    "startColumn": 4,
+                    "startOffset": 34469,
+                    "endColumn": 65,
+                    "endOffset": 34530
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 597,
+                    "startColumn": 4,
+                    "startOffset": 34535,
+                    "endColumn": 64,
+                    "endOffset": 34595
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 598,
+                    "startColumn": 4,
+                    "startOffset": 34600,
+                    "endColumn": 59,
+                    "endOffset": 34655
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 599,
+                    "startColumn": 4,
+                    "startOffset": 34660,
+                    "endColumn": 61,
+                    "endOffset": 34717
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 600,
+                    "startColumn": 4,
+                    "startOffset": 34722,
+                    "endColumn": 54,
+                    "endOffset": 34772
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 601,
+                    "startColumn": 4,
+                    "startOffset": 34777,
+                    "endColumn": 49,
+                    "endOffset": 34822
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 602,
+                    "startColumn": 4,
+                    "startOffset": 34827,
                     "endColumn": 44,
-                    "endOffset": 33532
+                    "endOffset": 34867
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 603,
+                    "startColumn": 4,
+                    "startOffset": 34872,
+                    "endColumn": 48,
+                    "endOffset": 34916
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 604,
+                    "startColumn": 4,
+                    "startOffset": 34921,
+                    "endColumn": 60,
+                    "endOffset": 34977
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 605,
+                    "startColumn": 4,
+                    "startOffset": 34982,
+                    "endColumn": 57,
+                    "endOffset": 35035
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 606,
+                    "startColumn": 4,
+                    "startOffset": 35040,
+                    "endColumn": 57,
+                    "endOffset": 35093
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 607,
+                    "startColumn": 4,
+                    "startOffset": 35098,
+                    "endColumn": 60,
+                    "endOffset": 35154
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 608,
+                    "startColumn": 4,
+                    "startOffset": 35159,
+                    "endColumn": 61,
+                    "endOffset": 35216
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 609,
+                    "startColumn": 4,
+                    "startOffset": 35221,
+                    "endColumn": 57,
+                    "endOffset": 35274
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 610,
+                    "startColumn": 4,
+                    "startOffset": 35279,
+                    "endColumn": 60,
+                    "endOffset": 35335
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 611,
+                    "startColumn": 4,
+                    "startOffset": 35340,
+                    "endColumn": 57,
+                    "endOffset": 35393
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 612,
+                    "startColumn": 4,
+                    "startOffset": 35398,
+                    "endColumn": 38,
+                    "endOffset": 35432
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 613,
+                    "startColumn": 4,
+                    "startOffset": 35437,
+                    "endColumn": 51,
+                    "endOffset": 35484
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 614,
+                    "startColumn": 4,
+                    "startOffset": 35489,
+                    "endColumn": 58,
+                    "endOffset": 35543
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 615,
+                    "startColumn": 4,
+                    "startOffset": 35548,
+                    "endColumn": 51,
+                    "endOffset": 35595
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 616,
+                    "startColumn": 4,
+                    "startOffset": 35600,
+                    "endColumn": 56,
+                    "endOffset": 35652
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 617,
+                    "startColumn": 4,
+                    "startOffset": 35657,
+                    "endColumn": 63,
+                    "endOffset": 35716
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 618,
+                    "startColumn": 4,
+                    "startOffset": 35721,
+                    "endColumn": 68,
+                    "endOffset": 35785
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 619,
+                    "startColumn": 4,
+                    "startOffset": 35790,
+                    "endColumn": 59,
+                    "endOffset": 35845
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 620,
+                    "startColumn": 4,
+                    "startOffset": 35850,
+                    "endColumn": 57,
+                    "endOffset": 35903
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 621,
+                    "startColumn": 4,
+                    "startOffset": 35908,
+                    "endColumn": 57,
+                    "endOffset": 35961
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 622,
+                    "startColumn": 4,
+                    "startOffset": 35966,
+                    "endColumn": 58,
+                    "endOffset": 36020
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 623,
+                    "startColumn": 4,
+                    "startOffset": 36025,
+                    "endColumn": 69,
+                    "endOffset": 36090
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 624,
+                    "startColumn": 4,
+                    "startOffset": 36095,
+                    "endColumn": 59,
+                    "endOffset": 36150
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 625,
+                    "startColumn": 4,
+                    "startOffset": 36155,
+                    "endColumn": 65,
+                    "endOffset": 36216
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 626,
+                    "startColumn": 4,
+                    "startOffset": 36221,
+                    "endColumn": 74,
+                    "endOffset": 36291
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 627,
+                    "startColumn": 4,
+                    "startOffset": 36296,
+                    "endColumn": 55,
+                    "endOffset": 36347
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 628,
+                    "startColumn": 4,
+                    "startOffset": 36352,
+                    "endColumn": 66,
+                    "endOffset": 36414
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 629,
+                    "startColumn": 4,
+                    "startOffset": 36419,
+                    "endColumn": 77,
+                    "endOffset": 36492
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 630,
+                    "startColumn": 4,
+                    "startOffset": 36497,
+                    "endColumn": 64,
+                    "endOffset": 36557
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 631,
+                    "startColumn": 4,
+                    "startOffset": 36562,
+                    "endColumn": 48,
+                    "endOffset": 36606
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 632,
+                    "startColumn": 4,
+                    "startOffset": 36611,
+                    "endColumn": 47,
+                    "endOffset": 36654
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 633,
+                    "startColumn": 4,
+                    "startOffset": 36659,
+                    "endColumn": 50,
+                    "endOffset": 36705
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 634,
+                    "startColumn": 4,
+                    "startOffset": 36710,
+                    "endColumn": 48,
+                    "endOffset": 36754
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 635,
+                    "startColumn": 4,
+                    "startOffset": 36759,
+                    "endColumn": 64,
+                    "endOffset": 36819
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 636,
+                    "startColumn": 4,
+                    "startOffset": 36824,
+                    "endColumn": 64,
+                    "endOffset": 36884
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 637,
+                    "startColumn": 4,
+                    "startOffset": 36889,
+                    "endColumn": 59,
+                    "endOffset": 36944
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 638,
+                    "startColumn": 4,
+                    "startOffset": 36949,
+                    "endColumn": 57,
+                    "endOffset": 37002
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 639,
+                    "startColumn": 4,
+                    "startOffset": 37007,
+                    "endColumn": 61,
+                    "endOffset": 37064
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 640,
+                    "startColumn": 4,
+                    "startOffset": 37069,
+                    "endColumn": 56,
+                    "endOffset": 37121
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 641,
+                    "startColumn": 4,
+                    "startOffset": 37126,
+                    "endColumn": 44,
+                    "endOffset": 37166
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 642,
+                    "startColumn": 4,
+                    "startOffset": 37171,
+                    "endColumn": 75,
+                    "endOffset": 37242
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 643,
+                    "startColumn": 4,
+                    "startOffset": 37247,
+                    "endColumn": 51,
+                    "endOffset": 37294
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 644,
+                    "startColumn": 4,
+                    "startOffset": 37299,
+                    "endColumn": 60,
+                    "endOffset": 37355
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 645,
+                    "startColumn": 4,
+                    "startOffset": 37360,
+                    "endColumn": 60,
+                    "endOffset": 37416
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 646,
+                    "startColumn": 4,
+                    "startOffset": 37421,
+                    "endColumn": 68,
+                    "endOffset": 37485
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 647,
+                    "startColumn": 4,
+                    "startOffset": 37490,
+                    "endColumn": 63,
+                    "endOffset": 37549
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 648,
+                    "startColumn": 4,
+                    "startOffset": 37554,
+                    "endColumn": 64,
+                    "endOffset": 37614
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 649,
+                    "startColumn": 4,
+                    "startOffset": 37619,
+                    "endColumn": 73,
+                    "endOffset": 37688
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 650,
+                    "startColumn": 4,
+                    "startOffset": 37693,
+                    "endColumn": 77,
+                    "endOffset": 37766
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 651,
+                    "startColumn": 4,
+                    "startOffset": 37771,
+                    "endColumn": 46,
+                    "endOffset": 37813
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 652,
+                    "startColumn": 4,
+                    "startOffset": 37818,
+                    "endColumn": 49,
+                    "endOffset": 37863
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 653,
+                    "startColumn": 4,
+                    "startOffset": 37868,
+                    "endColumn": 58,
+                    "endOffset": 37922
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 654,
+                    "startColumn": 4,
+                    "startOffset": 37927,
+                    "endColumn": 53,
+                    "endOffset": 37976
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 655,
+                    "startColumn": 4,
+                    "startOffset": 37981,
+                    "endColumn": 65,
+                    "endOffset": 38042
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 656,
+                    "startColumn": 4,
+                    "startOffset": 38047,
+                    "endColumn": 59,
+                    "endOffset": 38102
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 657,
+                    "startColumn": 4,
+                    "startOffset": 38107,
+                    "endColumn": 61,
+                    "endOffset": 38164
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 658,
+                    "startColumn": 4,
+                    "startOffset": 38169,
+                    "endColumn": 50,
+                    "endOffset": 38215
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 659,
+                    "startColumn": 4,
+                    "startOffset": 38220,
+                    "endColumn": 50,
+                    "endOffset": 38266
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 660,
+                    "startColumn": 4,
+                    "startOffset": 38271,
+                    "endColumn": 49,
+                    "endOffset": 38316
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 661,
+                    "startColumn": 4,
+                    "startOffset": 38321,
+                    "endColumn": 62,
+                    "endOffset": 38379
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 662,
+                    "startColumn": 4,
+                    "startOffset": 38384,
+                    "endColumn": 42,
+                    "endOffset": 38422
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 663,
+                    "startColumn": 4,
+                    "startOffset": 38427,
+                    "endColumn": 36,
+                    "endOffset": 38459
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 664,
+                    "startColumn": 4,
+                    "startOffset": 38464,
+                    "endColumn": 55,
+                    "endOffset": 38515
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 665,
+                    "startColumn": 4,
+                    "startOffset": 38520,
+                    "endColumn": 49,
+                    "endOffset": 38565
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
@@ -3781,11 +3771,35 @@
             },
             {
                 "to": {
-                    "startLine": 593,
+                    "startLine": 666,
                     "startColumn": 4,
-                    "startOffset": 33537,
+                    "startOffset": 38570,
+                    "endColumn": 37,
+                    "endOffset": 38603
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 667,
+                    "startColumn": 4,
+                    "startOffset": 38608,
+                    "endColumn": 44,
+                    "endOffset": 38648
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 668,
+                    "startColumn": 4,
+                    "startOffset": 38653,
                     "endColumn": 63,
-                    "endOffset": 33596
+                    "endOffset": 38712
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/tb_munion_strings.xml"
@@ -3793,11 +3807,11 @@
             },
             {
                 "to": {
-                    "startLine": 594,
+                    "startLine": 669,
                     "startColumn": 4,
-                    "startOffset": 33601,
+                    "startOffset": 38717,
                     "endColumn": 61,
-                    "endOffset": 33658
+                    "endOffset": 38774
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
@@ -3805,11 +3819,11 @@
             },
             {
                 "to": {
-                    "startLine": 595,
+                    "startLine": 670,
                     "startColumn": 4,
-                    "startOffset": 33663,
+                    "startOffset": 38779,
                     "endColumn": 65,
-                    "endOffset": 33724
+                    "endOffset": 38840
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
@@ -3817,474 +3831,253 @@
             },
             {
                 "to": {
-                    "startLine": 596,
+                    "startLine": 671,
                     "startColumn": 4,
-                    "startOffset": 33729,
+                    "startOffset": 38845,
                     "endColumn": 98,
-                    "endOffset": 33823
+                    "endOffset": 38939
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 597,
-                    "startColumn": 4,
-                    "startOffset": 33828,
-                    "endColumn": 59,
-                    "endOffset": 33883
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 598,
-                    "startColumn": 4,
-                    "startOffset": 33888,
-                    "endColumn": 74,
-                    "endOffset": 33958
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 599,
-                    "startColumn": 4,
-                    "startOffset": 33963,
-                    "endColumn": 95,
-                    "endOffset": 34054
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 600,
-                    "startColumn": 4,
-                    "startOffset": 34059,
-                    "endColumn": 83,
-                    "endOffset": 34138
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 601,
-                    "startColumn": 4,
-                    "startOffset": 34143,
-                    "endColumn": 50,
-                    "endOffset": 34189
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 602,
-                    "startColumn": 4,
-                    "startOffset": 34194,
-                    "endColumn": 76,
-                    "endOffset": 34266
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 603,
-                    "startColumn": 4,
-                    "startOffset": 34271,
-                    "endColumn": 124,
-                    "endOffset": 34391
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 604,
-                    "startColumn": 4,
-                    "startOffset": 34396,
-                    "endColumn": 89,
-                    "endOffset": 34481
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 605,
-                    "startColumn": 4,
-                    "startOffset": 34486,
-                    "endColumn": 74,
-                    "endOffset": 34556
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 606,
-                    "startColumn": 4,
-                    "startOffset": 34561,
-                    "endColumn": 105,
-                    "endOffset": 34662
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 607,
-                    "startColumn": 4,
-                    "startOffset": 34667,
-                    "endColumn": 84,
-                    "endOffset": 34747
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 608,
-                    "startColumn": 4,
-                    "startOffset": 34752,
-                    "endColumn": 78,
-                    "endOffset": 34826
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 609,
-                    "startColumn": 4,
-                    "startOffset": 34831,
-                    "endColumn": 61,
-                    "endOffset": 34888
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 610,
-                    "startColumn": 4,
-                    "startOffset": 34893,
-                    "endColumn": 62,
-                    "endOffset": 34951
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 611,
-                    "startColumn": 4,
-                    "startOffset": 34956,
-                    "endColumn": 62,
-                    "endOffset": 35014
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 612,
-                    "startColumn": 4,
-                    "startOffset": 35019,
-                    "endColumn": 61,
-                    "endOffset": 35076
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 613,
-                    "startColumn": 4,
-                    "startOffset": 35081,
-                    "endColumn": 60,
-                    "endOffset": 35137
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 614,
-                    "startColumn": 4,
-                    "startOffset": 35142,
-                    "endColumn": 60,
-                    "endOffset": 35198
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 615,
-                    "startColumn": 4,
-                    "startOffset": 35203,
-                    "endLine": 621,
-                    "endColumn": 12,
-                    "endOffset": 35534
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 622,
-                    "startColumn": 4,
-                    "startOffset": 35539,
-                    "endLine": 628,
-                    "endColumn": 12,
-                    "endOffset": 35825
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 629,
-                    "startColumn": 4,
-                    "startOffset": 35830,
-                    "endLine": 637,
-                    "endColumn": 12,
-                    "endOffset": 36323
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 638,
-                    "startColumn": 4,
-                    "startOffset": 36328,
-                    "endLine": 651,
-                    "endColumn": 12,
-                    "endOffset": 37063
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 652,
-                    "startColumn": 4,
-                    "startOffset": 37068,
-                    "endLine": 656,
-                    "endColumn": 12,
-                    "endOffset": 37327
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 657,
-                    "startColumn": 4,
-                    "startOffset": 37332,
-                    "endLine": 662,
-                    "endColumn": 12,
-                    "endOffset": 37665
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 663,
-                    "startColumn": 4,
-                    "startOffset": 37670,
-                    "endLine": 671,
-                    "endColumn": 12,
-                    "endOffset": 38296
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 672,
                     "startColumn": 4,
-                    "startOffset": 38301,
-                    "endLine": 675,
-                    "endColumn": 12,
-                    "endOffset": 38518
+                    "startOffset": 38944,
+                    "endColumn": 59,
+                    "endOffset": 38999
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 673,
+                    "startColumn": 4,
+                    "startOffset": 39004,
+                    "endColumn": 74,
+                    "endOffset": 39074
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 674,
+                    "startColumn": 4,
+                    "startOffset": 39079,
+                    "endColumn": 95,
+                    "endOffset": 39170
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 675,
+                    "startColumn": 4,
+                    "startOffset": 39175,
+                    "endColumn": 83,
+                    "endOffset": 39254
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 676,
                     "startColumn": 4,
-                    "startOffset": 38523,
-                    "endLine": 679,
-                    "endColumn": 12,
-                    "endOffset": 38726
+                    "startOffset": 39259,
+                    "endColumn": 50,
+                    "endOffset": 39305
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 677,
+                    "startColumn": 4,
+                    "startOffset": 39310,
+                    "endColumn": 76,
+                    "endOffset": 39382
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 678,
+                    "startColumn": 4,
+                    "startOffset": 39387,
+                    "endColumn": 124,
+                    "endOffset": 39507
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 679,
+                    "startColumn": 4,
+                    "startOffset": 39512,
+                    "endColumn": 89,
+                    "endOffset": 39597
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 680,
                     "startColumn": 4,
-                    "startOffset": 38731,
-                    "endLine": 684,
-                    "endColumn": 12,
-                    "endOffset": 38994
+                    "startOffset": 39602,
+                    "endColumn": 74,
+                    "endOffset": 39672
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 681,
+                    "startColumn": 4,
+                    "startOffset": 39677,
+                    "endColumn": 105,
+                    "endOffset": 39778
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 682,
+                    "startColumn": 4,
+                    "startOffset": 39783,
+                    "endColumn": 84,
+                    "endOffset": 39863
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 683,
+                    "startColumn": 4,
+                    "startOffset": 39868,
+                    "endColumn": 78,
+                    "endOffset": 39942
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/umeng_common_strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 684,
+                    "startColumn": 4,
+                    "startOffset": 39947,
+                    "endColumn": 61,
+                    "endOffset": 40004
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 685,
                     "startColumn": 4,
-                    "startOffset": 38999,
-                    "endLine": 693,
-                    "endColumn": 12,
-                    "endOffset": 39489
+                    "startOffset": 40009,
+                    "endColumn": 62,
+                    "endOffset": 40067
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
                 }
             },
             {
                 "to": {
-                    "startLine": 694,
+                    "startLine": 686,
                     "startColumn": 4,
-                    "startOffset": 39494,
-                    "endLine": 696,
-                    "endColumn": 12,
-                    "endOffset": 39572
+                    "startOffset": 40072,
+                    "endColumn": 62,
+                    "endOffset": 40130
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 687,
+                    "startColumn": 4,
+                    "startOffset": 40135,
+                    "endColumn": 61,
+                    "endOffset": 40192
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 688,
+                    "startColumn": 4,
+                    "startOffset": 40197,
+                    "endColumn": 60,
+                    "endOffset": 40253
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 689,
+                    "startColumn": 4,
+                    "startOffset": 40258,
+                    "endColumn": 60,
+                    "endOffset": 40314
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 690,
+                    "startColumn": 4,
+                    "startOffset": 40319,
+                    "endLine": 696,
+                    "endColumn": 12,
+                    "endOffset": 40650
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 697,
                     "startColumn": 4,
-                    "startOffset": 39577,
-                    "endLine": 699,
+                    "startOffset": 40655,
+                    "endLine": 703,
                     "endColumn": 12,
-                    "endOffset": 39654
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 700,
-                    "startColumn": 4,
-                    "startOffset": 39659,
-                    "endLine": 702,
-                    "endColumn": 12,
-                    "endOffset": 39832
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 703,
-                    "startColumn": 4,
-                    "startOffset": 39837,
-                    "endLine": 705,
-                    "endColumn": 12,
-                    "endOffset": 39915
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 706,
-                    "startColumn": 4,
-                    "startOffset": 39920,
-                    "endLine": 710,
-                    "endColumn": 12,
-                    "endOffset": 40203
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 711,
-                    "startColumn": 4,
-                    "startOffset": 40208,
-                    "endLine": 713,
-                    "endColumn": 12,
-                    "endOffset": 40285
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 714,
-                    "startColumn": 4,
-                    "startOffset": 40290,
-                    "endLine": 721,
-                    "endColumn": 12,
-                    "endOffset": 40747
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 722,
-                    "startColumn": 4,
-                    "startOffset": 40752,
-                    "endLine": 729,
-                    "endColumn": 12,
-                    "endOffset": 41201
+                    "endOffset": 40941
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
@@ -4292,24 +4085,12 @@
             },
             {
                 "to": {
-                    "startLine": 730,
+                    "startLine": 704,
                     "startColumn": 4,
-                    "startOffset": 41206,
-                    "endColumn": 65,
-                    "endOffset": 41267
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 731,
-                    "startColumn": 4,
-                    "startOffset": 41272,
-                    "endLine": 734,
+                    "startOffset": 40946,
+                    "endLine": 712,
                     "endColumn": 12,
-                    "endOffset": 41499
+                    "endOffset": 41439
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
@@ -4317,25 +4098,51 @@
             },
             {
                 "to": {
-                    "startLine": 735,
+                    "startLine": 713,
                     "startColumn": 4,
-                    "startOffset": 41504,
+                    "startOffset": 41444,
+                    "endLine": 726,
+                    "endColumn": 12,
+                    "endOffset": 42179
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 727,
+                    "startColumn": 4,
+                    "startOffset": 42184,
+                    "endLine": 731,
+                    "endColumn": 12,
+                    "endOffset": 42443
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 732,
+                    "startColumn": 4,
+                    "startOffset": 42448,
                     "endLine": 737,
                     "endColumn": 12,
-                    "endOffset": 41677
+                    "endOffset": 42781
                 },
                 "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
                 }
             },
             {
                 "to": {
                     "startLine": 738,
                     "startColumn": 4,
-                    "startOffset": 41682,
-                    "endLine": 742,
+                    "startOffset": 42786,
+                    "endLine": 746,
                     "endColumn": 12,
-                    "endOffset": 41931
+                    "endOffset": 43412
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -4343,25 +4150,12 @@
             },
             {
                 "to": {
-                    "startLine": 743,
+                    "startLine": 747,
                     "startColumn": 4,
-                    "startOffset": 41936,
-                    "endLine": 748,
+                    "startOffset": 43417,
+                    "endLine": 750,
                     "endColumn": 12,
-                    "endOffset": 42197
-                },
-                "from": {
-                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 749,
-                    "startColumn": 4,
-                    "startOffset": 42202,
-                    "endLine": 751,
-                    "endColumn": 12,
-                    "endOffset": 42374
+                    "endOffset": 43634
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
@@ -4369,12 +4163,142 @@
             },
             {
                 "to": {
-                    "startLine": 752,
+                    "startLine": 751,
                     "startColumn": 4,
-                    "startOffset": 42379,
-                    "endLine": 755,
+                    "startOffset": 43639,
+                    "endLine": 754,
                     "endColumn": 12,
-                    "endOffset": 42603
+                    "endOffset": 43842
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 755,
+                    "startColumn": 4,
+                    "startOffset": 43847,
+                    "endLine": 759,
+                    "endColumn": 12,
+                    "endOffset": 44110
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 760,
+                    "startColumn": 4,
+                    "startOffset": 44115,
+                    "endLine": 768,
+                    "endColumn": 12,
+                    "endOffset": 44605
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 769,
+                    "startColumn": 4,
+                    "startOffset": 44610,
+                    "endLine": 771,
+                    "endColumn": 12,
+                    "endOffset": 44688
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 772,
+                    "startColumn": 4,
+                    "startOffset": 44693,
+                    "endLine": 774,
+                    "endColumn": 12,
+                    "endOffset": 44770
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 775,
+                    "startColumn": 4,
+                    "startOffset": 44775,
+                    "endLine": 777,
+                    "endColumn": 12,
+                    "endOffset": 44948
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 778,
+                    "startColumn": 4,
+                    "startOffset": 44953,
+                    "endLine": 780,
+                    "endColumn": 12,
+                    "endOffset": 45031
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 781,
+                    "startColumn": 4,
+                    "startOffset": 45036,
+                    "endLine": 785,
+                    "endColumn": 12,
+                    "endOffset": 45319
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 786,
+                    "startColumn": 4,
+                    "startOffset": 45324,
+                    "endLine": 788,
+                    "endColumn": 12,
+                    "endOffset": 45401
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 789,
+                    "startColumn": 4,
+                    "startOffset": 45406,
+                    "endLine": 796,
+                    "endColumn": 12,
+                    "endOffset": 45863
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 797,
+                    "startColumn": 4,
+                    "startOffset": 45868,
+                    "endLine": 804,
+                    "endColumn": 12,
+                    "endOffset": 46317
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
@@ -4382,12 +4306,102 @@
             },
             {
                 "to": {
-                    "startLine": 756,
+                    "startLine": 805,
                     "startColumn": 4,
-                    "startOffset": 42608,
-                    "endLine": 760,
+                    "startOffset": 46322,
+                    "endColumn": 65,
+                    "endOffset": 46383
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 806,
+                    "startColumn": 4,
+                    "startOffset": 46388,
+                    "endLine": 809,
                     "endColumn": 12,
-                    "endOffset": 42855
+                    "endOffset": 46615
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 810,
+                    "startColumn": 4,
+                    "startOffset": 46620,
+                    "endLine": 812,
+                    "endColumn": 12,
+                    "endOffset": 46793
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 813,
+                    "startColumn": 4,
+                    "startOffset": 46798,
+                    "endLine": 817,
+                    "endColumn": 12,
+                    "endOffset": 47047
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 818,
+                    "startColumn": 4,
+                    "startOffset": 47052,
+                    "endLine": 823,
+                    "endColumn": 12,
+                    "endOffset": 47313
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 824,
+                    "startColumn": 4,
+                    "startOffset": 47318,
+                    "endLine": 826,
+                    "endColumn": 12,
+                    "endOffset": 47490
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 827,
+                    "startColumn": 4,
+                    "startOffset": 47495,
+                    "endLine": 830,
+                    "endColumn": 12,
+                    "endOffset": 47719
+                },
+                "from": {
+                    "file": "/Users/pengweiqiang/Documents/android_my/Moments/res/values/styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 831,
+                    "startColumn": 4,
+                    "startOffset": 47724,
+                    "endLine": 835,
+                    "endColumn": 12,
+                    "endOffset": 47971
                 },
                 "from": {
                     "file": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/values/values.xml"

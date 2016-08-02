@@ -5,11 +5,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SectionIndexer;
+import android.widget.TextView;
 
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
@@ -27,6 +32,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imkit.RongContext;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * 成员列表适配器
@@ -93,6 +103,7 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 			holder.tvContent = (LinearLayout) convertView.findViewById(R.id.content);
 
 			holder.tvContent.setOnClickListener(holder);
+			holder.ivHead.setOnClickListener(holder);
 			holder.tvContent.setOnLongClickListener(holder);
 
 			convertView.setTag(holder);
@@ -155,9 +166,20 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 		@Override
 		public void onClick(View v) {
 			User user = list.get(position);
-			Intent intent = new Intent(mActivity, UserInfoActivity.class);
-			intent.putExtra("user",user);
-			mActivity.startActivity(intent);
+			if(v.getId()==R.id.iv_user_head){
+				Intent intent = new Intent(mActivity, UserInfoActivity.class);
+				intent.putExtra("user", user);
+				mActivity.startActivity(intent);
+			}else {
+
+				String userName = StringUtils.isEmpty(user.getDescTag())?user.getUserName():user.getDescTag();
+				//刷新用户信息头像
+				Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
+				RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),userName, headUri));
+
+				RongIM.getInstance().startConversation(mActivity, Conversation.ConversationType.PRIVATE, String.valueOf(user.getPhoneNum()), userName);
+
+			}
 		}
 
 		@Override

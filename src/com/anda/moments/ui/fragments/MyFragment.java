@@ -132,9 +132,7 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 		mSwipeRefreshLayout = (SwipeRefreshLayout)mContentView.findViewById(R.id.swipe_container);
 
 
-		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-				android.R.color.holo_green_light, android.R.color.holo_orange_light,
-				android.R.color.holo_red_light);
+		mSwipeRefreshLayout.setColorSchemeResources(R.color.main_tab_text_color_selected);
 
 		mActionBar.setTitle(R.string.tab_my);
 		mActionBar.hideLeftActionButton();
@@ -156,15 +154,13 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-		getData();
-
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 		showMyInfo2Cache();
+		getData();
 	}
 
 	@Override

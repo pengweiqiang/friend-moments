@@ -8,19 +8,29 @@ import android.view.View;
 import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.RongCloudEvent;
+import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.constant.api.ReqUrls;
+import com.anda.moments.entity.ParseModel;
+import com.anda.moments.entity.User;
+import com.anda.moments.ui.LoginActivity;
+import com.anda.moments.ui.MainActivity;
 import com.anda.moments.ui.base.BaseFragmentActivity;
+import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.SharePreferenceManager;
+import com.anda.moments.utils.StringUtils;
 import com.anda.moments.views.ActionBar;
 
 import java.util.Locale;
 
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by pengweiqiang on 16/5/4.
@@ -50,7 +60,7 @@ public class ConversationActivity extends BaseFragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
-
+//        System.out.println(RongIM.getInstance().getRongIMClient().getCurrentConnectionStatus().getMessage()+"  before");
         Intent intent = getIntent();
 
 
@@ -61,6 +71,20 @@ public class ConversationActivity extends BaseFragmentActivity{
         setActionBar();
 
         isReconnect(intent);
+//        System.out.println(RongIM.getInstance().getRongIMClient().getCurrentConnectionStatus().getMessage());
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(AppManager.getAppManager().isOnlyOne(ConversationActivity.this)) {
+            Intent intent = new Intent(ConversationActivity.this, MainActivity.class);
+            startActivity(intent);
+            return;
+        }
+        AppManager.getAppManager().finishActivity();
+
     }
 
     /**
@@ -97,13 +121,19 @@ public class ConversationActivity extends BaseFragmentActivity{
     }
 
 
+
     /**
      * 判断消息是否是 push 消息
      */
     private void isReconnect(Intent intent) {
-
-        String token = (String)SharePreferenceManager.getSharePreferenceValue(ConversationActivity.this, Constant.FILE_NAME, ReqUrls.TOKEN_RONG,"");
-
+        User user = MyApplication.getInstance().getCurrentUser();
+        String tokenJson = (String)SharePreferenceManager.getSharePreferenceValue(ConversationActivity.this, Constant.FILE_NAME, ReqUrls.TOKEN_RONG+"_"+user.getPhoneNum(),"");
+        if(StringUtils.isEmpty(tokenJson)){
+            Intent intentLogin = new Intent(ConversationActivity.this, LoginActivity.class);
+            startActivity(intentLogin);
+            return;
+        }
+        String token = tokenJson.split("_&_")[0];
 //        if (DemoContext.getInstance() != null) {
 //
 //            token = DemoContext.getInstance().getSharedPreferences().getString("DEMO_TOKEN", "default");
@@ -141,7 +171,7 @@ public class ConversationActivity extends BaseFragmentActivity{
 
             @Override
             public void onClick(View v) {
-                AppManager.getAppManager().finishActivity();
+               onBackPressed();
             }
         });
     }
@@ -161,24 +191,53 @@ public class ConversationActivity extends BaseFragmentActivity{
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {
-
                 }
 
                 @Override
                 public void onSuccess(String s) {
-
                     if (RongCloudEvent.getInstance() != null)
                         RongCloudEvent.getInstance().setOtherListener();
 
                     enterFragment(mConversationType, mTargetId);
+
+                    setUserInfo();
+                    getUserInfoBYPhone(mTargetId);
                 }
 
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
-
                 }
             });
         }
+    }
+
+    private void setUserInfo(){
+        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+            @Override
+            public UserInfo getUserInfo(String userId) {
+
+                User user = MyApplication.getInstance().getCurrentUser();
+                final String portraitUri = StringUtils.isEmpty(user.getIcon())?"":user.getIcon();
+                UserInfo userInfo = new UserInfo(user.getPhoneNum(),user.getUserName(), Uri.parse(portraitUri));
+                return userInfo;//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+            }
+
+        }, true);
+    }
+
+    private void getUserInfoBYPhone(String mTargetId){
+        ApiMyUtils.getMyInformations(ConversationActivity.this, mTargetId,MyApplication.getInstance().getCurrentUser().getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+            @Override
+            public void execute(ParseModel parseModel) {
+                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+                    final User user = parseModel.getUser();
+                    System.out.println("ByPhone "+user.getUserName());
+                    Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
+                    RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),user.getUserName(), headUri));
+                }
+            }
+        });
     }
 
 }
