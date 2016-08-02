@@ -1,5 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-#.gitignore
+.gitignore
 .idea/workspace.xml
 WXLikeVideoRecorderLib/build.gradle
 WXLikeVideoRecorderLib/build/generated/
@@ -35,8 +35,6 @@ WXLikeVideoRecorderLib/build/intermediates/transforms/mergeJavaRes/release/
 WXLikeVideoRecorderLib/build/intermediates/transforms/mergeJniLibs/release/
 WXLikeVideoRecorderLib/build/outputs/
 WXLikeVideoRecorderLib/build/tmp/
-WXLikeVideoRecorderLib/src/
-assets/
 bin/classes/
 build/generated/mockable-android-21.jar
 build/generated/res/
