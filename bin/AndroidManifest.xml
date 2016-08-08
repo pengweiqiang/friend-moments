@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="17"
-    android:versionName="1.1.2" >
+    android:versionCode="4"
+    android:versionName="1.0.4" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -32,9 +32,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.WelcomePageActivity"
+            android:name=".ui.SplashActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
+        <activity android:name=".ui.WelcomePageActivity"
+
+            />
         <activity android:name=".ui.LoginActivity"
             android:label="登陆"
             android:screenOrientation="portrait"
@@ -146,6 +148,14 @@
             />
         <activity android:name=".ui.SecretSettingActivity"
             android:label="私密设置"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.AboutUsActivity"
+            android:label="关于我们"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.AgreementActivity"
+            android:label="协议"
             android:screenOrientation="portrait"
             />
         <activity android:name=".ui.my.ProvinceCityActivity"

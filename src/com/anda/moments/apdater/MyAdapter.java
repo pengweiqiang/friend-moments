@@ -258,11 +258,15 @@ public class MyAdapter extends BaseAdapter {
     /**
      */
     public int getPositionForSection(String section) {
-        for (int i = 0; i < getCount(); i++) {
-            String sortStr = datalist.get(i).getDateTitle();
-            if (sortStr.equals(section)) {
-                return i;
+        try {
+            for (int i = 0; i < getCount(); i++) {
+                String sortStr = datalist.get(i).getDateTitle();
+                if (!StringUtils.isEmpty(sortStr) && sortStr.equals(section)) {
+                    return i;
+                }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return -1;
     }

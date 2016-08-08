@@ -162,7 +162,7 @@
                 android:textSize="11sp"
                 android:layout_marginRight="7dp"
                 android:drawableTop="@drawable/btn_praise_selected"
-                android:textColor="#898989"
+                android:textColor="#e78689"
 
                 />
             <android.support.v7.widget.RecyclerView

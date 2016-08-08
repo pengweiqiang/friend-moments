@@ -90,7 +90,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
-  <service
+        <service
             android:name="io.rong.imlib.ipc.RongService"
             android:process=":ipc" >
         </service>
@@ -107,7 +107,7 @@
             android:process=":ipc" />
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="cpj2xarljnnwn" />
+            android:value="pgyu6atqywwcu" />
         <!-- end -->
     </application>
 
