@@ -49,6 +49,8 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 
 	private List<User> list;
 
+	private boolean isBlack ;
+
 	int headWidth = 80;
 	public FriendsListAdapter(Activity mActivity, List<User> list) {
 		this.mActivity = mActivity;
@@ -57,6 +59,16 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 		}
 		this.list = list;
 		headWidth = DeviceInfo.dp2px(mActivity,70);
+	}
+
+	public FriendsListAdapter(Activity mActivity,List<User> list,boolean isBlack){
+		this.mActivity = mActivity;
+		if(list==null){
+			list = new ArrayList<User>();
+		}
+		this.list = list;
+		headWidth = DeviceInfo.dp2px(mActivity,70);
+		this.isBlack = isBlack;
 	}
 
 	/**
@@ -166,12 +178,17 @@ public class FriendsListAdapter extends BaseAdapter implements SectionIndexer {
 		@Override
 		public void onClick(View v) {
 			User user = list.get(position);
+			if(isBlack){
+				Intent intent = new Intent(mActivity, UserInfoActivity.class);
+				intent.putExtra("user", user);
+				mActivity.startActivity(intent);
+				return;
+			}
 			if(v.getId()==R.id.iv_user_head){
 				Intent intent = new Intent(mActivity, UserInfoActivity.class);
 				intent.putExtra("user", user);
 				mActivity.startActivity(intent);
 			}else {
-
 				String userName = StringUtils.isEmpty(user.getDescTag())?user.getUserName():user.getDescTag();
 				//刷新用户信息头像
 				Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());

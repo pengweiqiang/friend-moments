@@ -120,7 +120,7 @@ public class LoginActivity extends BaseActivity {
 							mEtCode.requestFocus();
 							sessionId = parseModel.getJsessionid();
 							String validateCode = parseModel.getValidateCode();
-							mEtCode.setText(validateCode);
+//							mEtCode.setText(validateCode);
 						}else{
 							mGetCode.setEnabled(true);
 							ToastUtils.showToast(mContext, parseModel.getInfo());
@@ -210,10 +210,10 @@ public class LoginActivity extends BaseActivity {
 
 	
 	private Timer timer;// 计时器
-	private int time = 120;//倒计时120秒
+	private int time = 60;//倒计时60秒
 
 	private void regainCode() {
-		time = 120;
+		time = 60;
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 

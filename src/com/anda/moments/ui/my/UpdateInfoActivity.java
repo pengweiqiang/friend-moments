@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class UpdateInfoActivity extends BaseActivity {
 	EditText mEtContent;
 	String title = "";
 	String content = "";
+	String phoneNum = "";
 
 
 	String userId = "";
@@ -65,7 +67,7 @@ public class UpdateInfoActivity extends BaseActivity {
 	String address = "";//地址
 	String district = "";//地区
 
-	private int type ;//0昵称  1 个性签名  2 备注 3 userId  4 地址  5地区
+	private int type ;//0昵称  1 个性签名  2 备注 3 userId  4 地址  5地区  6举报
 	String relationId = "";//好友关系主键
 
 
@@ -81,13 +83,20 @@ public class UpdateInfoActivity extends BaseActivity {
 		type = this.getIntent().getIntExtra("type",-1);
 		content = this.getIntent().getStringExtra("content");
 		relationId = this.getIntent().getStringExtra("relationId");
+		phoneNum = this.getIntent().getStringExtra("phoneNum");
 
-		mActionbar.setTitle("修改"+title);
-		mEtContent.setHint("请输入"+title);
+		if(type == 6){
+			mActionbar.setTitle(title);
+			mEtContent.setHint("请输入举报内容");
+		}else {
+			mActionbar.setTitle("修改" + title);
+			mEtContent.setHint("请输入" + title);
+		}
 		if(!StringUtils.isEmpty(content)) {
 			mEtContent.setText(content);
 		}
 		mEtContent.requestFocus();
+
 
 		int maxLength = 50;
 		if(type == 0){//昵称
@@ -98,10 +107,17 @@ public class UpdateInfoActivity extends BaseActivity {
 			maxLength = 10;
 		}else if(type ==3){//userId
 			maxLength = 20;
+//			limitEditText();
 		}else if(type == 4){//地址
 			maxLength = 60;
 		}else if(type == 5){//地区
 			maxLength = 60;
+		}else if(type == 6){
+			maxLength = 400;
+		}
+
+		if(type != 3){
+			limitEditText();
 		}
 		checkEditTextLength(maxLength);
 
@@ -109,6 +125,10 @@ public class UpdateInfoActivity extends BaseActivity {
 
 	private void checkEditTextLength(int maxLength){
 		mEtContent.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
+	}
+
+	private void limitEditText(){
+		mEtContent.setInputType(InputType.TYPE_CLASS_TEXT);
 	}
 
 
@@ -153,6 +173,9 @@ public class UpdateInfoActivity extends BaseActivity {
 					address = content;
 				}else if(type == 5){//地区
 					district = content;
+				}else if(type == 6){
+					addReport();
+					return;
 				}
 
 				updateInfoByOkHttp();
@@ -335,6 +358,10 @@ public class UpdateInfoActivity extends BaseActivity {
 
 
 	private void checkExistUserId(){
+		if(!StringUtils.isEmpty(content)){
+			ToastUtils.showToast(mContext,"ID只能修改一次");
+			return;
+		}
 		if(mLoadingDialog==null) {
 			mLoadingDialog = new LoadingDialog(mContext);
 		}
@@ -410,6 +437,30 @@ public class UpdateInfoActivity extends BaseActivity {
 		builder.addFormDataPart("isLookOtherInfo",user.getIsLookOtherInfo());
 	}
 
+	private void addReport(){
+		String content = mEtContent.getText().toString().trim();
+		if(StringUtils.isEmpty(content)){
+			ToastUtils.showToast(mContext,"请输入内容");
+			return;
+		}
+		if(mLoadingDialog == null){
+			mLoadingDialog = new LoadingDialog(mContext);
+		}
+		mLoadingDialog.show();
+
+		ApiUserUtils.addReport(mContext, content,MyApplication.getInstance().getCurrentUser().getPhoneNum(), phoneNum, new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				mLoadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					ToastUtils.showToast(mContext,"举报成功");
+					AppManager.getAppManager().finishActivity();
+				}else {
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
+	}
 
 
 

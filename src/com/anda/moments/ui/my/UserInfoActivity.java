@@ -19,8 +19,10 @@ import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.commons.AppManager;
+import com.anda.moments.entity.Images;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
+import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
@@ -35,6 +37,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
@@ -58,6 +63,8 @@ public class UserInfoActivity extends BaseActivity {
 
 	//好友的其他信息
 	public ToggleButton mTogglePublic,mToggleFriendsPublic;
+	ToggleButton mToggleBlackList;
+	View mBtnReport;
 
 	private Button mBtnAddFriends;//添加好友
 	private Button mBtnSendMsg;//发送消息
@@ -141,10 +148,12 @@ public class UserInfoActivity extends BaseActivity {
 
 		mBtnAddFriends = (Button)findViewById(R.id.btn_add_friend);
 		mBtnSendMsg = (Button)findViewById(R.id.btn_send_msg);
+		mBtnReport = findViewById(R.id.rl_report);
 
 
 		mTogglePublic = (ToggleButton) findViewById(R.id.toggle_is_public);
 		mToggleFriendsPublic = (ToggleButton) findViewById(R.id.toggle_friend_public);
+		mToggleBlackList = (ToggleButton)findViewById(R.id.toggle_add_blacklist);
 
 	}
 
@@ -156,6 +165,8 @@ public class UserInfoActivity extends BaseActivity {
 		mBtnSendMsg.setOnClickListener(onClickListener);
 //		mBtnAddSystem.setOnClickListener(onClickListener);
 		mIvUserHead.setOnClickListener(onClickListener);
+		mBtnReport.setOnClickListener(onClickListener);
+		mIvHeadBg.setOnClickListener(onClickListener);
 
 		//朋友圈公开
 		mTogglePublic.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
@@ -185,6 +196,19 @@ public class UserInfoActivity extends BaseActivity {
 
 			}
 		});
+
+		mToggleBlackList.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+			@Override
+			public void onToggle(boolean on) {
+				String isBlock = "";
+				if(on){
+					isBlock = "1";
+				}else{
+					isBlock = "0";
+				}
+				updateIsBlock(isBlock);
+			}
+		});
 	}
 	
 	OnClickListener onClickListener = new OnClickListener() {
@@ -192,12 +216,25 @@ public class UserInfoActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()){
-				case R.id.iv_user_head://点击头像进入用户主页
-					//点击头像进入个人主页
+				case R.id.iv_bg_head:
 					Intent intentUserHome = new Intent(mContext,UserHomeActivity.class);
 					user.setFlag(1);//已接受好友
 					intentUserHome.putExtra("user",user);
 					startActivity(intentUserHome);
+					break;
+				case R.id.iv_user_head://点击头像进入用户主页
+					//点击头像进入个人主页
+//					Intent intentUserHome = new Intent(mContext,UserHomeActivity.class);
+//					user.setFlag(1);//已接受好友
+//					intentUserHome.putExtra("user",user);
+//					startActivity(intentUserHome);
+					List<Images> itemList = new ArrayList<Images>();
+					Images images = new Images();
+					images.setImgPath(user.getIcon());
+					images.setFileOrder("1");
+					itemList.add(images);
+					ImagePagerActivity.imageSize = new int[]{v.getMeasuredWidth(), v.getMeasuredHeight()};
+					ImagePagerActivity.startImagePagerActivity(mContext, itemList, 0);
 					break;
 				case R.id.rl_remarks://备注
 					Intent intent = new Intent(mContext,UpdateInfoActivity.class);
@@ -231,6 +268,15 @@ public class UserInfoActivity extends BaseActivity {
 					RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),userName, headUri));
 
 					RongIM.getInstance().startConversation(mContext, Conversation.ConversationType.PRIVATE, String.valueOf(user.getPhoneNum()), userName);
+					break;
+				case R.id.rl_report:
+					Intent intentReport = new Intent(mContext,UpdateInfoActivity.class);
+					intentReport.putExtra("type",6);
+					intentReport.putExtra("title","举报");
+					intentReport.putExtra("relationId",user.getRelationId()+"");
+					intentReport.putExtra("content",user.getDescTag());
+					intentReport.putExtra("phoneNum",user.getPhoneNum());
+					startActivity(intentReport);
 					break;
 			}
 		}
@@ -322,6 +368,17 @@ public class UserInfoActivity extends BaseActivity {
 					mToggleFriendsPublic.setToggleOff();
 				} else {
 					mToggleFriendsPublic.setToggleOn();
+				}
+			}
+
+			String isBlock = user.getIsBlock();
+			if(!StringUtils.isEmpty(isBlock)) {
+				if ("0".equalsIgnoreCase(isBlock)) {
+					mToggleBlackList.setToggleOff();
+					mBtnSendMsg.setVisibility(View.VISIBLE);
+				} else {
+					mToggleBlackList.setToggleOn();
+					mBtnSendMsg.setVisibility(View.GONE);
 				}
 			}
 
@@ -434,6 +491,29 @@ public class UserInfoActivity extends BaseActivity {
 
 					}
 				});
+	}
+
+	private void updateIsBlock(final String isBlock){
+		if(mLoadingDialog == null){
+			mLoadingDialog = new LoadingDialog(mContext);
+		}
+		mLoadingDialog.show();
+		User myUser = MyApplication.getInstance().getCurrentUser();
+		ApiUserUtils.updateIsBlack(mContext, myUser.getPhoneNum(), user.getPhoneNum(), isBlock, String.valueOf(user.getRelationId()), new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				mLoadingDialog.cancel();
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					if("0".equals(isBlock)){
+						mBtnSendMsg.setVisibility(View.VISIBLE);
+					}else {
+						mBtnSendMsg.setVisibility(View.GONE);
+					}
+				}else {
+					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
 	}
 
 

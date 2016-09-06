@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="5"
-    android:versionName="1.0.5" >
+    android:versionCode="10"
+    android:versionName="1.1.0" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -173,6 +173,10 @@
             />
         <activity android:name=".ui.friends.NewFriendsListActivity"
             android:label="新好友请求"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.BlackListActivity"
+            android:label="黑名单"
             android:screenOrientation="portrait"
             />
 

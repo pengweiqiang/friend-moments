@@ -19,6 +19,50 @@ import java.util.Map;
 public class ApiUserUtils {
 
 	/**
+	 * 黑名单
+	 * @param context
+	 * @param requestCallback
+     */
+	public static void updateIsBlack(Context context,String myPhoneNum,String otherPhoneNum,String isBlock,String relationId,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("myPhoneNum",myPhoneNum);
+		params.put("otherPhoneNum",otherPhoneNum);
+		params.put("isBlock",isBlock);
+		params.put("relationId",relationId);
+		ApiUtils.getParseModel(params, ReqUrls.UPDATE_IS_BLACK, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
+
+	/**
+	 * 举报
+	 * @param context
+	 * @param reportText
+	 * @param phoneNum
+	 * @param requestCallback
+     */
+	public static void addReport(Context context,String reportText,String phoneNum,String beReqNum,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("reportText",reportText);
+		params.put("phoneNum",phoneNum);
+		params.put("beRepNum",beReqNum);
+		ApiUtils.getParseModel(params, ReqUrls.ADD_REPORT, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
+
+	/**
+	 * 黑名单
+	 * @param context
+	 * @param pageNo
+	 * @param requestCallback
+     */
+	public static void getMyBlackList(Context context,String phoneNum,String pageNo,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("pageNo",pageNo);
+		params.put("phoneNum",phoneNum);
+		ApiUtils.getParseModel(params,ReqUrls.GET_MY_BLACK_LIST,false,requestCallback,MethodType.LOGIN,context,HttpMethod.GET);
+	}
+
+	/**
 	 * 获取省市地区列表
 	 * @param context
 	 * @param requestCallback

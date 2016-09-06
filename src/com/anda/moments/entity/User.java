@@ -27,6 +27,7 @@ public class User implements Serializable{
 	private String isNeedValidate;//加好友是否需要验证  默认yes需要  no为不需要
 	private String isLookMyInfo; //不让某人看我的朋友圈  默认no,yes为指定用户看我的朋友圈
 	private String isLookOtherInfo;//是否看别人的动态，默认yes,查看任何好友动态
+	private String isBlock;//0 不拉黑 1拉黑
 
 	private String sortLetters; // 显示数据拼音的首字母
 	private String suoxie;// 姓名缩写
@@ -197,5 +198,13 @@ public class User implements Serializable{
 
 	public void setIsLookOtherInfo(String isLookOtherInfo) {
 		this.isLookOtherInfo = isLookOtherInfo;
+	}
+
+	public String getIsBlock() {
+		return isBlock;
+	}
+
+	public void setIsBlock(String isBlock) {
+		this.isBlock = isBlock;
 	}
 }

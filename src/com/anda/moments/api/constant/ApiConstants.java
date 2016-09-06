@@ -13,9 +13,9 @@ public interface ApiConstants {
 
     public static final String WEB_URL = "http://wmeng.bmob.cn/";
 
-    public static final String SHARE_TITLE = "朋友圈";
+    public static final String SHARE_TITLE = "微萌";
 
-    public static final String SHARE_CONTENT = "一起来玩朋友圈吧!";
+    public static final String SHARE_CONTENT = "一起来玩微萌吧! http://wmeng.bmob.cn";
 
     public static class ShowMsgActivity {
         public static final String STitle = "showmsg_title";

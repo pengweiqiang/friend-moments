@@ -64,12 +64,12 @@ public static final String PROJECT_NAME = "";
 
 
 //	http://123.57.163.138/friendscircle
-	public static final String CONFIG_HOST_IP="www.weimkeji.com//friendscircle"; //dns ip
+	public static final String CONFIG_HOST_IP="www.weimkeji.com/friendscircle"; //dns ip
 //	public static final String CONFIG_HOST_IP="http://bldj.com" 
 	
 //	public static final String DEFAULT_REQ_HOST_IP = "http://bldj.com";
 //    public static final String DEFAULT_REQ_HOST_IP = "172.16.102.145:8080/wechatshop/login.html"; //默认值异常的请求地址
-	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+"www.weimkeji.com//friendscircle/"; //默认值异常的请求地址
+	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+"www.weimkeji.com/friendscircle/"; //默认值异常的请求地址
 
 	//融云参数配置
 	public static final String APPKEY_RONG = "cpj2xarljnnwn";
@@ -288,6 +288,12 @@ public static final String PROJECT_NAME = "";
 	 * 短信验证
 	 */
 	public static final String CHECK_CODE = "/user/checkCode";
+
+	public static final String UPDATE_IS_BLACK= "friends/updateIsBlock.do";
+
+	public static final String ADD_REPORT= "friends/addReport.do";
+
+	public static final String GET_MY_BLACK_LIST = "friends/getBlockFriendsList.do";
 
 
     public static final String DOWNLOAD_REPO_INFO = "/app/downLoadApp";

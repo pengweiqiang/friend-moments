@@ -29,6 +29,8 @@ public class FileUtil {
 
     public static final String DOWNLOAD_MEDIA_FILE_DIR = APP_SD_ROOT_DIR+"/download";
 
+    public static final String DOWNLOAD_SAVE = "/moments";
+
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
@@ -132,6 +134,17 @@ public class FileUtil {
         if(!dir.exists()) {
             dir.mkdirs();
         }
+    }
+    public static File createSavePicturePath(String imgPath){
+        File dir = new File(Environment.getExternalStorageDirectory()+DOWNLOAD_SAVE);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File saveFile = new File(dir.getPath() + File.separator +
+                imgPath);
+
+        return saveFile;
     }
     public static String createFile(String filefloderPath){
         File dir = new File(Environment.getExternalStorageDirectory(),filefloderPath);

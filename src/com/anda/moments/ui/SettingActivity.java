@@ -21,6 +21,7 @@ public class SettingActivity extends BaseActivity {
 
 	private View mBtnSercetSetting;
 	private View mBtnAboutUs;
+	private View mBtnBlackList;
 
 
 
@@ -48,6 +49,7 @@ public class SettingActivity extends BaseActivity {
 
 		mBtnSercetSetting = findViewById(R.id.rl_sercet_setting);
 		mBtnAboutUs = findViewById(R.id.rl_about_us);
+		mBtnBlackList = findViewById(R.id.rl_black_list);
 
 	}
 
@@ -55,6 +57,7 @@ public class SettingActivity extends BaseActivity {
 	public void initListener() {
 		mBtnSercetSetting.setOnClickListener(onClickListener);
 		mBtnAboutUs.setOnClickListener(onClickListener);
+		mBtnBlackList.setOnClickListener(onClickListener);
 	}
 
 	OnClickListener onClickListener = new OnClickListener() {
@@ -67,6 +70,9 @@ public class SettingActivity extends BaseActivity {
 					break;
 				case R.id.rl_about_us://关于我们
 					startActivity(AboutUsActivity.class);
+					break;
+				case R.id.rl_black_list://黑名单列表
+					startActivity(BlackListActivity.class);
 					break;
 
 			}

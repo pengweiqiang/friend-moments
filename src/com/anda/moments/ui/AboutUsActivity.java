@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.anda.moments.R;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.ui.base.BaseActivity;
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.views.ActionBar;
 
 /**
@@ -19,6 +21,8 @@ public class AboutUsActivity extends BaseActivity {
 
 	ActionBar mActionbar;
 
+	TextView mTvAppName;
+
 
 
 
@@ -29,6 +33,7 @@ public class AboutUsActivity extends BaseActivity {
 		setContentView(R.layout.activity_about_us);
 		super.onCreate(savedInstanceState);
 
+		mTvAppName.setText("微萌 V"+ DeviceInfo.getVersionName());
 	}
 
 	@Override
@@ -44,6 +49,7 @@ public class AboutUsActivity extends BaseActivity {
 			}
 		});
 
+		mTvAppName = (TextView)findViewById(R.id.tv_app_name);
 
 	}
 
