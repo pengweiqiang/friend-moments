@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.anda.moments.views.ActionBar
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp" >
+    </com.anda.moments.views.ActionBar>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#ebebeb"
+		android:paddingBottom="6dp"
+		>
+
+		<com.anda.moments.views.ClearEditText
+			android:id="@+id/et_search_friend"
+			android:background="@drawable/bg_search_friends"
+			android:padding="10dp"
+			android:hint="搜索"
+			android:gravity="center_vertical|left"
+			android:drawablePadding="5dp"
+			android:textColorHint="#979797"
+			android:layout_marginLeft="13dp"
+			android:layout_marginRight="15dp"
+			android:layout_marginTop="8dp"
+			android:textSize="14sp"
+			android:drawableLeft="@drawable/search_edittext"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+	</RelativeLayout>
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+
+		<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/swipe_container"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+			<ListView
+				android:id="@+id/listView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:listSelector="@android:color/transparent"
+				android:divider="#F0EFF5"
+				android:scrollbars="none"
+				android:dividerHeight="0dp">
+			</ListView>
+		</android.support.v4.widget.SwipeRefreshLayout>
+
+
+		<TextView
+			android:id="@+id/friend_dialog"
+			android:layout_width="80.0dip"
+			android:layout_height="80.0dip"
+			android:layout_gravity="center"
+			android:background="@drawable/tips_bg"
+			android:gravity="center"
+			android:textColor="#ffffffff"
+			android:textSize="30.0dip"
+			android:visibility="invisible" />
+
+		<com.anda.moments.views.widget.slide.SideBar
+			android:id="@+id/friend_sidrbar"
+			android:layout_width="20dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="right|center" />
+	</FrameLayout>
+
+    
+
+</LinearLayout>

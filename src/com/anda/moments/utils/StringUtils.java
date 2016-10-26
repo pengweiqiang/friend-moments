@@ -150,7 +150,10 @@ public class StringUtils {
 			return "0";
 		}
 	}
-	public static String ToDBC(String input) {          
+	public static String ToDBC(String input) {
+		if(isEmpty(input)){
+			return "";
+		}
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {              
         if (c[i] == 12288) {                 

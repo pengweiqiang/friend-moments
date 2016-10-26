@@ -227,6 +227,17 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 	}
 
 	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		if(isVisibleToUser){
+			if(isAdded()) {
+				mSwipeRefreshLayout.setRefreshing(true);
+				getFriendsList();
+			}
+		}
+	}
+
+	@Override
 	public void onPause() {
 		super.onPause();
 	}
@@ -432,12 +443,23 @@ public class FriendsFragment extends BaseFragment implements SideBar.OnTouchingL
 
 	private void showFriendMsg(){
 		if(unReadMsgCount==0 && reqCount==0){
-			((MainActivity)mActivity).showMessage(View.GONE);
+			((MainActivity)mActivity).showMessage(View.INVISIBLE);
 		}else if(unReadMsgCount!=0 || reqCount !=0){
 			((MainActivity)mActivity).showMessage(View.VISIBLE);
 		}
 	}
 
+	public void showNewFriendMsg(int reqCount){
+		this.reqCount = reqCount;
+		if(isAdded()){
+			if(reqCount>0) {
+				mTvReqCount.setVisibility(View.VISIBLE);
+				mTvReqCount.setText(String.valueOf(reqCount));
+			}else{
+				mTvReqCount.setVisibility(View.GONE);
+			}
+		}
+	}
 
 	private boolean isLoadData = false;//是否已经加载数据
 	private boolean isPrepared = false;//标志已经初始化完成

@@ -469,6 +469,84 @@
                     android:background="#d2d2d2"
                     android:layout_width="match_parent"
                     android:layout_height="1px"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_friends_moments_blacklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/btn_selector"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="加入黑名单"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/color_action_bar_title"
+                        />
+
+
+                    <com.anda.moments.views.ToggleButton
+                        android:id="@+id/toggle_add_blacklist"
+                        android:layout_width="50dp"
+                        toggle:onColor="#7bb501"
+                        toggle:offColor="#c9c8c8"
+                        toggle:spotColor="@color/white"
+                        toggle:offBorderColor="#c9c8c8"
+                        toggle:borderWidth="1px"
+                        android:layout_height="23dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        />
+
+
+
+                </RelativeLayout>
+                <View
+                    android:background="#d2d2d2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+                <RelativeLayout
+                    android:id="@+id/rl_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/btn_drawable_selector"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_user_desc_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="举报"
+                        android:textColor="@color/color_action_bar_title"
+                        />
+
+
+                    <ImageView
+                        android:id="@+id/iv_remarks_right"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="10dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/btn_detail_right"
+                        />
+
+                </RelativeLayout>
+                <View
+                    android:background="@color/light_gray_line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+
         </LinearLayout>
 
 

@@ -32,11 +32,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#898989"
-        android:text="3"
+        android:text="共3张"
         android:textSize="12sp"
         android:layout_marginLeft="6dp"
         android:paddingBottom="5dp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/iv_message_audio"
+        />
+    <ImageView
+        android:id="@+id/iv_message_audio"
+        android:layout_width="17dp"
+        android:layout_height="26dp"
+        android:src="@drawable/btn_audio"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="8dp"
         android:layout_toRightOf="@+id/iv_multi_image"
         />
 

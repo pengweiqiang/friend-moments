@@ -1,12 +1,5 @@
 package com.anda.moments.utils;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
-
-import org.apache.http.conn.util.InetAddressUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -18,6 +11,13 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
+import org.apache.http.conn.util.InetAddressUtils;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 public class DeviceInfo {
 	public static final int IMEI_ERROR = 403;
@@ -93,6 +93,8 @@ public class DeviceInfo {
 			versionName = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
+		}catch (Exception e){
+
 		}
 		return versionName;
 	}

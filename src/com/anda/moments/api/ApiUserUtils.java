@@ -19,6 +19,21 @@ import java.util.Map;
 public class ApiUserUtils {
 
 	/**
+	 * 是否可以聊天
+	 * @param context
+	 * @param myPhoneNum
+	 * @param friendPhoneNum
+	 * @param requestCallback
+     */
+	public static void isCanChat(Context context,String myPhoneNum,String friendPhoneNum,RequestCallback requestCallback){
+		Map<String,Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("myPhoneNum",myPhoneNum);
+		params.put("friendPhoneNum",friendPhoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.IS_CAN_CHAT_TOGETHER, false,
+				requestCallback, MethodType.UPDATE, context,HttpMethod.POST);
+	}
+
+	/**
 	 * 黑名单
 	 * @param context
 	 * @param requestCallback

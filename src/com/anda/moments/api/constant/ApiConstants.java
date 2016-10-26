@@ -32,6 +32,8 @@ public interface ApiConstants {
 	 */
 	public static final String RESULT_SUCCESS = "200";
 
+    public static final String RESULT_400 = "400";
+
     /**
      * 不是好友关系
      */

@@ -56,6 +56,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -86,6 +88,7 @@ public class PublishPictureActivity extends BaseActivity {
 
 
 
+
 	LoadingDialog mLoadingDialog;
 
 	@Override
@@ -101,7 +104,7 @@ public class PublishPictureActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		adapter.update();
 	}
 
 	@Override
@@ -182,7 +185,13 @@ public class PublishPictureActivity extends BaseActivity {
 				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
-				multipartBuilder.addFormDataPart("infoText",content);//动态内容
+				String contentStr = "";
+				try {
+					contentStr = URLEncoder.encode(URLEncoder.encode(content, "UTF-8"),"UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+				multipartBuilder.addFormDataPart("infoText",contentStr);//动态内容
 				multipartBuilder.addFormDataPart("isPublic",isPublic);//是否公开 0：私有 1：公开（必填）
 
 				RequestBody requestBody = multipartBuilder.build();
@@ -347,7 +356,10 @@ public class PublishPictureActivity extends BaseActivity {
 					image.setVisibility(View.GONE);
 				}
 			} else {
-				Picasso.with(mContext).load(new File(Bimp.drr.get(position))).resize(DeviceInfo.dp2px(mContext,68),DeviceInfo.dp2px(mContext,68)).centerCrop().into(image);
+
+				String filePath = FileUtils.SDPATH+Bimp.drr.get(position).substring(
+						Bimp.drr.get(position).lastIndexOf("/"),Bimp.drr.get(position).lastIndexOf("."))+".jpg";
+				Picasso.with(mContext).load(new File(filePath)).resize(DeviceInfo.dp2px(mContext,68),DeviceInfo.dp2px(mContext,68)).centerCrop().into(image);
 //				holder.image.setImageBitmap(Bimp.bmp.get(position));
 			}
 
@@ -411,7 +423,7 @@ public class PublishPictureActivity extends BaseActivity {
 
 		mGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		adapter = new GridAdapter(this);
-		adapter.update();
+//		adapter.update();
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -431,10 +443,10 @@ public class PublishPictureActivity extends BaseActivity {
 
 	}
 
-	protected void onRestart() {
-		super.onRestart();
-		adapter.update();
-	}
+//	protected void onRestart() {
+//		super.onRestart();
+//		adapter.update();
+//	}
 
 	public class PopupWindows extends PopupWindow {
 

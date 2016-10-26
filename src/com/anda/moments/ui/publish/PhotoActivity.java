@@ -1,9 +1,5 @@
 package com.anda.moments.ui.publish;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,10 +14,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.anda.moments.R;
-import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.publish.Bimp;
 import com.anda.moments.utils.publish.FileUtils;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhotoActivity extends Activity {
 
@@ -67,7 +66,9 @@ public class PhotoActivity extends Activity {
 					Bimp.drr.clear();
 					Bimp.max = 0;
 //					FileUtils.deleteDir();
-					FileUtils.delFile(drr.get(0));
+					if(drr!=null && !drr.isEmpty()) {
+						FileUtils.delFile(drr.get(0));
+					}
 					finish();
 				} else {
 					String newStr = drr.get(count).substring( 
@@ -78,6 +79,11 @@ public class PhotoActivity extends Activity {
 					del.add(newStr);
 					max--;
 					pager.removeAllViews();
+
+					Bimp.drr = drr;
+					Bimp.max = max;
+					FileUtils.delFile(newStr+".JPEG");
+
 					listViews.remove(count);
 					adapter.setListViews(listViews);
 					adapter.notifyDataSetChanged();
@@ -102,7 +108,9 @@ public class PhotoActivity extends Activity {
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		pager.setOnPageChangeListener(pageChangeListener);
 		for (int i = 0; i < drr.size(); i++) {
-			initListViews(drr.get(i));//
+			String filePath = FileUtils.SDPATH+Bimp.drr.get(i).substring(
+					Bimp.drr.get(i).lastIndexOf("/"),Bimp.drr.get(i).lastIndexOf("."))+".jpg";
+			initListViews(filePath);//
 		}
 
 		adapter = new MyPageAdapter(listViews);// 构造adapter
@@ -118,7 +126,7 @@ public class PhotoActivity extends Activity {
 		ImageView img = new ImageView(this);// 构造textView对象
 		img.setBackgroundColor(0xff000000);
 //		img.setImageBitmap(bm);
-		Picasso.with(PhotoActivity.this).load(new File(filePath)).into(img);
+		Picasso.with(PhotoActivity.this).load(new File(filePath)).config(Bitmap.Config.RGB_565).into(img);
 		img.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		listViews.add(img);// 添加view

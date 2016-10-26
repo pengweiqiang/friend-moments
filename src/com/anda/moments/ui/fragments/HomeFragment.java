@@ -8,6 +8,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,7 +37,10 @@ import com.anda.moments.entity.CommentUser;
 import com.anda.moments.entity.ParseModel;
 import com.anda.moments.entity.User;
 import com.anda.moments.listener.SwpipeListViewOnScrollListener;
+import com.anda.moments.service.ObservableNewMessage;
+import com.anda.moments.service.ObserverNewMessage;
 import com.anda.moments.ui.MainActivity;
+import com.anda.moments.ui.NewMsgListActivity;
 import com.anda.moments.ui.base.BaseFragment;
 import com.anda.moments.ui.my.CircleDetailActivity;
 import com.anda.moments.ui.my.PersonalInfoActivity;
@@ -46,9 +51,9 @@ import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.InputMethodUtils;
 import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
-import com.anda.moments.views.CommentListView;
 import com.anda.moments.views.XListView;
 import com.anda.moments.views.XListView.IXListViewListener;
 import com.squareup.picasso.Picasso;
@@ -62,7 +67,7 @@ import java.util.List;
  *
  */
 @SuppressLint("NewApi") 
-public class HomeFragment extends BaseFragment implements OnRefreshListener,IXListViewListener{
+public class HomeFragment extends BaseFragment implements OnRefreshListener,IXListViewListener,ObserverNewMessage.NewMessageListener {
 
 	public static int REQUEST_CODE_DETAIL = 0x000001;//启动动态详情标识
 	private View mContentView;
@@ -93,7 +98,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private HomeAdapter mHomeAdapter;
 	private CommentConfig mCommentConfig;
 	private int page = 1;
-	
+
+
+	private TextView mTvMsgCount;
+	private ImageView mIvMsgHead;
+	private View mHeadMsgView;
 	
 
 
@@ -112,6 +121,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 
 
 		setViewTreeObserver();
+
+
 
 		
 		return mContentView;
@@ -133,7 +144,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					r.top = statusBarH;
 				}
 				int keyboardH = screenH - (r.bottom - r.top);
-				android.util.Log.d("HOME_FRAGMENT", "screenH＝ "+ screenH +" &keyboardH = " + keyboardH + " &r.bottom=" + r.bottom + " &top=" + r.top + " &statusBarH=" + statusBarH);
+				Log.d("HOME_FRAGMENT", "screenH＝ "+ screenH +" &keyboardH = " + keyboardH + " &r.bottom=" + r.bottom + " &top=" + r.top + " &statusBarH=" + statusBarH);
 
 				if(keyboardH == mCurrentKeyboardH){//有变化时才处理，否则会陷入死循环
 					return;
@@ -177,9 +188,16 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		View mHeadView = View.inflate(mActivity,R.layout.header_index,null);
 		mListView.addHeaderView(mHeadView);
 
+		//消息头部
+		mHeadMsgView = View.inflate(mActivity,R.layout.home_header_new_msg,null);
+//		mListView.addHeaderView(mHeadMsgView);
+
 		mIvHeadBg = (ImageView)mContentView.findViewById(R.id.iv_bg_head);//背景
 		mIvUserHead = (ImageView)mHeadView.findViewById(R.id.iv_user_head);//头像
 		mTvUserName = (TextView)mHeadView.findViewById(R.id.tv_user_name_head);
+
+		mIvMsgHead = (ImageView)mHeadMsgView.findViewById(R.id.iv_new_msg_head);
+		mTvMsgCount = (TextView)mHeadMsgView.findViewById(R.id.tv_new_msg_count);
 
 		//背景适配
 		width = DeviceInfo.getDisplayMetricsWidth(mActivity);
@@ -252,6 +270,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	private void showData2View(List<CircleMessage> circleMessages){
 		if(circleMessages!=null ){
 
+//			for(int i = 0 ;i<circleMessages.size();i++){
+//				CommentInfo commentInfo = circleMessages.get(i).getCommentInfo();
+//				List<CommentUser> commentUserList = getCommentUsers(circleMessages.get(i).getCommentInfo().getCommentUsers());
+//				commentInfo.setCommentUsers(commentUserList);
+//				commentInfo.setTotalNum(commentUserList==null?0:commentUserList.size());
+//			}
+
 			if(page == 1){
 				circleMessageList.clear();
 			}
@@ -270,12 +295,47 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 		}
 	}
 
+	private List<CommentUser> getCommentUsers(List<CommentUser> mDatas){
+        List<CommentUser> commentUserList = new ArrayList<CommentUser>();
+        commentUserList.addAll(mDatas);
+        int beforeSize = mDatas.size();
+        Log.e("1111111",+beforeSize+"  ");
+        for(int i = 0 ;i<beforeSize;i++){
+            List<CommentUser> commentUsers = getCommentUsers(mDatas.get(i));
+            commentUserList.addAll(commentUsers);
+        }
+
+        return commentUserList;
+    }
+
+    private List<CommentUser> getCommentUsers(CommentUser commentUser){
+        List<CommentUser> commentUserList = new ArrayList<CommentUser>();
+        if(commentUser!=null && commentUser.getSubCommUsers()!=null){
+            List<CommentUser> subCommentUsers = commentUser.getSubCommUsers();
+            for(int i = 0;i<subCommentUsers.size();i++){
+                CommentUser subCommentUser = subCommentUsers.get(i);
+                subCommentUser.setReplyText(subCommentUser.getUserName()+"<font color=\"#F29c9F\">回复</font>"+commentUser.getUserName()+"：");
+                commentUserList.add(subCommentUser);
+            }
+//            commentUserList.addAll(subCommentUsers);
+            for(CommentUser subCommentUser:subCommentUsers){
+                getCommentUsers(subCommentUser);
+            }
+        }
+        return commentUserList;
+    }
+
+	ObserverNewMessage observerNewMessage;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
 		getCircleData();
+		observerNewMessage = new ObserverNewMessage(ObservableNewMessage.getInstance());
+
+		observerNewMessage.setNewMessageListener(this);
+//		findLatestCommInfo();
 
 	}
 
@@ -283,9 +343,21 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	public void onResume() {
 		super.onResume();
 		initMyData();
+//		mSwipeRefreshLayout.setRefreshing(true);
+//		getCircleData();
 	}
 
-//	@Override
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		if(isVisibleToUser){
+			if(isAdded()) {
+				mSwipeRefreshLayout.setRefreshing(true);
+				onRefresh();
+			}
+		}
+	}
+	//	@Override
 //	public void onHiddenChanged(boolean hidden) {
 //		super.onHiddenChanged(hidden);
 //		if(!hidden){
@@ -298,6 +370,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	public void onRefresh() {
 		page = 1;
 		getCircleData();
+//		findLatestCommInfo();
 	}
 
 	/**
@@ -368,15 +441,33 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 				return false;
 			}
 		});
+		mHeadMsgView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mActivity, NewMsgListActivity.class);
+				intent.putExtra("pageSize",newMsgNumCount);
+				startActivity(intent);
+			}
+		});
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if(position==0){
-					return;
+				if(mListView.getHeaderViewsCount()==2){
+					position = position-1;
+
+					if(position<1){
+						return;
+					}
+				}else{
+					if(position<0){
+						return;
+					}
 				}
-				CircleMessage circleMessage = circleMessageList.get(position-1);
+
+				position = position - 1;
+				CircleMessage circleMessage = circleMessageList.get(position);
 				Intent intent = new Intent(mActivity, CircleDetailActivity.class);
-				intent.putExtra("position",position-1);
+				intent.putExtra("position",position);
 				intent.putExtra("circleMessage",circleMessage);
 				startActivityForResult(intent,REQUEST_CODE_DETAIL);
 			}
@@ -417,7 +508,18 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			return;
 		}
 		String infoId = circleMessageList.get(mCommentConfig.circlePosition).getInfoId()+"";
-		ApiMomentsUtils.addComment(mActivity,infoId,content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+		String ownerPhoneNum = circleMessageList.get(mCommentConfig.circlePosition).getPublishUser().getPhoneNum();
+		String parentId = "";
+		if(mCommentConfig!=null ){
+			if(mCommentConfig.commentType == CommentConfig.Type.REPLY){//单独回复
+				CommentUser commentUser = mCommentConfig.replyUser;
+				if(commentUser!=null){
+					ownerPhoneNum = commentUser.getPhoneNum();
+					parentId = String.valueOf(commentUser.getCommentId());
+				}
+			}
+		}
+		ApiMomentsUtils.addComment(mActivity,infoId,parentId,ownerPhoneNum,content,user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
 
 			@Override
 			public void execute(ParseModel parseModel) {
@@ -426,11 +528,14 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					CommentUser commentUser = new CommentUser();
 
 					commentUser.setText(content);
-					if(mCommentConfig!= null && mCommentConfig.replyUser!=null) {
+					if(mCommentConfig!= null && mCommentConfig.replyUser!=null && mCommentConfig.commentType== CommentConfig.Type.REPLY) {
+						User user = getUser();
 						commentUser.setUserId(mCommentConfig.replyUser.getText());
-						commentUser.setIcon(mCommentConfig.replyUser.getIcon());
-						commentUser.setUserName(mCommentConfig.replyUser.getUserName());
-						commentUser.setPhoneNum(mCommentConfig.replyUser.getPhoneNum());
+						commentUser.setIcon(user.getIcon());
+						commentUser.setUserName(user.getUserName());
+						commentUser.setPhoneNum(user.getPhoneNum());
+						commentUser.setCommUserName(mCommentConfig.replyUser.getUserName());
+//						commentUser.setReplyText(user.getUserName()+"<font color=\"#F29c9F\">回复</font>"+mCommentConfig.replyUser.getUserName()+":");
 					}else{
 						commentUser.setUserId(user.getUserId());
 						commentUser.setIcon(user.getIcon());
@@ -440,6 +545,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 					commentUser.setPublishTime(System.currentTimeMillis());
 
 					update2AddComment(mCommentConfig.circlePosition,commentUser);
+					mCommentConfig= null;
 				}else{
 					ToastUtils.showToast(mActivity,parseModel.getInfo());
 				}
@@ -546,7 +652,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
      */
 	public void updateEditTextBodyVisible(int visibility,CommentConfig commentConfig) {
 		mCommentConfig = commentConfig;
-		((MainActivity)mActivity).mEditTextBody.setVisibility(visibility);
+		if(commentConfig!=null) {
+			String replyUserName = "";
+			if(commentConfig.replyUser!=null){
+				replyUserName = mCommentConfig.replyUser.getUserName();
+			}
+			((MainActivity) mActivity).showInputComment(replyUserName);
+		}
 
 		measureCircleItemHighAndCommentItemOffset(commentConfig);
 
@@ -603,12 +715,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 				for(int i=firstPosition; i<headViewCount; i++){
 					mSelectCircleItemH += mListView.getChildAt(i).getHeight();
 				}
+
 			}
 		}
 
 		if(commentConfig.commentType == CommentConfig.Type.REPLY){
 			//回复评论的情况
-			CommentListView commentLv = (CommentListView) selectCircleItem.findViewById(R.id.commentList);
+			RecyclerView commentLv = (RecyclerView) selectCircleItem.findViewById(R.id.commentList);
 			if(commentLv!=null){
 				//找到要回复的评论view,计算出该view距离所属动态底部的距离
 				View selectCommentItem = commentLv.getChildAt(commentConfig.commentPosition);
@@ -687,6 +800,58 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 	public void resetVideoList(){
 		for(CircleMessage circleMessage:circleMessageList){
 			circleMessage.setPlay(false);
+		}
+	}
+
+
+//	/**
+//	 * 获取最新评论数量
+//	 */
+//	private void findLatestCommInfo(){
+//		final String phoneNum = MyApplication.getInstance().getCurrentUser().getPhoneNum();
+//		ApiMomentsUtils.findLatestCommInfo(mActivity, phoneNum, "2", new HttpConnectionUtil.RequestCallback() {
+//			@Override
+//			public void execute(ParseModel parseModel) {
+//				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+//					int newMsgNum = parseModel.getNewMsgNum();
+//					showNewMsgHeader(newMsgNum);
+//				}
+//			}
+//		});
+//	}
+	int newMsgNumCount = 0;
+	private void showNewMsgHeader(int newMsgNum,String iconUrl){
+		newMsgNumCount = newMsgNum;
+		if(newMsgNum<=0){
+			mListView.removeHeaderView(mHeadMsgView);
+			((MainActivity)mActivity).showCircleMessage(View.INVISIBLE);
+		}else{
+			int headerCount = mListView.getHeaderViewsCount();
+			if(headerCount==1){
+				mListView.addHeaderView(mHeadMsgView);
+			}
+			mTvMsgCount.setText(newMsgNum+"条新消息");
+			if(TextUtils.isEmpty(iconUrl)){
+				iconUrl = String.valueOf(R.drawable.default_useravatar);
+			}
+			Picasso.with(mActivity).load(iconUrl).placeholder(mActivity.getResources().getDrawable(R.drawable.default_useravatar)).into(mIvMsgHead);
+
+			((MainActivity)mActivity).showCircleMessage(View.VISIBLE);
+
+		}
+	}
+
+
+
+	@Override
+	public void getNewMessage(List<String> messages) {
+		showNewMsgHeader(Integer.valueOf(messages.get(0)),messages.get(1));
+	}
+
+	@Override
+	public void getNewReqFriendCount(int reqFriendCount) {
+		if(reqFriendCount>0){
+			((MainActivity)mActivity).showNewFriendMessage(reqFriendCount,View.VISIBLE);
 		}
 	}
 }

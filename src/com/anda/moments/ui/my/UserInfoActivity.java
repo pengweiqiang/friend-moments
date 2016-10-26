@@ -99,6 +99,8 @@ public class UserInfoActivity extends BaseActivity {
 		showData();
 
 		getData();
+
+		getIsCanChat();
 	}
 
 	@Override
@@ -312,8 +314,10 @@ public class UserInfoActivity extends BaseActivity {
 					if (ApiConstants.RESULT_IS_NOT_FRIENDS.equals(parseModel.getRetFlag())) {
 						//不是好友关系
 						mBtnAddFriends.setVisibility(View.VISIBLE);
+						mBtnSendMsg.setVisibility(View.GONE);
 					} else {
 						mBtnAddFriends.setVisibility(View.GONE);
+						mBtnSendMsg.setVisibility(View.VISIBLE);
 					}
 				}
 			});
@@ -511,6 +515,22 @@ public class UserInfoActivity extends BaseActivity {
 					}
 				}else {
 					ToastUtils.showToast(mContext,parseModel.getInfo());
+				}
+			}
+		});
+	}
+
+	private void getIsCanChat(){
+		ApiUserUtils.isCanChat(this, MyApplication.getInstance().getCurrentUser().getPhoneNum(), phoneNum, new HttpConnectionUtil.RequestCallback() {
+			@Override
+			public void execute(ParseModel parseModel) {
+				if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+					int isCan = parseModel.getIsCanChat();
+					if(isCan==0){
+						mBtnSendMsg.setVisibility(View.GONE);
+					}else{
+						mBtnSendMsg.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		});

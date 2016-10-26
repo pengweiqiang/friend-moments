@@ -1,11 +1,10 @@
 package com.anda.moments.ui;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -13,26 +12,35 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anda.moments.R;
-import com.anda.moments.commons.AppManager;
 import com.anda.moments.entity.Images;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
+import com.anda.moments.utils.FileUtil;
 import com.anda.moments.utils.Log;
 import com.anda.moments.utils.publish.FileUtils;
-import com.anda.universalimageloader.utils.MemoryCacheUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import uk.co.senab.photoview.PhotoView;
+
 //import com.anda.universalimageloader.core.DisplayImageOptions;
 //import com.anda.universalimageloader.core.ImageLoader;
 //import com.anda.universalimageloader.core.assist.FailReason;
@@ -41,15 +49,6 @@ import com.squareup.picasso.Transformation;
 //import com.anda.universalimageloader.core.display.FadeInBitmapDisplayer;
 //import com.anda.universalimageloader.core.listener.SimpleImageLoadingListener;
 //import com.anda.universalimageloader.utils.MemoryCacheUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import sz.itguy.utils.FileUtil;
-import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by yiw on 2016/1/6.
@@ -149,7 +148,7 @@ public class ImagePagerActivity extends BaseActivity {
         }
     }
 
-    private static class ImageAdapter extends PagerAdapter {
+    private class ImageAdapter extends PagerAdapter {
 
         private List<Images> datas = new ArrayList<Images>();
         private LayoutInflater inflater;
@@ -220,10 +219,14 @@ public class ImagePagerActivity extends BaseActivity {
 
                         Log.e("sd","error");
                     }
-
-
                 });
-
+                imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        savePicture(imgurl);
+                        return false;
+                    }
+                });
 //                ImageLoader.getInstance().displayImage(imgurl, imageView, options, new SimpleImageLoadingListener(){
 //                    @Override
 //                    public void onLoadingStarted(String imageUri, View view) {
@@ -304,6 +307,61 @@ public class ImagePagerActivity extends BaseActivity {
         public String key() {
             return "square()";
         }
+    }
+
+    private void savePicture(final String imgUrl){
+        final AlertDialog dlg = new AlertDialog.Builder(mContext).create();
+        dlg.show();
+        Window window = dlg.getWindow();
+        window.setContentView(R.layout.alertdialog);
+        TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+        tv_paizhao.setText("保存图片");
+        tv_paizhao.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SdCardPath")
+            public void onClick(View v) {
+                downloadPicture(imgUrl);
+                dlg.cancel();
+            }
+        });
+        window.findViewById(R.id.ll_content2).setVisibility(View.GONE);
+
+    }
+
+    private void downloadPicture(String imgUrl){
+
+        //Target
+        Target target = new Target(){
+
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                String imageName = System.currentTimeMillis() + ".png";
+
+                File dcimFile = FileUtil
+                        .createSavePicturePath(imageName);
+
+                FileOutputStream ostream = null;
+                try {
+                    ostream = new FileOutputStream(dcimFile);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+                    ostream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(ImagePagerActivity.this,"图片下载至:"+dcimFile,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        //Picasso下载
+        Picasso.with(this).load(imgUrl).into(target);
     }
 
 

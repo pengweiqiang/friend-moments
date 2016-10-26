@@ -65,11 +65,12 @@ public static final String PROJECT_NAME = "";
 
 //	http://123.57.163.138/friendscircle
 	public static final String CONFIG_HOST_IP="www.weimkeji.com/friendscircle"; //dns ip
+//	public static final String CONFIG_HOST_IP="123.57.163.138/friendscircletest";
 //	public static final String CONFIG_HOST_IP="http://bldj.com" 
 	
 //	public static final String DEFAULT_REQ_HOST_IP = "http://bldj.com";
 //    public static final String DEFAULT_REQ_HOST_IP = "172.16.102.145:8080/wechatshop/login.html"; //默认值异常的请求地址
-	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+"www.weimkeji.com/friendscircle/"; //默认值异常的请求地址
+	 public static final String DEFAULT_REQ_HOST_IP = Connection_Type_Common+CONFIG_HOST_IP+"/"; //默认值异常的请求地址
 
 	//融云参数配置
 	public static final String APPKEY_RONG = "cpj2xarljnnwn";
@@ -108,6 +109,17 @@ public static final String PROJECT_NAME = "";
 	public static final String USER_REQUEST_INFO="userRequestInfo";
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * 更改评论消息状态
+	 */
+	public static final String REQUEST_FRIENDS_UPDATE_COMMENT_MSG = "friends/updateCommentMsg.do";
+
+	/**
+	 * 获取最新评论数量和获取最新评论消息列表接口
+	 */
+	public static final String REQUEST_FRIENDS_FIND_LATEST_COMMINFO = "friends/findLatestCommInfo.do";
+
 	/**
 	 * 获取验证码
 	 */
@@ -294,6 +306,8 @@ public static final String PROJECT_NAME = "";
 	public static final String ADD_REPORT= "friends/addReport.do";
 
 	public static final String GET_MY_BLACK_LIST = "friends/getBlockFriendsList.do";
+
+	public static final String IS_CAN_CHAT_TOGETHER = "friends/isCanChatTogether.do";
 
 
     public static final String DOWNLOAD_REPO_INFO = "/app/downLoadApp";

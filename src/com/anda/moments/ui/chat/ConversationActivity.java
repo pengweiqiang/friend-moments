@@ -9,6 +9,7 @@ import com.anda.moments.MyApplication;
 import com.anda.moments.R;
 import com.anda.moments.RongCloudEvent;
 import com.anda.moments.api.ApiMyUtils;
+import com.anda.moments.api.ApiUserUtils;
 import com.anda.moments.api.constant.ApiConstants;
 import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
@@ -21,6 +22,7 @@ import com.anda.moments.ui.base.BaseFragmentActivity;
 import com.anda.moments.utils.HttpConnectionUtil;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
+import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.ActionBar;
 
 import java.util.Locale;
@@ -94,6 +96,7 @@ public class ConversationActivity extends BaseFragmentActivity{
 
         mTargetId = intent.getData().getQueryParameter("targetId");
         mTargetIds = intent.getData().getQueryParameter("targetIds");
+        getIsCanChat();
         title = intent.getData().getQueryParameter("title");
 
         //intent.getData().getLastPathSegment();//获得当前会话类型
@@ -110,7 +113,6 @@ public class ConversationActivity extends BaseFragmentActivity{
      * @param mTargetId
      */
     private void enterFragment(Conversation.ConversationType mConversationType, String mTargetId) {
-
         ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentById(R.id.conversation);
 
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
@@ -234,6 +236,21 @@ public class ConversationActivity extends BaseFragmentActivity{
                     final User user = parseModel.getUser();
                     Uri headUri = Uri.parse(StringUtils.isEmpty(user.getIcon())?"":user.getIcon());
                     RongContext.getInstance().getUserInfoCache().put(user.getPhoneNum(),new UserInfo(user.getPhoneNum(),user.getUserName(), headUri));
+                }
+            }
+        });
+    }
+
+    private void getIsCanChat(){
+        ApiUserUtils.isCanChat(this, MyApplication.getInstance().getCurrentUser().getPhoneNum(), mTargetId, new HttpConnectionUtil.RequestCallback() {
+            @Override
+            public void execute(ParseModel parseModel) {
+                if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
+                    int isCan = parseModel.getIsCanChat();
+                    if(isCan==0){
+                        ToastUtils.showToast(ConversationActivity.this,"黑名单用户");
+                        AppManager.getAppManager().finishActivity();
+                    }
                 }
             }
         });

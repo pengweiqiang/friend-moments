@@ -600,3 +600,5 @@ gen
 *.iml
 .gradle
 .settings
+/src/com/anda/moments/utils/
+/bin

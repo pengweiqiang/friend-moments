@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="13dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         >
@@ -115,7 +115,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/btn_comment"
             android:layout_gravity="right"
-
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             />
 
     </RelativeLayout>

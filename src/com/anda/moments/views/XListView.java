@@ -9,6 +9,7 @@
 package com.anda.moments.views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,10 +20,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Scroller;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anda.moments.R;
-import com.anda.moments.utils.DateUtils;
 import com.anda.moments.utils.StringUtils;
 
 public class XListView extends ListView implements OnScrollListener {
@@ -148,6 +147,14 @@ public class XListView extends ListView implements OnScrollListener {
 	public void onLoadFinish(int pageNumber,int count,String footTxt) {
 		stopLoadMore();
 		setFootHintText(pageNumber,count,footTxt);
+	}
+	public void onLoadFinish(int pageNumber,int count,String footTxt,String colorId) {
+		stopLoadMore();
+		setFootHintText(pageNumber,count,footTxt);
+		mFootHintView.setText(footTxt);
+		mFooterView.setVisibility(VISIBLE);
+		mFootHintView.setVisibility(VISIBLE);
+		mFootHintView.setTextColor(Color.parseColor(colorId));
 	}
 	
 	/**

@@ -6,7 +6,10 @@ import com.anda.moments.api.constant.MethodType;
 import com.anda.moments.api.constant.ReqUrls;
 import com.anda.moments.http.HttpClientAddHeaders;
 import com.anda.moments.utils.HttpConnectionUtil.RequestCallback;
+import com.anda.moments.utils.StringUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,38 @@ import java.util.Map;
  * @author will
  */
 public class ApiMomentsUtils {
+
+	/**更改评论消息状态
+	 *
+	 * @param context
+	 * @param msgId 消息ID
+	 * @param phoneNum 评论消息接收者手机号码
+	 * @param requestCallback
+     */
+	public static void updateCommentMsg(Context context,String msgId, String phoneNum,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("msgId", msgId);
+		params.put("phoneNum", phoneNum);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_UPDATE_COMMENT_MSG, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
+
+	/**
+	 * 获取最新评论数量和获取最新评论消息列表接口
+	 * @param context
+	 * @param reqFlag 请求标识：1-获取最新评论消息列表，2-获取最新评论数量
+	 * @param phoneNum 评论消息接收者手机号码
+	 * @param requestCallback
+     */
+	public static void findLatestCommInfo(Context context,String phoneNum,String reqFlag,String pageNo,String pageSize,RequestCallback requestCallback){
+		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		params.put("reqFlag", reqFlag);
+		params.put("phoneNum", phoneNum);
+		params.put("pageSize",pageSize);
+		params.put("pageNo",pageNo);
+		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_FIND_LATEST_COMMINFO, false,
+				requestCallback, MethodType.UPDATE, context);
+	}
 	
 	/**
 	 * 添加好友
@@ -65,6 +100,11 @@ public class ApiMomentsUtils {
 	public static void publishInformation(Context context, String infoText,String isPublic,String type,List file,
 			RequestCallback requestCallBack) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
+		try {
+			infoText = URLEncoder.encode(URLEncoder.encode(infoText, "UTF-8"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		params.put("infoText", infoText);
 		params.put("isPublic", isPublic);
 		params.put("type",type);
@@ -77,15 +117,30 @@ public class ApiMomentsUtils {
 	 * 评论
 	 * @param context
 	 * @param infoId 动态信息id
+	 * @param parentId    评论ID，直接评论动态的时候请不要传递这个参数，进行好友评论互评时必须传递此参数
+	 * @param ownerPhoneNum 被评论者手机号
 	 * @param commentText  评论内容
 	 * @param requestCallback
 	 */
-	public static void addComment(Context context, String infoId,
+	public static void addComment(Context context, String infoId,String parentId,String ownerPhoneNum,
 			String commentText,String phoneNum ,RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
+		if(!StringUtils.isEmpty(parentId)) {
+			params.put("parentId", parentId);
+		}
+		if(!StringUtils.isEmpty(ownerPhoneNum)) {
+			params.put("ownerPhoneNum", ownerPhoneNum);
+		}
+
+		try {
+			commentText = URLEncoder.encode(URLEncoder.encode(commentText, "UTF-8"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		params.put("commentText", commentText);
 		params.put("phoneNum", phoneNum);
+		params.put("msgType","1");//评论
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_ADD_COMMENT, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
@@ -98,11 +153,13 @@ public class ApiMomentsUtils {
 	 * @param requestCallback
 	 */
 	public static void addLoveSth(Context context, String infoId,
-								  String type,String phoneNum ,RequestCallback requestCallback) {
+								  String type,String phoneNum ,String ownerPhoneNum,RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
 		params.put("type", type);
 		params.put("phoneNum", phoneNum);
+		params.put("ownerPhoneNum",ownerPhoneNum);
+		params.put("msgType","3");
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_LOVE_STH, false,
 				requestCallback, MethodType.UPDATE, context);
 	}
@@ -129,11 +186,13 @@ public class ApiMomentsUtils {
 	 * @param infoId 动态信息id
 	 * @param requestCallback
 	 */
-	public static void praise(Context context, String infoId,String phoneNum,
+	public static void praise(Context context, String infoId,String phoneNum,String ownerPhoneNum,
 							   RequestCallback requestCallback) {
 		Map<String, Object> params = HttpClientAddHeaders.getHeaders(context);
 		params.put("infoId", infoId);
 		params.put("phoneNum", phoneNum);
+		params.put("ownerPhoneNum",ownerPhoneNum);
+		params.put("msgType","2");//点赞
 		ApiUtils.getParseModel(params, ReqUrls.REQUEST_FRIENDS_PRAISE, false,
 				requestCallback, MethodType.UPDATE, context);
 	}

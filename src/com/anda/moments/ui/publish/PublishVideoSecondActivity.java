@@ -10,7 +10,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -48,6 +50,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -90,6 +94,11 @@ public class PublishVideoSecondActivity extends BaseActivity {
 
 	private ToggleButton mToggleButtonIsPublic;//是否公开
 	String isPublic = "0";//是否公开 1不公开 0 公开
+
+	private Button mBtnDelete;
+
+	private FrameLayout mFrameVideo;
+	private ImageView mIvAddVideo;
 
 	@Override
 	@SuppressLint("InlinedApi")
@@ -149,6 +158,11 @@ public class PublishVideoSecondActivity extends BaseActivity {
 		mThumbnailImageView = (ImageView) findViewById(R.id.thumbnailImageView);
 		mToggleButtonIsPublic = (ToggleButton)findViewById(R.id.toggle_is_public);
 		mToggleButtonIsPublic.setToggleOn();
+
+
+		mBtnDelete = (Button)findViewById(R.id.btn_video_del);
+		mFrameVideo = (FrameLayout)findViewById(R.id.fl_video_view);
+		mIvAddVideo = (ImageView)findViewById(R.id.iv_add_video);
 
 	}
 
@@ -223,6 +237,27 @@ public class PublishVideoSecondActivity extends BaseActivity {
 				isPublic = on?"0":"1";
 			}
 		});
+
+		mBtnDelete.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				deleteFile();
+				mIvAddVideo.setVisibility(View.VISIBLE);
+				mScalableVideoView.setVisibility(View.GONE);
+				mPlayImageView.setVisibility(View.GONE);
+				mThumbnailImageView.setVisibility(View.GONE);
+
+			}
+		});
+		mIvAddVideo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext,PublishVideoActivity.class);
+				startActivity(intent);
+				AppManager.getAppManager().finishActivity();
+			}
+		});
+
 	}
 
 
@@ -309,7 +344,7 @@ public class PublishVideoSecondActivity extends BaseActivity {
 	 * 发布视频
 	 */
 	public void sendVideo(){
-		final String content = mEtContent.getText().toString().trim();
+		String content = mEtContent.getText().toString().trim();
 		if(StringUtils.isEmpty(content) && StringUtils.isEmpty(filePath)){
 //			ToastUtils.showToast(mContext,"请输入内容");
 			mEtContent.requestFocus();
@@ -331,7 +366,14 @@ public class PublishVideoSecondActivity extends BaseActivity {
 
 		Map<String,String> params = new HashMap<String, String>();
 		params.put("phoneNum",MyApplication.getInstance().getCurrentUser().getPhoneNum());
-		params.put("infoText",content);
+		try {
+			content = URLEncoder.encode(URLEncoder.encode(content, "UTF-8"),"UTF-8");
+
+			params.put("infoText",content);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		params.put("isPublic",isPublic);
 
 		String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);

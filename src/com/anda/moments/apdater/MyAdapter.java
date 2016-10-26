@@ -43,6 +43,8 @@ import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -145,6 +147,7 @@ public class MyAdapter extends BaseAdapter {
 
                     viewHolder.multiMyImageView = (MultiMyImageView) convertView.findViewById(R.id.iv_multi_image);
                     viewHolder.mTvImagesCount = (TextView)convertView.findViewById(R.id.tv_images_count);
+                    viewHolder.mIvAudioMessage = (ImageView)convertView.findViewById(R.id.iv_message_audio);
                     break;
                 case ITEM_VIEW_TYPE_AUDIO://音频
                     viewHolder.mediaViewStub.setLayoutResource(R.layout.home_view_stub_my_audios);
@@ -241,10 +244,13 @@ public class MyAdapter extends BaseAdapter {
             viewHolder.mTvPublishTime.setVisibility(View.GONE);
         }
 
-        viewHolder.mTvContent.setText(StringUtils.ToDBC(infos.getInfoText()));
-
-
-
+        try {
+            String text  = URLDecoder.decode(URLDecoder.decode(infos.getInfoText(), "UTF-8"),"UTF-8");
+            //发表内容
+            viewHolder.mTvContent.setText(StringUtils.ToDBC(text));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         return convertView;
     }
@@ -283,12 +289,18 @@ public class MyAdapter extends BaseAdapter {
                     viewHolder.multiMyImageView.setVisibility(View.GONE);
                     viewHolder.mTvImagesCount.setVisibility(View.GONE);
                 } else {
-                    int imageSize = itemPicList.size();
-                    if(imageSize>1){
-                        viewHolder.mTvImagesCount.setVisibility(View.VISIBLE);
-                        viewHolder.mTvImagesCount.setText("共"+itemPicList.size()+"张");
+//                    int imageSize = itemPicList.size();
+//                    if(imageSize>1){
+//                        viewHolder.mTvImagesCount.setVisibility(View.VISIBLE);
+//                        viewHolder.mTvImagesCount.setText("共"+itemPicList.size()+"张");
+//                    }else{
+//                        viewHolder.mTvImagesCount.setVisibility(View.GONE);
+//                    }
+                    List<Audio> audios = infos.getAudios();
+                    if(audios==null||audios.isEmpty()){
+                        viewHolder.mIvAudioMessage.setVisibility(View.GONE);
                     }else{
-                        viewHolder.mTvImagesCount.setVisibility(View.GONE);
+                        viewHolder.mIvAudioMessage.setVisibility(View.VISIBLE);
                     }
 
                     viewHolder.multiMyImageView.setList(itemPicList);
@@ -409,6 +421,7 @@ public class MyAdapter extends BaseAdapter {
         //图片
         public MultiMyImageView multiMyImageView;//图片四宫格
         public TextView mTvImagesCount;
+        public ImageView mIvAudioMessage;
 
         //音频
         public View mViewAudio;//语音背景

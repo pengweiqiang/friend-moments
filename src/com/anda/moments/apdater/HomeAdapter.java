@@ -3,7 +3,6 @@ package com.anda.moments.apdater;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -54,6 +53,7 @@ import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.CustomSingleImageView;
+import com.anda.moments.views.FullLinearLayout;
 import com.anda.moments.views.NineGridlayout;
 import com.anda.moments.views.audio.MediaManager;
 import com.anda.moments.views.popup.ActionItem;
@@ -69,6 +69,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -84,9 +86,10 @@ public class HomeAdapter extends BaseAdapter {
     private static final int ITEM_VIEW_TYPE_AUDIO = 1;
     private static final int ITEM_VIEW_TYPE_VIDEO = 2;
     private static final int ITEM_VIEW_TYPE_TEXT = 3;
+    private static final int ITEM_VIEW_TYPE_IMAGES_AUDIO = 4;//图片+语音
 
 
-    private static final int ITEM_VIEW_TYPE_COUNT = 4;
+    private static final int ITEM_VIEW_TYPE_COUNT = 5;
 
     public int playingAudioIndex = -1;
 
@@ -128,6 +131,9 @@ public class HomeAdapter extends BaseAdapter {
         List<Audio> audios = item.getAudios();
         List<Images> images = item.getImages();
 
+//        if((images!=null && !images.isEmpty()) && (audios!=null && !audios.isEmpty())){//图片+语音
+//          itemType = ITEM_VIEW_TYPE_IMAGES_AUDIO;
+//        } else
         if (images!=null && !images.isEmpty()) {//图片
             itemType = ITEM_VIEW_TYPE_IMAGES;
         } else if (audios!=null && !audios.isEmpty()) {//音频
@@ -179,12 +185,20 @@ public class HomeAdapter extends BaseAdapter {
                 case ITEM_VIEW_TYPE_TEXT:
 //                    mediaViewStub.setLayoutResource(R.layout.);
                     break;
+                case ITEM_VIEW_TYPE_IMAGES_AUDIO://图片+语音
+                    mediaViewStub.setLayoutResource(R.layout.home_view_stub_voices_images);
+                    mediaViewStub.inflate();
+
+                    viewHolder.ivOne = (CustomSingleImageView) convertView.findViewById(R.id.iv_oneimage);
+                    viewHolder.mPlayVoice = (ImageView)convertView.findViewById(R.id.iv_play_voice);
+                    break;
                 case ITEM_VIEW_TYPE_IMAGES://图片
                     mediaViewStub.setLayoutResource(R.layout.home_view_stub_images);
                     mediaViewStub.inflate();
 
                     viewHolder.ivMore = (NineGridlayout) convertView.findViewById(R.id.iv_ngrid_layout);
                     viewHolder.ivOne = (CustomSingleImageView) convertView.findViewById(R.id.iv_oneimage);
+                    viewHolder.mIvPlayVoiceImages = (ImageView)convertView.findViewById(R.id.iv_play_voice_images);
                     break;
                 case ITEM_VIEW_TYPE_AUDIO://音频
                     mediaViewStub.setLayoutResource(R.layout.home_view_stub_audios);
@@ -264,12 +278,18 @@ public class HomeAdapter extends BaseAdapter {
             //设置固定大小
             viewHolder.commentListView.setHasFixedSize(true);
             //创建线性布局
-            LinearLayoutManager mLayoutManagerComment = new LinearLayoutManager(context);
-            //垂直方向
+            FullLinearLayout mLayoutManagerComment = new FullLinearLayout(context,1);
+//            //垂直方向
             mLayoutManagerComment.setOrientation(OrientationHelper.VERTICAL);
-            //给RecyclerView设置布局管理器
+//            //给RecyclerView设置布局管理器
             viewHolder.commentListView.setLayoutManager(mLayoutManagerComment);
+
+//            final FullyLinearLayoutManager manager = new FullyLinearLayoutManager(context);
+//            manager.setOrientation(OrientationHelper.VERTICAL);
+//            manager.setSmoothScrollbarEnabled(true);
+//            viewHolder.commentListView.setLayoutManager(new FullLinearLayout(context,1));
             viewHolder.commentListView.setAdapter(viewHolder.commentAdapter);
+
 
 
             viewHolder.mViewComment.setOnClickListener(viewHolder);//评论
@@ -293,8 +313,13 @@ public class HomeAdapter extends BaseAdapter {
         showItemTypeData(itemViewType,circleMessage,viewHolder);
 
 
-        //发表内容
-        viewHolder.mTvContent.setText(StringUtils.ToDBC(circleMessage.getInfoText()));
+        try {
+            String text  = URLDecoder.decode(URLDecoder.decode(circleMessage.getInfoText(), "UTF-8"),"UTF-8");
+            //发表内容
+            viewHolder.mTvContent.setText(StringUtils.ToDBC(text));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         User publishUser = circleMessage.getPublishUser();
         if(publishUser!=null) {
             viewHolder.mTvUserName.setText(publishUser.getUserName());
@@ -360,6 +385,41 @@ public class HomeAdapter extends BaseAdapter {
         return convertView;
     }
 
+//    /**
+//     * 获取评论列表
+//     * @param mDatas
+//     * @return
+//     */
+//    private List<CommentUser> getCommentUsers(List<CommentUser> mDatas){
+//        List<CommentUser> commentUserList = new ArrayList<CommentUser>();
+//        commentUserList.addAll(mDatas);
+//        int beforeSize = mDatas.size();
+//        Log.e("1111111",+beforeSize+"  ");
+//        for(int i = 0 ;i<beforeSize;i++){
+//            List<CommentUser> commentUsers = getCommentUsers(mDatas.get(i));
+//            commentUserList.addAll(commentUsers);
+//        }
+//
+//        return mDatas;
+//    }
+//
+//    private List<CommentUser> getCommentUsers(CommentUser commentUser){
+//        List<CommentUser> commentUserList = new ArrayList<CommentUser>();
+//        if(commentUser!=null && commentUser.getSubCommUsers()!=null){
+//            List<CommentUser> subCommentUsers = commentUser.getSubCommUsers();
+//            for(int i = 0;i<subCommentUsers.size();i++){
+//                CommentUser subCommentUser = subCommentUsers.get(i);
+//                subCommentUser.setReplyText(subCommentUser.getUserName()+"<font color=\"#F29c9F\">回复</font>"+commentUser.getUserName()+"：");
+//                commentUserList.add(subCommentUser);
+//            }
+////            commentUserList.addAll(subCommentUsers);
+//            for(CommentUser subCommentUser:subCommentUsers){
+//                getCommentUsers(subCommentUser);
+//            }
+//        }
+//        return commentUserList;
+//    }
+
     private void calRecycleViewHeight(RecyclerView recyclerView,int size){
         ViewGroup.LayoutParams mParams = recyclerView.getLayoutParams();
         mParams.height = DeviceInfo.dp2px(context,42) * size+DeviceInfo.dp2px(context,1)+1;
@@ -369,6 +429,21 @@ public class HomeAdapter extends BaseAdapter {
 
     private void showItemTypeData(int itemViewType, final CircleMessage circleMessage, final ViewHolder viewHolder){
         switch (itemViewType){
+            case ITEM_VIEW_TYPE_IMAGES_AUDIO:
+                //图片展示  start
+                final List<Images> imagesLists = circleMessage.getImages();
+
+                handlerOneImage(viewHolder, imagesLists.get(0));
+
+                viewHolder.ivOne.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImagePagerActivity.imageSize = new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
+                        ImagePagerActivity.startImagePagerActivity(context, imagesLists, 0);
+                    }
+                });
+
+                break;
             case ITEM_VIEW_TYPE_TEXT:
 
                 break;
@@ -398,6 +473,24 @@ public class HomeAdapter extends BaseAdapter {
 //            viewHolder.ivMore.setOnClickListener();
                 }
                 //图片展示  end
+
+                //播放图片中的语音 start
+                final List<Audio> audiosImages = circleMessage.getAudios();
+                if(audiosImages!=null && !audiosImages.isEmpty()){
+                    viewHolder.mIvPlayVoiceImages.setVisibility(View.VISIBLE);
+                    viewHolder.mIvPlayVoiceImages.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
+                                downloadMedia(audiosImages.get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
+                            }
+                        }
+                    });
+                }else{
+                    viewHolder.mIvPlayVoiceImages.setVisibility(View.GONE);
+                }
+                //播放图片中的语音 end
+
                 break;
             case ITEM_VIEW_TYPE_AUDIO://语音
                 List<Audio> audios = circleMessage.getAudios();
@@ -590,6 +683,7 @@ public class HomeAdapter extends BaseAdapter {
         //图片类型 start
         public NineGridlayout ivMore;//图片九宫格
         public CustomSingleImageView ivOne;//单张图片
+        public ImageView mIvPlayVoiceImages;//图片中的语音
         //图片类型 end
 
         //视频类型 start
@@ -607,6 +701,10 @@ public class HomeAdapter extends BaseAdapter {
         public TextView mTvAudioSecond;//时长
 
         //音频类型 end
+
+        //图片+语音 start
+        public ImageView mPlayVoice;
+        //图片+语音 end
 
         public ImageView mIvUserHead;//头像
         public TextView mTvUserName;//昵称
@@ -673,19 +771,31 @@ public class HomeAdapter extends BaseAdapter {
         public void onItemClick(View view, int commentPosition) {
             CircleMessage circleMessage = getItem(position);
             //当前的评论
+//            List<CommentUser> commentUsers = circleMessage.getCommentInfo().getCommentUsers();
+//            CommentUser commentUser = getCommentUsers(commentUsers).get(commentPosition);
             CommentUser commentUser = circleMessage.getCommentInfo().getCommentUsers().get(commentPosition);
 
-            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
-
-            }else{
+//            if(commentUser.getUserId().equals(circleMessage.getPublishUser().getUserId())){//自己评论自己的
+//
+//            }else{
+            if(circleMessage.getPublishUser().getUserId().equals(commentUser.getUserId()) //回复楼主
+                    || commentUser.getUserId().equals(MyApplication.getInstance().getCurrentUser().getUserId())){//回复自己
+                CommentConfig commentConfig = new CommentConfig();
+                commentConfig.circlePosition = position;
+                commentConfig.commentPosition = commentPosition;
+                commentConfig.commentType = CommentConfig.Type.PUBLIC;
+                commentConfig.replyUser = commentUser;
+                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
+            }else {//回复其他人
                 CommentConfig commentConfig = new CommentConfig();
                 commentConfig.circlePosition = position;
                 commentConfig.commentPosition = commentPosition;
                 commentConfig.commentType = CommentConfig.Type.REPLY;
                 commentConfig.replyUser = commentUser;
 
-                homeFragment.updateEditTextBodyVisible(View.VISIBLE,commentConfig);
+                homeFragment.updateEditTextBodyVisible(View.VISIBLE, commentConfig);
             }
+//            }
         }
 
         @Override
@@ -827,21 +937,38 @@ public class HomeAdapter extends BaseAdapter {
     private void showDeleteCircleWindow(final int circlePosition){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // 设置图标
-        builder.setTitle("确定删除？");
-        builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+//        builder.setTitle("确定删除？");
 
+//        builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        }).setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+        final AlertDialog alertDialog = builder.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog_delete);
+        window.findViewById(R.id.umeng_update_id_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deleteCircleMessage(circlePosition);
+            public void onClick(View v) {
+                alertDialog.cancel();
             }
         });
-        builder.show();
+        window.findViewById(R.id.umeng_update_id_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCircleMessage(circlePosition);
+                alertDialog.cancel();
+            }
+        });
+
     }
     /**
      * 删除动态
@@ -872,7 +999,8 @@ public class HomeAdapter extends BaseAdapter {
             return;
         }
         String infoId = String.valueOf(datalist.get(circlePosition).getInfoId());
-        ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(), new HttpConnectionUtil.RequestCallback() {
+        String ownerPhoneNum = datalist.get(circlePosition).getPublishUser().getPhoneNum();
+        ApiMomentsUtils.praise(context, infoId,user.getPhoneNum(),ownerPhoneNum, new HttpConnectionUtil.RequestCallback() {
             @Override
             public void execute(ParseModel parseModel) {
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
@@ -1054,7 +1182,8 @@ public class HomeAdapter extends BaseAdapter {
             return;
         }
         String infoId = String.valueOf(datalist.get(position).getInfoId());
-        ApiMomentsUtils.addLoveSth(context,infoId,"2",user.getPhoneNum(),new HttpConnectionUtil.RequestCallback(){
+        String ownerPhoneNum = datalist.get(position).getPublishUser().getPhoneNum();
+        ApiMomentsUtils.addLoveSth(context,infoId,"2",user.getPhoneNum(),ownerPhoneNum,new HttpConnectionUtil.RequestCallback(){
 
             @Override
             public void execute(ParseModel parseModel) {
@@ -1176,29 +1305,39 @@ public class HomeAdapter extends BaseAdapter {
      */
     AnimationDrawable animationDrawable;
     private void playAudioRecord(String filePath,final ViewHolder viewHolder){
+        if(viewHolder.animationDrawable!=null) {
 //        viewHolder.mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
-        if(viewHolder.animationDrawable!=null && viewHolder.animationDrawable.isRunning()){
-            viewHolder.animationDrawable.selectDrawable(2);
-            viewHolder.animationDrawable.stop();
-        }
+            if (viewHolder.animationDrawable != null && viewHolder.animationDrawable.isRunning()) {
+                viewHolder.animationDrawable.selectDrawable(2);
+                viewHolder.animationDrawable.stop();
+            }
 //		if(animation==null) {
 //        animationDrawable = (AnimationDrawable) viewHolder.mViewAnim.getBackground();
 //		}
-        playingAudioIndex = viewHolder.position;
-        animationDrawable = viewHolder.animationDrawable;
-        viewHolder.animationDrawable.start();
+            playingAudioIndex = viewHolder.position;
+            animationDrawable = viewHolder.animationDrawable;
+            viewHolder.animationDrawable.start();
 
-        MediaManager.playSound(filePath,
-                new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        viewHolder.animationDrawable.stop();
-                        playingAudioIndex = -1;//音频播放停止
-                        viewHolder.animationDrawable.selectDrawable(2);
+            MediaManager.playSound(filePath,
+                    new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            viewHolder.animationDrawable.stop();
+                            playingAudioIndex = -1;//音频播放停止
+                            viewHolder.animationDrawable.selectDrawable(2);
 //                        viewHolder.mViewAnim
 //                                .setBackgroundResource(R.drawable.icon_voice_anim_3);
-                    }
-                });
+                        }
+                    });
+        }else{
+            MediaManager.playSound(filePath,
+                    new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            playingAudioIndex = -1;//音频播放停止
+                        }
+                    });
+        }
     }
 
     public void stopAnimAudio(ViewHolder viewHolder){

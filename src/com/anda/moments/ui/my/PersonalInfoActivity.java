@@ -323,12 +323,12 @@ public class PersonalInfoActivity extends BaseActivity {
 
 					startPhotoZoom(
 							Uri.fromFile(new File(Constant.MyAvatarDir, imageName)),
-							480);
+							580);
 					break;
 
 				case PHOTO_REQUEST_GALLERY:
 					if (data != null)
-						startPhotoZoom(data.getData(), 100);
+						startPhotoZoom(data.getData(), 580);
 					break;
 
 				case PHOTO_REQUEST_CUT:
@@ -369,12 +369,13 @@ public class PersonalInfoActivity extends BaseActivity {
 		// outputX,outputY 是剪裁图片的宽高
 		intent.putExtra("outputX", size);
 		intent.putExtra("outputY", size);
+		intent.putExtra("scale", true);
 		intent.putExtra("return-data", false);
 
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT,
 				Uri.fromFile(new File(Constant.MyAvatarDir, imageName)));
-		intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 		intent.putExtra("noFaceDetection", true); // no face detection
 		startActivityForResult(intent, PHOTO_REQUEST_CUT);
 	}

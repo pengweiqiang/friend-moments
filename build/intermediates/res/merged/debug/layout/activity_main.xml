@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -59,21 +60,44 @@
 
             </RadioGroup>
             <LinearLayout
-                android:id="@+id/ll_message"
+
                 android:layout_width="match_parent"
                 android:layout_height="11dp"
                 android:orientation="horizontal"
                 android:weightSum="3"
-                android:gravity="center|top"
+                android:gravity="top"
                 >
-                <TextView
-                    android:layout_width="6dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginLeft="22dp"
+                <RelativeLayout
+                    android:id="@+id/ll_message_new"
+                    android:layout_width="0dp"
                     android:layout_height="6dp"
-                    android:background="@drawable/unread_message_drawable"
-                    />
+                    android:gravity="right"
+                    android:layout_weight="0.7"
+                    android:layout_marginTop="3dp"
+                    >
+                    <TextView
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/unread_message_drawable"
+                        />
 
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/ll_message"
+                    android:layout_width="0dp"
+                    android:layout_height="6dp"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:layout_marginTop="3dp"
+                    >
+
+                    <TextView
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/unread_message_drawable"
+                        />
+                </RelativeLayout>
 
 
             </LinearLayout>

@@ -47,6 +47,7 @@
     
     <color name="grey_bottom">#f9f9f9</color>
     <color name="transparent">#e0FFFFFF</color>
+    <color name="transparent2">#00000000</color>
     <color name="grey">#ff808080</color>
     <color name="main_tab_text_color_unselected">#707070</color>
     <color name="main_tab_text_color_selected">#e78689</color>

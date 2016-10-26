@@ -1,6 +1,7 @@
 package com.anda.moments.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.anda.moments.utils.DeviceInfo;
 import com.anda.moments.utils.Log;
 import com.squareup.picasso.Picasso;
 
@@ -87,7 +89,13 @@ public class CustomSingleImageView extends ImageView {
 //                    height =width;
 //                }
                 Log.e("CustomSingleImageView",this.getWidth()+"   "+this.getHeight());
-                Picasso.with(getContext()).load(url).placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
+                int width = this.getWidth();
+                int height = this.getHeight();
+                if(width==0){
+                    width = DeviceInfo.getScreenWidth()*2/3;
+                    height = width;
+                }
+                Picasso.with(getContext()).load(url).config(Bitmap.Config.RGB_565).resize(width,height).centerCrop().placeholder(new ColorDrawable(Color.parseColor("#f5f5f5"))).into(this);
             }
 
             if(MAX_WIDTH > 0){

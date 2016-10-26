@@ -1,10 +1,10 @@
 [
     {
-        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/res/merged/androidTest/debug/anim/focus_animation.xml",
-        "source": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/bundles/debug/res/anim/focus_animation.xml"
-    },
-    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/res/merged/androidTest/debug/anim/indicator_animation.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/bundles/debug/res/anim/indicator_animation.xml"
+    },
+    {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/res/merged/androidTest/debug/anim/focus_animation.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/WXLikeVideoRecorderLib/build/intermediates/bundles/debug/res/anim/focus_animation.xml"
     }
 ]

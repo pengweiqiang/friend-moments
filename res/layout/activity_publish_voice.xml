@@ -17,14 +17,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="200dp"
         android:background="@color/white"
         >
 
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="140dp"
             android:background="@null"
             android:hint="请输入内容"
             android:textColor="#434343"
@@ -37,6 +37,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_voice"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
@@ -85,7 +86,26 @@
 
 
 
+
+
     </RelativeLayout>
+
+    <GridView
+        android:id="@+id/noScrollgridview"
+
+        android:layout_below="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:horizontalSpacing="3dp"
+        android:layout_marginBottom="2dp"
+
+        android:numColumns="4"
+        android:scrollbars="none"
+        android:verticalSpacing="3dp" >
+    </GridView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -149,14 +169,6 @@
             />
 
     </RelativeLayout>
-
-
-
-
-
-
-
-
 
 
 </LinearLayout>

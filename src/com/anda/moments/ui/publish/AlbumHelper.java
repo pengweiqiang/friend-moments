@@ -1,21 +1,22 @@
 package com.anda.moments.ui.publish;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.Albums;
 import android.provider.MediaStore.Images.Media;
 import android.provider.MediaStore.Images.Thumbnails;
 
 import com.anda.moments.entity.ImageItem;
 import com.anda.moments.utils.Log;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * 专辑帮助类
@@ -175,13 +176,30 @@ public class AlbumHelper {
 		// 构造缩略图索引
 		getThumbnail();
 
-		// 构造相册索引
-		String columns[] = new String[] { Media._ID, Media.BUCKET_ID,
-				Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
-				Media.SIZE, Media.BUCKET_DISPLAY_NAME };
-		// 得到一个游标
-		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,
-				null);
+//		// 构造相册索引
+//		String columns[] = new String[] { Media._ID, Media.BUCKET_ID,
+//				Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
+//				Media.SIZE, Media.BUCKET_DISPLAY_NAME };
+//		// 得到一个游标
+//		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,
+//				null);
+
+
+
+
+		Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+		ContentResolver mContentResolver = context.getContentResolver();
+		// 只查询jpeg和png的图片
+		Cursor cur = mContentResolver.query(imageUri, null,
+				MediaStore.Images.Media.MIME_TYPE + " in(?, ?)",
+				new String[] { "image/jpeg", "image/png" },
+				MediaStore.Images.Media.DATE_MODIFIED + " desc");
+
+
+		int pathIndex = cur
+				.getColumnIndex(MediaStore.Images.Media.DATA);
+
+
 		if (cur.moveToFirst()) {
 			// 获取指定列的索引
 			int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);

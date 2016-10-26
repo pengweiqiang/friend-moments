@@ -31,6 +31,7 @@ import com.anda.moments.commons.AppManager;
 import com.anda.moments.commons.Constant;
 import com.anda.moments.entity.User;
 import com.anda.moments.receive.MyReceiveMessageListener;
+import com.anda.moments.service.MessageService;
 import com.anda.moments.ui.base.BaseFragmentActivity;
 import com.anda.moments.ui.fragments.FriendsFragment;
 import com.anda.moments.ui.fragments.HomeFragment;
@@ -42,6 +43,7 @@ import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.ToastUtils;
 import com.anda.moments.views.audio.MediaManager;
+import com.tencent.bugly.Bugly;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.umeng.onlineconfig.OnlineConfigLog;
 import com.umeng.onlineconfig.UmengOnlineConfigureListener;
@@ -57,7 +59,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements View.OnLayoutChangeListener {
 	
 	//首页
 	private HomeFragment mHomeFragment;
@@ -78,6 +80,7 @@ public class MainActivity extends BaseFragmentActivity {
 	private int checkId = tabIds[0];
 
 	private View mViewMessage;//消息提醒
+	private View mViewCircleMessage;//评论消息
 
 
 	public LinearLayout mEditTextBody;
@@ -105,6 +108,10 @@ public class MainActivity extends BaseFragmentActivity {
 		GlobalConfig.GLOBAL_NET_STATE = Boolean.valueOf(value);
 
 		OnlineConfigAgent.getInstance().setOnlineConfigListener(configureListener);
+
+		startService(new Intent(this, MessageService.class));
+
+		Bugly.init(getApplicationContext(), "30913d88dd", false);
     }
 
 	UmengOnlineConfigureListener configureListener = new UmengOnlineConfigureListener() {
@@ -119,6 +126,7 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onStart();
 		UmengUpdateAgent.update(this);
 	}
+
 
 
 
@@ -174,11 +182,33 @@ public class MainActivity extends BaseFragmentActivity {
 		sendIv = (ImageView)findViewById(R.id.sendIv);
 		mEditTextBody = (LinearLayout)findViewById(R.id.editTextBodyLl);
 		mViewMessage = findViewById(R.id.ll_message);
-		mViewMessage.setVisibility(View.GONE);
-    	
-    }
+		mViewMessage.setVisibility(View.INVISIBLE);
+
+		mViewCircleMessage = findViewById(R.id.ll_message_new);
+		mViewCircleMessage.setVisibility(View.INVISIBLE);
+
+
+
+		activityRootView = findViewById(R.id.root_layout);
+		//获取屏幕高度
+		screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
+		//阀值设置为屏幕高度的1/3
+		keyHeight = screenHeight/3;
+
+	}
 	public void showMessage(int visibily){
 		mViewMessage.setVisibility(visibily);
+	}
+
+	public void showNewFriendMessage(int reqCount,int visibily){
+		showMessage(visibily);
+		if(mFriendsFragment!=null) {
+			mFriendsFragment.showNewFriendMsg(reqCount);
+		}
+	}
+
+	public void showCircleMessage(int visibily){
+		mViewCircleMessage.setVisibility(visibily);
 	}
 
 	private void initListener(){
@@ -211,17 +241,20 @@ public class MainActivity extends BaseFragmentActivity {
 			if(mHomeFragment == null){
 				mHomeFragment = new HomeFragment();
 			}
+			mHomeFragment.setUserVisibleHint(true);
 			return mHomeFragment;
 		case R.id.friends:
 			if(mFriendsFragment == null){
 				mFriendsFragment = new FriendsFragment();
 			}
+			mFriendsFragment.setUserVisibleHint(true);
 			return mFriendsFragment;
 		
 		case R.id.my:
 			if(mMyFragment == null){
 				mMyFragment = new MyFragment();
 			}
+			mMyFragment.setUserVisibleHint(true);
 			return mMyFragment;
 
 		default:
@@ -463,8 +496,10 @@ public class MainActivity extends BaseFragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		stopService(new Intent(this,MessageService.class));
 		MediaManager.release();
 		OnlineConfigAgent.getInstance().removeOnlineConfigListener();
+
 	}
 
 	@Override
@@ -478,10 +513,31 @@ public class MainActivity extends BaseFragmentActivity {
 	protected void onResume() {
 		super.onResume();
 //		MediaManager.resume();
+		//添加layout大小发生改变监听器
+		activityRootView.addOnLayoutChangeListener(this);
 	}
 
 
+	public void showInputComment(String userName){
+		mEditTextBody.setVisibility(View.VISIBLE);
+		mEditTextComment.setHint("回复"+userName);
+	}
 
 
+	//Activity最外层的Layout视图
+	private View activityRootView;
+	//屏幕高度
+	private int screenHeight = 0;
+	//软件盘弹起后所占高度阀值
+	private int keyHeight = 0;
+	@Override
+	public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+		if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > keyHeight)){
 
+		}else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > keyHeight)){
+
+			mEditTextBody.setVisibility(View.GONE);
+
+		}
+	}
 }

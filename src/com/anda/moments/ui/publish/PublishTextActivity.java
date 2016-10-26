@@ -29,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -130,7 +132,15 @@ public class PublishTextActivity extends BaseActivity {
 				multipartBuilder.addFormDataPart("phoneNum", MyApplication.getInstance().getCurrentUser().getPhoneNum());
 				String fileMetaInfoStr = JsonUtils.toJson(fileMetaInfo);
 				multipartBuilder.addFormDataPart("fileMetaInfo",fileMetaInfoStr);
-				multipartBuilder.addFormDataPart("infoText",content);//动态内容
+
+				try {
+					String contentStr = URLEncoder.encode(URLEncoder.encode(content, "UTF-8"),"UTF-8");
+
+					multipartBuilder.addFormDataPart("infoText",contentStr);//动态内容
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+
 				multipartBuilder.addFormDataPart("isPublic",isPublic);
 
 				RequestBody requestBody = multipartBuilder.build();

@@ -1,10 +1,10 @@
 package com.anda.moments.views.audio;
 
+import android.media.MediaRecorder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-
-import android.media.MediaRecorder;
 
 public class MyAudioManager {
 
@@ -81,7 +81,7 @@ public class MyAudioManager {
 	 * @return
 	 */
 	private String generateFileName() {
-		return UUID.randomUUID().toString() + ".amr";
+		return UUID.randomUUID().toString() + ".wav";
 	}
 
 	public int getVoiceLevel(int maxLevel) {

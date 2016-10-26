@@ -252,6 +252,10 @@
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/ic_tab_my.xml"
     },
     {
+        "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/header_msg_bg.xml",
+        "source": "/Users/pengweiqiang/Documents/android_my/Moments/res/drawable/header_msg_bg.xml"
+    },
+    {
         "merged": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/res/merged/debug/drawable/rc_ic_smiley.xml",
         "source": "/Users/pengweiqiang/Documents/android_my/Moments/build/intermediates/exploded-aar/Moments/IMKit/unspecified/res/drawable/rc_ic_smiley.xml"
     },

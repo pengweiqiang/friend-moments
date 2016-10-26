@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.anda.moments"
     android:layout_width="match_parent"
-    android:layout_height="42dp"
+    android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="4dp"
      >
 
     <com.anda.moments.views.round.SelectableRoundedImageView
@@ -34,14 +35,10 @@
         android:layout_toRightOf="@+id/iv_comment_user_head"
         android:layout_width="match_parent"
         android:layout_below="@+id/tv_comment_user_name"
-        android:layout_height="20dp"
-        android:layout_marginBottom="7dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:paddingRight="3dp"
-        android:gravity="bottom"
-        android:text="评论内容"
-        android:singleLine="true"
-        android:ellipsize="end"
+        android:text="评论内容sdf\nsdfsdf"
         android:textColor="#898989"
         android:textSize="12sp" />
 
@@ -60,7 +57,7 @@
         android:id="@+id/line"
         android:layout_width="wrap_content"
         android:layout_height="1px"
-        android:layout_below="@+id/iv_comment_user_head"
+        android:layout_below="@+id/commentTv"
         android:background="#d4d4d4"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="1dp"

@@ -5,6 +5,7 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:id="@+id/root_layout"
     >
 
     <com.anda.moments.views.ActionBar
@@ -19,6 +20,7 @@
         android:layout_below="@+id/actionBar"
         android:layout_above="@+id/bottom_line"
         android:scrollbars="none"
+        android:fillViewport="true"
         >
 
         <LinearLayout

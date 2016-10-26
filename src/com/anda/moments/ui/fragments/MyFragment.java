@@ -157,6 +157,15 @@ public class MyFragment extends BaseFragment implements SwipeRefreshLayout.OnRef
 	}
 
 	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		if(isVisibleToUser && isAdded()){
+			mSwipeRefreshLayout.setRefreshing(true);
+			onRefresh();
+		}
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
 		showMyInfo2Cache();

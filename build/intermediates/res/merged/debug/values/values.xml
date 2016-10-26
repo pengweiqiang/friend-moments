@@ -352,6 +352,7 @@
     <color name="trade_add">#1d802a</color>
     <color name="trade_reduce">#f66d22</color>
     <color name="transparent">#e0FFFFFF</color>
+    <color name="transparent2">#00000000</color>
     <color name="white">#ffffffff</color>
     <declare-styleable name="AsyncImageView"><attr format="dimension" name="RCMinShortSideSize"/><attr format="dimension" name="RCCornerRadius"/><attr name="RCShape"><flag name="square" value="0"/><flag name="circle" value="1"/></attr><attr format="reference" name="RCDefDrawable"/></declare-styleable>
     <declare-styleable name="CameraPreviewView"><attr format="reference" name="cpv_focusDrawable"/><attr format="reference" name="cpv_indicatorDrawable"/></declare-styleable>

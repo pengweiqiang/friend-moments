@@ -3,6 +3,7 @@ package com.anda.moments.apdater;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.anda.moments.utils.Log;
 import com.anda.moments.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +40,42 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public CommentRecyclerViewAdapter(Context context,List<CommentUser> mDatas){
         this.mContext = context;
         this.mDatas = mDatas;
+        if(this.mDatas == null){
+           this.mDatas = new ArrayList<CommentUser>();
+        }
         mInflater = LayoutInflater.from(context);
         headWidth = DeviceInfo.dp2px(context,70);
+
+    }
+    private List<CommentUser> getCommentUsers(CommentUser commentUser){
+        List<CommentUser> commentUserList = new ArrayList<CommentUser>();
+        if(commentUser!=null && commentUser.getSubCommUsers()!=null){
+            List<CommentUser> subCommentUsers = commentUser.getSubCommUsers();
+            for(int i = 0;i<subCommentUsers.size();i++){
+                CommentUser subCommentUser = subCommentUsers.get(i);
+                subCommentUser.setReplyText(subCommentUser.getUserName()+"<font color=\"#F29c9F\">回复</font>"+commentUser.getUserName()+"：");
+                commentUserList.add(subCommentUser);
+            }
+//            commentUserList.addAll(subCommentUsers);
+            for(CommentUser subCommentUser:subCommentUsers){
+                getCommentUsers(subCommentUser);
+            }
+        }
+        return commentUserList;
     }
 
     public void setDatas(List<CommentUser> datas){
-        if(datas == null ){
+        if(datas == null){
             datas = new ArrayList<CommentUser>();
         }
-        mDatas = datas;
-        size = datas.size();
+        this.mDatas.clear();
+        this.mDatas.addAll(datas);
+//        int beforeSize = mDatas.size();
+//        for(int i = 0 ;i<beforeSize;i++){
+//            List<CommentUser> commentUsers = getCommentUsers(datas.get(i));
+//            mDatas.addAll(commentUsers);
+//        }
+        size = mDatas.size();
         notifyDataSetChanged();
     }
 
@@ -65,11 +94,24 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         String name = bean.getUserName();
 
         Picasso.with(mContext).load(bean.getIcon()).placeholder(R.drawable.default_useravatar).resize(headWidth,headWidth).centerCrop().into(holder.mIvHead);
-        holder.mTvCommentUserName.setText(name);
+        String commUserName = bean.getCommUserName();//被评论人。
+        if(StringUtils.isEmpty(commUserName)){
+            holder.mTvCommentUserName.setText(name);
+        }else{
+            holder.mTvCommentUserName.setText(Html.fromHtml(name+"<font color=\"#F29c9F\">回复</font>"+commUserName+"："));
+        }
+
         if(StringUtils.isEmpty(bean.getText())){
             holder.commentTv.setText("萌化了～");
         }else {
-            holder.commentTv.setText(bean.getText());
+            try {
+                String text  = URLDecoder.decode(URLDecoder.decode(bean.getText(), "UTF-8"),"UTF-8");
+
+                holder.commentTv.setText(text);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
         }
         holder.mTvCommentTime.setText(DateUtils.getTimestampString(bean.getPublishTime()));
 
@@ -83,6 +125,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             holder.mIvHead.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int position = holder.getAdapterPosition();
                     Intent intent = new Intent(mContext,UserHomeActivity.class);
                     User user = new User();
                     CommentUser commentUser = mDatas.get(position);
@@ -100,8 +143,8 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    int position = holder.getPosition();
-//                    mOnItemClickListener.onItemClick(v,position);
+                    int position = holder.getAdapterPosition();
+                    mOnItemClickListener.onItemClick(v,position);
                 }
             });
 
@@ -130,6 +173,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
      * @param commentUser
      */
     public void add(int position,CommentUser commentUser){
+        position = size;
         if(position>size){
             position = size;
         }else if(position<0){
@@ -140,9 +184,10 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             mDatas = new ArrayList<CommentUser>();
         }
 //        mDatas.add(position,praiseUser);
+        mDatas.add(commentUser);
         size = mDatas.size();
 
-//        mDatas.add(position,commentUser);
+
         /**
          * 使用notifyItemInserted/notifyItemRemoved会有动画效果
          * 而使用notifyDataSetChanged()则没有
@@ -160,7 +205,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
             return null;
         }
         size = mDatas.size();
-//        CommentUser commentUser = mDatas.remove(position);
+        CommentUser commentUser = mDatas.remove(position);
         notifyItemRemoved(position);
         return null;
     }
@@ -172,7 +217,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         if(mDatas == null){
             return 0;
         }
-        return size;
+        return mDatas.size();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
