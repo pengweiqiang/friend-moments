@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anda.moments"
-    android:versionCode="16"
-    android:versionName="1.1.6" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="19"
+    android:versionName="1.1.8" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -18,14 +19,17 @@
     <!-- 允许应用读取低级别的系统日志文件 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="23" />
 
     <application
         android:name="com.anda.moments.MyApplication"
@@ -255,7 +259,7 @@
             android:value="55a3c08e67e58e893f0034c1" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="umeng" />
+            android:value="xiaomi" />
 
         <!--bugly start-->
         <activity
@@ -263,6 +267,16 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <!--bugly end-->
+
+        <!--xiaomi ad start-->
+        <activity
+            android:name="com.xiaomi.ad.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+
+        <!--xiaomi ad end-->
 
 
     </application>

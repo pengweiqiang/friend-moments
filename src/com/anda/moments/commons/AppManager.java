@@ -112,7 +112,7 @@ public class AppManager {
 			}
 		}
 		activityStack.clear();
-		System.exit(0);
+		//System.exit(0);
 	}
 
 	/**

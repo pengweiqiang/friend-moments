@@ -26,7 +26,7 @@ import java.util.TimerTask;
 public class MessageService extends Service{
 
     public Timer mTimer = new Timer();// 定时器
-    private static final int PERIOD_TIME = 5*1000;
+    private static final int PERIOD_TIME = 50*1000;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

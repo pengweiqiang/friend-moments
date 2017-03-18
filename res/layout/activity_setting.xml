@@ -92,6 +92,46 @@
         android:layout_height="1px"/>
     <!-- 关于我们 -->
     <RelativeLayout
+        android:id="@+id/rl_app_wall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/btn_selector"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用推荐"
+            android:textColor="@color/color_action_bar_title"
+            />
+
+
+        <ImageView
+            android:id="@+id/iv_user_name"
+            android:layout_width="10dp"
+            android:layout_height="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/btn_detail_right"
+            android:layout_centerVertical="true"
+            />
+
+
+    </RelativeLayout>
+
+    <View
+        android:background="#d2d2d2"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="1px"/>
+    <!-- 关于我们 -->
+    <RelativeLayout
         android:id="@+id/rl_about_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

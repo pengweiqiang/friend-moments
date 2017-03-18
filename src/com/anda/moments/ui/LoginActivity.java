@@ -73,6 +73,12 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		AppManager.getAppManager().finishActivity(SplashActivity.class);
+	}
+
+	@Override
 	public void initListener() {
 		mBtnLogin.setOnClickListener(onClickListener);
 		mGetCode.setOnClickListener(onClickListener);

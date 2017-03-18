@@ -14,7 +14,7 @@ allprojects {
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     //compile files('libs/photoview-library-1.2.2.jar')
     compile project('IMKit')
     compile project(':WXLikeVideoRecorderLib')
@@ -27,12 +27,20 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     //    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile files('libs/umeng-onlineconfig_v1.0.0.jar')
-
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    compile files('libs/BmobStat_v1.0_1026.jar')
+    compile files('libs/GDTUnionSDK.4.9.541.min.jar')
+    compile files('libs/Baidu_MobAds_SDK.jar')
+    compile files('libs/YoumiSdk_v6.4.4_2016-09-08.jar')
+    compile files('libs/AdSdk.jar')
 }
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion '23.0.2'
 
     lintOptions {

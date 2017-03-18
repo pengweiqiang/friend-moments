@@ -248,7 +248,7 @@ public class ConversationActivity extends BaseFragmentActivity{
                 if(ApiConstants.RESULT_SUCCESS.equals(parseModel.getRetFlag())){
                     int isCan = parseModel.getIsCanChat();
                     if(isCan==0){
-                        ToastUtils.showToast(ConversationActivity.this,"黑名单用户");
+                        ToastUtils.showToast(ConversationActivity.this,"对方将你删除或拉入黑名单用户");
                         AppManager.getAppManager().finishActivity();
                     }
                 }

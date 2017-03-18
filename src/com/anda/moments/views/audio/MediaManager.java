@@ -1,15 +1,22 @@
 package com.anda.moments.views.audio;
 
-import java.io.IOException;
-
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 
+import java.io.IOException;
+
 public class MediaManager {
 	private static MediaPlayer mediaPlayer;
 	private static boolean isPause;
+
+	public static boolean isIsPause(){
+		if(mediaPlayer!=null && mediaPlayer.isPlaying()){
+			return false;
+		}
+		return true;
+	}
 
 	public static void playSound(String filePath,
 			OnCompletionListener onCompletionListener) {
@@ -33,7 +40,6 @@ public class MediaManager {
 			mediaPlayer.prepare();
 			mediaPlayer.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

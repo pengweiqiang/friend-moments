@@ -21,6 +21,8 @@
     <string name="xlistview_header_last_time">最后更新：</string>
     <string name="xlistview_footer_hint_normal">加载更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="gdtslogan">GDTslogan</string>
+    <string name="click_to_skip">点击跳过</string>
     <string name="agreement_text">\t\t请仔细阅读本协议，微萌app平台将依据以下条件和条款为您提供服务。\n\n
 \t\t欢迎阅读微萌app平台用户协议(下称“本协议”)。本协议阐述之条款和条件适用于您使用微萌app平台所提供的各种工具和服务(下称“服务”)\n
 \n<b>1．服务条款的确认</b>\n

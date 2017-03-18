@@ -17,6 +17,7 @@ import com.anda.moments.entity.User;
 import com.anda.moments.ui.ImagePagerActivity;
 import com.anda.moments.ui.my.UserInfoActivity;
 import com.anda.moments.utils.JsonUtils;
+import com.anda.moments.utils.Log;
 import com.anda.moments.utils.SharePreferenceManager;
 import com.anda.moments.utils.StringUtils;
 import com.anda.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -27,6 +28,8 @@ import com.anda.universalimageloader.core.ImageLoader;
 import com.anda.universalimageloader.core.ImageLoaderConfiguration;
 import com.anda.universalimageloader.core.assist.ImageScaleType;
 import com.anda.universalimageloader.core.assist.QueueProcessingType;
+import com.squareup.leakcanary.LeakCanary;
+import com.xiaomi.ad.AdSdk;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -175,6 +178,38 @@ public class MyApplication extends Application {
 		}
 //		initDiskLruCache();
 
+
+		initLeakCanary();
+
+		/**
+		 * 调用统计SDK
+		 *
+		 * @param appKey
+		 *            Bmob平台的Application ID
+		 * @param channel
+		 *            当前包所在渠道，可以为空
+		 * @return 是否成功，如果失败请看logcat，可能是混淆或so文件未正确配置
+		 */
+
+		cn.bmob.statistics.AppStat.i("a127f2b26b0f921fded9d825d338fa8e", "bmob");
+
+
+		//xiaomi
+		AdSdk.setDebugOn(); // 打开调试，输出调试信息
+		AdSdk.setMockOn();  // 调试时打开，正式发布时关闭
+		AdSdk.initialize(this, "2882303761517481960");
+
+	}
+
+	private void initLeakCanary(){
+		if (LeakCanary.isInAnalyzerProcess(this)) {
+			// This process is dedicated to LeakCanary for
+			// heap analysis.
+			// You should not init your app in this process.
+			return;
+		}
+		LeakCanary.install(this);
+		Log.d(TAG,"leakCanary  init success....");
 	}
 
 	/**

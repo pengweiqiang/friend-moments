@@ -57,9 +57,9 @@ public class MyAudioManager {
 			// 设置音频源
 			mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 			// 设置音频格式
-			mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+			mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 			// 设置音频编码
-			mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+			mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
 			mediaRecorder.prepare();
 			mediaRecorder.start();

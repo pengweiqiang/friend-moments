@@ -40,5 +40,17 @@ public class Constant {
 	public static final String ACTION_MESSAGE_COUNT = "com.anda.moments.action.MESSAGE_COUNT";
 	
 	public static final int ACTION_CITY = 0x91;
+
+
+
+    //tencent ads
+    public static String TENCENT_ADS_APP_ID = "1105894034";
+    public static String TENCENT_ADS_APP_WALL_ID = "";//app wall
+    public static String InterteristalPosID = "2040519757175235";//插屏
+    public static String SplashPosID = "2040718777873233";//开屏
+
+//    public static final String InterteristalPosID = "8575134060152130849";
+//    public static final String TENCENT_ADS_APP_ID = "1101152570";
+//    public static final String SplashPosID = "8863364436303842593";
     
 }

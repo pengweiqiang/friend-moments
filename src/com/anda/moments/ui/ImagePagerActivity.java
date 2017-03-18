@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anda.moments.R;
+import com.anda.moments.commons.AppManager;
 import com.anda.moments.entity.Images;
 import com.anda.moments.ui.base.BaseActivity;
 import com.anda.moments.utils.DeviceInfo;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 //import com.anda.universalimageloader.core.DisplayImageOptions;
 //import com.anda.universalimageloader.core.ImageLoader;
@@ -261,6 +263,13 @@ public class ImagePagerActivity extends BaseActivity {
 //                        return false;
 //                    }
 //                });
+                imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                    @Override
+                    public void onPhotoTap(View view, float v, float v1) {
+                        AppManager.getAppManager().finishActivity();
+                    }
+                });
+
             }
 
             return view;

@@ -481,6 +481,12 @@ public class HomeAdapter extends BaseAdapter {
                     viewHolder.mIvPlayVoiceImages.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(viewHolder.position == playingAudioIndex){//正在播放的再次点击暂停音频
+                                MediaManager.pause();
+                                playingAudioIndex = -1;
+//                            stopAnimAudio(viewHolder);
+                                return;
+                            }
                             if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
                                 downloadMedia(audiosImages.get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
                             }
@@ -560,6 +566,7 @@ public class HomeAdapter extends BaseAdapter {
                             return;
                         }
                         if(circleMessage.getAudios()!=null && !circleMessage.getAudios().isEmpty()) {
+//                            String testWav = "http://www.abstractpath.com/files/audiosamples/perfectly.wav";
                             downloadMedia(circleMessage.getAudios().get(0).getPath(), ReqUrls.MEDIA_TYPE_AUDIO,viewHolder);
                         }
                     }
@@ -779,7 +786,7 @@ public class HomeAdapter extends BaseAdapter {
 //
 //            }else{
             if(circleMessage.getPublishUser().getUserId().equals(commentUser.getUserId()) //回复楼主
-                    || commentUser.getUserId().equals(MyApplication.getInstance().getCurrentUser().getUserId())){//回复自己
+                    || MyApplication.getInstance().getCurrentUser().getUserId().equals(commentUser.getUserId())){//回复自己
                 CommentConfig commentConfig = new CommentConfig();
                 commentConfig.circlePosition = position;
                 commentConfig.commentPosition = commentPosition;
@@ -1330,6 +1337,7 @@ public class HomeAdapter extends BaseAdapter {
                         }
                     });
         }else{
+            playingAudioIndex = viewHolder.position;
             MediaManager.playSound(filePath,
                     new MediaPlayer.OnCompletionListener() {
                         @Override

@@ -18,6 +18,8 @@ import com.anda.moments.utils.StringUtils;
 import com.anda.moments.utils.TextViewUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +119,12 @@ public class NewMessageListAdapter extends BaseAdapter  {
 
 		String commUserName = newMessage.getCommUserName();
 		String commentText = newMessage.getCommentText();
+		try {
+			commentText  = URLDecoder.decode(URLDecoder.decode(commentText, "UTF-8"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		if(StringUtils.isEmpty(commUserName) || StringUtils.isEmpty(commentText)){
 			holder.tvUserName.setText(commUserName+commentText);
 		}else{

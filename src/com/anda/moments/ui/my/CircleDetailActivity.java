@@ -883,6 +883,10 @@ public class CircleDetailActivity extends BaseActivity implements CommentRecycle
 	 */
 	AnimationDrawable animationDrawable;
 	private void playAudioRecord(String filePath){
+		if(!MediaManager.isIsPause()){
+			MediaManager.pause();
+			return ;
+		}
 		if(mViewAnim!=null) {
 			mViewAnim.setBackgroundResource(R.drawable.anim_play_audio);
 			if (animationDrawable != null && animationDrawable.isRunning()) {

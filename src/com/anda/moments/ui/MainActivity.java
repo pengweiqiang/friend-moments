@@ -111,7 +111,9 @@ public class MainActivity extends BaseFragmentActivity implements View.OnLayoutC
 
 		startService(new Intent(this, MessageService.class));
 
-		Bugly.init(getApplicationContext(), "30913d88dd", false);
+//		Bugly.init(getApplicationContext(), "30913d88dd", false);
+
+		Bugly.init(getApplicationContext(), "1e34221770", false);
     }
 
 	UmengOnlineConfigureListener configureListener = new UmengOnlineConfigureListener() {
@@ -515,6 +517,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnLayoutC
 //		MediaManager.resume();
 		//添加layout大小发生改变监听器
 		activityRootView.addOnLayoutChangeListener(this);
+		AppManager.getAppManager().finishActivity(SplashActivity.class);
 	}
 
 
@@ -540,4 +543,6 @@ public class MainActivity extends BaseFragmentActivity implements View.OnLayoutC
 
 		}
 	}
+
+
 }

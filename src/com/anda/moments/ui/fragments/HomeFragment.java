@@ -854,4 +854,5 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener,IXLi
 			((MainActivity)mActivity).showNewFriendMessage(reqFriendCount,View.VISIBLE);
 		}
 	}
+
 }
